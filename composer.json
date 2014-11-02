@@ -1,0 +1,17 @@
+{
+    "name": "anomaly/files-module",
+    "type": "streams-addon",
+    "description": "Files module.",
+    "authors": [
+        {
+            "name": "AnomalyLabs",
+            "email": "hello@anomaly.is"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

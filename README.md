@@ -1,4 +1,4 @@
 files-module
 ============
 
-Files module.
+System file management.
