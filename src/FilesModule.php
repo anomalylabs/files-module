@@ -1,6 +1,6 @@
-<?php namespace Anomaly\Streams\Addon\Module\Files;
+<?php namespace Anomaly\FilesModule;
 
-use Anomaly\Streams\Platform\Addon\Module\ModuleAddon;
+use Anomaly\Streams\Platform\Addon\Module\Module;
 
 /**
  * Class FilesModule
@@ -8,9 +8,15 @@ use Anomaly\Streams\Platform\Addon\Module\ModuleAddon;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
+ * @package       Anomaly\FilesModule
  */
-class FilesModule extends ModuleAddon
+class FilesModule extends Module
 {
 
+    /**
+     * The module navigation role.
+     *
+     * @var string
+     */
+    protected $navigation = 'streams::navigation.content';
 }
- 

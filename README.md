@@ -1,4 +1,3 @@
-files-module
-============
+# Files Module
 
-System file management.
+Multi-provider files manager.
