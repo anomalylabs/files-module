@@ -19,4 +19,5 @@ class FilesModule extends Module
      * @var string
      */
     protected $navigation = 'streams::navigation.content';
+
 }
