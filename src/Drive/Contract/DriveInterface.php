@@ -11,4 +11,24 @@
 interface DriveInterface
 {
 
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug();
+
+    /**
+     * Get the adapter.
+     *
+     * @return string
+     */
+    public function getAdapter();
 }

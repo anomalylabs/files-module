@@ -1,10 +1,13 @@
 <?php
 
 return [
-    'name' => [
+    'name'    => [
         'name' => 'Name',
     ],
-    'slug' => [
+    'slug'    => [
         'name' => 'Slug',
+    ],
+    'adapter' => [
+        'name' => 'Adapter',
     ]
 ];

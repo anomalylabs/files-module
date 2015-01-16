@@ -14,4 +14,33 @@ use Anomaly\Streams\Platform\Model\Files\FilesDrivesEntryModel;
 class DriveModel extends FilesDrivesEntryModel implements DriveInterface
 {
 
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Get the adapter.
+     *
+     * @return string
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
 }

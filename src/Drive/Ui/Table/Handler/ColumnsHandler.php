@@ -1,5 +1,8 @@
 <?php namespace Anomaly\FilesModule\Drive\Ui\Table\Handler;
 
+use Anomaly\FilesModule\Drive\Contract\DriveInterface;
+use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
+
 /**
  * Class ColumnsHandler
  *
@@ -20,7 +23,13 @@ class ColumnsHandler
     {
         return [
             'name',
-            'slug'
+            'slug',
+            [
+                'heading' => 'anomaly.module.files::field.adapter.name',
+                'value'   => function (DriveInterface $entry, ExtensionCollection $extensions) {
+                    return trans($extensions->get($entry->getAdapter())->getName());
+                }
+            ]
         ];
     }
 }

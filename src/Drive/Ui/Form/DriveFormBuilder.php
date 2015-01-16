@@ -14,10 +14,17 @@ class DriveFormBuilder extends FormBuilder
 {
 
     /**
-     * The table model.
+     * The form model.
      *
      * @var string
      */
     protected $model = 'Anomaly\FilesModule\Drive\DriveModel';
+
+    /**
+     * The form fields.
+     *
+     * @var string
+     */
+    protected $fields = 'Anomaly\FilesModule\Drive\Ui\Form\Handler\FieldsHandler@handle';
 
 }
