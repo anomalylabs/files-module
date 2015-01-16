@@ -21,9 +21,13 @@
     "support": {
         "email": "support@anomaly.is"
     },
+    "require": {
+        "league/flysystem": "~1.0@dev"
+    },
     "autoload": {
         "psr-4": {
-            "Anomaly\\FilesModule\\": "src/"
+            "Anomaly\\FilesModule\\": "src/",
+            "League\\Flysystem\\": "vendor/league/flysystem/src/"
         }
     },
     "extra": {
