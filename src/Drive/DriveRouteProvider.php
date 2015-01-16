@@ -1,29 +1,29 @@
-<?php namespace Anomaly\FilesModule\File;
+<?php namespace Anomaly\FilesModule\Drive;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Routing\Router;
 
 /**
- * Class FileRouteProvider
+ * Class DriveRouteProvider
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\File
+ * @package       Anomaly\FilesModule\Drive
  */
-class FileRouteProvider extends RouteServiceProvider
+class DriveRouteProvider extends RouteServiceProvider
 {
 
     /**
-     * Map files routes.
+     * Map drives routes.
      *
      * @param Router $router
      */
     public function map(Router $router)
     {
         $router->any(
-            'admin/files',
-            'Anomaly\FilesModule\Http\Controller\Admin\FilesController@index'
+            'admin/drives',
+            'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index'
         );
     }
 }
