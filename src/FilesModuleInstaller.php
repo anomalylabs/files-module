@@ -21,6 +21,7 @@ class FilesModuleInstaller extends ModuleInstaller
     protected $installers = [
         'Anomaly\FilesModule\Installer\FilesFieldInstaller',
         'Anomaly\FilesModule\Installer\FilesStreamInstaller',
+        'Anomaly\FilesModule\Installer\DrivesStreamInstaller',
         'Anomaly\FilesModule\Installer\FoldersStreamInstaller'
     ];
 

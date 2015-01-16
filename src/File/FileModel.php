@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 
 /**
  * Class FileModel
@@ -10,7 +11,7 @@ use Anomaly\FilesModule\File\Contract\FileInterface;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\File
  */
-class FileModel implements FileInterface
+class FileModel extends FilesFilesEntryModel implements FileInterface
 {
 
 }

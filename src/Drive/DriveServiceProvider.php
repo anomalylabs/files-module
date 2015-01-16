@@ -20,5 +20,6 @@ class DriveServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register('Anomaly\FilesModule\Drive\DriveRouteProvider');
     }
 }

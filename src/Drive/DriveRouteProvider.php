@@ -22,7 +22,7 @@ class DriveRouteProvider extends RouteServiceProvider
     public function map(Router $router)
     {
         $router->any(
-            'admin/drives',
+            'admin/files/drives',
             'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index'
         );
     }

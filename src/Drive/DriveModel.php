@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Drive;
 
 use Anomaly\FilesModule\Drive\Contract\DriveInterface;
+use Anomaly\Streams\Platform\Model\Files\FilesDrivesEntryModel;
 
 /**
  * Class DriveModel
@@ -10,7 +11,7 @@ use Anomaly\FilesModule\Drive\Contract\DriveInterface;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Drive
  */
-class DriveModel implements DriveInterface
+class DriveModel extends FilesDrivesEntryModel implements DriveInterface
 {
 
 }

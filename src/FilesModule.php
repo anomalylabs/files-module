@@ -20,4 +20,24 @@ class FilesModule extends Module
      */
     protected $navigation = 'streams::navigation.content';
 
+    /**
+     * The module sections.
+     *
+     * @var array
+     */
+    protected $sections = [
+        'files'  => [
+            'url'     => 'admin/files',
+            'buttons' => [
+                'create' => []
+            ]
+        ],
+        'drives' => [
+            'url'     => 'admin/files/drives',
+            'buttons' => [
+                'create' => []
+            ]
+        ]
+    ];
+
 }
