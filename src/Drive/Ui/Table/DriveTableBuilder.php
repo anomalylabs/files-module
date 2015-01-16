@@ -20,4 +20,11 @@ class DriveTableBuilder extends TableBuilder
      */
     protected $model = 'Anomaly\FilesModule\Drive\DriveModel';
 
+    /**
+     * The table columns.
+     *
+     * @var string
+     */
+    protected $columns = 'Anomaly\FilesModule\Drive\Ui\Table\Handler\ColumnsHandler@handle';
+
 }

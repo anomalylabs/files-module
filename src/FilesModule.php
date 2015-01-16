@@ -35,7 +35,11 @@ class FilesModule extends Module
         'drives' => [
             'url'     => 'admin/files/drives',
             'buttons' => [
-                'create' => []
+                'create' => [
+                    'attributes' => [
+                        'data-toggle' => 'modal'
+                    ]
+                ]
             ]
         ]
     ];

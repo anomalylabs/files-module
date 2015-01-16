@@ -23,4 +23,14 @@ class DrivesStreamInstaller extends StreamInstaller
         'locked' => true
     ];
 
+    /**
+     * The field assignments.
+     *
+     * @var array
+     */
+    protected $assignments = [
+        'name',
+        'slug'
+    ];
+
 }
