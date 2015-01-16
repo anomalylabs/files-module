@@ -19,8 +19,9 @@ class FilesFieldInstaller extends FieldInstaller
      * @var array
      */
     protected $fields = [
-        'name' => 'text',
-        'slug' => 'slug'
+        'name'    => 'text',
+        'slug'    => 'slug',
+        'adapter' => 'text'
     ];
 
 }

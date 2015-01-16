@@ -1,0 +1,15 @@
+{% extends "streams::blank" %}
+
+{% block content %}
+
+    <ul class="nav nav-pills">
+        {% for extension in extensions %}
+            <li role="presentation">
+                <a href="{{ url('admin/files/drives/create/' ~ extension.identifier) }}">
+                    {{ trans(extension.name) }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

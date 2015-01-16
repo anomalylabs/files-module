@@ -36,9 +36,7 @@ class FilesModule extends Module
             'url'     => 'admin/files/drives',
             'buttons' => [
                 'create' => [
-                    'attributes' => [
-                        'data-toggle' => 'modal'
-                    ]
+                    'url' => 'admin/files/adapter/choose'
                 ]
             ]
         ]

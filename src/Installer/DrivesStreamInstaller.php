@@ -29,8 +29,9 @@ class DrivesStreamInstaller extends StreamInstaller
      * @var array
      */
     protected $assignments = [
-        'name',
-        'slug'
+        'name'    => ['required' => true],
+        'slug'    => ['required' => true, 'unique' => true],
+        'adapter' => ['required' => true]
     ];
 
 }
