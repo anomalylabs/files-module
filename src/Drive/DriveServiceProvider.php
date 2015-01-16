@@ -20,6 +20,15 @@ class DriveServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(
+            'Anomaly\FilesModule\Drive\DriveModel',
+            'Anomaly\FilesModule\Drive\DriveModel'
+        );
+        $this->app->bind(
+            'Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface',
+            'Anomaly\FilesModule\Drive\DriveRepository'
+        );
+
         $this->app->register('Anomaly\FilesModule\Drive\DriveRouteProvider');
     }
 }

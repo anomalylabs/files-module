@@ -20,6 +20,15 @@ class FileServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(
+            'Anomaly\FilesModule\File\FileModel',
+            'Anomaly\FilesModule\File\FileModel'
+        );
+        $this->app->bind(
+            'Anomaly\FilesModule\File\Contract\FileRepositoryInterface',
+            'Anomaly\FilesModule\File\FileRepository'
+        );
+
         $this->app->register('Anomaly\FilesModule\File\FileRouteProvider');
     }
 }
