@@ -35,7 +35,7 @@ class FilesModule extends Module
                 ],
                 'create' => [
                     'icon'   => 'plus',
-                    'button' => 'info',
+                    'button' => 'success',
                     'text'   => 'module::button.new_folder'
                 ]
             ]
