@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
 
 /**
@@ -21,5 +22,11 @@ class FileRouteProvider extends RouteServiceProvider
      */
     public function map(Router $router)
     {
+        $router->any(
+            'admin/files',
+            function (Redirector $redirector) {
+                return $redirector->to('admin/files/browser');
+            }
+        );
     }
 }
