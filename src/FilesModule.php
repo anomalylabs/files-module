@@ -53,7 +53,8 @@ class FilesModule extends Module
                     'text'   => 'module::button.new_drive'
                 ]
             ]
-        ]
+        ],
+        'settings'
     ];
 
 }
