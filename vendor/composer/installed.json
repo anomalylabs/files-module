@@ -6,51 +6,47 @@
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "59f43cc2624145ea2f091ce10ddaf389a4296d86"
+            "reference": "a2f5629fb0e6a85b749b3f49bd790b61381c14a9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/59f43cc2624145ea2f091ce10ddaf389a4296d86",
-            "reference": "59f43cc2624145ea2f091ce10ddaf389a4296d86",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a2f5629fb0e6a85b749b3f49bd790b61381c14a9",
+            "reference": "a2f5629fb0e6a85b749b3f49bd790b61381c14a9",
             "shasum": ""
         },
         "require": {
             "php": ">=5.4.0"
         },
         "require-dev": {
-            "aws/aws-sdk-php": "~2.4",
-            "barracuda/copy": "~1.1.4",
-            "dropbox/dropbox-sdk": "~1.1.1",
             "ext-fileinfo": "*",
-            "league/event": "~1.0",
             "league/phpunit-coverage-listener": "~1.1",
             "mockery/mockery": "~0.9",
-            "phpseclib/phpseclib": "~0.3.5",
             "phpspec/phpspec": "~2.0.0",
+            "phpspec/prophecy-phpunit": "~1.0",
             "phpunit/phpunit": "~4.0",
             "predis/predis": "~1.0",
-            "rackspace/php-opencloud": "~1.11",
             "tedivm/stash": "~0.12.0"
         },
         "suggest": {
             "ext-fileinfo": "Required for MimeType",
-            "league/event": "Required for EventableFilesystem",
-            "league/flysystem-aws-s3-v2": "Use S3 storage with AWS SDK v2",
-            "league/flysystem-aws-s3-v3": "Use S3 storage with AWS SDK v3",
+            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
             "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
             "league/flysystem-copy": "Allows you to use Copy.com storage",
-            "league/flysystem-dropbox": "Use Dropbox storage",
+            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
             "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
             "league/flysystem-webdav": "Allows you to use WebDAV storage",
-            "phpseclib/phpseclib": "Allows SFTP server storage",
-            "predis/predis": "Allows you to use Predis for caching",
-            "tedivm/stash": "Allows you to use Stash as cache implementation"
+            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+            "predis/predis": "Allows you to use Predis for caching"
         },
-        "time": "2015-01-11 15:40:33",
+        "time": "2015-02-22 18:36:34",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.0-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "source",

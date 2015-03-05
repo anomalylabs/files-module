@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
+    'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src', $vendorDir . '/league/flysystem/src'),
     'Anomaly\\FilesModule\\' => array($baseDir . '/src'),
 );
