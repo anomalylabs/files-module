@@ -2,6 +2,7 @@
     "name": "anomaly/files-module",
     "type": "streams-addon",
     "description": "Multi-provider files manager.",
+    "version": "1.0.0",
     "keywords": [
         "streams-addon",
         "files",
