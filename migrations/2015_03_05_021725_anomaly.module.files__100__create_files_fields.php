@@ -18,7 +18,26 @@ class AnomalyModuleFiles_100_CreateFilesFields extends Migration
      * @var array
      */
     protected $fields = [
-        
+        'name'    => 'anomaly.field_type.text',
+        'slug'    => [
+            'type'   => 'anomaly.field_type.slug',
+            'config' => [
+                'separator' => '_'
+            ]
+        ],
+        'adapter' => 'anomaly.field_type.text',
+        'parent'  => [
+            'type'   => 'anomaly.field_type.relationship',
+            'config' => [
+                'related' => 'Anomaly\FilesModule\Folder\FolderModel'
+            ]
+        ],
+        'drive'   => [
+            'type'   => 'anomaly.field_type.relationship',
+            'config' => [
+                'related' => 'Anomaly\FilesModule\Drive\DriveModel'
+            ]
+        ],
     ];
 
 }

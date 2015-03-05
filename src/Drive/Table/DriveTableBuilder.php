@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Drive\Ui\Table;
+<?php namespace Anomaly\FilesModule\Drive\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
@@ -8,7 +8,7 @@ use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive\Ui\Table
+ * @package       Anomaly\FilesModule\Drive\Table
  */
 class DriveTableBuilder extends TableBuilder
 {
@@ -19,12 +19,5 @@ class DriveTableBuilder extends TableBuilder
      * @var string
      */
     protected $model = 'Anomaly\FilesModule\Drive\DriveModel';
-
-    /**
-     * The table columns.
-     *
-     * @var string
-     */
-    protected $columns = 'Anomaly\FilesModule\Drive\Ui\Table\Handler\ColumnsHandler@handle';
 
 }

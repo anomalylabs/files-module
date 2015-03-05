@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Drive\Ui\Form;
+<?php namespace Anomaly\FilesModule\Drive\Form;
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
@@ -8,7 +8,7 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive\Ui\Form
+ * @package       Anomaly\FilesModule\Drive\Form
  */
 class DriveFormBuilder extends FormBuilder
 {
@@ -23,8 +23,12 @@ class DriveFormBuilder extends FormBuilder
     /**
      * The form fields.
      *
-     * @var string
+     * @var array
      */
-    protected $fields = 'Anomaly\FilesModule\Drive\Ui\Form\Handler\FieldsHandler@handle';
+    protected $fields = [
+        'name',
+        'slug',
+        'adapter'
+    ];
 
 }

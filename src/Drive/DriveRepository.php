@@ -13,4 +13,20 @@ use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
 class DriveRepository implements DriveRepositoryInterface
 {
 
+    /**
+     * The drive model.
+     *
+     * @var DriveModel
+     */
+    protected $model;
+
+    /**
+     * Create a new DriveRepository instance.
+     *
+     * @param DriveModel $model
+     */
+    public function __construct(DriveModel $model)
+    {
+        $this->model = $model;
+    }
 }

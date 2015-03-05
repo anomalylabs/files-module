@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Drive\Ui\Form\DriveFormBuilder;
-use Anomaly\FilesModule\Drive\Ui\Table\DriveTableBuilder;
+use Anomaly\FilesModule\Drive\Form\DriveFormBuilder;
+use Anomaly\FilesModule\Drive\Table\DriveTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -30,11 +30,22 @@ class DrivesController extends AdminController
      * Return a form to create a new drive.
      *
      * @param DriveFormBuilder $form
-     * @param                  $adapter
      * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
-    public function create(DriveFormBuilder $form, $adapter)
+    public function create(DriveFormBuilder $form)
     {
         return $form->render();
+    }
+
+    /**
+     * Return a form to edit an existing drive.
+     *
+     * @param DriveFormBuilder $form
+     * @param                  $id
+     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(DriveFormBuilder $form, $id)
+    {
+        return $form->render($id);
     }
 }

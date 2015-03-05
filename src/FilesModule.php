@@ -27,16 +27,26 @@ class FilesModule extends Module
      */
     protected $sections = [
         'files'  => [
-            'url'     => 'admin/files',
             'buttons' => [
-                'create' => []
+                'upload' => [
+                    'button' => 'success',
+                    'icon'   => 'upload',
+                    'text'   => 'module::button.upload'
+                ],
+                'create' => [
+                    'icon'   => 'plus',
+                    'button' => 'info',
+                    'text'   => 'module::button.new_folder'
+                ]
             ]
         ],
         'drives' => [
             'url'     => 'admin/files/drives',
             'buttons' => [
                 'create' => [
-                    'url' => 'admin/files/adapter/choose'
+                    'icon'   => 'plus',
+                    'button' => 'success',
+                    'text'   => 'module::button.new_drive'
                 ]
             ]
         ]

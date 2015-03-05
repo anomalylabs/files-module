@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\File\Ui\Table\FileTableBuilder;
+use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**

@@ -24,6 +24,7 @@ class DriveServiceProvider extends ServiceProvider
             'Anomaly\FilesModule\Drive\DriveModel',
             'Anomaly\FilesModule\Drive\DriveModel'
         );
+        
         $this->app->bind(
             'Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface',
             'Anomaly\FilesModule\Drive\DriveRepository'

@@ -26,7 +26,7 @@ class DriveRouteProvider extends RouteServiceProvider
             'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index'
         );
         $router->any(
-            'admin/files/drives/create/{adapter}',
+            'admin/files/drives/create',
             'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create'
         );
     }
