@@ -14,4 +14,13 @@ use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
 class FolderModel extends FilesFoldersEntryModel implements FolderInterface
 {
 
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

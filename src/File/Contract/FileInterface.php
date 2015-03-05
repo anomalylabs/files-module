@@ -11,4 +11,10 @@
 interface FileInterface
 {
 
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName();
 }

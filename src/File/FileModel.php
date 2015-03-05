@@ -14,4 +14,13 @@ use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 class FileModel extends FilesFilesEntryModel implements FileInterface
 {
 
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

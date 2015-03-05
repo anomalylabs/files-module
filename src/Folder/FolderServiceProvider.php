@@ -24,9 +24,12 @@ class FolderServiceProvider extends ServiceProvider
             'Anomaly\FilesModule\Folder\FolderModel',
             'Anomaly\FilesModule\Folder\FolderModel'
         );
+
         $this->app->bind(
             'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface',
             'Anomaly\FilesModule\Folder\FolderRepository'
         );
+
+        $this->app->register('Anomaly\FilesModule\Folder\FolderRouteProvider');
     }
 }

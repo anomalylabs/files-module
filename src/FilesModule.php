@@ -39,12 +39,12 @@ class FilesModule extends Module
                 'create' => [
                     'icon'   => 'plus',
                     'button' => 'success',
-                    'text'   => 'module::button.new_folder'
+                    'text'   => 'module::button.new_folder',
+                    'href'   => '/admin/files/folders/create'
                 ]
             ]
         ],
         'drives'  => [
-            'url'     => 'admin/files/drives',
             'buttons' => [
                 'create' => [
                     'icon'   => 'plus',
