@@ -21,9 +21,5 @@ class FileRouteProvider extends RouteServiceProvider
      */
     public function map(Router $router)
     {
-        $router->any(
-            'admin/files',
-            'Anomaly\FilesModule\Http\Controller\Admin\FilesController@index'
-        );
     }
 }

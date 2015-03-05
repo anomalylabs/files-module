@@ -1,0 +1,12 @@
+<script type="text/javascript">
+    Dropzone.options.uploader = {
+        paramName: "file",
+        dictDefaultMessage: "{{ trans('anomaly.module.files::uploader.instructions') }}"
+    };
+</script>
+
+<form action="/file-upload" id="uploader" class="dropzone">
+    <div class="fallback">
+        <input name="file" type="file" multiple/>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+{% extends "theme::layouts/default" %}
+
+{% block content %}
+
+    <div class="row hidden">
+        <div class="col-lg-24">
+            {% include "anomaly.module.files::admin/browser/partials/uploader" %}
+        </div>
+    </div>
+
+    <div id="browser" class="row">
+
+        <div class="col-lg-3">
+            {% include "anomaly.module.files::admin/browser/partials/navigation" %}
+        </div>
+
+        <div class="col-lg-17">
+            {{ content|raw }}
+        </div>
+
+        <div class="col-lg-4">
+            {% include "anomaly.module.files::admin/browser/partials/preview" %}
+        </div>
+
+    </div>
+
+{% endblock %}

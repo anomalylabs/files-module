@@ -1,16 +1,16 @@
-<?php namespace Anomaly\FilesModule\Adapter;
+<?php namespace Anomaly\FilesModule\Browser;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class AdapterServiceProvider
+ * Class BrowserServiceProvider
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Adapter
+ * @package       Anomaly\FilesModule\Browser
  */
-class AdapterServiceProvider extends ServiceProvider
+class BrowserServiceProvider extends ServiceProvider
 {
 
     /**
@@ -20,5 +20,6 @@ class AdapterServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register('Anomaly\FilesModule\Browser\BrowserRouterProvider');
     }
 }

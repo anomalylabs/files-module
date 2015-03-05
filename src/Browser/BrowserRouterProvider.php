@@ -1,29 +1,29 @@
-<?php namespace Anomaly\FilesModule\Adapter;
+<?php namespace Anomaly\FilesModule\Browser;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Routing\Router;
 
 /**
- * Class AdapterRouteProvider
+ * Class BrowserRouterProvider
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Adapter
+ * @package       Anomaly\FilesModule\Browser
  */
-class AdapterRouteProvider extends RouteServiceProvider
+class BrowserRouterProvider extends RouteServiceProvider
 {
 
     /**
-     * Map adapter routes.
+     * Map the routes.
      *
      * @param Router $router
      */
     public function map(Router $router)
     {
-        $router->get(
-            'admin/files/adapter/choose',
-            'Anomaly\FilesModule\Http\Controller\Admin\AdapterController@choose'
+        $router->any(
+            'admin/files',
+            'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index'
         );
     }
 }

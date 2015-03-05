@@ -29,9 +29,12 @@ class FilesModule extends Module
         'files'  => [
             'buttons' => [
                 'upload' => [
-                    'button' => 'success',
-                    'icon'   => 'upload',
-                    'text'   => 'module::button.upload'
+                    'button'     => 'success',
+                    'icon'       => 'upload',
+                    'text'       => 'module::button.upload',
+                    'attributes' => [
+                        'data-toggle-uploader' => 'uploader'
+                    ]
                 ],
                 'create' => [
                     'icon'   => 'plus',
@@ -46,6 +49,7 @@ class FilesModule extends Module
                 'create' => [
                     'icon'   => 'plus',
                     'button' => 'success',
+                    'href'   => 'admin/files/drives/create',
                     'text'   => 'module::button.new_drive'
                 ]
             ]

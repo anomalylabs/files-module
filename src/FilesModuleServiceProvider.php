@@ -23,5 +23,6 @@ class FilesModuleServiceProvider extends ServiceProvider
         $this->app->register('Anomaly\FilesModule\File\FileServiceProvider');
         $this->app->register('Anomaly\FilesModule\Drive\DriveServiceProvider');
         $this->app->register('Anomaly\FilesModule\Adapter\AdapterServiceProvider');
+        $this->app->register('Anomaly\FilesModule\Browser\BrowserServiceProvider');
     }
 }
