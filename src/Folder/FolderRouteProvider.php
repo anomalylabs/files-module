@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
-use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Router;
 
 /**
@@ -24,9 +23,7 @@ class FolderRouteProvider extends RouteServiceProvider
     {
         $router->any(
             'admin/files/folders',
-            function (Redirector $redirector) {
-                return $redirector->to('admin/files/browser');
-            }
+            'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect'
         );
 
         $router->any(
