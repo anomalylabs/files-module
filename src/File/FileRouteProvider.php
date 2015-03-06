@@ -22,11 +22,5 @@ class FileRouteProvider extends RouteServiceProvider
      */
     public function map(Router $router)
     {
-        $router->any(
-            'admin/files',
-            function (Redirector $redirector) {
-                return $redirector->to('admin/files/browser');
-            }
-        );
     }
 }
