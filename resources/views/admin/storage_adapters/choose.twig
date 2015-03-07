@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        {{ trans('module::storage_adapter.choose') }}
+        <br>
+        <small>{{ trans('module::storage_adapter.choose_instructions') }}</small>
+    </h4>
+</div>
+
+<div class="modal-body">
+    <ul class="nav nav-pills nav-stacked">
+        {% for adapter in adapters %}
+
+            <li>
+                <a href="{{ url_to('admin/files/drives/create/' ~ adapter.namespace) }}">
+                    <strong>{{ trans(adapter.name) }}</strong>
+                    <br>
+                    <small>{{ trans(adapter.description) }}</small>
+                </a>
+            </li>
+
+        {% endfor %}
+    </ul>
+</div>

@@ -1,24 +1,16 @@
 <?php namespace Anomaly\FilesModule\Adapter;
 
-use Illuminate\Support\ServiceProvider;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 
 /**
- * Class AdapterServiceProvider
+ * Class StorageAdapterExtension
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Adapter
  */
-class AdapterServiceProvider extends ServiceProvider
+class StorageAdapterExtension extends Extension
 {
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-    }
 }

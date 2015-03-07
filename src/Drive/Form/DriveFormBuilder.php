@@ -27,8 +27,7 @@ class DriveFormBuilder extends FormBuilder
      */
     protected $fields = [
         'name',
-        'slug',
-        'adapter'
+        'slug'
     ];
 
 }

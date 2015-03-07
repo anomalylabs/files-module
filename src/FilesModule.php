@@ -46,11 +46,9 @@ class FilesModule extends Module
         ],
         'drives'  => [
             'buttons' => [
-                'create' => [
-                    'icon'   => 'plus',
-                    'button' => 'success',
-                    'href'   => 'admin/files/drives/create',
-                    'text'   => 'module::button.new_drive'
+                'new_modal' => [
+                    'href' => 'admin/files/storage_adapters/choose',
+                    'text' => 'module::button.new_drive'
                 ]
             ]
         ],

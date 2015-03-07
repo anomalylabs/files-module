@@ -15,6 +15,16 @@ class DriveModel extends FilesDrivesEntryModel implements DriveInterface
 {
 
     /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::observe('Anomaly\FilesModule\Drive\DriveObserver');
+    }
+
+    /**
      * Get the name.
      *
      * @return string

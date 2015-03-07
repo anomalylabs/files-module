@@ -20,4 +20,13 @@ class DriveTableBuilder extends TableBuilder
      */
     protected $model = 'Anomaly\FilesModule\Drive\DriveModel';
 
+    /**
+     * The table actions.
+     *
+     * @var array
+     */
+    protected $actions = [
+        'delete'
+    ];
+
 }
