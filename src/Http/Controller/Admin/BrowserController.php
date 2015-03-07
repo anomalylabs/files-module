@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 
 /**
@@ -30,10 +31,19 @@ class BrowserController extends AdminController
      * Return the file browser.
      *
      * @param BrowserTableBuilder $browser
+     * @param Request             $request
      * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
-    public function index(BrowserTableBuilder $browser)
+    public function index(BrowserTableBuilder $browser, Request $request)
     {
+        $segments = $request->segments();
+
+        array_shift($segments);
+        array_shift($segments);
+        array_shift($segments);
+
+        $folder = implode('/', $segments) ?: '/';
+        
         return $browser->render();
     }
 }
