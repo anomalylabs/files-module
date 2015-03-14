@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule;
 
-use Illuminate\Support\ServiceProvider;
+use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
  * Class FilesModuleServiceProvider
@@ -10,49 +10,44 @@ use Illuminate\Support\ServiceProvider;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule
  */
-class FilesModuleServiceProvider extends ServiceProvider
+class FilesModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
-     * Register the service provider.
+     * The class bindings.
      *
-     * @return void
+     * @var array
      */
-    public function register()
-    {
-        // Drive services.
-        $this->app->bind(
-            'Anomaly\FilesModule\Drive\DriveModel',
-            'Anomaly\FilesModule\Drive\DriveModel'
-        );
+    protected $bindings = [
+        'Anomaly\FilesModule\Drive\DriveModel'   => 'Anomaly\FilesModule\Drive\DriveModel',
+        'Anomaly\FilesModule\File\FileModel'     => 'Anomaly\FilesModule\File\FileModel',
+        'Anomaly\FilesModule\Folder\FolderModel' => 'Anomaly\FilesModule\Folder\FolderModel'
+    ];
 
-        $this->app->bind(
-            'Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface',
-            'Anomaly\FilesModule\Drive\DriveRepository'
-        );
+    /**
+     * The singleton bindings.
+     *
+     * @var array
+     */
+    protected $singletons = [
+        'Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface'   => 'Anomaly\FilesModule\Drive\DriveRepository',
+        'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository',
+        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository'
+    ];
 
-        // File services.
-        $this->app->bind(
-            'Anomaly\FilesModule\File\FileModel',
-            'Anomaly\FilesModule\File\FileModel'
-        );
-        $this->app->bind(
-            'Anomaly\FilesModule\File\Contract\FileRepositoryInterface',
-            'Anomaly\FilesModule\File\FileRepository'
-        );
+    /**
+     * The addon routes.
+     *
+     * @var array
+     */
+    protected $routes = [
+        'admin/files/storage_adapters/choose' => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@choose',
+        'admin/files'                         => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/browser'                 => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
+        'admin/files/drives'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
+        'admin/files/drives/create/{adapter}' => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
+        'admin/files/folders'                 => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/folders/create'          => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create'
+    ];
 
-        // Folder services.
-        $this->app->bind(
-            'Anomaly\FilesModule\Folder\FolderModel',
-            'Anomaly\FilesModule\Folder\FolderModel'
-        );
-
-        $this->app->bind(
-            'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface',
-            'Anomaly\FilesModule\Folder\FolderRepository'
-        );
-
-        // Module routes.
-        $this->app->register('Anomaly\FilesModule\FilesModuleRouteProvider');
-    }
 }
