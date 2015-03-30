@@ -41,13 +41,13 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/files/storage_adapters/choose' => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@choose',
-        'admin/files'                         => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
-        'admin/files/browser'                 => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
-        'admin/files/drives'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
-        'admin/files/drives/create/{adapter}' => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
-        'admin/files/folders'                 => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
-        'admin/files/folders/create'          => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create'
+        'admin/files'                => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/browser'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
+        'admin/files/drives'         => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
+        'admin/files/drives/create'  => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
+        'admin/files/folders'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/folders/create' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
+        'admin/files/settings'       => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
     ];
 
 }

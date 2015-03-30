@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Drive\Table;
 
+use Anomaly\FilesModule\Drive\Contract\DriveInterface;
+
 /**
  * Class DriveTableColumns
  *
@@ -22,7 +24,12 @@ class DriveTableColumns
             [
                 'name',
                 'slug',
-                'adapter'
+                [
+                    'heading' => 'adapter',
+                    'value'   => function (DriveInterface $entry) {
+                        return trans($entry->getAdapter() . '::addon.name');
+                    }
+                ]
             ]
         );
     }

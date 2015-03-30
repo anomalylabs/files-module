@@ -16,27 +16,6 @@ class BrowserTableBuilder extends TableBuilder
 {
 
     /**
-     * The table views.
-     *
-     * @var array
-     */
-    protected $views = [
-        'recently_created'
-    ];
-
-    /**
-     * The table filters.
-     *
-     * @var array
-     */
-    protected $filters = [
-        [
-            'filter'      => 'input',
-            'placeholder' => 'Test'
-        ]
-    ];
-
-    /**
      * The table buttons.
      *
      * @var array

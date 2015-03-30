@@ -36,20 +36,15 @@ class FilesModule extends Module
                         'data-toggle-uploader' => 'uploader'
                     ]
                 ],
-                'create' => [
-                    'icon'   => 'plus',
-                    'button' => 'success',
-                    'text'   => 'module::button.new_folder',
-                    'href'   => '/admin/files/folders/create'
+                [
+                    'button' => 'new_folder',
+                    'href'   => 'admin/files/folders/create'
                 ]
             ]
         ],
         'drives'  => [
             'buttons' => [
-                'new_modal' => [
-                    'href' => 'admin/files/storage_adapters/choose',
-                    'text' => 'module::button.new_drive'
-                ]
+                'new_drive'
             ]
         ],
         'settings'

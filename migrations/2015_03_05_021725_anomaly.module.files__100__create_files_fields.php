@@ -22,7 +22,8 @@ class AnomalyModuleFiles_100_CreateFilesFields extends Migration
         'slug'    => [
             'type'   => 'anomaly.field_type.slug',
             'config' => [
-                'separator' => '_'
+                'type'  => '_',
+                'watch' => 'name'
             ]
         ],
         'adapter' => 'anomaly.field_type.text',

@@ -26,6 +26,7 @@ class DriveFormBuilder extends FormBuilder
      * @var array
      */
     protected $fields = [
+        'adapter',
         'name',
         'slug'
     ];
