@@ -14,11 +14,11 @@ class FilesModule extends Module
 {
 
     /**
-     * The module navigation role.
+     * The module icon.
      *
      * @var string
      */
-    protected $navigation = 'streams::navigation.content';
+    protected $icon = 'glyphicons glyphicons-folder-open';
 
     /**
      * The module sections.
