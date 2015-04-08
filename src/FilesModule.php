@@ -33,7 +33,7 @@ class FilesModule extends Module
                     'icon'       => 'upload',
                     'text'       => 'module::button.upload',
                     'attributes' => [
-                        'data-toggle-uploader' => 'uploader'
+                        'data-toggle' => 'uploader'
                     ]
                 ],
                 [

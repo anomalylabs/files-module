@@ -16,6 +16,33 @@ class BrowserTableBuilder extends TableBuilder
 {
 
     /**
+     * The table views.
+     *
+     * @var array
+     */
+    protected $views = [
+        'all',
+        'folders' => [
+            'text' => 'Folders'
+        ],
+        'files'   => [
+            'text' => 'Files'
+        ]
+    ];
+
+    /**
+     * The table filters.
+     *
+     * @var array
+     */
+    protected $filters = [
+        'test' => [
+            'filter'      => 'input',
+            'placeholder' => 'Search...'
+        ]
+    ];
+
+    /**
      * The table buttons.
      *
      * @var array

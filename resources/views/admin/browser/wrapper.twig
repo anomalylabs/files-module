@@ -2,22 +2,8 @@
 
 {% block content %}
 
-    <div class="row hidden">
-        <div class="col-lg-24">
-            {% include "anomaly.module.files::admin/browser/partials/uploader" %}
-        </div>
-    </div>
+    {% include "anomaly.module.files::admin/browser/partials/uploader" %}
 
-    <div id="browser" class="row">
-
-        <div class="col-lg-5">
-            {% include "anomaly.module.files::admin/browser/partials/navigation" %}
-        </div>
-
-        <div class="col-lg-19">
-            {{ content|raw }}
-        </div>
-
-    </div>
+    {{ content|raw }}
 
 {% endblock %}
