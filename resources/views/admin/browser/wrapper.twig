@@ -1,9 +1,11 @@
 {% extends "theme::layouts/default" %}
 
 {% block content %}
+    <div class="inner">
 
-    {% include "anomaly.module.files::admin/browser/partials/uploader" %}
+        {% include "anomaly.module.files::admin/browser/partials/uploader" %}
 
-    {{ content|raw }}
+        {{ content|raw }}
 
+    </div>
 {% endblock %}
