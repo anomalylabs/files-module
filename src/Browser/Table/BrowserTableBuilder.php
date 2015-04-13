@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Ui\Table\Multiple\MultipleTableBuilder;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class BrowserTableBuilder
@@ -88,6 +89,19 @@ class BrowserTableBuilder extends MultipleTableBuilder
     public function onReady(DriveRepositoryInterface $drives, FolderRepositoryInterface $folders)
     {
         $this->setOption('drive', $drive = $drives->findBySlug($this->getOption('drive')));
-        $this->setOption('folder', $folders->findByDriveAndPath($drive, $this->getOption('path')));
+        $this->setOption('folder', $folder = $folders->findByDriveAndPath($drive, $this->getOption('path')));
+
+        $table = $this->tables->get('folders');
+
+        $table->on(
+            'querying',
+            function (Builder $query) use ($drive, $folder) {
+                if ($folder) {
+                    $query->where('parent_id', $folder->getId());
+                } else {
+                    $query->where('drive_id', $drive->getId())->whereIn('parent_id', [null, '']);
+                }
+            }
+        );
     }
 }
