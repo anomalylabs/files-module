@@ -60,7 +60,11 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     public function map(Router $router)
     {
         $router
-            ->any('admin/files/browser/{drive?}', 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index')
-            ->where('drive', '^[a-z0-9_]+$');
+            ->any(
+                'admin/files/browser/{drive?}/{path?}',
+                'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index'
+            )
+            ->where('drive', '^[a-z0-9_]+$')
+            ->where('path', '(.*)');
     }
 }

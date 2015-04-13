@@ -19,7 +19,21 @@ class FileTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
-        'name'
+        [
+            'value' => '<i class="glyphicons glyphicons-file" style="font-size: 1.7em;"></i>'
+        ],
+        'name' => [
+            'value' => 'entry.view_link'
+        ]
+    ];
+
+    /**
+     * The buttons array.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'edit'
     ];
 
 }

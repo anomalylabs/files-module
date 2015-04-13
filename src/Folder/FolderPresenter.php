@@ -29,6 +29,11 @@ class FolderPresenter extends EntryPresenter
      */
     public function viewLink()
     {
-        return app('html')->link('admin/files/browser/' . $this->object->getSlug(), $this->object->getTitle());
+        $name  = $this->object->getName();
+        $slug  = $this->object->getSlug();
+        $drive = app('request')->segment(4);
+
+        return app('html')
+            ->link('admin/files/browser/' . $drive . '/' . $slug, $name);
     }
 }

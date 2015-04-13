@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
+use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Http\Request;
@@ -32,6 +33,8 @@ class BrowserController extends AdminController
      * Return the file browser.
      *
      * @param BrowserTableBuilder $browser
+     * @param FolderTableBuilder  $folders
+     * @param FileTableBuilder    $files
      * @param Request             $request
      * @param null                $drive
      * @return \Symfony\Component\HttpFoundation\Response
@@ -39,20 +42,15 @@ class BrowserController extends AdminController
     public function index(
         BrowserTableBuilder $browser,
         FolderTableBuilder $folders,
-        Request $request,
-        $drive = null
+        FileTableBuilder $files,
+        $drive = null,
+        $path = null
     ) {
-        $segments = $request->segments();
-
-        array_shift($segments);
-        array_shift($segments);
-        array_shift($segments);
-
-        $folder = implode('/', $segments) ?: '/';
-
         return $browser
-            ->addTable('folders', $folders)
+            ->setOption('path', $path)
             ->setOption('drive', $drive)
+            ->addTable('folders', $folders)
+            ->addTable('files', $files)
             ->render();
     }
 }

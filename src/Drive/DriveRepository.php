@@ -51,4 +51,15 @@ class DriveRepository implements DriveRepositoryInterface
     {
         return $this->model->orderBy('sort_order', 'ASC')->first();
     }
+
+    /**
+     * Find a drive by slug.
+     *
+     * @param $slug
+     * @return null|DriveInterface
+     */
+    public function findBySlug($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
+    }
 }

@@ -19,9 +19,21 @@ class FolderTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
+        [
+            'value' => '<i class="glyphicons glyphicons-folder-closed" style="font-size: 1.7em;"></i>'
+        ],
         'name' => [
             'value' => 'entry.view_link'
         ]
+    ];
+
+    /**
+     * The table buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'edit'
     ];
 
 }

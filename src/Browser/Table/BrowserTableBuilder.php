@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Browser\Table;
 
+use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Ui\Table\Multiple\MultipleTableBuilder;
 
 /**
@@ -31,6 +33,9 @@ class BrowserTableBuilder extends MultipleTableBuilder
      * @var array
      */
     protected $columns = [
+        [
+            'heading' => false
+        ],
         [
             'heading' => 'Name'
         ]
@@ -74,4 +79,15 @@ class BrowserTableBuilder extends MultipleTableBuilder
         'wrapper_view' => 'module::admin/browser/wrapper'
     ];
 
+    /**
+     * Fire when ready.
+     *
+     * @param DriveRepositoryInterface  $drives
+     * @param FolderRepositoryInterface $folders
+     */
+    public function onReady(DriveRepositoryInterface $drives, FolderRepositoryInterface $folders)
+    {
+        $this->setOption('drive', $drive = $drives->findBySlug($this->getOption('drive')));
+        $this->setOption('folder', $folders->findByDriveAndPath($drive, $this->getOption('path')));
+    }
 }

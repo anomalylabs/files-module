@@ -26,4 +26,12 @@ interface DriveRepositoryInterface
      * @return null|DriveInterface
      */
     public function first();
+
+    /**
+     * Find a drive by slug.
+     *
+     * @param $slug
+     * @return null|DriveInterface
+     */
+    public function findBySlug($slug);
 }

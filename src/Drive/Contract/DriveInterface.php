@@ -12,6 +12,13 @@ interface DriveInterface
 {
 
     /**
+     * Get the ID.
+     *
+     * @return int
+     */
+    public function getId();
+
+    /**
      * Get the name.
      *
      * @return string
