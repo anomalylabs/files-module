@@ -23,4 +23,14 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     {
         return $this->name;
     }
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

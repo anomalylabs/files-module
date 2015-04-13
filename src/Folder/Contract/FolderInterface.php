@@ -17,4 +17,11 @@ interface FolderInterface
      * @return string
      */
     public function getName();
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug();
 }

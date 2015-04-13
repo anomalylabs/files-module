@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Drive;
 
+use Anomaly\FilesModule\Drive\Contract\DriveInterface;
 use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
 
@@ -39,5 +40,15 @@ class DriveRepository implements DriveRepositoryInterface
     public function all()
     {
         return $this->model->all();
+    }
+
+    /**
+     * Return the first drive.
+     *
+     * @return null|DriveInterface
+     */
+    public function first()
+    {
+        return $this->model->orderBy('sort_order', 'ASC')->first();
     }
 }

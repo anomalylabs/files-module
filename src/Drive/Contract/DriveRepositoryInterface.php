@@ -19,4 +19,11 @@ interface DriveRepositoryInterface
      * @return EntryCollection
      */
     public function all();
+
+    /**
+     * Return the first drive.
+     *
+     * @return null|DriveInterface
+     */
+    public function first();
 }

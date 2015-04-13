@@ -26,8 +26,9 @@ class BrowserTableViews
         /* @var DriveInterface $drive */
         foreach ($drives->all() as $drive) {
             $views[$drive->getSlug()] = [
-                'text' => $drive->getName(),
-                'href' => 'admin/files/browser/' . $drive->getSlug()
+                'text'   => $drive->getName(),
+                'href'   => 'admin/files/browser/' . $drive->getSlug(),
+                'active' => $drive->getSlug() === $builder->getOption('drive')
             ];
         }
 

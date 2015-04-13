@@ -1,16 +1,16 @@
-<?php namespace Anomaly\FilesModule\File\Table;
+<?php namespace Anomaly\FilesModule\Folder\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
- * Class FileTableBuilder
+ * Class FolderTableBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\File\Table
+ * @package       Anomaly\FilesModule\Folder\Table
  */
-class FileTableBuilder extends TableBuilder
+class FolderTableBuilder extends TableBuilder
 {
 
     /**
@@ -19,7 +19,9 @@ class FileTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
-        'name'
+        'name' => [
+            'value' => 'entry.view_link'
+        ]
     ];
 
 }
