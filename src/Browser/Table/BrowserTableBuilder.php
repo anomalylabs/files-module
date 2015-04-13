@@ -91,15 +91,24 @@ class BrowserTableBuilder extends MultipleTableBuilder
         $this->setOption('drive', $drive = $drives->findBySlug($this->getOption('drive')));
         $this->setOption('folder', $folder = $folders->findByDriveAndPath($drive, $this->getOption('path')));
 
-        $table = $this->tables->get('folders');
-
-        $table->on(
+        $this->tables->get('folders')->on(
             'querying',
             function (Builder $query) use ($drive, $folder) {
                 if ($folder) {
                     $query->where('parent_id', $folder->getId());
                 } else {
                     $query->where('drive_id', $drive->getId())->whereIn('parent_id', [null, '']);
+                }
+            }
+        );
+
+        $this->tables->get('files')->on(
+            'querying',
+            function (Builder $query) use ($drive, $folder) {
+                if ($folder) {
+                    $query->where('folder_id', $folder->getId());
+                } else {
+                    $query->where('folder_id', 0);
                 }
             }
         );

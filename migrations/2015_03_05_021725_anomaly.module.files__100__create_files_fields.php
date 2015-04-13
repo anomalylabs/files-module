@@ -33,6 +33,12 @@ class AnomalyModuleFiles_100_CreateFilesFields extends Migration
                 'related' => 'Anomaly\FilesModule\Folder\FolderModel'
             ]
         ],
+        'folder'  => [
+            'type'   => 'anomaly.field_type.relationship',
+            'config' => [
+                'related' => 'Anomaly\FilesModule\Folder\FolderModel'
+            ]
+        ],
         'drive'   => [
             'type'   => 'anomaly.field_type.relationship',
             'config' => [

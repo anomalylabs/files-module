@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
+use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
@@ -32,20 +33,31 @@ class BrowserController extends AdminController
     /**
      * Return the file browser.
      *
-     * @param BrowserTableBuilder $browser
-     * @param FolderTableBuilder  $folders
-     * @param FileTableBuilder    $files
-     * @param Request             $request
-     * @param null                $drive
+     * @param DriveRepositoryInterface $drives
+     * @param BrowserTableBuilder      $browser
+     * @param FolderTableBuilder       $folders
+     * @param FileTableBuilder         $files
+     * @param Request                  $request
+     * @param null                     $drive
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(
+        DriveRepositoryInterface $drives,
         BrowserTableBuilder $browser,
         FolderTableBuilder $folders,
         FileTableBuilder $files,
         $drive = null,
         $path = null
     ) {
+        if (!$drive) {
+
+            if ($drive = $drives->first()) {
+                return redirect('admin/files/browser/' . $drive->getSlug());
+            }
+
+            return redirect('admin/files/drives/create');
+        }
+
         return $browser
             ->setOption('path', $path)
             ->setOption('drive', $drive)
