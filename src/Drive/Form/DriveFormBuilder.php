@@ -14,21 +14,12 @@ class DriveFormBuilder extends FormBuilder
 {
 
     /**
-     * The form model.
-     *
-     * @var string
-     */
-    protected $model = 'Anomaly\FilesModule\Drive\DriveModel';
-
-    /**
-     * The form fields.
+     * The form assets.
      *
      * @var array
      */
-    protected $fields = [
-        'adapter',
-        'name',
-        'slug'
+    protected $assets = [
+        'scripts.js' => 'module::js/adapter.js|debug'
     ];
 
 }

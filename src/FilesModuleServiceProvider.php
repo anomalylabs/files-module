@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule;
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
+use Illuminate\Routing\Router;
 
 /**
  * Class FilesModuleServiceProvider
@@ -41,13 +42,25 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/files'                => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
-        'admin/files/browser'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
-        'admin/files/drives'         => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
-        'admin/files/drives/create'  => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
-        'admin/files/folders'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
-        'admin/files/folders/create' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
-        'admin/files/settings'       => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
+        'admin/files'                       => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/browser'               => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
+        'admin/files/drives'                => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
+        'admin/files/drives/create/{type?}' => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
+        'admin/files/drives/edit/{id}'      => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@edit',
+        'admin/files/folders'               => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/folders/create'        => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
+        'admin/files/settings'              => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
     ];
 
+    /**
+     * Map additional routes.
+     *
+     * @param Router $router
+     */
+    public function map(Router $router)
+    {
+        $router
+            ->any('admin/files/browser/{drive?}', 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index')
+            ->where('drive', '^[a-z0-9_]+$');
+    }
 }

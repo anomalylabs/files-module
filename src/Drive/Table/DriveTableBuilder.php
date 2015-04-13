@@ -14,11 +14,28 @@ class DriveTableBuilder extends TableBuilder
 {
 
     /**
-     * The table model.
+     * The table columns.
      *
-     * @var string
+     * @var array
      */
-    protected $model = 'Anomaly\FilesModule\Drive\DriveModel';
+    protected $columns = [
+        'name',
+        'slug',
+        [
+            'heading' => 'adapter',
+            'wrapper' => '{value}::addon.name',
+            'value'   => 'entry.adapter'
+        ]
+    ];
+
+    /**
+     * The table buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'edit'
+    ];
 
     /**
      * The table actions.
@@ -26,7 +43,17 @@ class DriveTableBuilder extends TableBuilder
      * @var array
      */
     protected $actions = [
+        'reorder',
         'delete'
+    ];
+
+    /**
+     * The table options.
+     *
+     * @var array
+     */
+    protected $options = [
+        'sortable' => true
     ];
 
 }

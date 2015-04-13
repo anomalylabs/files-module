@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Drive;
 
 use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\Streams\Platform\Entry\EntryCollection;
 
 /**
  * Class DriveRepository
@@ -28,5 +29,15 @@ class DriveRepository implements DriveRepositoryInterface
     public function __construct(DriveModel $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * Return all drives.
+     *
+     * @return EntryCollection
+     */
+    public function all()
+    {
+        return $this->model->all();
     }
 }

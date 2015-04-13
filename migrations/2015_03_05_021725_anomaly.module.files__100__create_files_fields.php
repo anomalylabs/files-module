@@ -22,11 +22,11 @@ class AnomalyModuleFiles_100_CreateFilesFields extends Migration
         'slug'    => [
             'type'   => 'anomaly.field_type.slug',
             'config' => [
-                'type'  => '_',
-                'watch' => 'name'
+                'type'    => '_',
+                'slugify' => 'name'
             ]
         ],
-        'adapter' => 'anomaly.field_type.text',
+        'adapter' => 'anomaly.field_type.select',
         'parent'  => [
             'type'   => 'anomaly.field_type.relationship',
             'config' => [

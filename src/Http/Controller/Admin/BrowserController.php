@@ -34,7 +34,7 @@ class BrowserController extends AdminController
      * @param Request             $request
      * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
-    public function index(BrowserTableBuilder $browser, Request $request)
+    public function index(BrowserTableBuilder $browser, Request $request, $drive = null)
     {
         $segments = $request->segments();
 
@@ -43,7 +43,7 @@ class BrowserController extends AdminController
         array_shift($segments);
 
         $folder = implode('/', $segments) ?: '/';
-        
-        return $browser->render();
+
+        return $browser->setOption('drive', $drive)->render();
     }
 }

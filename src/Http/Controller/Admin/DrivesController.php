@@ -30,11 +30,12 @@ class DrivesController extends AdminController
      * Return a form to create a new drive.
      *
      * @param DriveFormBuilder $form
-     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
+     * @param null             $adapter
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(DriveFormBuilder $form)
+    public function create(DriveFormBuilder $form, $adapter = null)
     {
-        return $form->render();
+        return $form->setOption('adapter', $adapter)->render();
     }
 
     /**

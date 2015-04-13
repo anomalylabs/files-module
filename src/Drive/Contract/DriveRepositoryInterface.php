@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Drive\Contract;
 
+use Anomaly\Streams\Platform\Entry\EntryCollection;
+
 /**
  * Interface DriveRepositoryInterface
  *
@@ -11,4 +13,10 @@
 interface DriveRepositoryInterface
 {
 
+    /**
+     * Return all drives.
+     *
+     * @return EntryCollection
+     */
+    public function all();
 }
