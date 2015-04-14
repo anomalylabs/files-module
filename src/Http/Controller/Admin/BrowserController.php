@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
+use Anomaly\FilesModule\Command\AddBreadcrumbs;
 use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
@@ -57,6 +58,8 @@ class BrowserController extends AdminController
 
             return redirect('admin/files/drives/create');
         }
+
+        $this->dispatch(new AddBreadcrumbs());
 
         return $browser
             ->setOption('path', $path)

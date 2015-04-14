@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Folder\Form;
 
+use Anomaly\FilesModule\Drive\Command\GetDriveFromUrl;
+use Anomaly\FilesModule\Folder\Command\GetFolderFromUrl;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
 /**
@@ -39,4 +41,14 @@ class FolderFormBuilder extends FormBuilder
         'cancel'
     ];
 
+
+    public function onSaving(FolderFormBuilder $builder)
+    {
+        $entry = $builder->getFormEntry();
+
+        $drive  = $this->dispatch(new GetDriveFromUrl());
+        $folder = $this->dispatch(new GetFolderFromUrl());
+
+        dd($drive);
+    }
 }
