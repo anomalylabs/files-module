@@ -39,11 +39,7 @@ class GetFolderFromUrl implements SelfHandling
 
         $drive = $drives->findBySlug($drive);
 
-        $folder = $folders->findDriveRoot($drive);
-
-        foreach ($segments as $slug) {
-            $folder = $folders->findByParentAndSlug($folder, $slug);
-        }
+        $folder = $folders->findByDriveAndPath($drive, implode('/', $segments));
 
         return $folder;
     }

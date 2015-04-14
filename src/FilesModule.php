@@ -19,35 +19,4 @@ class FilesModule extends Module
      * @var string
      */
     protected $icon = 'glyphicons glyphicons-folder-open';
-
-    /**
-     * The module sections.
-     *
-     * @var array
-     */
-    protected $sections = [
-        'browser' => [
-            'buttons' => [
-                'upload' => [
-                    'button'     => 'success',
-                    'icon'       => 'upload',
-                    'text'       => 'module::button.upload',
-                    'attributes' => [
-                        'data-toggle' => 'uploader'
-                    ]
-                ],
-                [
-                    'button' => 'new_folder',
-                    'href'   => 'admin/files/folders/create'
-                ]
-            ]
-        ],
-        'drives'  => [
-            'buttons' => [
-                'new_drive'
-            ]
-        ],
-        'settings'
-    ];
-
 }
