@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 
     /**
      * When the upload button is clicked
