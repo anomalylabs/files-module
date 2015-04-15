@@ -26,6 +26,7 @@ class AnomalyModuleFiles_100_CreateFilesFields extends Migration
                 'slugify' => 'name'
             ]
         ],
+        'default' => 'anomaly.field_type.boolean',
         'adapter' => 'anomaly.field_type.select',
         'parent'  => [
             'type'   => 'anomaly.field_type.relationship',

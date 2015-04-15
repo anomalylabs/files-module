@@ -23,6 +23,16 @@ class FolderPresenter extends EntryPresenter
     protected $object;
 
     /**
+     * Return the icon.
+     *
+     * @return string
+     */
+    public function icon()
+    {
+        return '<i class="glyphicons glyphicons-folder-closed"></i>';
+    }
+
+    /**
      * Return the view link.
      *
      * @return string

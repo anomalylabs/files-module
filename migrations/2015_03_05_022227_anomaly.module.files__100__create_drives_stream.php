@@ -32,6 +32,7 @@ class AnomalyModuleFiles_100_CreateDrivesStream extends Migration
         'name'    => ['required' => true, 'unique' => true],
         'slug'    => ['required' => true, 'unique' => true],
         'adapter' => ['required' => true],
+        'default'
     ];
 
 }

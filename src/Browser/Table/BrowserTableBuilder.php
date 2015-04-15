@@ -36,11 +36,11 @@ class BrowserTableBuilder extends MultipleTableBuilder
     protected $columns = [
         [
             'heading' => false,
-            'value'   => 'test'
+            'value'   => 'entry.icon'
         ],
         [
             'heading' => 'Name',
-            'value'   => 'name'
+            'value'   => 'entry.view_link'
         ]
     ];
 
@@ -79,6 +79,9 @@ class BrowserTableBuilder extends MultipleTableBuilder
      * @var array
      */
     protected $options = [
+        'attributes'   => [
+            'id' => 'browser'
+        ],
         'wrapper_view' => 'module::admin/browser/wrapper'
     ];
 
