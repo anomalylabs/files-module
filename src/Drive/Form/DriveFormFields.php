@@ -20,25 +20,25 @@ class DriveFormFields
      */
     public function handle(DriveFormBuilder $builder)
     {
-        $builder->setFields(
-            [
-                'adapter' => [
-                    'value'    => $builder->getOption('adapter'),
-                    'disabled' => 'edit',
-                    'config'   => [
-                        'options' => function (ExtensionCollection $extensions) {
+        $fields = [
+            'adapter' => [
+                'value'    => $builder->getOption('adapter'),
+                'disabled' => 'edit',
+                'config'   => [
+                    'options' => function (ExtensionCollection $extensions) {
 
-                            $extensions = $extensions->search('anomaly.module.files::storage_adapter.*');
+                        $extensions = $extensions->search('anomaly.module.files::storage_adapter.*');
 
-                            return $extensions->lists('name', 'namespace');
-                        }
-                    ]
-                ],
-                'name',
-                'slug'    => [
-                    'disabled' => 'edit'
+                        return $extensions->lists('name', 'namespace');
+                    }
                 ]
+            ],
+            'name',
+            'slug'    => [
+                'disabled' => 'edit'
             ]
-        );
+        ];
+
+        $builder->setFields($fields);
     }
 }

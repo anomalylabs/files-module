@@ -6,6 +6,7 @@ return [
     'section'     => [
         'browser'  => 'Browser',
         'drives'   => 'Drives',
+        'adapters' => 'Adapters',
         'settings' => 'Settings'
     ]
 ];

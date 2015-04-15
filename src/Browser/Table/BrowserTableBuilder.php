@@ -35,10 +35,12 @@ class BrowserTableBuilder extends MultipleTableBuilder
      */
     protected $columns = [
         [
-            'heading' => false
+            'heading' => false,
+            'value'   => 'test'
         ],
         [
-            'heading' => 'Name'
+            'heading' => 'Name',
+            'value'   => 'name'
         ]
     ];
 

@@ -44,10 +44,12 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     protected $routes = [
         'admin/files'                                  => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
         'admin/files/browser'                          => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
+        'admin/files/folders/create/{drive}/{folder?}' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
         'admin/files/drives'                           => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
         'admin/files/drives/create/{type?}'            => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
         'admin/files/drives/edit/{id}'                 => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@edit',
-        'admin/files/folders/create/{drive}/{folder?}' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
+        'admin/files/adapters'                         => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@index',
+        'admin/files/adapters/settings/{adapter}'      => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@settings',
         'admin/files/settings'                         => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
     ];
 
