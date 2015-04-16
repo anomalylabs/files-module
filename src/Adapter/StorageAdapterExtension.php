@@ -10,7 +10,7 @@ use Anomaly\Streams\Platform\Addon\Extension\Extension;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Adapter
  */
-class StorageAdapterExtension extends Extension
+abstract class StorageAdapterExtension extends Extension
 {
 
 }

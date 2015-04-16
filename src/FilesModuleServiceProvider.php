@@ -33,7 +33,9 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     protected $singletons = [
         'Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface'   => 'Anomaly\FilesModule\Drive\DriveRepository',
         'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository',
-        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository'
+        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository',
+        'Anomaly\FilesModule\Adapter\StorageAdapterManager'             => 'Anomaly\FilesModule\Adapter\StorageAdapterManager',
+        'Anomaly\FilesModule\FilesManager'                              => 'Anomaly\FilesModule\FilesManager'
     ];
 
     /**
@@ -51,6 +53,17 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/adapters'                         => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@index',
         'admin/files/adapters/settings/{adapter}'      => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@settings',
         'admin/files/settings'                         => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
+    ];
+
+    /**
+     * The event listeners.
+     *
+     * @var array
+     */
+    protected $listeners = [
+        'Anomaly\Streams\Platform\Application\Event\ApplicationHasLoaded' => [
+            'Anomaly\FilesModule\Drive\Listener\MountDrives'
+        ]
     ];
 
     /**

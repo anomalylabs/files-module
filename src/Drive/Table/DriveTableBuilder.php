@@ -21,11 +21,7 @@ class DriveTableBuilder extends TableBuilder
     protected $columns = [
         'name',
         'slug',
-        [
-            'heading' => 'adapter',
-            'wrapper' => '{value}::addon.name',
-            'value'   => 'entry.adapter'
-        ]
+        'entry.adapter.name'
     ];
 
     /**
