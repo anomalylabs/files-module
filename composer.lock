@@ -12,24 +12,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "a2f5629fb0e6a85b749b3f49bd790b61381c14a9"
+                "reference": "768703274efa648ad63ac7646ad85c4e6a7f77e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a2f5629fb0e6a85b749b3f49bd790b61381c14a9",
-                "reference": "a2f5629fb0e6a85b749b3f49bd790b61381c14a9",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/768703274efa648ad63ac7646ad85c4e6a7f77e9",
+                "reference": "768703274efa648ad63ac7646ad85c4e6a7f77e9",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.4.0"
             },
             "require-dev": {
                 "ext-fileinfo": "*",
                 "league/phpunit-coverage-listener": "~1.1",
                 "mockery/mockery": "~0.9",
-                "phpspec/phpspec": "~2.0.0",
+                "phpspec/phpspec": "~2.0",
                 "phpspec/prophecy-phpunit": "~1.0",
-                "phpunit/phpunit": "~4.0",
+                "phpunit/phpunit": "~4.1",
                 "predis/predis": "~1.0",
                 "tedivm/stash": "~0.12.0"
             },
@@ -87,7 +88,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-02-22 18:36:34"
+            "time": "2015-04-08 11:33:45"
         }
     ],
     "packages-dev": [],
