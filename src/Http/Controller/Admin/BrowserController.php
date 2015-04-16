@@ -2,7 +2,7 @@
 
 use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
 use Anomaly\FilesModule\Command\AddBreadcrumbs;
-use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
@@ -36,36 +36,36 @@ class BrowserController extends AdminController
     /**
      * Return the file browser.
      *
-     * @param DriveRepositoryInterface $drives
+     * @param DiskRepositoryInterface $disks
      * @param BrowserTableBuilder      $browser
      * @param FolderTableBuilder       $folders
      * @param FileTableBuilder         $files
      * @param Request                  $request
-     * @param null                     $drive
+     * @param null                     $disk
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(
-        DriveRepositoryInterface $drives,
+        DiskRepositoryInterface $disks,
         BrowserTableBuilder $browser,
         FolderTableBuilder $folders,
         FileTableBuilder $files,
-        $drive = null,
+        $disk = null,
         $path = null
     ) {
-        if (!$drive) {
+        if (!$disk) {
 
-            if ($drive = $drives->first()) {
-                return redirect('admin/files/browser/' . $drive->getSlug());
+            if ($disk = $disks->first()) {
+                return redirect('admin/files/browser/' . $disk->getSlug());
             }
 
-            return redirect('admin/files/drives/create');
+            return redirect('admin/files/disks/create');
         }
 
         $this->dispatch(new AddBreadcrumbs());
 
         return $browser
             ->setOption('path', $path)
-            ->setOption('drive', $drive)
+            ->setOption('disk', $disk)
             ->addTable('folders', $folders)
             ->addTable('files', $files)
             ->render();

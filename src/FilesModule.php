@@ -37,9 +37,9 @@ class FilesModule extends Module
                 ]
             ]
         ],
-        'drives'  => [
+        'disks'  => [
             'buttons' => [
-                'new_drive'
+                'new_disk'
             ]
         ],
         'adapters',

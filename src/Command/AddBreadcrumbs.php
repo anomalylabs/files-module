@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Command;
 
-use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Ui\Breadcrumb\BreadcrumbCollection;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -22,13 +22,13 @@ class AddBreadcrumbs implements SelfHandling
      *
      * @param Request                   $request
      * @param BreadcrumbCollection      $breadcrumbs
-     * @param DriveRepositoryInterface  $drives
+     * @param DiskRepositoryInterface  $disks
      * @param FolderRepositoryInterface $folders
      */
     public function handle(
         Request $request,
         BreadcrumbCollection $breadcrumbs,
-        DriveRepositoryInterface $drives,
+        DiskRepositoryInterface $disks,
         FolderRepositoryInterface $folders
     ) {
         $segments = $request->segments();
@@ -37,13 +37,13 @@ class AddBreadcrumbs implements SelfHandling
         array_shift($segments); // files
         array_shift($segments); // browser
 
-        $drive = $drives->findBySlug(array_shift($segments));
+        $disk = $disks->findBySlug(array_shift($segments));
 
-        $breadcrumbs->put($drive->getName(), $url = url('admin/files/browser/' . $drive->getSlug()));
+        $breadcrumbs->put($disk->getName(), $url = url('admin/files/browser/' . $disk->getSlug()));
 
         $url .= '/' . ($slug = array_shift($segments));
 
-        $folder = $folders->findByDriveAndSlug($drive, $slug);
+        $folder = $folders->findByDiskAndSlug($disk, $slug);
 
         if ($folder) {
 

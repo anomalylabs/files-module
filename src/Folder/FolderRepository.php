@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
-use Anomaly\FilesModule\Drive\Contract\DriveInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 
@@ -33,32 +33,43 @@ class FolderRepository implements FolderRepositoryInterface
     }
 
     /**
-     * Find a folder by drive and slug
+     * Find a folder by it's ID.
      *
-     * @param DriveInterface $drive
+     * @param $id
+     * @return null|FolderInterface
+     */
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+
+    /**
+     * Find a folder by disk and slug
+     *
+     * @param DiskInterface $disk
      * @param                $slug
      * @return null|FolderInterface
      */
-    public function findByDriveAndSlug(DriveInterface $drive, $slug)
+    public function findByDiskAndSlug(DiskInterface $disk, $slug)
     {
-        return $this->model->where('drive_id', $drive->getId())->whereIn('parent_id', [null, ''])->where(
+        return $this->model->where('disk_id', $disk->getId())->whereIn('parent_id', [null, ''])->where(
             'slug',
             $slug
         )->first();
     }
 
     /**
-     * Find a folder by drive and path.
+     * Find a folder by disk and path.
      *
-     * @param DriveInterface $drive
+     * @param DiskInterface $disk
      * @param                $path
      * @return FolderInterface
      */
-    public function findByDriveAndPath(DriveInterface $drive, $path)
+    public function findByDiskAndPath(DiskInterface $disk, $path)
     {
         $slugs = explode('/', $path);
 
-        $folder = $this->findByDriveAndSlug($drive, array_shift($slugs));
+        $folder = $this->findByDiskAndSlug($disk, array_shift($slugs));
 
         foreach ($slugs as $slug) {
             $folder = $this->findByParentAndSlug($folder, $slug);

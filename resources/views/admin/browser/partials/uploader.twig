@@ -1,15 +1,14 @@
 <script type="text/javascript">
-    Dropzone.options.uploader = {
-        paramName: 'file',
-        dictDefaultMessage: '{{ icon('upload') }}&nbsp;&nbsp;{{ trans('anomaly.module.files::uploader.instructions') }}'
-    };
+    var DROPZONE_MESSAGE = '{{ icon('upload') }}&nbsp;&nbsp;{{ trans('anomaly.module.files::uploader.instructions') }}';
+    var DROPZONE_DRIVE = '{{ table.options.disk.id }}';
+    var DROPZONE_FOLDER = '{{ table.options.folder.id }}';
 </script>
 
 <div class="container-fluid hidden">
 
-    <form action="/file-upload" id="uploader" class="dropzone">
+    <form action="{{ url_to('files/upload') }}" id="uploader" class="dropzone">
         <div class="fallback">
-            <input name="file" type="file" multiple/>
+            <input name="upload" type="file" multiple/>
         </div>
     </form>
 

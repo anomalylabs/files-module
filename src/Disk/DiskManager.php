@@ -1,19 +1,19 @@
-<?php namespace Anomaly\FilesModule\Drive;
+<?php namespace Anomaly\FilesModule\Disk;
 
-use Anomaly\FilesModule\Drive\Contract\DriveInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\FilesManager;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 
 /**
- * Class DriveManager
+ * Class DiskManager
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive
+ * @package       Anomaly\FilesModule\Disk
  */
-class DriveManager
+class DiskManager
 {
 
     /**
@@ -24,7 +24,7 @@ class DriveManager
     protected $manager;
 
     /**
-     * Create a new DriveManager instance.
+     * Create a new DiskManager instance.
      *
      * @param FilesManager $manager
      */
@@ -34,12 +34,15 @@ class DriveManager
     }
 
     /**
-     * Mount a drive.
+     * Mount a disk.
      *
-     * @param DriveInterface $drive
+     * @param DiskInterface $disk
      */
-    public function mount(DriveInterface $drive)
+    public function mount(DiskInterface $disk)
     {
-        $this->manager->mountFilesystem($drive->getSlug(), new Filesystem(new Local(storage_path('test'))));
+        $this->manager->mountFilesystem(
+            $disk->getSlug(),
+            new Filesystem(new Local(storage_path('streams/default/files/uploads')))
+        );
     }
 }

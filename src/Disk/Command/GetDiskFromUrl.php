@@ -1,29 +1,29 @@
-<?php namespace Anomaly\FilesModule\Drive\Command;
+<?php namespace Anomaly\FilesModule\Disk\Command;
 
-use Anomaly\FilesModule\Drive\Contract\DriveInterface;
-use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Http\Request;
 
 /**
- * Class GetDriveFromUrl
+ * Class GetDiskFromUrl
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive\Command
+ * @package       Anomaly\FilesModule\Disk\Command
  */
-class GetDriveFromUrl implements SelfHandling
+class GetDiskFromUrl implements SelfHandling
 {
 
     /**
      * Handle the command.
      *
-     * @param DriveRepositoryInterface $drives
+     * @param DiskRepositoryInterface $disks
      * @param Request                  $request
-     * @return DriveInterface
+     * @return DiskInterface
      */
-    public function handle(DriveRepositoryInterface $drives, Request $request)
+    public function handle(DiskRepositoryInterface $disks, Request $request)
     {
         $segments = $request->segments();
 
@@ -31,6 +31,6 @@ class GetDriveFromUrl implements SelfHandling
         array_shift($segments); // files
         array_shift($segments); // browser
 
-        return $drives->findBySlug(array_shift($segments));
+        return $disks->findBySlug(array_shift($segments));
     }
 }

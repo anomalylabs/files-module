@@ -3,13 +3,13 @@
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 
 /**
- * Class AnomalyModuleFiles_100_CreateDrivesStream
+ * Class AnomalyModuleFiles_100_CreateDisksStream
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  */
-class AnomalyModuleFiles_100_CreateDrivesStream extends Migration
+class AnomalyModuleFiles_100_CreateDisksStream extends Migration
 {
 
     /**
@@ -18,7 +18,7 @@ class AnomalyModuleFiles_100_CreateDrivesStream extends Migration
      * @var array
      */
     protected $stream = [
-        'slug'         => 'drives',
+        'slug'         => 'disks',
         'title_column' => 'name',
         'locked'       => true
     ];

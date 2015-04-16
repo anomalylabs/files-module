@@ -20,7 +20,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $bindings = [
-        'Anomaly\FilesModule\Drive\DriveModel'   => 'Anomaly\FilesModule\Drive\DriveModel',
+        'Anomaly\FilesModule\Disk\DiskModel'   => 'Anomaly\FilesModule\Disk\DiskModel',
         'Anomaly\FilesModule\File\FileModel'     => 'Anomaly\FilesModule\File\FileModel',
         'Anomaly\FilesModule\Folder\FolderModel' => 'Anomaly\FilesModule\Folder\FolderModel'
     ];
@@ -31,7 +31,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $singletons = [
-        'Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface'   => 'Anomaly\FilesModule\Drive\DriveRepository',
+        'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'   => 'Anomaly\FilesModule\Disk\DiskRepository',
         'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository',
         'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository',
         'Anomaly\FilesModule\Adapter\StorageAdapterManager'             => 'Anomaly\FilesModule\Adapter\StorageAdapterManager',
@@ -46,13 +46,14 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     protected $routes = [
         'admin/files'                                  => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
         'admin/files/browser'                          => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
-        'admin/files/folders/create/{drive}/{folder?}' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
-        'admin/files/drives'                           => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@index',
-        'admin/files/drives/create/{type?}'            => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@create',
-        'admin/files/drives/edit/{id}'                 => 'Anomaly\FilesModule\Http\Controller\Admin\DrivesController@edit',
+        'admin/files/folders/create/{disk}/{folder?}' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
+        'admin/files/disks'                           => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
+        'admin/files/disks/create/{type?}'            => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
+        'admin/files/disks/edit/{id}'                 => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
         'admin/files/adapters'                         => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@index',
         'admin/files/adapters/settings/{adapter}'      => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@settings',
-        'admin/files/settings'                         => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
+        'admin/files/settings'                         => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit',
+        'files/upload'                                 => 'Anomaly\FilesModule\Http\Controller\UploaderController@upload',
     ];
 
     /**
@@ -62,7 +63,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $listeners = [
         'Anomaly\Streams\Platform\Application\Event\ApplicationHasLoaded' => [
-            'Anomaly\FilesModule\Drive\Listener\MountDrives'
+            'Anomaly\FilesModule\Disk\Listener\MountDisks'
         ]
     ];
 
@@ -75,10 +76,10 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     {
         $router
             ->any(
-                'admin/files/browser/{drive?}/{path?}',
+                'admin/files/browser/{disk?}/{path?}',
                 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index'
             )
-            ->where('drive', '^[a-z0-9_]+$')
+            ->where('disk', '^[a-z0-9_]+$')
             ->where('path', '(.*)');
     }
 }

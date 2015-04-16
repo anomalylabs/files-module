@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder\Command;
 
-use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -24,22 +24,22 @@ class GetFolderFromUrl implements SelfHandling
      * Handle the command.
      *
      * @param FolderRepositoryInterface $folders
-     * @param DriveRepositoryInterface  $drives
+     * @param DiskRepositoryInterface  $disks
      * @param Request                   $request
      * @return null|FolderInterface
      */
-    public function handle(FolderRepositoryInterface $folders, DriveRepositoryInterface $drives, Request $request)
+    public function handle(FolderRepositoryInterface $folders, DiskRepositoryInterface $disks, Request $request)
     {
         $segments = $request->segments();
 
         array_shift($segments); // admin
         array_shift($segments); // files
         array_shift($segments); // browser
-        $drive = array_shift($segments); // drive
+        $disk = array_shift($segments); // disk
 
-        $drive = $drives->findBySlug($drive);
+        $disk = $disks->findBySlug($disk);
 
-        $folder = $folders->findByDriveAndPath($drive, implode('/', $segments));
+        $folder = $folders->findByDiskAndPath($disk, implode('/', $segments));
 
         return $folder;
     }

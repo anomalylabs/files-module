@@ -1,24 +1,24 @@
-<?php namespace Anomaly\FilesModule\Drive\Form;
+<?php namespace Anomaly\FilesModule\Disk\Form;
 
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 
 /**
- * Class DriveFormFields
+ * Class DiskFormFields
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive\Form
+ * @package       Anomaly\FilesModule\Disk\Form
  */
-class DriveFormFields
+class DiskFormFields
 {
 
     /**
      * Handle the fields.
      *
-     * @param DriveFormBuilder $builder
+     * @param DiskFormBuilder $builder
      */
-    public function handle(DriveFormBuilder $builder)
+    public function handle(DiskFormBuilder $builder)
     {
         $fields = [
             'adapter' => [

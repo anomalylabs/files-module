@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Browser\Table;
 
-use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Ui\Table\Multiple\MultipleTableBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -88,32 +88,32 @@ class BrowserTableBuilder extends MultipleTableBuilder
     /**
      * Fire when ready.
      *
-     * @param DriveRepositoryInterface  $drives
+     * @param DiskRepositoryInterface  $disks
      * @param FolderRepositoryInterface $folders
      */
-    public function onReady(DriveRepositoryInterface $drives, FolderRepositoryInterface $folders)
+    public function onReady(DiskRepositoryInterface $disks, FolderRepositoryInterface $folders)
     {
-        $this->setOption('drive', $drive = $drives->findBySlug($this->getOption('drive')));
-        $this->setOption('folder', $folder = $folders->findByDriveAndPath($drive, $this->getOption('path')));
+        $this->setOption('disk', $disk = $disks->findBySlug($this->getOption('disk')));
+        $this->setOption('folder', $folder = $folders->findByDiskAndPath($disk, $this->getOption('path')));
 
         $this->tables->get('folders')->on(
             'querying',
-            function (Builder $query) use ($drive, $folder) {
+            function (Builder $query) use ($disk, $folder) {
                 if ($folder) {
                     $query->where('parent_id', $folder->getId());
                 } else {
-                    $query->where('drive_id', $drive->getId())->whereIn('parent_id', [null, '']);
+                    $query->where('disk_id', $disk->getId())->whereIn('parent_id', [null, '']);
                 }
             }
         );
 
         $this->tables->get('files')->on(
             'querying',
-            function (Builder $query) use ($drive, $folder) {
+            function (Builder $query) use ($disk, $folder) {
                 if ($folder) {
                     $query->where('folder_id', $folder->getId());
                 } else {
-                    $query->where('folder_id', 0);
+                    $query->where('folder_id', null)->where('disk_id', $disk->getId());
                 }
             }
         );

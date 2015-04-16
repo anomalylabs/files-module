@@ -1,62 +1,63 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Drive\Form\DriveConfigurationFormBuilder;
-use Anomaly\FilesModule\Drive\Form\DriveFormBuilder;
-use Anomaly\FilesModule\Drive\Table\DriveTableBuilder;
+use Anomaly\FilesModule\Disk\Form\DiskConfigurationFormBuilder;
+use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
+use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
 use Anomaly\SettingsModule\Setting\Form\SettingFormBuilder;
 use Anomaly\Streams\Platform\Addon\AddonCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
- * Class DrivesController
+ * Class DisksController
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\DrivesModule\Http\Controller\Admin
+ * @package       Anomaly\DisksModule\Http\Controller\Admin
  */
-class DrivesController extends AdminController
+class DisksController extends AdminController
 {
 
     /**
-     * Return an index of existing drives.
+     * Return an index of existing disks.
      *
-     * @param DriveTableBuilder $table
+     * @param DiskTableBuilder $table
      * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
-    public function index(DriveTableBuilder $table)
+    public function index(DiskTableBuilder $table)
     {
         return $table->render();
     }
 
     /**
-     * Return a form to create a new drive.
+     * Return a form to create a new disk.
      *
-     * @param DriveFormBuilder $form
+     * @param DiskFormBuilder $form
      * @param null             $adapter
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(DriveFormBuilder $form, $adapter = null)
+    public function create(DiskFormBuilder $form, $adapter = null)
     {
         return $form->setOption('adapter', $adapter)->render();
     }
 
     /**
-     * Return a form to edit an existing drive.
+     * Return a form to edit an existing disk.
      *
-     * @param DriveFormBuilder $form
+     * @param DiskFormBuilder $form
      * @param                  $id
      * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
      */
     public function edit(
-        DriveConfigurationFormBuilder $form,
-        DriveFormBuilder $drive,
+        DiskConfigurationFormBuilder $form,
+        DiskFormBuilder $disk,
         SettingFormBuilder $settings,
         $id
     ) {
-        $form->addForm('drive', $drive);
+        $form->addForm('disk', $disk);
         $form->addForm('settings', $settings->setEntry('anomaly.extension.local_storage_adapter'));
 
+        $disk->setEntry($id);
         $settings->setEntry('anomaly.extension.local_storage_adapter')->build();
 
         return $form->render($id);

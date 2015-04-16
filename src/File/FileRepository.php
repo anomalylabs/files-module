@@ -1,6 +1,10 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use League\Flysystem\File;
 
 /**
  * Class FileRepository
@@ -13,4 +17,42 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 class FileRepository implements FileRepositoryInterface
 {
 
+    /**
+     * The file model.
+     *
+     * @var FileModel
+     */
+    protected $model;
+
+    /**
+     * Create a new FileRepository.
+     *
+     * @param FileModel $model
+     */
+    public function __construct(FileModel $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Create a file.
+     *
+     * @param DiskInterface  $disk
+     * @param File            $file
+     * @param FolderInterface $folder
+     * @return FileInterface
+     */
+    public function create(DiskInterface $disk, File $file, FolderInterface $folder = null)
+    {
+        $this->model->create(
+            [
+                'folder_id' => $folder ? $folder->getId() : null,
+                'disk_id'  => $disk->getId(),
+                'name'      => basename($file->getPath()),
+                'path'      => $file->getPath(),
+                'size'      => $file->getSize(),
+                'extension' => $file->getMimetype()
+            ]
+        );
+    }
 }

@@ -1,16 +1,16 @@
-<?php namespace Anomaly\FilesModule\Drive\Form;
+<?php namespace Anomaly\FilesModule\Disk\Form;
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
 /**
- * Class DriveFormBuilder
+ * Class DiskFormBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive\Form
+ * @package       Anomaly\FilesModule\Disk\Form
  */
-class DriveFormBuilder extends FormBuilder
+class DiskFormBuilder extends FormBuilder
 {
 
     /**

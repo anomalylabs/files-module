@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder\Contract;
 
-use Anomaly\FilesModule\Drive\Contract\DriveInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 
 /**
  * Interface FolderRepositoryInterface
@@ -14,22 +14,30 @@ interface FolderRepositoryInterface
 {
 
     /**
-     * Find a folder by drive and slug
+     * Find a folder by it's ID.
      *
-     * @param DriveInterface $drive
+     * @param $id
+     * @return null|FolderInterface
+     */
+    public function find($id);
+
+    /**
+     * Find a folder by disk and slug
+     *
+     * @param DiskInterface $disk
      * @param                $slug
      * @return null|FolderInterface
      */
-    public function findByDriveAndSlug(DriveInterface $drive, $slug);
+    public function findByDiskAndSlug(DiskInterface $disk, $slug);
 
     /**
-     * Find a folder by drive and path.
+     * Find a folder by disk and path.
      *
-     * @param DriveInterface $drive
+     * @param DiskInterface $disk
      * @param                $path
      * @return FolderInterface
      */
-    public function findByDriveAndPath(DriveInterface $drive, $path);
+    public function findByDiskAndPath(DiskInterface $disk, $path);
 
     /**
      * Find a folder by parent and slug.

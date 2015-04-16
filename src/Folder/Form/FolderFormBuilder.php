@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder\Form;
 
-use Anomaly\FilesModule\Drive\Command\GetDriveFromUrl;
+use Anomaly\FilesModule\Disk\Command\GetDiskFromUrl;
 use Anomaly\FilesModule\Folder\Command\GetFolderFromUrl;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
@@ -46,9 +46,9 @@ class FolderFormBuilder extends FormBuilder
     {
         $entry = $builder->getFormEntry();
 
-        $drive  = $this->dispatch(new GetDriveFromUrl());
+        $disk  = $this->dispatch(new GetDiskFromUrl());
         $folder = $this->dispatch(new GetFolderFromUrl());
 
-        dd($drive);
+        dd($disk);
     }
 }

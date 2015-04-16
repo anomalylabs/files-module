@@ -1,17 +1,17 @@
-<?php namespace Anomaly\FilesModule\Drive;
+<?php namespace Anomaly\FilesModule\Disk;
 
-use Anomaly\FilesModule\Drive\Contract\DriveInterface;
-use Anomaly\Streams\Platform\Model\Files\FilesDrivesEntryModel;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 
 /**
- * Class DriveModel
+ * Class DiskModel
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Drive
+ * @package       Anomaly\FilesModule\Disk
  */
-class DriveModel extends FilesDrivesEntryModel implements DriveInterface
+class DiskModel extends FilesDisksEntryModel implements DiskInterface
 {
 
     /**
@@ -21,7 +21,7 @@ class DriveModel extends FilesDrivesEntryModel implements DriveInterface
     {
         parent::boot();
 
-        self::observe('Anomaly\FilesModule\Drive\DriveObserver');
+        self::observe('Anomaly\FilesModule\Disk\DiskObserver');
     }
 
     /**

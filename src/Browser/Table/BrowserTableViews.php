@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Browser\Table;
 
-use Anomaly\FilesModule\Drive\Contract\DriveInterface;
-use Anomaly\FilesModule\Drive\Contract\DriveRepositoryInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 
 /**
  * Class BrowserTableViews
@@ -19,18 +19,18 @@ class BrowserTableViews
      *
      * @param BrowserTableBuilder $builder
      */
-    public function handle(BrowserTableBuilder $builder, DriveRepositoryInterface $drives)
+    public function handle(BrowserTableBuilder $builder, DiskRepositoryInterface $disks)
     {
         $views = [];
 
-        $active = $builder->getOption('drive');
+        $active = $builder->getOption('disk');
 
-        /* @var DriveInterface $drive */
-        foreach ($drives->all() as $drive) {
-            $views[$drive->getSlug()] = [
-                'text'   => $drive->getName(),
-                'href'   => 'admin/files/browser/' . $drive->getSlug(),
-                'active' => $drive->getSlug() === $active->getSlug()
+        /* @var DiskInterface $disk */
+        foreach ($disks->all() as $disk) {
+            $views[$disk->getSlug()] = [
+                'text'   => $disk->getName(),
+                'href'   => 'admin/files/browser/' . $disk->getSlug(),
+                'active' => $disk->getSlug() === $active->getSlug()
             ];
         }
 
