@@ -28,6 +28,12 @@ class UploaderController extends PublicController
 
         $file = $request->file('upload');
 
-        $manager->disk($disk->getSlug())->put($folder->path($file->getClientOriginalName()), $file);
+        if ($folder) {
+            $path = $folder->path($file->getClientOriginalName());
+        } else {
+            $path = $file->getClientOriginalName();
+        }
+
+        $manager->disk($disk->getSlug())->put($path, $file);
     }
 }

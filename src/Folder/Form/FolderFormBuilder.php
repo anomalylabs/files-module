@@ -45,10 +45,5 @@ class FolderFormBuilder extends FormBuilder
     public function onSaving(FolderFormBuilder $builder)
     {
         $entry = $builder->getFormEntry();
-
-        $disk  = $this->dispatch(new GetDiskFromUrl());
-        $folder = $this->dispatch(new GetFolderFromUrl());
-
-        dd($disk);
     }
 }

@@ -22,7 +22,6 @@ class FoldersController extends AdminController
      */
     public function create(FolderFormBuilder $form)
     {
-        return 'Turd';
         return $form->render();
     }
 }
