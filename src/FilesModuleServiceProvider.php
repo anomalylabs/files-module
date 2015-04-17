@@ -20,7 +20,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $bindings = [
-        'Anomaly\FilesModule\Disk\DiskModel'   => 'Anomaly\FilesModule\Disk\DiskModel',
+        'Anomaly\FilesModule\Disk\DiskModel'     => 'Anomaly\FilesModule\Disk\DiskModel',
         'Anomaly\FilesModule\File\FileModel'     => 'Anomaly\FilesModule\File\FileModel',
         'Anomaly\FilesModule\Folder\FolderModel' => 'Anomaly\FilesModule\Folder\FolderModel'
     ];
@@ -31,7 +31,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $singletons = [
-        'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'   => 'Anomaly\FilesModule\Disk\DiskRepository',
+        'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'     => 'Anomaly\FilesModule\Disk\DiskRepository',
         'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository',
         'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository',
         'Anomaly\FilesModule\Adapter\StorageAdapterManager'             => 'Anomaly\FilesModule\Adapter\StorageAdapterManager',
@@ -44,16 +44,16 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/files'                                  => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
-        'admin/files/browser'                          => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
+        'admin/files'                                 => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
+        'admin/files/browser'                         => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
         'admin/files/folders/create/{disk}/{folder?}' => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
         'admin/files/disks'                           => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
         'admin/files/disks/create/{type?}'            => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
         'admin/files/disks/edit/{id}'                 => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
-        'admin/files/adapters'                         => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@index',
-        'admin/files/adapters/settings/{adapter}'      => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@settings',
-        'admin/files/settings'                         => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit',
-        'files/upload'                                 => 'Anomaly\FilesModule\Http\Controller\UploaderController@upload',
+        'admin/files/adapters'                        => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@index',
+        'admin/files/adapters/settings/{adapter}'     => 'Anomaly\FilesModule\Http\Controller\Admin\StorageAdaptersController@settings',
+        'admin/files/settings'                        => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit',
+        'files/upload'                                => 'Anomaly\FilesModule\Http\Controller\UploaderController@upload',
     ];
 
     /**
@@ -63,7 +63,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $listeners = [
         'Anomaly\Streams\Platform\Application\Event\ApplicationHasLoaded' => [
-            'Anomaly\FilesModule\Disk\Listener\MountDisks'
+            'Anomaly\FilesModule\Disk\Listener\ExtendFilesystem'
         ]
     ];
 

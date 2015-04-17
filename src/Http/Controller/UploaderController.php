@@ -5,6 +5,7 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\FilesManager;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
 
 /**
@@ -20,7 +21,7 @@ class UploaderController extends PublicController
 
     public function upload(
         Request $request,
-        FilesManager $manager,
+        FilesystemManager $manager,
         FileRepositoryInterface $files,
         DiskRepositoryInterface $disks,
         FolderRepositoryInterface $folders
@@ -31,7 +32,7 @@ class UploaderController extends PublicController
         $file = $request->file('upload');
 
         $stream = fopen($file->getRealPath(), 'r+');
-
+        die(get_class($manager->disk($disk->getSlug())));
         $manager->putStream($disk->getSlug() . '://' . $file->getClientOriginalName(), $stream);
 
         $file = $manager->get($disk->getSlug() . '://' . $file->getClientOriginalName());
