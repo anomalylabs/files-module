@@ -53,7 +53,7 @@ class AddBreadcrumbs implements SelfHandling
 
                 $url .= '/' . $slug;
 
-                $folder = $folders->findByParentAndSlug($folder, $slug);
+                $folder = $folders->findByParentAndSlug($folder, urldecode($slug));
 
                 $breadcrumbs->put($folder->getName(), $url);
             }

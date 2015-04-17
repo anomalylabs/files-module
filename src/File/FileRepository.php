@@ -37,7 +37,7 @@ class FileRepository implements FileRepositoryInterface
     /**
      * Create a file.
      *
-     * @param DiskInterface  $disk
+     * @param DiskInterface   $disk
      * @param File            $file
      * @param FolderInterface $folder
      * @return FileInterface
@@ -46,12 +46,11 @@ class FileRepository implements FileRepositoryInterface
     {
         $this->model->create(
             [
-                'folder_id' => $folder ? $folder->getId() : null,
-                'disk_id'  => $disk->getId(),
-                'name'      => basename($file->getPath()),
-                'path'      => $file->getPath(),
+                'disk_id'   => $disk->getId(),
                 'size'      => $file->getSize(),
-                'extension' => $file->getMimetype()
+                'name'      => basename($file->getPath()),
+                'folder_id' => $folder ? $folder->getId() : null,
+                'extension' => pathinfo($file->getPath(), PATHINFO_EXTENSION)
             ]
         );
     }

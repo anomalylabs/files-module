@@ -12,6 +12,13 @@ interface FolderInterface
 {
 
     /**
+     * Return the folder's path.
+     *
+     * @return string
+     */
+    public function path();
+
+    /**
      * Get the ID.
      *
      * @return int

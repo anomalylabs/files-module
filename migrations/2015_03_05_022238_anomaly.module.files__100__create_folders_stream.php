@@ -29,10 +29,10 @@ class AnomalyModuleFiles_100_CreateFoldersStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'name'   => ['required' => true, 'unique' => true],
-        'slug'   => ['required' => true, 'unique' => true],
-        'parent' => ['required' => true],
-        'disk'  => ['required' => true],
+        'name' => ['required' => true, 'unique' => true],
+        'slug' => ['required' => true, 'unique' => true],
+        'disk' => ['required' => true],
+        'parent'
     ];
 
 }

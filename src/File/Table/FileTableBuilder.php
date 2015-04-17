@@ -13,27 +13,4 @@ use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 class FileTableBuilder extends TableBuilder
 {
 
-    /**
-     * The table columns.
-     *
-     * @var array
-     */
-    protected $columns = [
-        [
-            'value' => '<i class="glyphicons glyphicons-file" style="font-size: 1.7em;"></i>'
-        ],
-        'name' => [
-            'value' => 'entry.view_link'
-        ]
-    ];
-
-    /**
-     * The buttons array.
-     *
-     * @var array
-     */
-    protected $buttons = [
-        'edit'
-    ];
-
 }

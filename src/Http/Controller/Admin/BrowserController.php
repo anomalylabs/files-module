@@ -64,7 +64,7 @@ class BrowserController extends AdminController
         $this->dispatch(new AddBreadcrumbs());
 
         return $browser
-            ->setOption('path', $path)
+            ->setOption('path', urldecode($path))
             ->setOption('disk', $disk)
             ->addTable('folders', $folders)
             ->addTable('files', $files)

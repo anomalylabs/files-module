@@ -45,18 +45,6 @@ class BrowserTableBuilder extends MultipleTableBuilder
     ];
 
     /**
-     * The table buttons.
-     *
-     * @var array
-     */
-    protected $buttons = [
-        [
-            'button' => 'view',
-            'href'   => 'admin/files/browser/{entry.slug}'
-        ]
-    ];
-
-    /**
      * The table assets.
      *
      * @var array
@@ -88,7 +76,7 @@ class BrowserTableBuilder extends MultipleTableBuilder
     /**
      * Fire when ready.
      *
-     * @param DiskRepositoryInterface  $disks
+     * @param DiskRepositoryInterface   $disks
      * @param FolderRepositoryInterface $folders
      */
     public function onReady(DiskRepositoryInterface $disks, FolderRepositoryInterface $folders)

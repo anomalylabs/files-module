@@ -15,6 +15,13 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
 {
 
     /**
+     * Cache results.
+     *
+     * @var int
+     */
+    protected $cacheMinutes = 99999;
+
+    /**
      * Boot the model.
      */
     protected static function boot()

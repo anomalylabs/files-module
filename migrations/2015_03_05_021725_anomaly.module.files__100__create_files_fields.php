@@ -46,13 +46,12 @@ class AnomalyModuleFiles_100_CreateFilesFields extends Migration
                 'related' => 'Anomaly\FilesModule\Folder\FolderModel'
             ]
         ],
-        'disk'       => [
+        'disk'        => [
             'type'   => 'anomaly.field_type.relationship',
             'config' => [
                 'related' => 'Anomaly\FilesModule\Disk\DiskModel'
             ]
         ],
-        'path'        => 'anomaly.field_type.text',
         'description' => 'anomaly.field_type.textarea',
         'extension'   => 'anomaly.field_type.text',
         'keywords'    => 'anomaly.field_type.tags',

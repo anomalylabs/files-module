@@ -13,27 +13,4 @@ use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 class FolderTableBuilder extends TableBuilder
 {
 
-    /**
-     * The table columns.
-     *
-     * @var array
-     */
-    protected $columns = [
-        [
-            'value' => '<i class="glyphicons glyphicons-folder-closed" style="font-size: 1.7em;"></i>'
-        ],
-        'name' => [
-            'value' => 'entry.view_link'
-        ]
-    ];
-
-    /**
-     * The table buttons.
-     *
-     * @var array
-     */
-    protected $buttons = [
-        'edit'
-    ];
-
 }

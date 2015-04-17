@@ -46,7 +46,7 @@ class FolderRepository implements FolderRepositoryInterface
     /**
      * Find a folder by disk and slug
      *
-     * @param DiskInterface $disk
+     * @param DiskInterface  $disk
      * @param                $slug
      * @return null|FolderInterface
      */
@@ -61,12 +61,16 @@ class FolderRepository implements FolderRepositoryInterface
     /**
      * Find a folder by disk and path.
      *
-     * @param DiskInterface $disk
+     * @param DiskInterface  $disk
      * @param                $path
      * @return FolderInterface
      */
     public function findByDiskAndPath(DiskInterface $disk, $path)
     {
+        if ($path == '.') {
+            return null;
+        }
+
         $slugs = explode('/', $path);
 
         $folder = $this->findByDiskAndSlug($disk, array_shift($slugs));
