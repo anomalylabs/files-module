@@ -4,6 +4,7 @@ use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
 use Anomaly\FilesModule\Command\AddBreadcrumbs;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
+use Anomaly\FilesModule\Folder\Form\FolderFormBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Http\Request;
@@ -45,6 +46,7 @@ class BrowserController extends AdminController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(
+        FolderFormBuilder $form,
         DiskRepositoryInterface $disks,
         BrowserTableBuilder $browser,
         FolderTableBuilder $folders,
@@ -66,6 +68,7 @@ class BrowserController extends AdminController
         return $browser
             ->setOption('path', urldecode($path))
             ->setOption('disk', $disk)
+            ->setOption('form', $form->make()->getFormContent())
             ->addTable('folders', $folders)
             ->addTable('files', $files)
             ->render();

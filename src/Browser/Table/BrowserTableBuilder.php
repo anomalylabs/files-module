@@ -52,7 +52,8 @@ class BrowserTableBuilder extends MultipleTableBuilder
     protected $assets = [
         'scripts.js' => [
             'module::js/dropzone.js',
-            'module::js/uploader.js'
+            'module::js/uploader.js',
+            'module::js/folder.js'
         ],
         'styles.css' => [
             'module::less/dropzone.less',
@@ -70,6 +71,7 @@ class BrowserTableBuilder extends MultipleTableBuilder
         'attributes'   => [
             'id' => 'browser'
         ],
+        'limit'        => 999,
         'wrapper_view' => 'module::admin/browser/wrapper'
     ];
 

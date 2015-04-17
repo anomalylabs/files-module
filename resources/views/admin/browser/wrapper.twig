@@ -3,10 +3,7 @@
 {% block content %}
     <div class="inner">
 
-        <form>
-
-        </form>
-
+        {% include "anomaly.module.files::admin/browser/partials/folder" %}
         {% include "anomaly.module.files::admin/browser/partials/uploader" %}
 
         {{ content|raw }}

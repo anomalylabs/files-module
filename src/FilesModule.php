@@ -18,8 +18,13 @@ class FilesModule extends Module
      *
      * @var string
      */
-    protected $icon = 'glyphicons glyphicons-folder-open';
+    protected $icon = 'folder-open';
 
+    /**
+     * The addon sections.
+     *
+     * @var array
+     */
     protected $sections = [
         'browser' => [
             'buttons' => [
@@ -32,12 +37,14 @@ class FilesModule extends Module
                     ]
                 ],
                 [
-                    'button' => 'new_folder',
-                    'href'   => 'admin/files/folders/create'
+                    'button'     => 'new_folder',
+                    'attributes' => [
+                        'data-toggle' => 'folder'
+                    ]
                 ]
             ]
         ],
-        'disks'  => [
+        'disks'   => [
             'buttons' => [
                 'new_disk'
             ]
