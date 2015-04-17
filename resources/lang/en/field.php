@@ -2,12 +2,12 @@
 
 return [
     'name'    => [
-        'name' => 'Name',
+        'name' => 'Name'
     ],
     'slug'    => [
-        'name' => 'Slug',
+        'name' => 'Slug'
     ],
     'adapter' => [
-        'name' => 'Adapter',
+        'name' => 'Adapter'
     ]
 ];
