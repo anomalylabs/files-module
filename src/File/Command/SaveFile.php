@@ -1,8 +1,8 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\FilesFilesystem;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Anomaly\FilesModule\Support\Filesystem;
 use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\File;
 
@@ -27,17 +27,17 @@ class SaveFile implements SelfHandling
     /**
      * The filesystem object.
      *
-     * @var Filesystem
+     * @var FilesFilesystem
      */
     protected $filesystem;
 
     /**
      * Create a new SaveFile instance.
      *
-     * @param File       $file
-     * @param Filesystem $filesystem
+     * @param File                                 $file
+     * @param \Anomaly\FilesModule\FilesFilesystem $filesystem
      */
-    function __construct(File $file, Filesystem $filesystem)
+    function __construct(File $file, FilesFilesystem $filesystem)
     {
         $this->file       = $file;
         $this->filesystem = $filesystem;
