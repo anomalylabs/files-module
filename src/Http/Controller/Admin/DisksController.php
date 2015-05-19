@@ -21,7 +21,7 @@ class DisksController extends AdminController
      * Return an index of existing disks.
      *
      * @param DiskTableBuilder $table
-     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(DiskTableBuilder $table)
     {
