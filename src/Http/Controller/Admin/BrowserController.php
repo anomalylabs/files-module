@@ -7,10 +7,9 @@ use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Form\FolderFormBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Message\MessageBag;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 
 /**
  * Class BrowserController
@@ -38,11 +37,12 @@ class BrowserController extends AdminController
      * Return the file browser.
      *
      * @param DiskRepositoryInterface $disks
-     * @param BrowserTableBuilder      $browser
-     * @param FolderTableBuilder       $folders
-     * @param FileTableBuilder         $files
-     * @param Request                  $request
-     * @param null                     $disk
+     * @param BrowserTableBuilder     $browser
+     * @param FolderTableBuilder      $folders
+     * @param FileTableBuilder        $files
+     * @param MessageBag              $messages
+     * @param Request                 $request
+     * @param null                    $disk
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(
@@ -51,6 +51,7 @@ class BrowserController extends AdminController
         BrowserTableBuilder $browser,
         FolderTableBuilder $folders,
         FileTableBuilder $files,
+        MessageBag $messages,
         $disk = null,
         $path = null
     ) {
@@ -60,7 +61,9 @@ class BrowserController extends AdminController
                 return redirect('admin/files/browser/' . $disk->getSlug());
             }
 
-            return redirect('admin/files/disks/create');
+            $messages->warning('module::message.create_disk_first');
+
+            return redirect('admin/files/disks');
         }
 
         $this->dispatch(new AddBreadcrumbs());

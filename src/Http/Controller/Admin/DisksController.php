@@ -3,8 +3,7 @@
 use Anomaly\FilesModule\Disk\Form\DiskConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
-use Anomaly\SettingsModule\Setting\Form\SettingFormBuilder;
-use Anomaly\Streams\Platform\Addon\AddonCollection;
+use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -32,34 +31,24 @@ class DisksController extends AdminController
     /**
      * Return a form to create a new disk.
      *
-     * @param DiskFormBuilder $form
-     * @param null             $adapter
+     * @param DiskFormBuilder     $form
+     * @param ExtensionCollection $adapters
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(DiskFormBuilder $form, $adapter = null)
+    public function create(DiskFormBuilder $form, ExtensionCollection $adapters)
     {
-        return $form->setOption('adapter', $adapter)->render();
+        return $form->setAdapter($adapters->get($_GET['adapter']))->render();
     }
 
     /**
      * Return a form to edit an existing disk.
      *
      * @param DiskFormBuilder $form
-     * @param                  $id
-     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
+     * @param                 $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(
-        DiskConfigurationFormBuilder $form,
-        DiskFormBuilder $disk,
-        SettingFormBuilder $settings,
-        $id
-    ) {
-        $form->addForm('disk', $disk);
-        $form->addForm('settings', $settings->setEntry('anomaly.extension.local_storage_adapter'));
-
-        $disk->setEntry($id);
-        $settings->setEntry('anomaly.extension.local_storage_adapter')->build();
-
+    public function edit(DiskFormBuilder $form, $id)
+    {
         return $form->render($id);
     }
 }

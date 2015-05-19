@@ -36,20 +36,18 @@ class FilesModule extends Module
                         'data-toggle' => 'uploader'
                     ]
                 ],
-                [
-                    'button'     => 'new_folder',
-                    'attributes' => [
-                        'data-toggle' => 'folder'
-                    ]
-                ]
+                'new_folder'
             ]
         ],
         'disks'   => [
             'buttons' => [
-                'new_disk'
+                'new_disk' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/files/ajax/choose_adapter'
+                ]
             ]
         ],
-        'adapters',
         'settings'
     ];
 
