@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Command;
+<?php namespace Anomaly\FilesModule\Http\Controller\Admin\Command;
 
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;

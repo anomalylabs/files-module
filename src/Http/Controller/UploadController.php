@@ -7,15 +7,20 @@ use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
 
 /**
- * Class UploaderController
+ * Class UploadController
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Http\Controller
  */
-class UploaderController extends PublicController
+class UploadController extends PublicController
 {
+
+    public function uploader()
+    {
+        return view('anomaly.module.files::uploader');
+    }
 
     public function upload(
         Request $request,

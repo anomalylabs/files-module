@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
-use Anomaly\FilesModule\Command\AddBreadcrumbs;
+use Anomaly\FilesModule\Http\Controller\Admin\Command\AddBreadcrumbs;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;

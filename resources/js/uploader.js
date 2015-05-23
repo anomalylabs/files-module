@@ -1,15 +1,7 @@
 $(function () {
 
-    /**
-     * When the upload button is clicked
-     * simply display the uploader.
-     */
-    $('[data-toggle="uploader"]').click(function () {
-        $('#uploader').closest('div').toggleClass('hidden');
-    });
-
     // Configure Dropzone
-    Dropzone.options.uploader = {
+    $('#uploader').dropzone({
         paramName: 'upload',
         dictDefaultMessage: DROPZONE_MESSAGE,
         headers: {
@@ -19,5 +11,5 @@ $(function () {
             formData.append('disk', DROPZONE_DISK);
             formData.append('folder', DROPZONE_FOLDER);
         }
-    };
+    });
 });

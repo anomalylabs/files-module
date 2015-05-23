@@ -17,18 +17,6 @@ class BrowserTableBuilder extends MultipleTableBuilder
 {
 
     /**
-     * The table filters.
-     *
-     * @var array
-     */
-    protected $filters = [
-        'test' => [
-            'filter'      => 'input',
-            'placeholder' => 'Search...'
-        ]
-    ];
-
-    /**
      * The table columns.
      *
      * @var array
@@ -45,21 +33,12 @@ class BrowserTableBuilder extends MultipleTableBuilder
     ];
 
     /**
-     * The table assets.
+     * The table actions.
      *
      * @var array
      */
-    protected $assets = [
-        'scripts.js' => [
-            'module::js/dropzone.js',
-            'module::js/uploader.js',
-            'module::js/folder.js'
-        ],
-        'styles.css' => [
-            'module::less/dropzone.less',
-            'module::less/browser.less',
-            'module::less/uploader.less'
-        ]
+    protected $actions = [
+        'delete'
     ];
 
     /**
@@ -68,11 +47,7 @@ class BrowserTableBuilder extends MultipleTableBuilder
      * @var array
      */
     protected $options = [
-        'attributes'   => [
-            'id' => 'browser'
-        ],
-        'limit'        => 999,
-        'wrapper_view' => 'module::admin/browser/wrapper'
+        'limit' => 999
     ];
 
     /**

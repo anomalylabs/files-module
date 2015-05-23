@@ -29,12 +29,12 @@ class FilesModule extends Module
         'browser' => [
             'buttons' => [
                 'upload' => [
-                    'button'     => 'success',
-                    'icon'       => 'upload',
-                    'text'       => 'module::button.upload',
-                    'attributes' => [
-                        'data-toggle' => 'uploader'
-                    ]
+                    'button'      => 'success',
+                    'icon'        => 'upload',
+                    'text'        => 'module::button.upload',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'files/uploader'
                 ],
                 'new_folder'
             ]
