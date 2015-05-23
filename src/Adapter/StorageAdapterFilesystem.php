@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule;
+<?php namespace Anomaly\FilesModule\Adapter;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Command\SaveFile;
@@ -8,14 +8,14 @@ use League\Flysystem\FileExistsException;
 use League\Flysystem\Filesystem;
 
 /**
- * Class FilesFilesystem
+ * Class StorageAdapterFilesystem
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule
  */
-class FilesFilesystem extends Filesystem
+class StorageAdapterFilesystem extends Filesystem
 {
 
     use DispatchesCommands;
@@ -28,7 +28,7 @@ class FilesFilesystem extends Filesystem
     protected $disk;
 
     /**
-     * Create a new FilesFilesystem instance.
+     * Create a new StorageAdapterFilesystem instance.
      *
      * @param DiskInterface    $disk
      * @param AdapterInterface $adapter

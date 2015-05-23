@@ -61,7 +61,7 @@ class ExtendFilesystem
      * Handle the event.
      */
     public function handle()
-    {return;
+    {
         foreach ($this->disks->all() as $disk) {
             $this->configurator->configure($disk);
             $this->filesystem->load($disk);
