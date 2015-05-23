@@ -1,27 +1,27 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Folder\Form\FolderFormBuilder;
+use Anomaly\FilesModule\Disk\Grid\DiskGridBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
- * Class FoldersController
+ * Class ObjectsController
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
-class FoldersController extends AdminController
+class ObjectsController extends AdminController
 {
 
     /**
-     * Return a form for creating a new folder.
+     * Return an index of of existing disks.
      *
-     * @param FolderFormBuilder $form
-     * @return \Illuminate\View\View|\Symfony\Component\HttpFoundation\Response
+     * @param DiskGridBuilder $grid
+     * @return \Illuminate\Http\Response
      */
-    public function create(FolderFormBuilder $form)
+    public function index(DiskGridBuilder $grid)
     {
-        return $form->render();
+        return $grid->render();
     }
 }

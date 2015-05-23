@@ -3,13 +3,13 @@
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 
 /**
- * Class AnomalyModuleFiles_100_CreateFilesStream
+ * Class AnomalyModuleFiles_1_0_0_CreateObjectsStream
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  */
-class AnomalyModuleFiles_100_CreateFilesStream extends Migration
+class AnomalyModuleFiles_1_0_0_CreateObjectsStream extends Migration
 {
 
     /**
@@ -18,7 +18,7 @@ class AnomalyModuleFiles_100_CreateFilesStream extends Migration
      * @var array
      */
     protected $stream = [
-        'slug'         => 'files',
+        'slug'         => 'objects',
         'title_column' => 'name',
         'locked'       => true
     ];
@@ -29,16 +29,10 @@ class AnomalyModuleFiles_100_CreateFilesStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'folder',
-        'disk'      => ['required' => true],
-        'name'      => ['required' => true],
-        'size'      => ['required' => true],
-        'extension' => ['required' => true],
-        'description',
-        'keywords',
-        'height',
-        'width',
-        'alt'
+        'name' => [
+            'required' => true
+        ],
+        'default'
     ];
 
 }
