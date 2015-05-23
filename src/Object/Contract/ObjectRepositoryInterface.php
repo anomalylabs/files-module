@@ -11,4 +11,11 @@
 interface ObjectRepositoryInterface
 {
 
+    /**
+     * Find an object by it's path.
+     *
+     * @param $path
+     * @return null|ObjectInterface
+     */
+    public function findByPath($path);
 }

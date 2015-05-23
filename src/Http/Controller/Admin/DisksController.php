@@ -4,6 +4,7 @@ use Anomaly\ConfigurationModule\Configuration\Form\ConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Disk\Form\DiskConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
+use Anomaly\FilesModule\Disk\Grid\DiskGridBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
@@ -31,10 +32,21 @@ class DisksController extends AdminController
     }
 
     /**
+     * Return a grid index of of existing disks.
+     *
+     * @param DiskGridBuilder $grid
+     * @return \Illuminate\Http\Response
+     */
+    public function choose(DiskGridBuilder $grid)
+    {
+        return $grid->render();
+    }
+
+    /**
      * Return a form to create a new disk
      * and it's configuration.
      *
-     * @param DiskFormBuilder $form
+     * @param DiskFormBuilder     $form
      * @param ExtensionCollection $adapters
      * @return \Symfony\Component\HttpFoundation\Response
      */

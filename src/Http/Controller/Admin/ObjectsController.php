@@ -1,6 +1,8 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Disk\Grid\DiskGridBuilder;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
+use Anomaly\FilesModule\Object\Contract\ObjectRepositoryInterface;
+use Anomaly\FilesModule\Object\Grid\ObjectGridBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -15,13 +17,23 @@ class ObjectsController extends AdminController
 {
 
     /**
-     * Return an index of of existing disks.
+     * Return an index of objects.
      *
-     * @param DiskGridBuilder $grid
+     * @param ObjectGridBuilder       $grid
+     * @param DiskRepositoryInterface $disks
+     * @param                         $disk
      * @return \Illuminate\Http\Response
      */
-    public function index(DiskGridBuilder $grid)
-    {
-        return $grid->render();
+    public function index(
+        ObjectGridBuilder $grid,
+        DiskRepositoryInterface $disks,
+        ObjectRepositoryInterface $objects,
+        $disk,
+        $path = null
+    ) {
+        return $grid
+            ->setDisk($disks->findBySlug($disk))
+            ->setParent($objects->findByPath($path))
+            ->render();
     }
 }

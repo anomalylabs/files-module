@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule;
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
-use Illuminate\Routing\Router;
 
 /**
  * Class FilesModuleServiceProvider
@@ -20,14 +19,27 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'admin/files'                     => 'Anomaly\FilesModule\Http\Controller\Admin\ObjectsController@index',
-        'admin/files/disks'               => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
-        'admin/files/disks/create'        => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
-        'admin/files/disks/edit/{id}'     => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
-        'admin/files/ajax/choose_adapter' => 'Anomaly\FilesModule\Http\Controller\Admin\AjaxController@chooseAdapter',
-        'admin/files/settings'            => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit',
-        'files/uploader'                  => 'Anomaly\FilesModule\Http\Controller\UploadController@uploader',
-        'files/upload'                    => 'Anomaly\FilesModule\Http\Controller\UploadController@upload'
+        'admin/files'                        => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
+        'admin/files/objects/{disk}/{path?}' => 'Anomaly\FilesModule\Http\Controller\Admin\ObjectsController@index',
+        'admin/files/disks'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
+        'admin/files/disks/create'           => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
+        'admin/files/disks/edit/{id}'        => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
+        'admin/files/ajax/choose_adapter'    => 'Anomaly\FilesModule\Http\Controller\Admin\AjaxController@chooseAdapter',
+        'admin/files/settings'               => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit',
+        'files/uploader'                     => 'Anomaly\FilesModule\Http\Controller\UploadController@uploader',
+        'files/upload'                       => 'Anomaly\FilesModule\Http\Controller\UploadController@upload'
+    ];
+
+    /**
+     * Addon route constraints.
+     *
+     * @var array
+     */
+    protected $constraints = [
+        'admin/files/objects/{disk}/{path?}' => [
+            'disk' => '^[a-z0-9_]+$',
+            'path' => '(.*)'
+        ]
     ];
 
     /**
@@ -63,19 +75,4 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         ]
     ];
 
-    /**
-     * Map additional routes.
-     *
-     * @param Router $router
-     */
-    public function map(Router $router)
-    {
-        $router
-            ->any(
-                'admin/files/browser/{disk?}/{path?}',
-                'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index'
-            )
-            ->where('disk', '^[a-z0-9_]+$')
-            ->where('path', '(.*)');
-    }
 }

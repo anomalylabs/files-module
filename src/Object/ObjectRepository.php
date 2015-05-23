@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Object;
 
+use Anomaly\FilesModule\Object\Contract\ObjectInterface;
 use Anomaly\FilesModule\Object\Contract\ObjectRepositoryInterface;
 
 /**
@@ -28,5 +29,16 @@ class ObjectRepository implements ObjectRepositoryInterface
     public function __construct(ObjectModel $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * Find an object by it's path.
+     *
+     * @param $path
+     * @return null|ObjectInterface
+     */
+    public function findByPath($path)
+    {
+        return null;
     }
 }
