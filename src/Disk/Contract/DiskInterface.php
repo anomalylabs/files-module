@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Disk\Contract;
 
+use Anomaly\FilesModule\Adapter\StorageAdapterExtension;
+
 /**
  * Interface DiskInterface
  *
@@ -35,7 +37,7 @@ interface DiskInterface
     /**
      * Get the adapter.
      *
-     * @return string
+     * @return StorageAdapterExtension
      */
     public function getAdapter();
 }

@@ -54,7 +54,7 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     /**
      * Get the adapter.
      *
-     * @return string
+     * @return StorageAdapterExtension
      */
     public function getAdapter()
     {

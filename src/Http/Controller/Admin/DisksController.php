@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
+use Anomaly\ConfigurationModule\Configuration\Form\ConfigurationFormBuilder;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Disk\Form\DiskConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
@@ -29,26 +31,55 @@ class DisksController extends AdminController
     }
 
     /**
-     * Return a form to create a new disk.
+     * Return a form to create a new disk
+     * and it's configuration.
      *
-     * @param DiskFormBuilder     $form
+     * @param DiskFormBuilder $form
      * @param ExtensionCollection $adapters
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(DiskFormBuilder $form, ExtensionCollection $adapters)
-    {
-        return $form->setAdapter($adapters->get($_GET['adapter']))->render();
+    public function create(
+        DiskFormBuilder $disk,
+        ExtensionCollection $adapters,
+        ConfigurationFormBuilder $configuration,
+        DiskConfigurationFormBuilder $form
+    ) {
+        $adapter = $adapter = $adapters->get($_GET['adapter']);
+
+        $form->addForm('disk', $disk->setAdapter($adapter));
+        $form->addForm('configuration', $configuration->setEntry($adapter->getNamespace()));
+
+        return $form->render();
     }
 
     /**
-     * Return a form to edit an existing disk.
+     * Return a form to edit an existing disk
+     * and it's configuration.
      *
-     * @param DiskFormBuilder $form
-     * @param                 $id
+     * @param DiskFormBuilder              $disk
+     * @param ConfigurationFormBuilder     $configuration
+     * @param DiskConfigurationFormBuilder $form
+     * @param DiskRepositoryInterface      $disks
+     * @param                              $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(DiskFormBuilder $form, $id)
-    {
-        return $form->render($id);
+    public function edit(
+        DiskFormBuilder $disk,
+        ConfigurationFormBuilder $configuration,
+        DiskConfigurationFormBuilder $form,
+        DiskRepositoryInterface $disks,
+        $id
+    ) {
+        $entry = $disks->find($id);
+
+        $adapter = $entry->getAdapter();
+
+        $form->addForm('disk', $disk->setEntry($id)->setAdapter($adapter));
+        $form->addForm(
+            'configuration',
+            $configuration->setEntry($adapter->getNamespace())->setScope($entry->getSlug())
+        );
+
+        return $form->render();
     }
 }
