@@ -1,7 +1,8 @@
 <?php namespace Anomaly\FilesModule\Adapter;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\FilesModule\File\Command\SaveFile;
+use Anomaly\FilesModule\File\Command\DeleteFile;
+use Anomaly\FilesModule\File\Command\SyncFile;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
@@ -54,10 +55,72 @@ class StorageAdapterFilesystem extends Filesystem
     {
         $result = parent::put($path, $contents, $config);
 
-        $this->dispatch(new SaveFile($this->get($path), $this));
+        if ($result && $file = $this->get($path)) {
+            $this->dispatch(new SyncFile($this->get($path), $this));
+        }
 
         return $result;
     }
+
+    /**
+     * Prepend to a file.
+     *
+     * @param  string $path
+     * @param  string $data
+     * @return int
+     */
+    //public function prepend($path, $data);
+
+    /**
+     * Append to a file.
+     *
+     * @param  string $path
+     * @param  string $data
+     * @return int
+     */
+    //public function append($path, $data);
+
+    /**
+     * Delete the file at a given path.
+     *
+     * @param  string|array $paths
+     * @return bool
+     */
+    //public function delete($paths);
+
+    /**
+     * Copy a file to a new location.
+     *
+     * @param  string $from
+     * @param  string $to
+     * @return bool
+     */
+    //public function copy($from, $to);
+
+    /**
+     * Move a file to a new location.
+     *
+     * @param  string $from
+     * @param  string $to
+     * @return bool
+     */
+    //public function move($from, $to);
+
+    /**
+     * Create a directory.
+     *
+     * @param  string $path
+     * @return bool
+     */
+    //public function makeDirectory($path);
+
+    /**
+     * Recursively delete a directory.
+     *
+     * @param  string $directory
+     * @return bool
+     */
+    //public function deleteDirectory($directory);
 
     /**
      * Get the disk.

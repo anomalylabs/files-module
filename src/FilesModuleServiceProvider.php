@@ -49,7 +49,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $bindings = [
         'Anomaly\FilesModule\Disk\DiskModel'     => 'Anomaly\FilesModule\Disk\DiskModel',
-        'Anomaly\FilesModule\Object\ObjectModel' => 'Anomaly\FilesModule\Object\ObjectModel'
+        'Anomaly\FilesModule\Folder\FolderModel' => 'Anomaly\FilesModule\Folder\FolderModel',
+        'Anomaly\FilesModule\File\FileModel'     => 'Anomaly\FilesModule\File\FileModel'
     ];
 
     /**
@@ -59,9 +60,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $singletons = [
         'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'     => 'Anomaly\FilesModule\Disk\DiskRepository',
-        'Anomaly\FilesModule\Object\Contract\ObjectRepositoryInterface' => 'Anomaly\FilesModule\Object\ObjectRepository',
-        'Anomaly\FilesModule\Adapter\StorageAdapterManager'             => 'Anomaly\FilesModule\Adapter\StorageAdapterManager',
-        'Anomaly\FilesModule\FilesManager'                              => 'Anomaly\FilesModule\FilesManager'
+        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository',
+        'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository'
     ];
 
     /**

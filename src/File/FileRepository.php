@@ -1,6 +1,10 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use League\Flysystem\File;
 
 /**
  * Class FileRepository
@@ -28,5 +32,37 @@ class FileRepository implements FileRepositoryInterface
     function __construct(FileModel $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * Sync a file.
+     *
+     * @param File            $file
+     * @param FolderInterface $folder
+     * @param DiskInterface   $disk
+     * @return FileInterface
+     */
+    public function sync(File $file, FolderInterface $folder = null, DiskInterface $disk)
+    {
+        $entry = $this->model->where('name', basename($file->getPath()))->where(
+            'folder_id',
+            $folder ? $folder->getId() : null
+        )->first();
+
+        if (!$entry) {
+            $entry = $this->model->newInstance();
+        }
+
+        $entry->fill(
+            [
+                'name'      => basename($file->getPath()),
+                'folder_id' => $folder ? $folder->getId() : null,
+                'disk_id'   => $disk->getId()
+            ]
+        );
+
+        $entry->save();
+
+        return $entry;
     }
 }
