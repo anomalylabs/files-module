@@ -1,14 +1,14 @@
-<?php namespace Anomaly\FilesModule\Object\Contract;
+<?php namespace Anomaly\FilesModule\File\Contract;
 
 /**
- * Interface ObjectInterface
+ * Interface FileRepositoryInterface
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Object\Contract
+ * @package       Anomaly\FilesModule\File\Contract
  */
-interface ObjectInterface
+interface FileRepositoryInterface
 {
 
 }
