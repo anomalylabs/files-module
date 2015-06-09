@@ -39,7 +39,6 @@ class DisksController extends AdminController
      */
     public function choose(DiskGridBuilder $grid)
     {
-        app('filesystem')->disk('test_s3')->write('test/balls/test.txt', 'Test!');
         return $grid->render();
     }
 
