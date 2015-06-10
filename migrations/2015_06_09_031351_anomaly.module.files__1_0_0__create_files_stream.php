@@ -34,7 +34,9 @@ class AnomalyModuleFiles_1_0_0_CreateFilesStream extends Migration
         'disk' => [
             'required' => true
         ],
-        'folder'
+        'folder',
+        'extension',
+        'size'
     ];
 
 }

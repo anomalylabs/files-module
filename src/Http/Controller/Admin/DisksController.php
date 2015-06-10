@@ -38,7 +38,7 @@ class DisksController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function choose(DiskGridBuilder $grid)
-    {
+    {app('filesystem')->disk('test_s3')->put('test/1276714963279.jpg', file_get_contents('/Users/ryanthompson/Pictures/Wallpapers/1276714963279.jpg'));
         return $grid->render();
     }
 

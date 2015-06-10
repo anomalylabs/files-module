@@ -57,7 +57,10 @@ class FileRepository implements FileRepositoryInterface
             [
                 'name'      => basename($file->getPath()),
                 'folder_id' => $folder ? $folder->getId() : null,
-                'disk_id'   => $disk->getId()
+                'disk_id'   => $disk->getId(),
+                'size'      => $file->getSize(),
+                'mime_type' => $file->getMimetype(),
+                'extension' => pathinfo($file->getPath(), PATHINFO_EXTENSION)
             ]
         );
 
