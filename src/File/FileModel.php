@@ -61,6 +61,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Get the size.
+     *
+     * @return int
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
      * Get the related folder.
      *
      * @return null|FolderInterface

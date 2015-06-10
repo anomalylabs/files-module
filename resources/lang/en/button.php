@@ -3,5 +3,6 @@
 return [
     'upload'     => 'Upload',
     'new_folder' => 'New Folder',
-    'new_disk'  => 'New Disk'
+    'new_disk'   => 'New Disk',
+    'sync'       => 'Sync'
 ];

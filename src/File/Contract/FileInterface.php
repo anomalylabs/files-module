@@ -36,6 +36,13 @@ interface FileInterface
     public function getDisk();
 
     /**
+     * Get the size.
+     *
+     * @return int
+     */
+    public function getSize();
+
+    /**
      * Get the related folder.
      *
      * @return null|FolderInterface

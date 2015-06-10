@@ -25,16 +25,11 @@ class BrowserTableBuilder extends MultipleTableBuilder
         [
             'heading' => 'anomaly.module.files::field.name.name',
             'column'  => 'Anomaly\FilesModule\Browser\Table\Column\NameColumn'
+        ],
+        [
+            'heading' => 'anomaly.module.files::field.size.name',
+            'column'  => 'Anomaly\FilesModule\Browser\Table\Column\SizeColumn'
         ]
-    ];
-
-    /**
-     * The table buttons.
-     *
-     * @var array
-     */
-    protected $buttons = [
-        'view'
     ];
 
     /**

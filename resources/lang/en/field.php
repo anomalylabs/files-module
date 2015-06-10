@@ -9,5 +9,8 @@ return [
     ],
     'adapter' => [
         'name' => 'Adapter'
+    ],
+    'size'    => [
+        'name' => 'Size'
     ]
 ];

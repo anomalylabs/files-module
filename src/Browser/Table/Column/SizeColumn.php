@@ -7,14 +7,14 @@ use Anomaly\Streams\Platform\Ui\Table\Component\Column\Column;
 use Robbo\Presenter\Decorator;
 
 /**
- * Class NameColumn
+ * Class SizeColumn
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Browser\Table\Column
  */
-class NameColumn extends Column
+class SizeColumn extends Column
 {
 
     /**
@@ -25,7 +25,7 @@ class NameColumn extends Column
     protected $decorator;
 
     /**
-     * Create a new NameColumn instance.
+     * Create a new SizeColumn instance.
      *
      * @param Decorator $decorator
      */
@@ -41,9 +41,10 @@ class NameColumn extends Column
      */
     public function getValue()
     {
-        /* @var FolderPresenter|DiskPresenter|FilePresenter $object */
         $object = $this->decorator->decorate($this->entry);
 
-        return $object->browserLink();
+        if ($object instanceof FilePresenter) {
+            return $object->readableSize();
+        }
     }
 }

@@ -23,6 +23,21 @@ class FilePresenter extends EntryPresenter
     protected $object;
 
     /**
+     * Return the size in a readable format.
+     *
+     * @param int $decimals
+     * @return string
+     */
+    public function readableSize($decimals = 2)
+    {
+        $size = [' B', ' KB', ' MB', ' GB'];
+
+        $factor = floor((strlen($bytes = $this->object->getSize()) - 1) / 3);
+
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[(int)$factor];
+    }
+
+    /**
      * Return the browser link.
      *
      * @return string

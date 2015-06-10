@@ -36,6 +36,11 @@ class FilesModule extends Module
                     'data-target' => '#modal',
                     'href'        => 'files/uploader'
                 ],
+                'sync'   => [
+                    'button' => 'success',
+                    'icon'   => 'refresh',
+                    'text'   => 'module::button.sync'
+                ],
                 'new_folder'
             ]
         ],
