@@ -24,4 +24,14 @@ interface FileRepositoryInterface
      * @return FileInterface
      */
     public function sync(File $file, FolderInterface $folder = null, DiskInterface $disk);
+
+    /**
+     * Find a file by it's name.
+     *
+     * @param                 $name
+     * @param FolderInterface $folder
+     * @param DiskInterface   $disk
+     * @return null|FileInterface
+     */
+    public function findByName($name, FolderInterface $folder = null, DiskInterface $disk);
 }

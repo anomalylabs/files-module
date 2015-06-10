@@ -14,6 +14,15 @@ interface FolderRepositoryInterface
 {
 
     /**
+     * Find a folder by it's path.
+     *
+     * @param               $path
+     * @param DiskInterface $disk
+     * @return null|FolderInterface
+     */
+    public function findByPath($path, DiskInterface $disk);
+
+    /**
      * Find a folder by it's path
      * or create a new one.
      *
@@ -22,4 +31,24 @@ interface FolderRepositoryInterface
      * @return null|FolderInterface
      */
     public function findByPathOrCreate($path, DiskInterface $disk);
+
+    /**
+     * Find a folder by it's name and parent folder.
+     *
+     * @param                 $name
+     * @param FolderInterface $parent
+     * @param DiskInterface   $disk
+     * @return FolderInterface
+     */
+    public function findByName($name, FolderInterface $parent = null, DiskInterface $disk);
+
+    /**
+     * Find a folder by it's name and parent folder.
+     *
+     * @param                 $name
+     * @param FolderInterface $parent
+     * @param DiskInterface   $disk
+     * @return FolderInterface
+     */
+    public function findByNameOrCreate($name, FolderInterface $parent = null, DiskInterface $disk);
 }

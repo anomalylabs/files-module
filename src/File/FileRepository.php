@@ -68,4 +68,21 @@ class FileRepository implements FileRepositoryInterface
 
         return $entry;
     }
+
+    /**
+     * Find a file by it's name.
+     *
+     * @param                 $name
+     * @param FolderInterface $folder
+     * @param DiskInterface   $disk
+     * @return null|FileInterface
+     */
+    public function findByName($name, FolderInterface $folder = null, DiskInterface $disk)
+    {
+        return $this->model
+            ->where('name', $name)
+            ->where('folder_id', $folder ? $folder->getId() : null)
+            ->where('disk_id', $disk->getId())
+            ->first();
+    }
 }

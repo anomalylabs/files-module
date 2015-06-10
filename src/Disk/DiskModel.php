@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
+use Anomaly\FilesModule\Adapter\StorageAdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 
@@ -29,6 +30,16 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
         parent::boot();
 
         self::observe('Anomaly\FilesModule\Disk\DiskObserver');
+    }
+
+    /**
+     * Return the disk's filesystem.
+     *
+     * @return StorageAdapterFilesystem
+     */
+    public function filesystem()
+    {
+        return app('filesystem')->disk($this->getSlug());
     }
 
     /**

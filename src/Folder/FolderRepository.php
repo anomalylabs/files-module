@@ -33,6 +33,28 @@ class FolderRepository implements FolderRepositoryInterface
     }
 
     /**
+     * Find a folder by it's path.
+     *
+     * @param               $path
+     * @param DiskInterface $disk
+     * @return null|FolderInterface
+     */
+    public function findByPath($path, DiskInterface $disk)
+    {
+        if ($path === '.') {
+            return null;
+        }
+
+        $folder = null;
+
+        foreach (explode('/', $path) as $name) {
+            $folder = $this->findByName($name, $folder, $disk);
+        }
+
+        return $folder;
+    }
+
+    /**
      * Find a folder by it's path
      * or create a new one.
      *
@@ -53,6 +75,19 @@ class FolderRepository implements FolderRepositoryInterface
         }
 
         return $folder;
+    }
+
+    /**
+     * Find a folder by it's name and parent folder.
+     *
+     * @param                 $name
+     * @param FolderInterface $parent
+     * @param DiskInterface   $disk
+     * @return FolderInterface
+     */
+    public function findByName($name, FolderInterface $parent = null, DiskInterface $disk)
+    {
+        return $this->model->where('name', $name)->where('parent_id', $parent ? $parent->getId() : null)->first();
     }
 
     /**

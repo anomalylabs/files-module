@@ -1,6 +1,8 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 
 /**
@@ -15,6 +17,30 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
 {
 
     /**
+     * Always eager load these relations.
+     *
+     * @var array
+     */
+    protected $with = [
+        'disk',
+        'folder'
+    ];
+
+    /**
+     * Return the file's path.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        if ($folder = $this->getFolder()) {
+            return $folder->path($this->getName());
+        }
+
+        return $this->getName();
+    }
+
+    /**
      * Get the name.
      *
      * @return string
@@ -22,5 +48,25 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get the related disk.
+     *
+     * @return DiskInterface
+     */
+    public function getDisk()
+    {
+        return $this->disk;
+    }
+
+    /**
+     * Get the related folder.
+     *
+     * @return null|FolderInterface
+     */
+    public function getFolder()
+    {
+        return $this->folder;
     }
 }

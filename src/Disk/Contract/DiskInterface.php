@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Disk\Contract;
 
 use Anomaly\FilesModule\Adapter\StorageAdapterExtension;
+use Anomaly\FilesModule\Adapter\StorageAdapterFilesystem;
 
 /**
  * Interface DiskInterface
@@ -12,6 +13,13 @@ use Anomaly\FilesModule\Adapter\StorageAdapterExtension;
  */
 interface DiskInterface
 {
+
+    /**
+     * Return the disk's filesystem.
+     *
+     * @return StorageAdapterFilesystem
+     */
+    public function filesystem();
 
     /**
      * Get the ID.

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "537f86452a8f55fd15361c0e4678cbaa",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "768703274efa648ad63ac7646ad85c4e6a7f77e9"
+                "reference": "c0cb27f829faab1a611cf75e8ee2ebf33b184ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/768703274efa648ad63ac7646ad85c4e6a7f77e9",
-                "reference": "768703274efa648ad63ac7646ad85c4e6a7f77e9",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c0cb27f829faab1a611cf75e8ee2ebf33b184ec7",
+                "reference": "c0cb27f829faab1a611cf75e8ee2ebf33b184ec7",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-04-08 11:33:45"
+            "time": "2015-06-09 15:42:02"
         }
     ],
     "packages-dev": [],
