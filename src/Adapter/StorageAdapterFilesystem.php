@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesCommands;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemInterface;
 
 /**
  * Class StorageAdapterFilesystem
@@ -15,7 +16,7 @@ use League\Flysystem\Filesystem;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule
  */
-class StorageAdapterFilesystem extends Filesystem
+class StorageAdapterFilesystem extends Filesystem implements FilesystemInterface
 {
 
     use DispatchesCommands;

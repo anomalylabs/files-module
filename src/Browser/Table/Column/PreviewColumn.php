@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Browser\Table\Column;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Icon\IconRegistry;
 use Anomaly\Streams\Platform\Ui\Table\Component\Column\Column;
