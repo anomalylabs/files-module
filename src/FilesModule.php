@@ -28,20 +28,24 @@ class FilesModule extends Module
     protected $sections = [
         'browser' => [
             'buttons' => [
-                'upload' => [
+                'upload'     => [
                     'button'      => 'success',
                     'icon'        => 'upload',
                     'text'        => 'module::button.upload',
                     'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'href'        => 'files/uploader'
+                    'data-target' => '#modal-wide',
+                    'href'        => 'admin/files/uploader'
                 ],
-                'sync'   => [
+                'sync'       => [
                     'button' => 'success',
                     'icon'   => 'refresh',
                     'text'   => 'module::button.sync'
                 ],
-                'new_folder'
+                'new_folder' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/files/folders/create/{route.parameters_string}'
+                ]
             ]
         ],
         'disks'   => [

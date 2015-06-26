@@ -33,6 +33,15 @@ class BrowserTableBuilder extends MultipleTableBuilder
     ];
 
     /**
+     * The table actions.
+     *
+     * @var array
+     */
+    protected $actions = [
+        'delete'
+    ];
+
+    /**
      * The table options.
      *
      * @var array
@@ -40,17 +49,6 @@ class BrowserTableBuilder extends MultipleTableBuilder
     protected $options = [
         'attributes' => [
             'id' => 'browser'
-        ]
-    ];
-
-    /**
-     * The table assets.
-     *
-     * @var array
-     */
-    protected $assets = [
-        'styles.css' => [
-            'anomaly.module.files::less/browser.less|live'
         ]
     ];
 
