@@ -4,8 +4,8 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
+use Carbon\Carbon;
 use League\Flysystem\File;
-use League\Flysystem\MountManager;
 
 /**
  * Class FileModel
@@ -39,6 +39,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return a hash of the file.
+     *
+     * @return string
+     */
+    public function hash()
+    {
+        return md5(json_encode($this->getAttributes() + $_GET)) . '-' . $this->getExtension();
+    }
+
+    /**
      * Return the file's path.
      *
      * @return string
@@ -53,6 +63,61 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return the file's path on it's disk.
+     *
+     * @return string
+     */
+    public function diskPath()
+    {
+        $disk = $this->getDisk();
+
+        if ($folder = $this->getFolder()) {
+            return $disk->path($folder->path($this->getName()));
+        }
+
+        return $disk->path($this->getName());
+    }
+
+    /**
+     * Return the file's public path.
+     *
+     * @return string
+     */
+    public function publicPath()
+    {
+        $disk = $this->getDisk();
+        $path = $this->path();
+
+        return 'files/get/' . $disk->getSlug() . '/' . $path;
+    }
+
+    /**
+     * Return the file's stream path.
+     *
+     * @return string
+     */
+    public function streamPath()
+    {
+        $disk = $this->getDisk();
+        $path = $this->path();
+
+        return 'files/stream/' . $disk->getSlug() . '/' . $path;
+    }
+
+    /**
+     * Return the file's download path.
+     *
+     * @return string
+     */
+    public function downloadPath()
+    {
+        $disk = $this->getDisk();
+        $path = $this->path();
+
+        return 'files/download/' . $disk->getSlug() . '/' . $path;
+    }
+
+    /**
      * Return the file resource.
      *
      * @return File
@@ -64,6 +129,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $manager = app('League\Flysystem\MountManager');
 
         return $manager->get($disk->getSlug() . '://' . $this->path());
+    }
+
+    /**
+     * Return the last modified datetime.
+     *
+     * @return Carbon
+     */
+    public function lastModified()
+    {
+        return $this->last_modified ?: $this->created_at;
     }
 
     /**
@@ -104,5 +179,25 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getFolder()
     {
         return $this->folder;
+    }
+
+    /**
+     * Get the mime type.
+     *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mime_type;
+    }
+
+    /**
+     * Get the extension.
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
     }
 }

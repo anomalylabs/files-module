@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Command\SyncFile;
 use Illuminate\Foundation\Bus\DispatchesCommands;
-use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemInterface;
@@ -20,27 +19,13 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
 {
 
     use DispatchesCommands;
-
+    
     /**
      * The disk interface.
      *
-     * @var DiskInterface
+     * @var null|DiskInterface
      */
-    protected $disk;
-
-    /**
-     * Create a new AdapterFilesystem instance.
-     *
-     * @param DiskInterface    $disk
-     * @param AdapterInterface $adapter
-     * @param null             $config
-     */
-    public function __construct(DiskInterface $disk, AdapterInterface $adapter, $config = null)
-    {
-        $this->disk = $disk;
-
-        parent::__construct($adapter, $config);
-    }
+    protected $disk = null;
 
     /**
      * @param string $path     path to file
@@ -146,5 +131,18 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     public function getDisk()
     {
         return $this->disk;
+    }
+
+    /**
+     * Set the disk.
+     *
+     * @param DiskInterface $disk
+     * @return $this
+     */
+    public function setDisk(DiskInterface $disk)
+    {
+        $this->disk = $disk;
+
+        return $this;
     }
 }

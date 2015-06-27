@@ -19,6 +19,27 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
+        'files/read/{disk}/{path}'                  => [
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
+            'constraints' => [
+                'disk' => '^[a-z0-9_]+$',
+                'path' => '(.*)'
+            ]
+        ],
+        'files/stream/{disk}/{path}'                => [
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@stream',
+            'constraints' => [
+                'disk' => '^[a-z0-9_]+$',
+                'path' => '(.*)'
+            ]
+        ],
+        'files/download/{disk}/{path}'              => [
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@download',
+            'constraints' => [
+                'disk' => '^[a-z0-9_]+$',
+                'path' => '(.*)'
+            ]
+        ],
         'admin/files'                               => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@redirect',
         'admin/files/browser/{disk?}/{path?}'       => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',

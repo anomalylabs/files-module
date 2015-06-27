@@ -15,6 +15,14 @@ interface DiskInterface
 {
 
     /**
+     * Return the disk's path.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function path($path = null);
+
+    /**
      * Return the disk's filesystem.
      *
      * @return AdapterFilesystem

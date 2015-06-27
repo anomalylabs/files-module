@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
+use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\FilesystemManager;
@@ -60,7 +61,10 @@ class DiskFilesystem
     {
         $adapter = substr(get_class($disk->getAdapter()), 0, -9);
 
+        /* @var AdapterFilesystem $driver */
         $driver = $this->container->call($adapter . 'Driver@make', compact('disk'));
+
+        $driver->setDisk($disk);
 
         $this->filesystem->extend(
             $disk->getSlug(),

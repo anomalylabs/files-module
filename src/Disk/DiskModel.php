@@ -33,6 +33,17 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     }
 
     /**
+     * Return the disk's path.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function path($path = null)
+    {
+        return $this->getSlug() . '://' . ($path ? $path : $path);
+    }
+
+    /**
      * Return the disk's filesystem.
      *
      * @return AdapterFilesystem
