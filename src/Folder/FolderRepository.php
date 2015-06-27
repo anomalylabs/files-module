@@ -33,6 +33,17 @@ class FolderRepository implements FolderRepositoryInterface
     }
 
     /**
+     * Find a folder by it's ID.
+     *
+     * @param $id
+     * @return null|FolderInterface
+     */
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+
+    /**
      * Find a folder by it's path.
      *
      * @param               $path

@@ -34,7 +34,7 @@ class FilePresenter extends EntryPresenter
 
         $factor = floor((strlen($bytes = $this->object->getSize()) - 1) / 3);
 
-        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[(int)$factor];
+        return (float)sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[(int)$factor];
     }
 
     /**

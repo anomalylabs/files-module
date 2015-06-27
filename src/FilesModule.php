@@ -31,19 +31,22 @@ class FilesModule extends Module
                 'upload'     => [
                     'button'      => 'success',
                     'icon'        => 'upload',
-                    'text'        => 'module::button.upload',
                     'data-toggle' => 'modal',
                     'data-target' => '#modal-large',
-                    'href'        => 'admin/files/uploader'
+                    'href'        => 'admin/files/uploader/{route.parameters_string}',
+                    'text'        => 'module::button.upload',
+                    'enabled'     => 'admin/files/browser/*'
                 ],
                 'sync'       => [
-                    'button' => 'success',
-                    'icon'   => 'refresh',
-                    'text'   => 'module::button.sync'
+                    'button'  => 'success',
+                    'icon'    => 'refresh',
+                    'enabled' => 'admin/files/browser/*',
+                    'text'    => 'module::button.sync'
                 ],
                 'new_folder' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
+                    'enabled'     => 'admin/files/browser/*',
                     'href'        => 'admin/files/folders/create/{route.parameters_string}'
                 ]
             ]

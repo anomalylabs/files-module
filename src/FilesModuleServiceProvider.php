@@ -39,7 +39,13 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/disks/edit/{id}'               => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
         'admin/files/ajax/choose_adapter'           => 'Anomaly\FilesModule\Http\Controller\Admin\AjaxController@chooseAdapter',
         'admin/files/settings'                      => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit',
-        'admin/files/uploader'                      => 'Anomaly\FilesModule\Http\Controller\Admin\UploaderController@uploader',
+        'admin/files/uploader/{disk}/{path?}'       => [
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\UploaderController@uploader',
+            'constraints' => [
+                'disk' => '^[a-z0-9_]+$',
+                'path' => '(.*)'
+            ]
+        ],
         'admin/files/folders/create/{disk}/{path?}' => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
             'constraints' => [

@@ -1,5 +1,7 @@
 <?php namespace Anomaly\FilesModule\Uploader\Form;
 
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
 /**
@@ -21,15 +23,18 @@ class UploaderFormBuilder extends FormBuilder
     protected $ajax = true;
 
     /**
-     * The form fields.
+     * The disk instance.
      *
-     * @var array
+     * @var null|DiskInterface
      */
-    protected $fields = [
-        'files' => [
-            'type' => 'anomaly.field_type.files'
-        ]
-    ];
+    protected $disk = null;
+
+    /**
+     * The folder folder instance.
+     *
+     * @var null|FolderInterface
+     */
+    protected $folder = null;
 
     /**
      * The form actions.
@@ -62,4 +67,62 @@ class UploaderFormBuilder extends FormBuilder
         'title'           => 'anomaly.module.files::admin.upload_files'
     ];
 
+    /**
+     * Fired when the builder
+     * is ready to build.
+     *
+     * @throws \Exception
+     */
+    public function onReady()
+    {
+        if (!$this->getDisk()) {
+            throw new \Exception('The $disk parameter is required.');
+        }
+    }
+
+    /**
+     * Get the disk.
+     *
+     * @return DiskInterface|null
+     */
+    public function getDisk()
+    {
+        return $this->disk;
+    }
+
+    /**
+     * Set the disk.
+     *
+     * @param DiskInterface $disk
+     * @return $this
+     */
+    public function setDisk(DiskInterface $disk)
+    {
+        $this->disk = $disk;
+
+        return $this;
+    }
+
+    /**
+     * Get the folder folder.
+     *
+     * @return FolderInterface|null
+     */
+    public function getFolder()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * Set the folder folder.
+     *
+     * @param FolderInterface $folder
+     * @return $this
+     */
+    public function setFolder(FolderInterface $folder)
+    {
+        $this->folder = $folder;
+
+        return $this;
+    }
 }

@@ -43,8 +43,6 @@ class StorageAdapterFilesystem extends Filesystem implements FilesystemInterface
     }
 
     /**
-     * Create a file or update if exists.
-     *
      * @param string $path     path to file
      * @param string $contents file contents
      * @param mixed  $config
@@ -54,6 +52,24 @@ class StorageAdapterFilesystem extends Filesystem implements FilesystemInterface
     public function put($path, $contents, array $config = [])
     {
         $result = parent::put($path, $contents, $config);
+
+        if ($result && $file = $this->get($path)) {
+            $this->dispatch(new SyncFile($this->get($path), $this));
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $path     path to file
+     * @param string $contents file contents
+     * @param mixed  $config
+     * @throws FileExistsException
+     * @return bool
+     */
+    public function putStream($path, $resource, array $config = [])
+    {
+        $result = parent::putStream($path, $resource, $config);
 
         if ($result && $file = $this->get($path)) {
             $this->dispatch(new SyncFile($this->get($path), $this));

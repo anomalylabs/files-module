@@ -14,6 +14,14 @@ interface FolderRepositoryInterface
 {
 
     /**
+     * Find a folder by it's ID.
+     *
+     * @param $id
+     * @return null|FolderInterface
+     */
+    public function find($id);
+
+    /**
      * Find a folder by it's path.
      *
      * @param               $path
