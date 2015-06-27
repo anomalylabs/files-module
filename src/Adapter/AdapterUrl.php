@@ -1,27 +1,28 @@
 <?php namespace Anomaly\FilesModule\Adapter;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Illuminate\Config\Repository;
+use Illuminate\Http\Request;
 
 /**
- * Class StorageAdapterConfigurator
+ * Class AdapterUrl
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Adapter
  */
-class StorageAdapterConfigurator
+class AdapterUrl
 {
 
     /**
-     * Configure the disk.
+     * Generate the URL for this adapter.
      *
      * @param DiskInterface $disk
-     * @param Repository    $config
+     * @param Request       $request
+     * @return string
      */
-    public function configure(DiskInterface $disk, Repository $config)
+    public function generate(DiskInterface $disk, Request $request)
     {
-        $config->set("filesystems.disks.{$disk->getSlug()}.driver", $disk->getSlug());
+        return url('files/' . $disk->getSlug(), [], $request->isSecure());
     }
 }

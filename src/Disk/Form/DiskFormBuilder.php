@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk\Form;
 
-use Anomaly\FilesModule\Adapter\StorageAdapterExtension;
+use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
 /**
@@ -17,7 +17,7 @@ class DiskFormBuilder extends FormBuilder
     /**
      * The storage adapter.
      *
-     * @var null|StorageAdapterExtension
+     * @var null|AdapterExtension
      */
     protected $adapter = null;
 
@@ -45,7 +45,7 @@ class DiskFormBuilder extends FormBuilder
     /**
      * Get the adapter.
      *
-     * @return StorageAdapterExtension|null
+     * @return AdapterExtension|null
      */
     public function getAdapter()
     {
@@ -55,10 +55,10 @@ class DiskFormBuilder extends FormBuilder
     /**
      * Set the adapter.
      *
-     * @param StorageAdapterExtension $adapter
+     * @param AdapterExtension $adapter
      * @return $this
      */
-    public function setAdapter(StorageAdapterExtension $adapter)
+    public function setAdapter(AdapterExtension $adapter)
     {
         $this->adapter = $adapter;
 

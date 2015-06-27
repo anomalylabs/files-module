@@ -41,7 +41,7 @@ class DiskConfigurator
         $configurator = substr(get_class($disk->getAdapter()), 0, -9) . 'Configurator';
 
         if (!class_exists($configurator)) {
-            $configurator = 'Anomaly\FilesModule\Adapter\StorageAdapterConfigurator';
+            $configurator = 'Anomaly\FilesModule\Adapter\AdapterConfigurator';
         }
 
         $this->container->call($configurator . '@configure', compact('disk'));

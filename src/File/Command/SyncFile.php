@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
-use Anomaly\FilesModule\Adapter\StorageAdapterFilesystem;
+use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -27,7 +27,7 @@ class SyncFile implements SelfHandling
     /**
      * The adapter filesystem.
      *
-     * @var StorageAdapterFilesystem
+     * @var AdapterFilesystem
      */
     protected $filesystem;
 
@@ -35,9 +35,9 @@ class SyncFile implements SelfHandling
      * Create a new SyncFile instance.
      *
      * @param File                     $file
-     * @param StorageAdapterFilesystem $filesystem
+     * @param AdapterFilesystem $filesystem
      */
-    function __construct(File $file, StorageAdapterFilesystem $filesystem)
+    function __construct(File $file, AdapterFilesystem $filesystem)
     {
         $this->file       = $file;
         $this->filesystem = $filesystem;

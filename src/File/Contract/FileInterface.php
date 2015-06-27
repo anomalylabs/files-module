@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use League\Flysystem\File;
 
 /**
  * Interface FileInterface
@@ -20,6 +21,13 @@ interface FileInterface
      * @return string
      */
     public function path();
+
+    /**
+     * Return the file resource.
+     *
+     * @return File
+     */
+    public function resource();
 
     /**
      * Get the name.

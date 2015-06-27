@@ -1,10 +1,9 @@
 <?php namespace Anomaly\FilesModule\Disk\Listener;
 
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Disk\DiskConfigurator;
 use Anomaly\FilesModule\Disk\DiskFilesystem;
-use Illuminate\Config\Repository;
-use Illuminate\Filesystem\FilesystemManager;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 
@@ -62,8 +61,14 @@ class ExtendFilesystem
      */
     public function handle()
     {
+        /* @var DiskInterface $disk */
         foreach ($this->disks->all() as $disk) {
-            $this->configurator->configure($disk);
+
+            // Skip if the adapter is missing.
+            if (!$disk->getAdapter()) {
+                continue;
+            }
+
             $this->filesystem->load($disk);
         }
     }

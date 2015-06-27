@@ -4,6 +4,8 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
+use League\Flysystem\File;
+use League\Flysystem\MountManager;
 
 /**
  * Class FileModel
@@ -27,6 +29,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     ];
 
     /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::observe('Anomaly\FilesModule\File\FileObserver');
+    }
+
+    /**
      * Return the file's path.
      *
      * @return string
@@ -38,6 +50,20 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         }
 
         return $this->getName();
+    }
+
+    /**
+     * Return the file resource.
+     *
+     * @return File
+     */
+    public function resource()
+    {
+        $disk = $this->getDisk();
+
+        $manager = app('League\Flysystem\MountManager');
+
+        return $manager->get($disk->getSlug() . '://' . $this->path());
     }
 
     /**

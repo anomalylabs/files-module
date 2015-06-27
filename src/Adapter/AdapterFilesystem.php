@@ -9,14 +9,14 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemInterface;
 
 /**
- * Class StorageAdapterFilesystem
+ * Class AdapterFilesystem
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule
  */
-class StorageAdapterFilesystem extends Filesystem implements FilesystemInterface
+class AdapterFilesystem extends Filesystem implements FilesystemInterface
 {
 
     use DispatchesCommands;
@@ -29,7 +29,7 @@ class StorageAdapterFilesystem extends Filesystem implements FilesystemInterface
     protected $disk;
 
     /**
-     * Create a new StorageAdapterFilesystem instance.
+     * Create a new AdapterFilesystem instance.
      *
      * @param DiskInterface    $disk
      * @param AdapterInterface $adapter

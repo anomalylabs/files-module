@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
-use Anomaly\FilesModule\Adapter\StorageAdapterFilesystem;
+use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 
@@ -35,7 +35,7 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     /**
      * Return the disk's filesystem.
      *
-     * @return StorageAdapterFilesystem
+     * @return AdapterFilesystem
      */
     public function filesystem()
     {
@@ -65,7 +65,7 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     /**
      * Get the adapter.
      *
-     * @return StorageAdapterExtension
+     * @return AdapterExtension
      */
     public function getAdapter()
     {

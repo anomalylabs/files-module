@@ -37,12 +37,12 @@ class FilesModule extends Module
                     'text'        => 'module::button.upload',
                     'enabled'     => 'admin/files/browser/*'
                 ],
-                'sync'       => [
+                /*'sync'       => [
                     'button'  => 'success',
                     'icon'    => 'refresh',
                     'enabled' => 'admin/files/browser/*',
                     'text'    => 'module::button.sync'
-                ],
+                ],*/
                 'new_folder' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',

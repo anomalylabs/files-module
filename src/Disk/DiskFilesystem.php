@@ -2,6 +2,8 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Illuminate\Container\Container;
+use Illuminate\Filesystem\FilesystemManager;
+use League\Flysystem\MountManager;
 
 /**
  * Class DiskFilesystem
@@ -15,6 +17,13 @@ class DiskFilesystem
 {
 
     /**
+     * The mount manager.
+     *
+     * @var MountManager
+     */
+    protected $manager;
+
+    /**
      * The service container.
      *
      * @var Container
@@ -22,13 +31,24 @@ class DiskFilesystem
     protected $container;
 
     /**
+     * The Laravel filesystem.
+     *
+     * @var FilesystemManager
+     */
+    protected $filesystem;
+
+    /**
      * Create a new DiskFilesystem instance.
      *
-     * @param Container $container
+     * @param FilesystemManager $filesystem
+     * @param Container         $container
+     * @param MountManager      $manager
      */
-    public function __construct(Container $container)
+    public function __construct(FilesystemManager $filesystem, Container $container, MountManager $manager)
     {
-        $this->container = $container;
+        $this->manager    = $manager;
+        $this->container  = $container;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -38,6 +58,17 @@ class DiskFilesystem
      */
     public function load(DiskInterface $disk)
     {
-        $this->container->call(substr(get_class($disk->getAdapter()), 0, -9) . 'Filesystem@load', compact('disk'));
+        $adapter = substr(get_class($disk->getAdapter()), 0, -9);
+
+        $driver = $this->container->call($adapter . 'Driver@make', compact('disk'));
+
+        $this->filesystem->extend(
+            $disk->getSlug(),
+            function () use ($driver) {
+                return $driver;
+            }
+        );
+
+        $this->manager->mountFilesystem($disk->getSlug(), $driver);
     }
 }

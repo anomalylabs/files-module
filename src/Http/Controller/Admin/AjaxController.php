@@ -18,7 +18,7 @@ class AjaxController extends AdminController
     {
         return view(
             'module::admin/ajax/choose_adapter',
-            ['adapters' => $extensions->search('anomaly.module.files::storage_adapter.*')]
+            ['adapters' => $extensions->search('anomaly.module.files::adapter.*')]
         );
     }
 }
