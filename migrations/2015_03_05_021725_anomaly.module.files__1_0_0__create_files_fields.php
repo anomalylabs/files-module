@@ -31,7 +31,7 @@ class AnomalyModuleFiles_1_0_0_CreateFilesFields extends Migration
             'type'   => 'anomaly.field_type.addon',
             'config' => [
                 'type'   => 'extensions',
-                'search' => 'anomaly.module.files::storage_adapter.*'
+                'search' => 'anomaly.module.files::adapter.*'
             ]
         ],
         'parent'      => [
