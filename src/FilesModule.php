@@ -33,7 +33,7 @@ class FilesModule extends Module
                     'icon'        => 'upload',
                     'text'        => 'module::button.upload',
                     'data-toggle' => 'modal',
-                    'data-target' => '#modal-wide',
+                    'data-target' => '#modal-large',
                     'href'        => 'admin/files/uploader'
                 ],
                 'sync'       => [
