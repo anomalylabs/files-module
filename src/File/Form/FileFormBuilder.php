@@ -1,18 +1,18 @@
-<?php namespace Anomaly\FilesModule\Uploader\Form;
+<?php namespace Anomaly\FilesModule\File\Form;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
 /**
- * Class UploaderFormBuilder
+ * Class FileFormBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Uploader\Form
+ * @package       Anomaly\FilesModule\File\Form
  */
-class UploaderFormBuilder extends FormBuilder
+class FileFormBuilder extends FormBuilder
 {
 
     /**
@@ -21,6 +21,13 @@ class UploaderFormBuilder extends FormBuilder
      * @var bool
      */
     protected $ajax = true;
+
+    /**
+     * This is a model-less form.
+     *
+     * @var bool
+     */
+    protected $model = false;
 
     /**
      * The disk instance.

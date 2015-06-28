@@ -6,6 +6,7 @@ use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use Carbon\Carbon;
 use League\Flysystem\File;
+use League\Flysystem\FileNotFoundException;
 
 /**
  * Class FileModel
@@ -17,6 +18,13 @@ use League\Flysystem\File;
  */
 class FileModel extends FilesFilesEntryModel implements FileInterface
 {
+
+    /**
+     * Cache results.
+     *
+     * @var int
+     */
+    protected $cacheMinutes = 99999;
 
     /**
      * Always eager load these relations.
@@ -128,7 +136,11 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
 
         $manager = app('League\Flysystem\MountManager');
 
-        return $manager->get($disk->getSlug() . '://' . $this->path());
+        try {
+            return $manager->get($disk->getSlug() . '://' . $this->path());
+        } catch (FileNotFoundException $e) {
+            return null;
+        }
     }
 
     /**

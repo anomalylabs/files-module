@@ -23,16 +23,6 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     protected $cacheMinutes = 99999;
 
     /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::observe('Anomaly\FilesModule\Disk\DiskObserver');
-    }
-
-    /**
      * Return the disk's path.
      *
      * @param null $path

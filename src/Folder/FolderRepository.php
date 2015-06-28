@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 
 /**
  * Class FolderRepository
@@ -124,5 +125,16 @@ class FolderRepository implements FolderRepositoryInterface
                 'parent_id' => $parent ? $parent->getId() : null
             ]
         );
+    }
+
+    /**
+     * Delete a folder.
+     *
+     * @param FolderInterface|EloquentModel $folder
+     * @return bool
+     */
+    public function delete(FolderInterface $folder)
+    {
+        return $folder->delete();
     }
 }

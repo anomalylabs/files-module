@@ -18,6 +18,13 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
 {
 
     /**
+     * Cache results.
+     *
+     * @var int
+     */
+    protected $cacheMinutes = 99999;
+
+    /**
      * Always eager load these relations.
      *
      * @var array
@@ -26,6 +33,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
         'disk',
         'parent'
     ];
+
+    /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::observe('Anomaly\FilesModule\Folder\FolderObserver');
+    }
 
     /**
      * Return the folder's path.
@@ -42,6 +59,23 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
         }
 
         return $path;
+    }
+
+    /**
+     * Return the folders's path on it's disk.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function diskPath($path = null)
+    {
+        if ($parent = $this->getParent()) {
+            return $parent->diskPath($this->getName() . ($path ? '/' . $path : $path));
+        }
+
+        $disk = $this->getDisk();
+
+        return $disk->path($this->getName() . ($path ? '/' . $path : $path));
     }
 
     /**
@@ -85,12 +119,32 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Return related files.
+     * Get related folders.
+     *
+     * @return FolderCollection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Return the files relation.
      *
      * @return HasMany
      */
     public function files()
     {
         return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id');
+    }
+
+    /**
+     * Return the folder relation.
+     *
+     * @return HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany('Anomaly\FilesModule\Folder\FolderModel', 'parent_id');
     }
 }

@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
+use Anomaly\FilesModule\Folder\FolderCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -22,6 +23,13 @@ interface FolderInterface
      * @return string
      */
     public function path($path = null);
+
+    /**
+     * Return the folders's path on it's disk.
+     *
+     * @return string
+     */
+    public function diskPath();
 
     /**
      * Get the ID.
@@ -59,9 +67,23 @@ interface FolderInterface
     public function getParent();
 
     /**
-     * Return related files.
+     * Get related folders.
+     *
+     * @return FolderCollection
+     */
+    public function getChildren();
+
+    /**
+     * Return the files relation.
      *
      * @return HasMany
      */
     public function files();
+
+    /**
+     * Return folders relation.
+     *
+     * @return HasMany
+     */
+    public function children();
 }

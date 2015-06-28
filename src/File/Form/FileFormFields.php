@@ -1,22 +1,22 @@
-<?php namespace Anomaly\FilesModule\Uploader\Form;
+<?php namespace Anomaly\FilesModule\File\Form;
 
 /**
- * Class UploaderFormFields
+ * Class FileFormFields
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Uploader\Form
+ * @package       Anomaly\FilesModule\File\Form
  */
-class UploaderFormFields
+class FileFormFields
 {
 
     /**
      * Handle the form fields.
      *
-     * @param UploaderFormBuilder $builder
+     * @param FileFormBuilder $builder
      */
-    public function handle(UploaderFormBuilder $builder)
+    public function handle(FileFormBuilder $builder)
     {
         $disk   = $builder->getDisk();
         $folder = $builder->getFolder();

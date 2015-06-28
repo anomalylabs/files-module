@@ -2,10 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\FilesModule\Disk\DiskConfigurator;
 use Anomaly\FilesModule\Disk\DiskFilesystem;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 
 /**
  * Class ExtendFilesystem
@@ -26,13 +23,6 @@ class ExtendFilesystem
     protected $disks;
 
     /**
-     * The disk configurator.
-     *
-     * @var DiskConfigurator
-     */
-    protected $configurator;
-
-    /**
      * The filesystem extender.
      *
      * @var DiskFilesystem
@@ -43,17 +33,14 @@ class ExtendFilesystem
      * Create a new ExtendFilesystem instance.
      *
      * @param DiskRepositoryInterface $disks
-     * @param DiskConfigurator        $configurator
      * @param DiskFilesystem          $filesystem
      */
     public function __construct(
         DiskRepositoryInterface $disks,
-        DiskConfigurator $configurator,
         DiskFilesystem $filesystem
     ) {
-        $this->disks        = $disks;
-        $this->configurator = $configurator;
-        $this->filesystem   = $filesystem;
+        $this->disks      = $disks;
+        $this->filesystem = $filesystem;
     }
 
     /**

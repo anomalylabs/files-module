@@ -1,9 +1,10 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
+use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Anomaly\FilesModule\Uploader\Form\UploaderFormBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class FilesController
@@ -19,22 +20,26 @@ class FilesController extends AdminController
     /**
      * Return the form to upload files.
      *
-     * @param UploaderFormBuilder $uploader
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param FolderRepositoryInterface $folders
+     * @param DiskRepositoryInterface   $disks
+     * @param FileFormBuilder           $form
+     * @param                           $disk
+     * @param null                      $path
+     * @return Response
      */
     public function upload(
-        UploaderFormBuilder $uploader,
         FolderRepositoryInterface $folders,
         DiskRepositoryInterface $disks,
+        FileFormBuilder $form,
         $disk,
         $path = null
     ) {
-        $uploader->setDisk($disk = $disks->findBySlug($disk));
+        $form->setDisk($disk = $disks->findBySlug($disk));
 
         if ($folder = $folders->findByPath($path, $disk)) {
-            $uploader->setFolder($folder);
+            $form->setFolder($folder);
         }
 
-        return $uploader->render();
+        return $form->render();
     }
 }

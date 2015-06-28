@@ -4,6 +4,7 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use League\Flysystem\File;
 
 /**
@@ -84,5 +85,16 @@ class FileRepository implements FileRepositoryInterface
             ->where('folder_id', $folder ? $folder->getId() : null)
             ->where('disk_id', $disk->getId())
             ->first();
+    }
+
+    /**
+     * Delete a file.
+     *
+     * @param FileInterface|EloquentModel $file
+     * @return bool
+     */
+    public function delete(FileInterface $file)
+    {
+        return $file->delete();
     }
 }

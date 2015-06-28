@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Folder\Contract;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 
 /**
  * Interface FolderRepositoryInterface
@@ -59,4 +60,12 @@ interface FolderRepositoryInterface
      * @return FolderInterface
      */
     public function findByNameOrCreate($name, FolderInterface $parent = null, DiskInterface $disk);
+
+    /**
+     * Delete a folder.
+     *
+     * @param FolderInterface|EloquentModel $folder
+     * @return bool
+     */
+    public function delete(FolderInterface $folder);
 }

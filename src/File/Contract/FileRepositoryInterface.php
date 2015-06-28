@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use League\Flysystem\File;
 
 /**
@@ -34,4 +35,12 @@ interface FileRepositoryInterface
      * @return null|FileInterface
      */
     public function findByName($name, FolderInterface $folder = null, DiskInterface $disk);
+
+    /**
+     * Delete a file.
+     *
+     * @param FileInterface|EloquentModel $file
+     * @return bool
+     */
+    public function delete(FileInterface $file);
 }
