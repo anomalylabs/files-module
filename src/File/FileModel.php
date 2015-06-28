@@ -45,7 +45,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function hash()
     {
-        return md5(json_encode($this->getAttributes() + $_GET)) . '-' . $this->getExtension();
+        return md5(json_encode($this->getAttributes()));
     }
 
     /**
