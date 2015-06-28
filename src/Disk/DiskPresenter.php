@@ -15,19 +15,19 @@ class DiskPresenter extends EntryPresenter
 {
 
     /**
- * The decorated object.
- * This is for IDE support.
- *
- * @var DiskInterface
- */
+     * The decorated object.
+     * This is for IDE support.
+     *
+     * @var DiskInterface
+     */
     protected $object;
 
     /**
-     * Return the browser link.
+     * Return the view link.
      *
      * @return string
      */
-    public function browserLink()
+    public function viewLink()
     {
         return app('html')->link(
             implode(

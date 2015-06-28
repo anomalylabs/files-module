@@ -24,6 +24,8 @@ class FileReader extends FileResponse
     {
         $response = parent::make($file);
 
+        $response->headers->set('Content-Disposition', 'inline');
+
         return $response->setContent($this->manager->read($file->diskPath()));
     }
 
