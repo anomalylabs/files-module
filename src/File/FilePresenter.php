@@ -44,20 +44,6 @@ class FilePresenter extends EntryPresenter
      */
     public function browserLink()
     {
-        return app('html')->link(
-            implode(
-                '/',
-                array_filter(
-                    [
-                        'admin',
-                        'files',
-                        'view',
-                        $this->object->getDisk()->getSlug(),
-                        $this->object->path()
-                    ]
-                )
-            ),
-            $this->object->getName()
-        );
+        return app('html')->link($this->object->publicPath(), $this->object->getName(), ['target' => '_blank']);
     }
 }

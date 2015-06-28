@@ -24,10 +24,8 @@ class FileStreamer extends FileResponse
     {
         $response = parent::make($file);
 
-        $response->headers->set('Content-disposition', 'inline');
-        $response->headers->set('Content-Transfer-Encoding', 'binary');
-        $response->headers->set('Content-Length', ($file->getSize() - 1));
-        $response->headers->set('Accept-Ranges', '0-' . ($file->getSize() - 1));
+        $response->headers->set('Accept-Ranges', 'bytes');
+        $response->headers->set('Cache-Control', 'no-cache'); // Cache breaks streaming.
 
         $this->chunk($response, $file);
 
@@ -44,13 +42,15 @@ class FileStreamer extends FileResponse
     {
         $response = $this->make($file);
 
+        $stream = $this->manager->readStream($file->diskPath());
+
         return $this->response->stream(
-            function () use ($file) {
-                return $this->manager->readStream($file->diskPath());
+            function () use ($stream) {
+                fpassthru($stream);
             },
             200,
             array_combine(
-                array_keys($response->headers->all()),
+                array_keys($response->headers->allPreserveCase()),
                 array_map(
                     function ($header) {
                         return array_shift($header);
@@ -61,13 +61,20 @@ class FileStreamer extends FileResponse
         );
     }
 
+    /**
+     * Chunk the request into parts as
+     * desired by the request range header.
+     *
+     * @param Response      $response
+     * @param FileInterface $file
+     */
     protected function chunk(Response $response, FileInterface $file)
     {
-
         $size = $chunkStart = $file->getSize();
 
-        $end = $chunkEnd = $size - 1;
+        $end = $chunkEnd = $size;
 
+        $response->headers->set('Content-length', $size);
         $response->headers->set('Content-Range', "bytes 0-{$end}/{$size}");
 
         if (!$range = array_get($_SERVER, 'HTTP_RANGE')) {
@@ -91,7 +98,7 @@ class FileStreamer extends FileResponse
 
         $chunkEnd = ($chunkEnd > $end) ? $end : $chunkEnd;
 
-        if ($chunkStart > $chunkEnd || $chunkStart > $size - 1 || $chunkEnd >= $size) {
+        if ($chunkStart > $chunkEnd || $chunkStart > $size || $chunkEnd >= $size) {
             $response->setStatusCode(416, 'Requested Range Not Satisfiable');
             $response->headers->set('Content-Range', "bytes 0-{$end}/{$size}");
         }

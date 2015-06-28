@@ -19,7 +19,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'files/read/{disk}/{path}'                  => [
+        'files/get/{disk}/{path}'                   => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
