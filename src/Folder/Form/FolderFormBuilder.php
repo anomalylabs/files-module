@@ -57,15 +57,6 @@ class FolderFormBuilder extends FormBuilder
     ];
 
     /**
-     * The form options.
-     *
-     * @var array
-     */
-    protected $options = [
-        'title' => 'New Folder'
-    ];
-
-    /**
      * Fired when the builder
      * is ready to build.
      *
@@ -73,8 +64,8 @@ class FolderFormBuilder extends FormBuilder
      */
     public function onReady()
     {
-        if (!$this->getDisk()) {
-            throw new \Exception('The $disk parameter is required.');
+        if (!$this->getDisk() && !$this->getEntry()) {
+            throw new \Exception('The $disk parameter is required when creating a folder.');
         }
     }
 
@@ -87,7 +78,9 @@ class FolderFormBuilder extends FormBuilder
         $parent = $this->getParent();
         $disk   = $this->getDisk();
 
-        $entry->disk = $disk->getId();
+        if ($disk) {
+            $entry->disk = $disk->getId();
+        }
 
         if ($parent) {
             $entry->parent_id = $parent->getId();
