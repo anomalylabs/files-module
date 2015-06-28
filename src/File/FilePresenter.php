@@ -38,11 +38,11 @@ class FilePresenter extends EntryPresenter
     }
 
     /**
-     * Return the browser link.
+     * Return the view link.
      *
      * @return string
      */
-    public function browserLink()
+    public function viewLink()
     {
         return app('html')->link($this->object->publicPath(), $this->object->getName(), ['target' => '_blank']);
     }

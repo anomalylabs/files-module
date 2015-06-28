@@ -17,6 +17,15 @@ use Anomaly\Streams\Platform\Http\Controller\PublicController;
 class FilesController extends PublicController
 {
 
+    /**
+     * Return a file's contents.
+     *
+     * @param FileLocator $locator
+     * @param FileReader  $reader
+     * @param             $disk
+     * @param             $path
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function read(FileLocator $locator, FileReader $reader, $disk, $path)
     {
         if (!$file = $locator->locate($disk, $path)) {
@@ -26,6 +35,15 @@ class FilesController extends PublicController
         return $reader->read($file);
     }
 
+    /**
+     * Stream a file's contents.
+     *
+     * @param FileLocator  $locator
+     * @param FileStreamer $streamer
+     * @param              $disk
+     * @param              $path
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function stream(FileLocator $locator, FileStreamer $streamer, $disk, $path)
     {
         if (!$file = $locator->locate($disk, $path)) {
@@ -35,6 +53,15 @@ class FilesController extends PublicController
         return $streamer->stream($file);
     }
 
+    /**
+     * Download a file.
+     *
+     * @param FileLocator    $locator
+     * @param FileDownloader $downloader
+     * @param                $disk
+     * @param                $path
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function download(FileLocator $locator, FileDownloader $downloader, $disk, $path)
     {
         if (!$file = $locator->locate($disk, $path)) {

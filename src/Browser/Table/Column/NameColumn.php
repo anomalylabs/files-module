@@ -1,8 +1,6 @@
 <?php namespace Anomaly\FilesModule\Browser\Table\Column;
 
-use Anomaly\FilesModule\Disk\DiskPresenter;
-use Anomaly\FilesModule\File\FilePresenter;
-use Anomaly\FilesModule\Folder\FolderPresenter;
+use Anomaly\Streams\Platform\Entry\EntryPresenter;
 use Anomaly\Streams\Platform\Ui\Table\Component\Column\Column;
 use Robbo\Presenter\Decorator;
 
@@ -41,9 +39,9 @@ class NameColumn extends Column
      */
     public function getValue()
     {
-        /* @var FolderPresenter|DiskPresenter|FilePresenter $object */
+        /* @var EntryPresenter $object */
         $object = $this->decorator->decorate($this->entry);
 
-        return $object->browserLink();
+        return $object->viewLink();
     }
 }

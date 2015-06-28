@@ -27,7 +27,7 @@ class FolderPresenter extends EntryPresenter
      *
      * @return string
      */
-    public function browserLink()
+    public function viewLink()
     {
         return app('html')->link(
             implode(
