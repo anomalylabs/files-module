@@ -64,17 +64,6 @@ class BrowserController extends AdminController
     }
 
     /**
-     * Redirect to the browser action.
-     *
-     * @param Redirector $redirector
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function redirect(Redirector $redirector)
-    {
-        return $redirector->to('admin/files/browser');
-    }
-
-    /**
      * Return the browser index.
      *
      * @param BrowserTableBuilder $browser

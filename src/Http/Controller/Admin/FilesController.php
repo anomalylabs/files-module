@@ -6,23 +6,23 @@ use Anomaly\FilesModule\Uploader\Form\UploaderFormBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
- * Class UploaderController
+ * Class FilesController
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
-class UploaderController extends AdminController
+class FilesController extends AdminController
 {
 
     /**
-     * Return the upload form.
+     * Return the form to upload files.
      *
      * @param UploaderFormBuilder $uploader
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function uploader(
+    public function upload(
         UploaderFormBuilder $uploader,
         FolderRepositoryInterface $folders,
         DiskRepositoryInterface $disks,

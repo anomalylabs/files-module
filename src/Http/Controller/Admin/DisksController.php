@@ -32,6 +32,23 @@ class DisksController extends AdminController
     }
 
     /**
+     * Return an ajax modal to choose the type
+     * of adapter to use for creating a new disk.
+     *
+     * @param ExtensionCollection $extensions
+     * @return \Illuminate\View\View
+     */
+    public function chooseAdapter(ExtensionCollection $extensions)
+    {
+        return view(
+            'module::admin/ajax/choose_adapter',
+            [
+                'adapters' => $extensions->search('anomaly.module.files::adapter.*')
+            ]
+        );
+    }
+
+    /**
      * Return a form to create a new disk
      * and it's configuration.
      *

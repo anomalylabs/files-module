@@ -33,16 +33,10 @@ class FilesModule extends Module
                     'icon'        => 'upload',
                     'data-toggle' => 'modal',
                     'data-target' => '#modal-large',
-                    'href'        => 'admin/files/uploader/{route.parameters_string}',
+                    'href'        => 'admin/files/upload/{route.parameters_string}',
                     'text'        => 'module::button.upload',
                     'enabled'     => 'admin/files/browser/*'
                 ],
-                /*'sync'       => [
-                    'button'  => 'success',
-                    'icon'    => 'refresh',
-                    'enabled' => 'admin/files/browser/*',
-                    'text'    => 'module::button.sync'
-                ],*/
                 'new_folder' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
