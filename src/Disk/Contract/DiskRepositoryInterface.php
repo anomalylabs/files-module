@@ -21,13 +21,6 @@ interface DiskRepositoryInterface
     public function all();
 
     /**
-     * Return the first disk.
-     *
-     * @return null|DiskInterface
-     */
-    public function first();
-
-    /**
      * Find a disk by ID.
      *
      * @param $id

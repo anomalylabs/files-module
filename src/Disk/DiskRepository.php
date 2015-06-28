@@ -43,16 +43,6 @@ class DiskRepository implements DiskRepositoryInterface
     }
 
     /**
-     * Return the first disk.
-     *
-     * @return null|DiskInterface
-     */
-    public function first()
-    {
-        return $this->model->orderBy('sort_order', 'ASC')->first();
-    }
-
-    /**
      * Find a disk by ID.
      *
      * @param $id

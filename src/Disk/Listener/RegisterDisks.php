@@ -2,17 +2,17 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\FilesModule\Disk\DiskFilesystem;
+use Anomaly\FilesModule\Disk\DiskManager;
 
 /**
- * Class ExtendFilesystem
+ * Class RegisterDisks
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Disk\Listener
  */
-class ExtendFilesystem
+class RegisterDisks
 {
 
     /**
@@ -23,24 +23,22 @@ class ExtendFilesystem
     protected $disks;
 
     /**
-     * The filesystem extender.
+     * The adapter manager.
      *
-     * @var DiskFilesystem
+     * @var DiskManager
      */
-    protected $filesystem;
+    protected $manager;
 
     /**
-     * Create a new ExtendFilesystem instance.
+     * Create a new RegisterDisks instance.
      *
      * @param DiskRepositoryInterface $disks
-     * @param DiskFilesystem          $filesystem
+     * @param DiskManager             $manager
      */
-    public function __construct(
-        DiskRepositoryInterface $disks,
-        DiskFilesystem $filesystem
-    ) {
-        $this->disks      = $disks;
-        $this->filesystem = $filesystem;
+    function __construct(DiskRepositoryInterface $disks, DiskManager $manager)
+    {
+        $this->disks   = $disks;
+        $this->manager = $manager;
     }
 
     /**
@@ -50,13 +48,7 @@ class ExtendFilesystem
     {
         /* @var DiskInterface $disk */
         foreach ($this->disks->all() as $disk) {
-
-            // Skip if the adapter is missing.
-            if (!$disk->getAdapter()) {
-                continue;
-            }
-
-            $this->filesystem->load($disk);
+            $this->manager->register($disk);
         }
     }
 }

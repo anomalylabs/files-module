@@ -77,17 +77,6 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     ];
 
     /**
-     * Addon route constraints.
-     *
-     * @var array
-     */
-    protected $constraints = [
-        'admin/files/browser/{disk?}/{path?}',
-        'admin/files/view/{disk}/{path}',
-        'admin/files/folder/create/{disk}/{path}',
-    ];
-
-    /**
      * The class bindings.
      *
      * @var array
@@ -116,7 +105,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $listeners = [
         'Anomaly\Streams\Platform\Application\Event\ApplicationHasLoaded' => [
-            'Anomaly\FilesModule\Disk\Listener\ExtendFilesystem'
+            'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
         ]
     ];
 
