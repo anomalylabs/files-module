@@ -57,6 +57,17 @@ class FolderFormBuilder extends FormBuilder
     ];
 
     /**
+     * The form buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'cancel' => [
+            'href' => '{url.previous}'
+        ]
+    ];
+
+    /**
      * Fired when the builder
      * is ready to build.
      *

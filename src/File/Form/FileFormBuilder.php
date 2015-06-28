@@ -62,7 +62,11 @@ class FileFormBuilder extends FormBuilder
      *
      * @var array
      */
-    protected $buttons = [];
+    protected $buttons = [
+        'cancel' => [
+            'href' => '{url.previous}'
+        ]
+    ];
 
     /**
      * The form options.
