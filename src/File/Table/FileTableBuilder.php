@@ -31,6 +31,17 @@ class FileTableBuilder extends TableBuilder
     protected $folder;
 
     /**
+     * The table options.
+     *
+     * @var array
+     */
+    protected $options = [
+        'order_by' => [
+            'name' => 'ASC'
+        ]
+    ];
+
+    /**
      * Fired when the table is ready to build.
      *
      * @throws \Exception
