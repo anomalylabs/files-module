@@ -38,9 +38,11 @@ class DiskManager
      */
     public function register(DiskInterface $disk)
     {
-        $this->container->call(
-            substr(get_class($adapter = $disk->getAdapter()), 0, -9) . 'Loader@load',
-            compact('disk', 'adapter')
-        );
+        if ($adapter = $disk->getAdapter()) {
+            $this->container->call(
+                substr(get_class($adapter), 0, -9) . 'Loader@load',
+                compact('disk', 'adapter')
+            );
+        }
     }
 }
