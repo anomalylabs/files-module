@@ -103,10 +103,12 @@ class FolderObserver extends EntryObserver
     {
         $this->manager->deleteDir($entry->diskPath());
 
+        // Delete contained files.
         foreach ($entry->getFiles() as $file) {
             $this->files->delete($file);
         }
 
+        // Delete contained folders.
         foreach ($entry->getChildren() as $folder) {
             $this->folders->delete($folder);
         }

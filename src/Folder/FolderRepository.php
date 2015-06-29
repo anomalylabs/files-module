@@ -112,7 +112,7 @@ class FolderRepository implements FolderRepositoryInterface
      */
     public function findByNameOrCreate($name, FolderInterface $parent = null, DiskInterface $disk)
     {
-        $folder = $this->model->where('name', $name)->where('parent_id', $parent ? $parent->getId() : null)->first();
+        $folder = $this->findByName($name, $parent, $disk);
 
         if ($folder) {
             return $folder;
