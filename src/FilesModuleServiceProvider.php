@@ -104,7 +104,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $listeners = [
-        'Anomaly\Streams\Platform\Application\Event\ApplicationHasLoaded' => [
+        'Anomaly\Streams\Platform\Addon\Event\AddonsRegistered' => [
             'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
         ]
     ];
