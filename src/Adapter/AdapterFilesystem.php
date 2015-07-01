@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Adapter\Command\DeleteFile;
 use Anomaly\FilesModule\Adapter\Command\DeleteFolder;
 use Anomaly\FilesModule\Adapter\Command\SyncFile;
+use Anomaly\FilesModule\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use InvalidArgumentException;
@@ -187,6 +188,14 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     public function copy($path, $newpath)
     {
         $result = parent::copy($path, $newpath);
+
+        if ($result && $resource = $this->get($newpath)) {
+            return $this->dispatch(
+                new SyncFile($resource, $this)
+            ); // TODO: $newpath could be for a new filesystem (not $this).
+        }
+
+        return $result;
     }
 
     /**
@@ -224,6 +233,25 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
 
         if ($result && $resource = $this->get($dirname)) {
             return $this->dispatch(new DeleteFolder($resource, $this));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Create a directory.
+     *
+     * @param string $dirname The name of the new directory.
+     * @param array  $config  An optional configuration array.
+     *
+     * @return bool True on success, false on failure.
+     */
+    public function createDir($dirname, array $config = [])
+    {
+        $result = parent::createDir($dirname, $config);
+
+        if ($result && $resource = $this->get($dirname)) {
+            return $this->dispatch(new SyncFolder($resource, $this));
         }
 
         return $result;
