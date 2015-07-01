@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\File\Command;
+<?php namespace Anomaly\FilesModule\Adapter\Command;
 
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
@@ -13,7 +13,7 @@ use League\Flysystem\File;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\File\Command
+ * @package       Anomaly\FilesModule\Adapter\Command
  */
 class SyncFile implements SelfHandling
 {

@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Adapter;
 
+use Anomaly\FilesModule\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\FilesModule\File\Command\SyncFile;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
