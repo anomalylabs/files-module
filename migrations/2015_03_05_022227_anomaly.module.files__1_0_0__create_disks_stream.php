@@ -32,7 +32,7 @@ class AnomalyModuleFiles_1_0_0_CreateDisksStream extends Migration
         'name'    => ['required' => true, 'unique' => true],
         'slug'    => ['required' => true, 'unique' => true],
         'adapter' => ['required' => true],
-        'default'
+        'description'
     ];
 
 }

@@ -24,6 +24,13 @@ interface FileInterface
     public function hash();
 
     /**
+     * Return the type of the file.
+     *
+     * @return string
+     */
+    public function type();
+
+    /**
      * Return the file's path.
      *
      * @return string

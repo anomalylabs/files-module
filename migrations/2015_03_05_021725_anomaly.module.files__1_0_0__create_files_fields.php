@@ -26,7 +26,6 @@ class AnomalyModuleFiles_1_0_0_CreateFilesFields extends Migration
                 'slugify' => 'name'
             ]
         ],
-        'default'     => 'anomaly.field_type.boolean',
         'adapter'     => [
             'type'   => 'anomaly.field_type.addon',
             'config' => [

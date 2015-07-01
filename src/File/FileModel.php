@@ -57,6 +57,18 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return the type of the file.
+     *
+     * @return string
+     */
+    public function type()
+    {
+        $parts = explode('/', $this->getMimeType());
+
+        return array_shift($parts);
+    }
+
+    /**
      * Return the file's path.
      *
      * @return string
