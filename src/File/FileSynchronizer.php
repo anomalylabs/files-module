@@ -55,7 +55,7 @@ class FileSynchronizer
     {
         $folder = $this->syncFolder($resource, $disk);
 
-        if (!$file = $this->files->findByName(basename($resource->getPath()), $folder, $disk)) {
+        if (!$file = $this->files->findByName(basename($resource->getPath()), $disk, $folder)) {
             $file = $this->files->create(
                 [
                     'name'      => basename($resource->getPath()),
@@ -66,6 +66,8 @@ class FileSynchronizer
                     'extension' => pathinfo($resource->getPath(), PATHINFO_EXTENSION)
                 ]
             );
+
+            dd($file);
         }
 
         return $file;
@@ -91,7 +93,7 @@ class FileSynchronizer
             /* @var FolderInterface|null $parent */
             $parent = null;
 
-            if (!$folder = $this->folders->findByName($name, $parent, $disk)) {
+            if (!$folder = $this->folders->findByName($name, $disk, $parent)) {
                 $folder = $parent = $this->folders->create(
                     [
                         'name'      => $name,

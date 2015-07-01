@@ -57,10 +57,10 @@ class FolderRepository implements FolderRepositoryInterface
 
         foreach (explode('/', $path) as $name) {
 
-            $folder = $this->findByName($name, $folder, $disk);
+            $folder = $this->findByName($name, $disk, $folder);
 
             if (!$folder) {
-                throw new \Exception("A folder with the path [{$path}] could not be found!");
+                return null;
             }
         }
 
@@ -71,11 +71,11 @@ class FolderRepository implements FolderRepositoryInterface
      * Find a folder by it's name and parent folder.
      *
      * @param                 $name
-     * @param FolderInterface $parent
      * @param DiskInterface   $disk
-     * @return FolderInterface
+     * @param FolderInterface $parent
+     * @return null|FolderInterface
      */
-    public function findByName($name, FolderInterface $parent = null, DiskInterface $disk)
+    public function findByName($name, DiskInterface $disk, FolderInterface $parent = null)
     {
         return $this->model->where('name', $name)->where('parent_id', $parent ? $parent->getId() : null)->first();
     }

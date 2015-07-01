@@ -35,11 +35,11 @@ interface FolderRepositoryInterface
      * Find a folder by it's name and parent folder.
      *
      * @param                 $name
-     * @param FolderInterface $parent
      * @param DiskInterface   $disk
-     * @return FolderInterface
+     * @param FolderInterface $parent
+     * @return null|FolderInterface
      */
-    public function findByName($name, FolderInterface $parent = null, DiskInterface $disk);
+    public function findByName($name, DiskInterface $disk, FolderInterface $parent = null);
 
     /**
      * Delete a folder.

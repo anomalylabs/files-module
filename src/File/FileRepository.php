@@ -5,7 +5,6 @@ use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\EloquentModel;
-use League\Flysystem\File;
 
 /**
  * Class FileRepository
@@ -47,54 +46,19 @@ class FileRepository implements FileRepositoryInterface
     }
 
     /**
-     * Sync a file.
-     *
-     * @param File            $file
-     * @param FolderInterface $folder
-     * @param DiskInterface   $disk
-     * @return FileInterface
-     */
-    public function sync(File $file, FolderInterface $folder = null, DiskInterface $disk)
-    {
-        $entry = $this->model->where('name', basename($file->getPath()))->where(
-            'folder_id',
-            $folder ? $folder->getId() : null
-        )->first();
-
-        if (!$entry) {
-            $entry = $this->model->newInstance();
-        }
-
-        $entry->fill(
-            [
-                'name'      => basename($file->getPath()),
-                'folder_id' => $folder ? $folder->getId() : null,
-                'disk_id'   => $disk->getId(),
-                'size'      => $file->getSize(),
-                'mime_type' => $file->getMimetype(),
-                'extension' => pathinfo($file->getPath(), PATHINFO_EXTENSION)
-            ]
-        );
-
-        $entry->save();
-
-        return $entry;
-    }
-
-    /**
      * Find a file by it's name.
      *
      * @param                 $name
-     * @param FolderInterface $folder
      * @param DiskInterface   $disk
+     * @param FolderInterface $folder
      * @return null|FileInterface
      */
-    public function findByName($name, FolderInterface $folder = null, DiskInterface $disk)
+    public function findByName($name, DiskInterface $disk, FolderInterface $folder = null)
     {
         return $this->model
             ->where('name', $name)
-            ->where('folder_id', $folder ? $folder->getId() : null)
             ->where('disk_id', $disk->getId())
+            ->where('folder_id', $folder ? $folder->getId() : null)
             ->first();
     }
 

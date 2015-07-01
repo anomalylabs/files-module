@@ -80,7 +80,7 @@ class FolderObserver extends EntryObserver
          * exist on the server it'll be written
          * automatically soon.
          */
-        if ($this->folders->findByName($entry->getName(), $entry->getParent(), $disk)) {
+        if ($this->folders->findByName($entry->getName(), $disk, $entry->getParent())) {
             return false;
         }
 

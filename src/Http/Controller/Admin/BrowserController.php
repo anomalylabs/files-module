@@ -10,7 +10,6 @@ use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Routing\Redirector;
 
 /**
  * Class BrowserController
@@ -124,7 +123,7 @@ class BrowserController extends AdminController
         $disk = $this->disks->findBySlug($disk);
 
         $folder = $this->folders->findByPath(dirname($path), $disk);
-        $file   = $this->files->findByName(basename($path), $folder, $disk);
+        $file   = $this->files->findByName(basename($path), $disk, $folder);
 
         if (!$disk || (!$folder && !$file)) {
             abort(404);

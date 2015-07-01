@@ -68,7 +68,7 @@ class FileLocator
 
         $folder = dirname($path) !== '.' ? $this->folders->findByPath(dirname($path), $disk) : null;
 
-        if (!$file = $this->files->findByName(basename($path), $folder, $disk)) {
+        if (!$file = $this->files->findByName(basename($path), $disk, $folder)) {
             return null;
         }
 
