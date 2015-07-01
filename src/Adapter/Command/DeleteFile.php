@@ -3,20 +3,19 @@
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
-use Anomaly\FilesModule\File\FileSynchronizer;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\File;
 
 /**
- * Class SyncFile
+ * Class DeleteFile
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Adapter\Command
  */
-class SyncFile implements SelfHandling
+class DeleteFile implements SelfHandling
 {
 
     /**
@@ -34,9 +33,9 @@ class SyncFile implements SelfHandling
     protected $filesystem;
 
     /**
-     * Create a new SyncFile instance.
+     * Create a new DeleteFile instance.
      *
-     * @param File                     $file
+     * @param File              $file
      * @param AdapterFilesystem $filesystem
      */
     function __construct(File $file, AdapterFilesystem $filesystem)
@@ -48,11 +47,19 @@ class SyncFile implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param FileSynchronizer $synchronizer
-     * @return FileInterface
+     * @param FileRepositoryInterface   $files
+     * @param FolderRepositoryInterface $folders
+     * @return FileInterface|bool
      */
-    public function handle(FileSynchronizer $synchronizer)
+    public function handle(FileRepositoryInterface $files, FolderRepositoryInterface $folders)
     {
-        return $synchronizer->sync($this->file, $this->filesystem->getDisk());
+        $folder = $folders->findByPath($this->file->getPath(), $this->filesystem->getDisk());
+        $file   = $files->findByName(basename($this->file->getPath()), $this->filesystem->getDisk(), $folder);
+
+        if ($file && $files->delete($file)) {
+            return $file;
+        }
+
+        return true;
     }
 }

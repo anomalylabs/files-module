@@ -49,7 +49,7 @@ class FileSynchronizer
      *
      * @param File          $resource
      * @param DiskInterface $disk
-     * @return FileInterface
+     * @return null|FileInterface
      */
     public function sync(File $resource, DiskInterface $disk)
     {
