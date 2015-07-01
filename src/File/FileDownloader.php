@@ -24,7 +24,7 @@ class FileDownloader extends FileResponse
     {
         $response = parent::make($file);
 
-        $response->headers->set('Content-disposition', 'attachment; filename=\"' . addslashes($file->getName()) . '\"');
+        $response->headers->set('Content-disposition', 'attachment; filename=' . $file->getName());
 
         return $response->setContent($this->manager->read($file->diskPath()));
     }
