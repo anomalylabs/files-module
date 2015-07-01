@@ -15,12 +15,12 @@ interface FolderRepositoryInterface
 {
 
     /**
-     * Find a folder by it's ID.
+     * Create a new folder.
      *
-     * @param $id
-     * @return null|FolderInterface
+     * @param array $attributes
+     * @return FolderInterface
      */
-    public function find($id);
+    public function create(array $attributes);
 
     /**
      * Find a folder by it's path.
@@ -32,16 +32,6 @@ interface FolderRepositoryInterface
     public function findByPath($path, DiskInterface $disk);
 
     /**
-     * Find a folder by it's path
-     * or create a new one.
-     *
-     * @param               $path
-     * @param DiskInterface $disk
-     * @return null|FolderInterface
-     */
-    public function findByPathOrCreate($path, DiskInterface $disk);
-
-    /**
      * Find a folder by it's name and parent folder.
      *
      * @param                 $name
@@ -50,16 +40,6 @@ interface FolderRepositoryInterface
      * @return FolderInterface
      */
     public function findByName($name, FolderInterface $parent = null, DiskInterface $disk);
-
-    /**
-     * Find a folder by it's name and parent folder.
-     *
-     * @param                 $name
-     * @param FolderInterface $parent
-     * @param DiskInterface   $disk
-     * @return FolderInterface
-     */
-    public function findByNameOrCreate($name, FolderInterface $parent = null, DiskInterface $disk);
 
     /**
      * Delete a folder.

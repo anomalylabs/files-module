@@ -17,14 +17,12 @@ interface FileRepositoryInterface
 {
 
     /**
-     * Sync a file.
+     * Create a new file.
      *
-     * @param File            $file
-     * @param FolderInterface $folder
-     * @param DiskInterface   $disk
+     * @param array $attributes
      * @return FileInterface
      */
-    public function sync(File $file, FolderInterface $folder = null, DiskInterface $disk);
+    public function create(array $attributes);
 
     /**
      * Find a file by it's name.

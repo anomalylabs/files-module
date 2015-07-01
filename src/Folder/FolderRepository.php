@@ -34,14 +34,14 @@ class FolderRepository implements FolderRepositoryInterface
     }
 
     /**
-     * Find a folder by it's ID.
+     * Create a new folder.
      *
-     * @param $id
-     * @return null|FolderInterface
+     * @param array $attributes
+     * @return FolderInterface
      */
-    public function find($id)
+    public function create(array $attributes)
     {
-        return $this->model->find($id);
+        return $this->model->create($attributes);
     }
 
     /**
@@ -60,30 +60,12 @@ class FolderRepository implements FolderRepositoryInterface
         $folder = null;
 
         foreach (explode('/', $path) as $name) {
+
             $folder = $this->findByName($name, $folder, $disk);
-        }
 
-        return $folder;
-    }
-
-    /**
-     * Find a folder by it's path
-     * or create a new one.
-     *
-     * @param               $path
-     * @param DiskInterface $disk
-     * @return null|FolderInterface
-     */
-    public function findByPathOrCreate($path, DiskInterface $disk)
-    {
-        if ($path === '.') {
-            return null;
-        }
-
-        $folder = null;
-
-        foreach (explode('/', $path) as $name) {
-            $folder = $this->findByNameOrCreate($name, $folder, $disk);
+            if (!$folder) {
+                throw new \Exception("A folder with the path [{$path}] could not be found!");
+            }
         }
 
         return $folder;
@@ -100,31 +82,6 @@ class FolderRepository implements FolderRepositoryInterface
     public function findByName($name, FolderInterface $parent = null, DiskInterface $disk)
     {
         return $this->model->where('name', $name)->where('parent_id', $parent ? $parent->getId() : null)->first();
-    }
-
-    /**
-     * Find a folder by it's name and parent folder.
-     *
-     * @param                 $name
-     * @param FolderInterface $parent
-     * @param DiskInterface   $disk
-     * @return FolderInterface
-     */
-    public function findByNameOrCreate($name, FolderInterface $parent = null, DiskInterface $disk)
-    {
-        $folder = $this->findByName($name, $parent, $disk);
-
-        if ($folder) {
-            return $folder;
-        }
-
-        return $this->model->create(
-            [
-                'name'      => $name,
-                'disk_id'   => $disk->getId(),
-                'parent_id' => $parent ? $parent->getId() : null
-            ]
-        );
     }
 
     /**

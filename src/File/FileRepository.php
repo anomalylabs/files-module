@@ -36,6 +36,17 @@ class FileRepository implements FileRepositoryInterface
     }
 
     /**
+     * Create a new file.
+     *
+     * @param array $attributes
+     * @return FileInterface
+     */
+    public function create(array $attributes)
+    {
+        return $this->model->create($attributes);
+    }
+
+    /**
      * Sync a file.
      *
      * @param File            $file
