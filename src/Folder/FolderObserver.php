@@ -84,13 +84,6 @@ class FolderObserver extends EntryObserver
             return false;
         }
 
-        /**
-         * If there was a failure then abort!
-         */
-        if (!$this->manager->createDir($disk->path($entry->path()))) {
-            return false;
-        }
-
         return parent::saving($entry);
     }
 

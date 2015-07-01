@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\Adapter\Command;
 
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
-use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\FileSynchronizer;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
@@ -36,7 +35,7 @@ class SyncFile implements SelfHandling
     /**
      * Create a new SyncFile instance.
      *
-     * @param File                     $file
+     * @param File              $file
      * @param AdapterFilesystem $filesystem
      */
     function __construct(File $file, AdapterFilesystem $filesystem)
@@ -48,8 +47,8 @@ class SyncFile implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param FileSynchronizer $synchronizer
-     * @return FileInterface
+     * @param FolderRepositoryInterface $folders
+     * @param FileRepositoryInterface   $files
      */
     public function handle(FileSynchronizer $synchronizer)
     {
