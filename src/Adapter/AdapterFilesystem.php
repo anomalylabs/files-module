@@ -71,8 +71,8 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     {
         $result = parent::putStream($path, $resource, $config);
 
-        if ($result && $file = $this->get($path)) {
-            $this->dispatch(new SyncFile($this->get($path), $this));
+        if ($result && $resource = $this->get($path)) {
+            $this->dispatch(new SyncFile($resource, $this));
         }
 
         return $result;
