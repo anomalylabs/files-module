@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
 
 /**
@@ -13,4 +14,23 @@ use Anomaly\Streams\Platform\Entry\EntryCollection;
 class FileCollection extends EntryCollection
 {
 
+    /**
+     * Return files of a desired type.
+     *
+     * @param $type
+     * @return static|FileCollection
+     */
+    public function type($type)
+    {
+        $files = [];
+
+        /* @var FileInterface $item */
+        foreach ($this->items as $item) {
+            if ($item->type() === $type) {
+                $files[] = $item;
+            }
+        }
+
+        return new static($files);
+    }
 }
