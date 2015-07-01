@@ -77,7 +77,11 @@ class FolderRepository implements FolderRepositoryInterface
      */
     public function findByName($name, DiskInterface $disk, FolderInterface $parent = null)
     {
-        return $this->model->where('name', $name)->where('parent_id', $parent ? $parent->getId() : null)->first();
+        return $this->model
+            ->where('name', $name)
+            ->where('disk_id', $disk->getId())
+            ->where('parent_id', $parent ? $parent->getId() : null)
+            ->first();
     }
 
     /**

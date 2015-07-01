@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
+use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;

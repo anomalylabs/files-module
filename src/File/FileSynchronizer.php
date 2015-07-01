@@ -66,8 +66,6 @@ class FileSynchronizer
                     'extension' => pathinfo($resource->getPath(), PATHINFO_EXTENSION)
                 ]
             );
-
-            dd($file);
         }
 
         return $file;
@@ -82,19 +80,19 @@ class FileSynchronizer
      */
     protected function syncFolder(File $resource, DiskInterface $disk)
     {
-        $folder = dirname($resource->getPath());
+        $path = dirname($resource->getPath());
 
-        if ($folder === '.') {
+        if ($path === '.') {
             return null;
         }
 
-        foreach (explode('/', $folder) as $name) {
+        /* @var FolderInterface|null $parent */
+        $parent = null;
+        $folder = null;
 
-            /* @var FolderInterface|null $parent */
-            $parent = null;
-
+        foreach (explode('/', $path) as $name) {
             if (!$folder = $this->folders->findByName($name, $disk, $parent)) {
-                $folder = $parent = $this->folders->create(
+                $folder = $this->folders->create(
                     [
                         'name'      => $name,
                         'disk_id'   => $disk->getId(),
@@ -102,6 +100,8 @@ class FileSynchronizer
                     ]
                 );
             }
+
+            $parent = $folder;
         }
 
         return $folder;

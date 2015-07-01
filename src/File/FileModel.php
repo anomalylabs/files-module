@@ -149,7 +149,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $manager = app('League\Flysystem\MountManager');
 
         try {
-            return $manager->get($disk->getSlug() . '://' . $this->path());
+            return $manager->get($disk->path($this->path()));
         } catch (FileNotFoundException $e) {
             return null;
         }

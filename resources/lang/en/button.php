@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'browse'     => 'Browse',
     'upload'     => 'Upload',
     'finished'   => 'Finished',
     'new_folder' => 'New Folder',
