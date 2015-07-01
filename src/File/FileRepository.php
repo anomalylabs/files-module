@@ -46,6 +46,17 @@ class FileRepository implements FileRepositoryInterface
     }
 
     /**
+     * Find a file by it's ID.
+     *
+     * @param $id
+     * @return null|FileInterface
+     */
+    public function find($id)
+    {
+        return $this->model->find($id);
+    }
+
+    /**
      * Find a file by it's name.
      *
      * @param                 $name

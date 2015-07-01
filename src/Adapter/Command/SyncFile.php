@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Adapter\Command;
 
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\FileSynchronizer;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
@@ -49,9 +50,10 @@ class SyncFile implements SelfHandling
      *
      * @param FolderRepositoryInterface $folders
      * @param FileRepositoryInterface   $files
+     * @return FileInterface
      */
     public function handle(FileSynchronizer $synchronizer)
     {
-        $synchronizer->sync($this->file, $this->filesystem->getDisk());
+        return $synchronizer->sync($this->file, $this->filesystem->getDisk());
     }
 }

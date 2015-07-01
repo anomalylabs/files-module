@@ -54,7 +54,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::put($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
-            $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource, $this));
         }
 
         return $result;
@@ -72,7 +72,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::putStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource, $this));
         }
 
         return $result;
