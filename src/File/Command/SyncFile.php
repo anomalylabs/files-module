@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\FileSynchronizer;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\File;
@@ -49,12 +50,8 @@ class SyncFile implements SelfHandling
      * @param FolderRepositoryInterface $folders
      * @param FileRepositoryInterface   $files
      */
-    public function handle(FolderRepositoryInterface $folders, FileRepositoryInterface $files)
+    public function handle(FileSynchronizer $synchronizer)
     {
-        $files->sync(
-            $this->file,
-            $folders->findByPathOrCreate(dirname($this->file->getPath()), $this->filesystem->getDisk()),
-            $this->filesystem->getDisk()
-        );
+        $synchronizer->sync($this->file, $this->filesystem->getDisk());
     }
 }

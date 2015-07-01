@@ -29,7 +29,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     protected $disk;
 
     /**
-     * Create a new AdapterFilesystem intance.
+     * Create a new AdapterFilesystem instance.
      *
      * @param DiskInterface    $disk
      * @param AdapterInterface $adapter
@@ -53,8 +53,8 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     {
         $result = parent::put($path, $contents, $config);
 
-        if ($result && $file = $this->get($path)) {
-            $this->dispatch(new SyncFile($this->get($path), $this));
+        if ($result && $resource = $this->get($path)) {
+            $this->dispatch(new SyncFile($resource, $this));
         }
 
         return $result;
