@@ -53,10 +53,6 @@ class FolderRepository implements FolderRepositoryInterface
      */
     public function findByPath($path, DiskInterface $disk)
     {
-        if ($path === '.' || empty($path)) {
-            return null;
-        }
-
         $folder = null;
 
         foreach (explode('/', $path) as $name) {

@@ -36,7 +36,7 @@ class FilesController extends AdminController
     ) {
         $form->setDisk($disk = $disks->findBySlug($disk));
 
-        if ($folder = $folders->findByPath($path, $disk)) {
+        if ($path && $folder = $folders->findByPath($path, $disk)) {
             $form->setFolder($folder);
         }
 
