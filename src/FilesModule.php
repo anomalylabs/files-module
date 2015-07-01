@@ -33,7 +33,7 @@ class FilesModule extends Module
                     'icon'        => 'upload',
                     'data-toggle' => 'modal',
                     'data-target' => '#modal-large',
-                    'href'        => 'admin/files/upload/{route.parameters_string}',
+                    'href'        => 'admin/files/upload{route.compiled.parameters_suffix}',
                     'text'        => 'module::button.upload',
                     'enabled'     => 'admin/files/browser/*'
                 ],
@@ -41,7 +41,7 @@ class FilesModule extends Module
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'enabled'     => 'admin/files/browser/*',
-                    'href'        => 'admin/files/folders/create/{route.parameters_string}'
+                    'href'        => 'admin/files/folders/create{route.compiled.parameters_suffix}'
                 ]
             ]
         ],
