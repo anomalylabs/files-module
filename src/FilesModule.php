@@ -18,7 +18,7 @@ class FilesModule extends Module
      *
      * @var string
      */
-    protected $icon = 'duplicate';
+    protected $icon = 'file-image';
 
     /**
      * The addon sections.
