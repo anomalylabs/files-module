@@ -61,7 +61,6 @@ class FileLocator
      */
     public function locate($disk, $path)
     {
-
         if (!$disk = $this->disks->findBySlug($disk)) {
             return null;
         }
