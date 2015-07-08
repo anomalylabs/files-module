@@ -25,22 +25,13 @@ class DeleteFolder implements SelfHandling
     protected $directory;
 
     /**
-     * The adapter filesystem.
-     *
-     * @var AdapterFilesystem
-     */
-    protected $filesystem;
-
-    /**
      * Create a new DeleteFolder instance.
      *
-     * @param Directory         $directory
-     * @param AdapterFilesystem $filesystem
+     * @param Directory $directory
      */
-    function __construct(Directory $directory, AdapterFilesystem $filesystem)
+    function __construct(Directory $directory)
     {
-        $this->directory  = $directory;
-        $this->filesystem = $filesystem;
+        $this->directory = $directory;
     }
 
     /**
@@ -51,12 +42,28 @@ class DeleteFolder implements SelfHandling
      */
     public function handle(FolderRepositoryInterface $folders)
     {
-        $folder = $folders->findByPath($this->directory->getPath(), $this->filesystem->getDisk());
+        $folder = $folders->findByPath($this->directory->getPath(), $this->getFilesystemDisk());
 
         if ($folder && $folders->delete($folder)) {
             return $folder;
         }
 
         return true;
+    }
+
+    /**
+     * Get the filesystem's disk.
+     *
+     * @return \Anomaly\FilesModule\Disk\Contract\DiskInterface|null
+     */
+    protected function getFilesystemDisk()
+    {
+        $filesystem = $this->directory->getFilesystem();
+
+        if ($filesystem instanceof AdapterFilesystem) {
+            return $filesystem->getDisk();
+        }
+
+        return null;
     }
 }

@@ -26,22 +26,13 @@ class SyncFile implements SelfHandling
     protected $file;
 
     /**
-     * The adapter filesystem.
-     *
-     * @var AdapterFilesystem
-     */
-    protected $filesystem;
-
-    /**
      * Create a new SyncFile instance.
      *
-     * @param File              $file
-     * @param AdapterFilesystem $filesystem
+     * @param File $file
      */
-    function __construct(File $file, AdapterFilesystem $filesystem)
+    function __construct(File $file)
     {
-        $this->file       = $file;
-        $this->filesystem = $filesystem;
+        $this->file = $file;
     }
 
     /**
@@ -52,6 +43,22 @@ class SyncFile implements SelfHandling
      */
     public function handle(FileSynchronizer $synchronizer)
     {
-        return $synchronizer->sync($this->file, $this->filesystem->getDisk());
+        return $synchronizer->sync($this->file, $this->getFilesystemDisk());
+    }
+
+    /**
+     * Get the filesystem's disk.
+     *
+     * @return \Anomaly\FilesModule\Disk\Contract\DiskInterface|null
+     */
+    protected function getFilesystemDisk()
+    {
+        $filesystem = $this->file->getFilesystem();
+
+        if ($filesystem instanceof AdapterFilesystem) {
+            return $filesystem->getDisk();
+        }
+
+        return null;
     }
 }

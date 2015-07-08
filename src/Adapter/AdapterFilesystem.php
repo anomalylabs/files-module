@@ -64,7 +64,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::write($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource));
         }
 
         return $result;
@@ -87,7 +87,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::writeStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource));
         }
 
         return $result;
@@ -109,7 +109,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::update($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource));
         }
 
         return $result;
@@ -132,7 +132,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::updateStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource));
         }
 
         return $result;
@@ -150,7 +150,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::put($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource));
         }
 
         return $result;
@@ -168,7 +168,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::putStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource, $this));
+            return $this->dispatch(new SyncFile($resource));
         }
 
         return $result;
@@ -191,8 +191,8 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
 
         if ($result && $resource = $this->get($newpath)) {
             return $this->dispatch(
-                new SyncFile($resource, $this)
-            ); // TODO: $newpath could be for a new filesystem (not $this).
+                new SyncFile($resource)
+            );
         }
 
         return $result;
@@ -212,7 +212,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::delete($path);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new DeleteFile($resource, $this));
+            return $this->dispatch(new DeleteFile($resource));
         }
 
         return $result;
@@ -232,7 +232,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::deleteDir($dirname);
 
         if ($result && $resource = $this->get($dirname)) {
-            return $this->dispatch(new DeleteFolder($resource, $this));
+            return $this->dispatch(new DeleteFolder($resource));
         }
 
         return $result;
@@ -251,7 +251,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::createDir($dirname, $config);
 
         if ($result && $resource = $this->get($dirname)) {
-            return $this->dispatch(new SyncFolder($resource, $this));
+            return $this->dispatch(new SyncFolder($resource));
         }
 
         return $result;

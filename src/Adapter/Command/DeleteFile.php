@@ -26,22 +26,13 @@ class DeleteFile implements SelfHandling
     protected $file;
 
     /**
-     * The adapter filesystem.
-     *
-     * @var AdapterFilesystem
-     */
-    protected $filesystem;
-
-    /**
      * Create a new DeleteFile instance.
      *
-     * @param File              $file
-     * @param AdapterFilesystem $filesystem
+     * @param File $file
      */
-    function __construct(File $file, AdapterFilesystem $filesystem)
+    function __construct(File $file)
     {
-        $this->file       = $file;
-        $this->filesystem = $filesystem;
+        $this->file = $file;
     }
 
     /**
@@ -53,13 +44,29 @@ class DeleteFile implements SelfHandling
      */
     public function handle(FileRepositoryInterface $files, FolderRepositoryInterface $folders)
     {
-        $folder = $folders->findByPath($this->file->getPath(), $this->filesystem->getDisk());
-        $file   = $files->findByName(basename($this->file->getPath()), $this->filesystem->getDisk(), $folder);
+        $folder = $folders->findByPath($this->file->getPath(), $this->getFilesystemDisk());
+        $file   = $files->findByName(basename($this->file->getPath()), $this->getFilesystemDisk(), $folder);
 
         if ($file && $files->delete($file)) {
             return $file;
         }
 
         return true;
+    }
+
+    /**
+     * Get the filesystem's disk.
+     *
+     * @return \Anomaly\FilesModule\Disk\Contract\DiskInterface|null
+     */
+    protected function getFilesystemDisk()
+    {
+        $filesystem = $this->file->getFilesystem();
+
+        if ($filesystem instanceof AdapterFilesystem) {
+            return $filesystem->getDisk();
+        }
+
+        return null;
     }
 }

@@ -25,22 +25,13 @@ class SyncFolder implements SelfHandling
     protected $directory;
 
     /**
-     * The adapter filesystem.
-     *
-     * @var AdapterFilesystem
-     */
-    protected $filesystem;
-
-    /**
      * Create a new SyncFolder instance.
      *
-     * @param Directory         $directory
-     * @param AdapterFilesystem $filesystem
+     * @param Directory $directory
      */
-    function __construct(Directory $directory, AdapterFilesystem $filesystem)
+    function __construct(Directory $directory)
     {
-        $this->directory  = $directory;
-        $this->filesystem = $filesystem;
+        $this->directory = $directory;
     }
 
     /**
@@ -51,6 +42,22 @@ class SyncFolder implements SelfHandling
      */
     public function handle(FolderSynchronizer $synchronizer)
     {
-        return $synchronizer->sync($this->directory, $this->filesystem->getDisk());
+        return $synchronizer->sync($this->directory, $this->getFilesystemDisk());
+    }
+
+    /**
+     * Get the filesystem's disk.
+     *
+     * @return \Anomaly\FilesModule\Disk\Contract\DiskInterface|null
+     */
+    protected function getFilesystemDisk()
+    {
+        $filesystem = $this->directory->getFilesystem();
+
+        if ($filesystem instanceof AdapterFilesystem) {
+            return $filesystem->getDisk();
+        }
+
+        return null;
     }
 }
