@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Disk\Form;
+<?php namespace Anomaly\FilesModule\Adapter\Form;
 
 use Anomaly\ConfigurationModule\Configuration\Form\ConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
@@ -8,14 +8,14 @@ use Illuminate\Routing\Redirector;
 use League\Flysystem\MountManager;
 
 /**
- * Class DiskConfigurationFormBuilder
+ * Class AdapterFormBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Disk\Form
+ * @package       Anomaly\FilesModule\Adapter\Form
  */
-class DiskConfigurationFormBuilder extends MultipleFormBuilder
+class AdapterFormBuilder extends MultipleFormBuilder
 {
 
     /**

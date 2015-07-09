@@ -27,7 +27,7 @@ class DiskFormFields
                 'config'   => [
                     'options' => function (ExtensionCollection $extensions) {
 
-                        $extensions = $extensions->search('anomaly.module.files::storage_adapter.*');
+                        $extensions = $extensions->search('anomaly.module.files::adapter.*');
 
                         return $extensions->lists('name', 'namespace');
                     }
