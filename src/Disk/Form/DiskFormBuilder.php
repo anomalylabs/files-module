@@ -1,11 +1,7 @@
 <?php namespace Anomaly\FilesModule\Disk\Form;
 
 use Anomaly\FilesModule\Adapter\AdapterExtension;
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\Streams\Platform\Message\MessageBag;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Illuminate\Routing\Redirector;
-use League\Flysystem\MountManager;
 
 /**
  * Class DiskFormBuilder
@@ -24,6 +20,18 @@ class DiskFormBuilder extends FormBuilder
      * @var null|AdapterExtension
      */
     protected $adapter = null;
+
+    /**
+     * The form fields.
+     *
+     * @var array
+     */
+    protected $fields = [
+        'name',
+        'slug' => [
+            'disabled' => 'edit'
+        ]
+    ];
 
     /**
      * The fields to skip.
