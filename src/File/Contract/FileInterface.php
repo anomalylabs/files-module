@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Carbon\Carbon;
 use League\Flysystem\File;
 
@@ -13,7 +14,7 @@ use League\Flysystem\File;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\File\Contract
  */
-interface FileInterface
+interface FileInterface extends EntryInterface
 {
 
     /**

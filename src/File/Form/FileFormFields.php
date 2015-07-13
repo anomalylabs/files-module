@@ -27,7 +27,8 @@ class FileFormFields
                     'type'   => 'anomaly.field_type.files',
                     'config' => [
                         'disk' => $disk->getSlug(),
-                        'path' => $folder ? $folder->path() : null
+                        'path' => $folder ? $folder->path() : null,
+                        'max'  => 32
                     ]
                 ]
             ]
