@@ -6,7 +6,7 @@ use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use Carbon\Carbon;
 use League\Flysystem\File;
-use League\Flysystem\FileNotFoundException;
+use League\Flysystem\MountManager;
 
 /**
  * Class FileModel
@@ -146,13 +146,14 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     {
         $disk = $this->getDisk();
 
+        /* @var MountManager $manager */
         $manager = app('League\Flysystem\MountManager');
 
-        try {
-            return $manager->get($disk->path($this->path()));
-        } catch (FileNotFoundException $e) {
+        if (!$manager->has($disk->path($this->path()))) {
             return null;
         }
+
+        return $manager->get($disk->path($this->path()));
     }
 
     /**
