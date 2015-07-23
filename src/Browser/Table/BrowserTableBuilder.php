@@ -1,6 +1,8 @@
 <?php namespace Anomaly\FilesModule\Browser\Table;
 
+use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Contract\FilterInterface;
 use Anomaly\Streams\Platform\Ui\Table\Multiple\MultipleTableBuilder;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class BrowserTableBuilder
@@ -52,4 +54,15 @@ class BrowserTableBuilder extends MultipleTableBuilder
         ]
     ];
 
+    public function getFilters()
+    {
+        return [
+            'name' => [
+                'filter'  => 'input',
+                'handler' => function (Builder $query, FilterInterface $filter) {
+                    return $query->where('name', 'LIKE', '%' . $filter->getValue() . '%');
+                }
+            ]
+        ];
+    }
 }

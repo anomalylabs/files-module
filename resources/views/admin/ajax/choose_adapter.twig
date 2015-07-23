@@ -2,7 +2,7 @@
     <button class="close" data-dismiss="modal">
         <span>&times;</span>
     </button>
-    <h4 class="modal-title">{{ trans('module::admin.choose_adapter') }}</h4>
+    <h4 class="modal-title">{{ trans('module::message.choose_adapter') }}</h4>
 </div>
 
 <div class="modal-body">
@@ -11,9 +11,9 @@
             {% for adapter in adapters %}
                 <li>
                     <a href="{{ url_to('admin/files/disks/create?adapter=' ~ adapter.namespace) }}">
-                        <strong>{{ adapter.name }}</strong>
+                        <strong>{{ trans(adapter.getTitle()) }}</strong>
                         <br>
-                        <small>{{ adapter.description }}</small>
+                        <small>{{ trans(adapter.getDescription()) }}</small>
                     </a>
                 </li>
             {% endfor %}

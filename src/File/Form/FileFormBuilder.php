@@ -75,7 +75,7 @@ class FileFormBuilder extends FormBuilder
      */
     protected $options = [
         'success_message' => false,
-        'title'           => 'anomaly.module.files::admin.upload_files'
+        'title'           => 'anomaly.module.files::message.upload_files'
     ];
 
     /**
