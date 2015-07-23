@@ -1,16 +1,19 @@
 <?php
 
 return [
-    'name'    => [
+    'name'      => [
         'name' => 'Name'
     ],
-    'slug'    => [
+    'slug'      => [
         'name' => 'Slug'
     ],
-    'adapter' => [
+    'adapter'   => [
         'name' => 'Adapter'
     ],
-    'size'    => [
+    'size'      => [
         'name' => 'Size'
+    ],
+    'mime_type' => [
+        'name' => 'Mime Type'
     ]
 ];

@@ -53,6 +53,14 @@ interface FileInterface extends EntryInterface
     public function publicPath();
 
     /**
+     * Return the file's image path.
+     *
+     * @param array $parameters
+     * @return string
+     */
+    public function imagePath(array $parameters = []);
+
+    /**
      * Return the file's stream path.
      *
      * @return string

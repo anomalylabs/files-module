@@ -5,6 +5,9 @@ use Anomaly\FilesModule\File\FileLocator;
 use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\FileStreamer;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
+use Intervention\Image\ImageManager;
+use League\Flysystem\MountManager;
+
 
 /**
  * Class FilesController
@@ -69,5 +72,24 @@ class FilesController extends PublicController
         }
 
         return $downloader->download($file);
+    }
+
+    /**
+     * Return an image's thumbnail.
+     *
+     * @param FileLocator  $locator
+     * @param MountManager $manager
+     * @param ImageManager $image
+     * @param              $disk
+     * @param              $path
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function image(FileLocator $locator, MountManager $manager, ImageManager $image, $disk, $path)
+    {
+        if (!$file = $locator->locate($disk, $path)) {
+            abort(404);
+        }
+
+        return $image->make($manager->read($file->diskPath()))->encode($file->getMimeType())->response(null, $_GET['quality']);
     }
 }

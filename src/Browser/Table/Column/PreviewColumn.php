@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Browser\Table\Column;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Icon\IconRegistry;
 use Anomaly\Streams\Platform\Ui\Table\Component\Column\Column;
@@ -46,6 +47,10 @@ class PreviewColumn extends Column
 
         if ($this->entry instanceof FolderInterface) {
             return '<i class="' . $this->icons->get('folder-closed') . '"></i>';
+        }
+
+        if ($this->entry instanceof FileInterface) {
+            return '<img src="' . url($this->entry->imagePath(['quality' => 50])) . '" width="48">';
         }
     }
 }

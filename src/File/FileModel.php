@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use Carbon\Carbon;
 use League\Flysystem\File;
@@ -112,6 +113,26 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return the file's image path.
+     *
+     * @param array $parameters
+     * @return string
+     */
+    public function imagePath(array $parameters = [])
+    {
+        $disk = $this->getDisk();
+        $path = $this->path();
+
+        if ($parameters) {
+            $query = '?' . http_build_query($parameters, '', '&amp;');
+        } else {
+            $query = null;
+        }
+
+        return 'files/image/' . $disk->getSlug() . '/' . $path . $query;
+    }
+
+    /**
      * Return the file's stream path.
      *
      * @return string
@@ -154,6 +175,14 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         }
 
         return $manager->get($disk->path($this->path()));
+    }
+
+    public function image()
+    {
+        /* @var Image $image */
+        $image = app('Anomaly\Streams\Platform\Image\Image');
+
+        return $image->make($this->diskPath());
     }
 
     /**

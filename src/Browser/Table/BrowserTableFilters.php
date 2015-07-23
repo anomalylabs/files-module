@@ -1,6 +1,8 @@
 <?php namespace Anomaly\FilesModule\Browser\Table;
 
+use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\Streams\Platform\Ui\Table\Component\Filter\Contract\FilterInterface;
+use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -27,7 +29,18 @@ class BrowserTableFilters
                     'filter'      => 'input',
                     'placeholder' => 'Name',
                     'query'       => function (Builder $query, FilterInterface $filter) {
-                        return $query->where('name', 'LIKE', '%' . $filter->getValue() . '%');
+                        $query->where('name', 'LIKE', '%' . $filter->getValue() . '%');
+                    }
+                ],
+                'mime_type' => [
+                    'filter'      => 'input',
+                    'placeholder' => 'Mime Type',
+                    'query'       => function (Builder $query, FilterInterface $filter, TableBuilder $builder) {
+                        if ($builder instanceof FileTableBuilder) {
+                            $query->where('mime_type', 'LIKE', '%' . $filter->getValue() . '%');
+                        } else {
+                            $query->where('id', 0);
+                        }
                     }
                 ]
             ]

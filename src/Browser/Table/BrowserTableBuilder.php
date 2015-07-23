@@ -29,6 +29,10 @@ class BrowserTableBuilder extends MultipleTableBuilder
         [
             'heading' => 'anomaly.module.files::field.size.name',
             'column'  => 'Anomaly\FilesModule\Browser\Table\Column\SizeColumn'
+        ],
+        [
+            'heading' => 'anomaly.module.files::field.mime_type.name',
+            'column'  => 'Anomaly\FilesModule\Browser\Table\Column\MimeTypeColumn'
         ]
     ];
 

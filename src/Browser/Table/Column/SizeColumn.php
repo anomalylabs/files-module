@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\Browser\Table\Column;
 
 use Anomaly\FilesModule\File\FilePresenter;
+use Anomaly\FilesModule\Folder\FolderPresenter;
 use Anomaly\Streams\Platform\Ui\Table\Component\Column\Column;
 use Robbo\Presenter\Decorator;
 
@@ -40,6 +41,10 @@ class SizeColumn extends Column
     public function getValue()
     {
         $object = $this->decorator->decorate($this->entry);
+
+        if ($object instanceof FolderPresenter) {
+            return '-';
+        }
 
         if ($object instanceof FilePresenter) {
             return $object->readableSize();
