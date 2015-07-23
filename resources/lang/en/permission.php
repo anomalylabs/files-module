@@ -2,15 +2,14 @@
 
 return [
     'browser'  => [
-        'title'   => 'Browser',
-        'read'    => 'Can read files and folders?',
-        'folders' => 'Can create folders?',
-        'files'   => 'Can upload files?'
+        'title' => 'Browser',
+        'read'  => 'Can read files and folders?',
     ],
     'disks'    => [
-        'title' => 'Disks',
-        'read'  => 'Can read disks?',
-        'write' => 'Can create and edit disks?'
+        'title'  => 'Disks',
+        'read'   => 'Can read disks?',
+        'write'  => 'Can create and edit disks?',
+        'delete' => 'Can delete disks?'
     ],
     'settings' => [
         'title' => 'Settings',
