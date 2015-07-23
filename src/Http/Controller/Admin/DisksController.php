@@ -40,9 +40,9 @@ class DisksController extends AdminController
     public function choose(ExtensionCollection $extensions)
     {
         return view(
-            'module::admin/ajax/choose_adapter',
+            'module::ajax/choose_adapter',
             [
-                'adapters' => $extensions->search('anomaly.module.files::adapter.*')
+                'adapters' => $extensions->search('anomaly.module.files::adapter.*')->enabled()
             ]
         );
     }

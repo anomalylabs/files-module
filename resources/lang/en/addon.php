@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'name'        => 'Files',
+    'title'       => 'Files',
+    'name'        => 'Files Module',
     'description' => 'Multi-provider files manager.',
     'section'     => [
         'browser'  => 'Browser',

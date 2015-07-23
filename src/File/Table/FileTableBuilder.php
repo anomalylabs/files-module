@@ -66,12 +66,10 @@ class FileTableBuilder extends TableBuilder
         $query->where('disk_id', $disk->getId());
 
         // Limit results to the desired folder if any.
-        if ($this->getTableFilters()->active()->isEmpty()) {
-            if ($folder = $this->getFolder()) {
-                $query->where('folder_id', $folder->getId());
-            } else {
-                $query->where('folder_id', null);
-            }
+        if ($folder = $this->getFolder()) {
+            $query->where('folder_id', $folder->getId());
+        } else {
+            $query->where('folder_id', null);
         }
     }
 

@@ -68,6 +68,15 @@ class FolderFormBuilder extends FormBuilder
     ];
 
     /**
+     * The form options.
+     *
+     * @var array
+     */
+    protected $options = [
+        'title' => 'anomaly.module.files::message.new_folder'
+    ];
+
+    /**
      * Fired when the builder
      * is ready to build.
      *
