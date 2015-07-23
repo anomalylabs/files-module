@@ -2,10 +2,10 @@
 
 return [
     'browser'  => [
-        'title'      => 'Browser',
-        'read'       => 'Can read files and folders?',
-        'new_folder' => 'Can create folders?',
-        'upload'     => 'Can upload files?'
+        'title'   => 'Browser',
+        'read'    => 'Can read files and folders?',
+        'folders' => 'Can create folders?',
+        'files'   => 'Can upload files?'
     ],
     'disks'    => [
         'title' => 'Disks',

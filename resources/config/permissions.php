@@ -3,8 +3,8 @@
 return [
     'browser'  => [
         'read',
-        'new_folder',
-        'upload'
+        'folders',
+        'files'
     ],
     'disks'    => [
         'read',
