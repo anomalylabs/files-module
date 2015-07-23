@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'browser' => [
+    'browser'  => [
         'read',
         'new_folder',
         'upload'
     ],
-    'disks' => [
+    'disks'    => [
         'read',
         'write'
     ],

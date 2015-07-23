@@ -1,20 +1,20 @@
 <?php
 
 return [
-    'browser' => [
-        'title' => 'Browser',
-        'read' => 'Can read files and folders?',
+    'browser'  => [
+        'title'      => 'Browser',
+        'read'       => 'Can read files and folders?',
         'new_folder' => 'Can create folders?',
-        'upload' => 'Can upload files?'
+        'upload'     => 'Can upload files?'
     ],
-    'disks' => [
+    'disks'    => [
         'title' => 'Disks',
-        'read' => 'Can read disks?',
+        'read'  => 'Can read disks?',
         'write' => 'Can create and edit disks?'
     ],
     'settings' => [
         'title' => 'Settings',
-        'read' => 'Can read settings?',
+        'read'  => 'Can read settings?',
         'write' => 'Can edit settings?'
     ]
 ];
