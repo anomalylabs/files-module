@@ -2,13 +2,12 @@
 
 return [
     'browser'  => [
-        'read',
-        'folders',
-        'files'
+        'read'
     ],
     'disks'    => [
         'read',
-        'write'
+        'write',
+        'delete'
     ],
     'settings' => [
         'read',
