@@ -50,7 +50,7 @@ class PreviewColumn extends Column
         }
 
         if ($this->entry instanceof FileInterface) {
-            return '<img src="' . url($this->entry->imagePath(['quality' => 50])) . '" width="48">';
+            return '<img class="img-rounded" src="' . url($this->entry->imagePath(['quality' => 50, 'fit' => [48, 48]])) . '" width="48">';
         }
     }
 }

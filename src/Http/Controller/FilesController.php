@@ -5,6 +5,8 @@ use Anomaly\FilesModule\File\FileLocator;
 use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\FileStreamer;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
+use Illuminate\Http\Request;
+use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use League\Flysystem\MountManager;
 
@@ -80,16 +82,56 @@ class FilesController extends PublicController
      * @param FileLocator  $locator
      * @param MountManager $manager
      * @param ImageManager $image
+     * @param Request      $request
      * @param              $disk
      * @param              $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function image(FileLocator $locator, MountManager $manager, ImageManager $image, $disk, $path)
-    {
+    public function image(
+        FileLocator $locator,
+        MountManager $manager,
+        ImageManager $image,
+        Request $request,
+        $disk,
+        $path
+    ) {
         if (!$file = $locator->locate($disk, $path)) {
             abort(404);
         }
 
-        return $image->make($manager->read($file->diskPath()))->encode($file->getMimeType())->response(null, $_GET['quality']);
+        /* @var Image $image */
+        $image = $image->make($manager->read($file->diskPath()))->encode($file->getMimeType());
+
+        foreach ($request->all() as $method => $arguments) {
+
+            if (in_array(
+                camel_case($method),
+                [
+                    'blur',
+                    'brightness',
+                    'colorize',
+                    'contrast',
+                    'crop',
+                    'encode',
+                    'fit',
+                    'flip',
+                    'gamma',
+                    'greyscale',
+                    'heighten',
+                    'invert',
+                    'limitColors',
+                    'pixelate',
+                    'opacity',
+                    'resize',
+                    'rotate',
+                    'amount',
+                    'widen',
+                ]
+            )) {
+                call_user_func_array([$image, camel_case($method)], explode(',', $arguments));
+            }
+        }
+
+        return $image->response(null, $request->get('quality', 100));
     }
 }

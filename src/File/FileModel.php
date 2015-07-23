@@ -123,13 +123,18 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $disk = $this->getDisk();
         $path = $this->path();
 
-        if ($parameters) {
-            $query = '?' . http_build_query($parameters, '', '&amp;');
-        } else {
-            $query = null;
-        }
+        $query = http_build_query(
+            array_map(
+                function ($value) {
+                    return implode(',', (array)$value);
+                },
+                $parameters
+            ),
+            '',
+            '&amp;'
+        );
 
-        return 'files/image/' . $disk->getSlug() . '/' . $path . $query;
+        return 'files/image/' . $disk->getSlug() . '/' . $path . ($query ? '?' . $query : null);
     }
 
     /**
