@@ -55,10 +55,12 @@ class FolderTableBuilder extends TableBuilder
         $query->where('disk_id', $disk->getId());
 
         // Limit results to the desired parent folder if any.
-        if ($parent = $this->getParent()) {
-            $query->where('parent_id', $parent->getId());
-        } else {
-            $query->where('parent_id', null);
+        if ($this->getTableFilters()->active()->isEmpty()) {
+            if ($parent = $this->getParent()) {
+                $query->where('parent_id', $parent->getId());
+            } else {
+                $query->where('parent_id', null);
+            }
         }
     }
 

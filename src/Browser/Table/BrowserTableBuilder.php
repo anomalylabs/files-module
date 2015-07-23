@@ -54,12 +54,20 @@ class BrowserTableBuilder extends MultipleTableBuilder
         ]
     ];
 
+    /**
+     * @return array|string
+     */
     public function getFilters()
     {
+        if ($this->filters) {
+            return $this->filters;
+        }
+
         return [
             'name' => [
-                'filter'  => 'input',
-                'handler' => function (Builder $query, FilterInterface $filter) {
+                'filter'      => 'input',
+                'placeholder' => 'Name',
+                'query'       => function (Builder $query, FilterInterface $filter) {
                     return $query->where('name', 'LIKE', '%' . $filter->getValue() . '%');
                 }
             ]
