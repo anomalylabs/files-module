@@ -50,11 +50,10 @@ class FilesModule extends Module
                 'new_disk' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'href'        => 'admin/files/disks/choose_adapter'
+                    'href'        => 'admin/files/disks/choose'
                 ]
             ]
-        ],
-        'settings'
+        ]
     ];
 
 }

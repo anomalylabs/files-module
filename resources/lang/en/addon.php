@@ -5,7 +5,7 @@ return [
     'description' => 'Multi-provider files manager.',
     'section'     => [
         'browser'  => 'Browser',
-        'disks'   => 'Disks',
+        'disks'    => 'Disks',
         'adapters' => 'Adapters',
         'settings' => 'Settings'
     ]

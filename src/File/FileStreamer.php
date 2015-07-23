@@ -15,24 +15,6 @@ class FileStreamer extends FileResponse
 {
 
     /**
-     * Make the response.
-     *
-     * @param FileInterface $file
-     * @return Response
-     */
-    public function make(FileInterface $file)
-    {
-        $response = parent::make($file);
-
-        $response->headers->set('Accept-Ranges', 'bytes');
-        $response->headers->set('Cache-Control', 'no-cache'); // Cache breaks streaming.
-
-        $this->chunk($response, $file);
-
-        return $response;
-    }
-
-    /**
      * Return the response headers.
      *
      * @param FileInterface $file
@@ -59,6 +41,24 @@ class FileStreamer extends FileResponse
                 )
             )
         );
+    }
+
+    /**
+     * Make the response.
+     *
+     * @param FileInterface $file
+     * @return Response
+     */
+    public function make(FileInterface $file)
+    {
+        $response = parent::make($file);
+
+        $response->headers->set('Accept-Ranges', 'bytes');
+        $response->headers->set('Cache-Control', 'no-cache'); // Cache breaks streaming.
+
+        $this->chunk($response, $file);
+
+        return $response;
     }
 
     /**

@@ -15,6 +15,19 @@ class FileDownloader extends FileResponse
 {
 
     /**
+     * Return the response headers.
+     *
+     * @param FileInterface $file
+     * @return Response
+     */
+    public function download(FileInterface $file)
+    {
+        $response = $this->make($file);
+
+        return $response->sendHeaders();
+    }
+
+    /**
      * Make the response.
      *
      * @param FileInterface $file
@@ -27,18 +40,5 @@ class FileDownloader extends FileResponse
         $response->headers->set('Content-disposition', 'attachment; filename=' . $file->getName());
 
         return $response->setContent($this->manager->read($file->diskPath()));
-    }
-
-    /**
-     * Return the response headers.
-     *
-     * @param FileInterface $file
-     * @return Response
-     */
-    public function download(FileInterface $file)
-    {
-        $response = $this->make($file);
-
-        return $response->sendHeaders();
     }
 }

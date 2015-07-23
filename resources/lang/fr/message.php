@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'create_disk_first' => 'Veuillez créer un disque pour utiliser le module.'
+    'upload_files'   => 'Envoyer les fichiers',
+    'choose_adapter' => 'Quel type de stockage utiliser ?'
 ];

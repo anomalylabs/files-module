@@ -14,6 +14,28 @@ class FilesModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
+     * The event listeners.
+     *
+     * @var array
+     */
+    protected $listeners = [
+        'Anomaly\Streams\Platform\Addon\Event\AddonsRegistered' => [
+            'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
+        ]
+    ];
+
+    /**
+     * The singleton bindings.
+     *
+     * @var array
+     */
+    protected $singletons = [
+        'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'     => 'Anomaly\FilesModule\Disk\DiskRepository',
+        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository',
+        'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository'
+    ];
+
+    /**
      * The addon routes.
      *
      * @var array
@@ -70,43 +92,9 @@ class FilesModuleServiceProvider extends AddonServiceProvider
             ]
         ],
         'admin/files/disks'                         => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
+        'admin/files/disks/choose'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
         'admin/files/disks/create'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
-        'admin/files/disks/edit/{id}'               => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
-        'admin/files/disks/choose_adapter'          => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@chooseAdapter',
-        'admin/files/settings'                      => 'Anomaly\FilesModule\Http\Controller\Admin\SettingsController@edit'
-    ];
-
-    /**
-     * The class bindings.
-     *
-     * @var array
-     */
-    protected $bindings = [
-        'Anomaly\FilesModule\Disk\DiskModel'     => 'Anomaly\FilesModule\Disk\DiskModel',
-        'Anomaly\FilesModule\Folder\FolderModel' => 'Anomaly\FilesModule\Folder\FolderModel',
-        'Anomaly\FilesModule\File\FileModel'     => 'Anomaly\FilesModule\File\FileModel'
-    ];
-
-    /**
-     * The singleton bindings.
-     *
-     * @var array
-     */
-    protected $singletons = [
-        'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'     => 'Anomaly\FilesModule\Disk\DiskRepository',
-        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface' => 'Anomaly\FilesModule\Folder\FolderRepository',
-        'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'     => 'Anomaly\FilesModule\File\FileRepository'
-    ];
-
-    /**
-     * The event listeners.
-     *
-     * @var array
-     */
-    protected $listeners = [
-        'Anomaly\Streams\Platform\Addon\Event\AddonsRegistered' => [
-            'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
-        ]
+        'admin/files/disks/edit/{id}'               => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit'
     ];
 
 }

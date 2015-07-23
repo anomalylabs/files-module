@@ -1,8 +1,6 @@
 <?php namespace Anomaly\FilesModule\Browser\Table\Column;
 
-use Anomaly\FilesModule\Disk\DiskPresenter;
 use Anomaly\FilesModule\File\FilePresenter;
-use Anomaly\FilesModule\Folder\FolderPresenter;
 use Anomaly\Streams\Platform\Ui\Table\Component\Column\Column;
 use Robbo\Presenter\Decorator;
 

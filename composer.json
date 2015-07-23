@@ -2,14 +2,13 @@
     "name": "anomaly/files-module",
     "type": "streams-addon",
     "description": "Multi-provider files manager.",
-    "version": "1.0.0",
     "keywords": [
-        "streams-addon",
-        "files",
-        "pyrocms",
-        "laravel"
+        "streams module",
+        "streams addon",
+        "module"
     ],
     "homepage": "http://anomaly.is/",
+    "version": "1.0.0",
     "license": "MIT",
     "authors": [
         {
@@ -29,8 +28,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-1.0/master": "1.0.x-dev"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

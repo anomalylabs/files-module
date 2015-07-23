@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'create_disk_first' => 'Please create a disk before using the Files module.'
+    'upload_files'   => 'Upload Files',
+    'choose_adapter' => 'What storage adapter would you like to use?'
 ];

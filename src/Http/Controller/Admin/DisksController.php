@@ -37,7 +37,7 @@ class DisksController extends AdminController
      * @param ExtensionCollection $extensions
      * @return \Illuminate\View\View
      */
-    public function chooseAdapter(ExtensionCollection $extensions)
+    public function choose(ExtensionCollection $extensions)
     {
         return view(
             'module::admin/ajax/choose_adapter',
