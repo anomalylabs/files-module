@@ -5,9 +5,8 @@ use Anomaly\FilesModule\File\FileLocator;
 use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\FileStreamer;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
+use Anomaly\Streams\Platform\Image\Image;
 use Illuminate\Http\Request;
-use Intervention\Image\Image;
-use Intervention\Image\ImageManager;
 use League\Flysystem\MountManager;
 
 
@@ -81,7 +80,7 @@ class FilesController extends PublicController
      *
      * @param FileLocator  $locator
      * @param MountManager $manager
-     * @param ImageManager $image
+     * @param Image        $image
      * @param Request      $request
      * @param              $disk
      * @param              $path
@@ -90,7 +89,7 @@ class FilesController extends PublicController
     public function image(
         FileLocator $locator,
         MountManager $manager,
-        ImageManager $image,
+        Image $image,
         Request $request,
         $disk,
         $path
@@ -99,35 +98,11 @@ class FilesController extends PublicController
             abort(404);
         }
 
-        /* @var Image $image */
-        $image = $image->make($manager->read($file->diskPath()))->encode($file->getMimeType());
+        $image = $image->make($file);
 
         foreach ($request->all() as $method => $arguments) {
 
-            if (in_array(
-                camel_case($method),
-                [
-                    'blur',
-                    'brightness',
-                    'colorize',
-                    'contrast',
-                    'crop',
-                    'encode',
-                    'fit',
-                    'flip',
-                    'gamma',
-                    'greyscale',
-                    'heighten',
-                    'invert',
-                    'limitColors',
-                    'pixelate',
-                    'opacity',
-                    'resize',
-                    'rotate',
-                    'amount',
-                    'widen',
-                ]
-            )) {
+            if (in_array($method = camel_case($method), $image->getAllowedMethods())) {
                 call_user_func_array([$image, camel_case($method)], explode(',', $arguments));
             }
         }

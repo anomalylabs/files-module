@@ -23,8 +23,10 @@ class BrowserTableBuilder extends MultipleTableBuilder
             'column' => 'Anomaly\FilesModule\Browser\Table\Column\PreviewColumn'
         ],
         [
-            'heading' => 'anomaly.module.files::field.name.name',
-            'column'  => 'Anomaly\FilesModule\Browser\Table\Column\NameColumn'
+            'sortable'    => true,
+            'sort_column' => 'name',
+            'heading'     => 'anomaly.module.files::field.name.name',
+            'column'      => 'Anomaly\FilesModule\Browser\Table\Column\NameColumn'
         ],
         [
             'heading' => 'anomaly.module.files::field.size.name',
