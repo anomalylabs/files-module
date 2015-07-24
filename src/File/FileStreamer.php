@@ -55,6 +55,7 @@ class FileStreamer extends FileResponse
 
         $response->headers->set('Accept-Ranges', 'bytes');
         $response->headers->set('Cache-Control', 'no-cache'); // Cache breaks streaming.
+        $response->headers->set('Content-Length', $file->getSize());
 
         $this->chunk($response, $file);
 

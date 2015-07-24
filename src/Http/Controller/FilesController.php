@@ -1,13 +1,13 @@
 <?php namespace Anomaly\FilesModule\Http\Controller;
 
 use Anomaly\FilesModule\File\FileDownloader;
+use Anomaly\FilesModule\File\FileImage;
 use Anomaly\FilesModule\File\FileLocator;
 use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\FileStreamer;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
 use Anomaly\Streams\Platform\Image\Image;
 use Illuminate\Http\Request;
-use League\Flysystem\MountManager;
 
 
 /**
@@ -76,21 +76,21 @@ class FilesController extends PublicController
     }
 
     /**
-     * Return an image's thumbnail.
+     * Return a processed images.
      *
-     * @param FileLocator  $locator
-     * @param MountManager $manager
-     * @param Image        $image
-     * @param Request      $request
-     * @param              $disk
-     * @param              $path
+     * @param FileLocator $locator
+     * @param FileImage   $thumbnail
+     * @param Request     $request
+     * @param Image       $image
+     * @param             $disk
+     * @param             $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function image(
         FileLocator $locator,
-        MountManager $manager,
-        Image $image,
+        FileImage $thumbnail,
         Request $request,
+        Image $image,
         $disk,
         $path
     ) {
@@ -107,6 +107,6 @@ class FilesController extends PublicController
             }
         }
 
-        return $image->response(null, $request->get('quality', 100));
+        return $thumbnail->generate($image, $request->get('quality', 100));
     }
 }
