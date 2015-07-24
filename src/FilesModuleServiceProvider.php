@@ -98,6 +98,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'path' => '(.*)'
             ]
         ],
+        'admin/files/edit/{id}'                     => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@edit',
         'admin/files/disks'                         => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
         'admin/files/disks/choose'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
         'admin/files/disks/create'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',

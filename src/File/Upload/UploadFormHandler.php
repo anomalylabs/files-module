@@ -1,14 +1,14 @@
-<?php namespace Anomaly\FilesModule\File\Form;
+<?php namespace Anomaly\FilesModule\File\Upload;
 
 /**
- * Class FileFormHandler
+ * Class UploadFormHandler
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\File\Form
+ * @package       Anomaly\FilesModule\File\Upload
  */
-class FileFormHandler
+class UploadFormHandler
 {
 
     /**

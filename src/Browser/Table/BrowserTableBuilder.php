@@ -39,6 +39,18 @@ class BrowserTableBuilder extends MultipleTableBuilder
     ];
 
     /**
+     * The table buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        [
+            'button' => 'Anomaly\FilesModule\Browser\Table\Button\EditButton',
+            'href'   => 'admin/files/edit/{entry.id}'
+        ]
+    ];
+
+    /**
      * The table actions.
      *
      * @var array

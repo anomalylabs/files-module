@@ -25,11 +25,22 @@ class BrowserTableFilters
     {
         $builder->setFilters(
             [
-                'name' => [
+                'name'      => [
                     'filter'      => 'input',
                     'placeholder' => 'Name',
                     'query'       => function (Builder $query, FilterInterface $filter) {
                         $query->where('name', 'LIKE', '%' . $filter->getValue() . '%');
+                    }
+                ],
+                'keywords'  => [
+                    'filter'      => 'input',
+                    'placeholder' => 'Keywords',
+                    'query'       => function (Builder $query, FilterInterface $filter, TableBuilder $builder) {
+                        if ($builder instanceof FileTableBuilder) {
+                            $query->where('keywords', 'LIKE', '%"' . $filter->getValue() . '"%');
+                        } else {
+                            $query->where('id', 0);
+                        }
                     }
                 ],
                 'mime_type' => [

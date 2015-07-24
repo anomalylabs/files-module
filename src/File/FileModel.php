@@ -201,6 +201,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Get the alt attribute.
+     *
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
      * Get the name.
      *
      * @return string
@@ -258,5 +268,25 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getExtension()
     {
         return $this->extension;
+    }
+
+    /**
+     * Get the keywords.
+     *
+     * @return array
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

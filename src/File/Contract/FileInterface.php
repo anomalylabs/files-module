@@ -89,11 +89,11 @@ interface FileInterface extends EntryInterface
     public function lastModified();
 
     /**
-     * Get the ID.
+     * Get the alt attribute.
      *
-     * @return int
+     * @return string
      */
-    public function getId();
+    public function getAlt();
 
     /**
      * Get the name.
@@ -136,4 +136,18 @@ interface FileInterface extends EntryInterface
      * @return string
      */
     public function getExtension();
+
+    /**
+     * Get the keywords.
+     *
+     * @return array
+     */
+    public function getKeywords();
+
+    /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription();
 }

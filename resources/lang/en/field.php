@@ -1,19 +1,28 @@
 <?php
 
 return [
-    'name'      => [
+    'alt'         => [
+        'name' => 'Alt Attribute'
+    ],
+    'name'        => [
         'name' => 'Name'
     ],
-    'slug'      => [
+    'slug'        => [
         'name' => 'Slug'
     ],
-    'adapter'   => [
-        'name' => 'Adapter'
-    ],
-    'size'      => [
+    'size'        => [
         'name' => 'Size'
     ],
-    'mime_type' => [
+    'adapter'     => [
+        'name' => 'Adapter'
+    ],
+    'keywords'    => [
+        'name' => 'Keywords'
+    ],
+    'mime_type'   => [
         'name' => 'Mime Type'
+    ],
+    'description' => [
+        'name' => 'Description'
     ]
 ];

@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
+use Anomaly\FilesModule\File\Upload\UploadFormBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class FilesController extends AdminController
      *
      * @param FolderRepositoryInterface $folders
      * @param DiskRepositoryInterface   $disks
-     * @param FileFormBuilder           $form
+     * @param UploadFormBuilder         $form
      * @param                           $disk
      * @param null                      $path
      * @return Response
@@ -30,7 +31,7 @@ class FilesController extends AdminController
     public function upload(
         FolderRepositoryInterface $folders,
         DiskRepositoryInterface $disks,
-        FileFormBuilder $form,
+        UploadFormBuilder $form,
         $disk,
         $path = null
     ) {
@@ -41,5 +42,17 @@ class FilesController extends AdminController
         }
 
         return $form->render();
+    }
+
+    /**
+     * Return the form to modify the file.
+     *
+     * @param FileFormBuilder $form
+     * @param                 $id
+     * @return Response
+     */
+    public function edit(FileFormBuilder $form, $id)
+    {
+        return $form->render($id);
     }
 }
