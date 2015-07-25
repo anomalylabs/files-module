@@ -5,7 +5,7 @@ use Anomaly\FilesModule\Adapter\Command\DeleteFolder;
 use Anomaly\FilesModule\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Illuminate\Foundation\Bus\DispatchesCommands;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use InvalidArgumentException;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
@@ -25,7 +25,7 @@ use League\Flysystem\RootViolationException;
 class AdapterFilesystem extends Filesystem implements FilesystemInterface
 {
 
-    use DispatchesCommands;
+    use DispatchesJobs;
 
     /**
      * The disk interface.
