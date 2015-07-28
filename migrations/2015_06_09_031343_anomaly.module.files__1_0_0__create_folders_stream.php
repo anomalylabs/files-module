@@ -29,10 +29,7 @@ class AnomalyModuleFiles_1_0_0_CreateFoldersStream extends Migration
      */
     protected $assignments = [
         'name' => [
-            'required' => true,
-            'rules'    => [
-                'regex:/^[a-zA-Z0-9_\s]+$/'
-            ]
+            'required' => true
         ],
         'disk' => [
             'required' => true

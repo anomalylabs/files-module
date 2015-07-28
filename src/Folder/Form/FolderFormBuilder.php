@@ -42,7 +42,11 @@ class FolderFormBuilder extends FormBuilder
      * @var array
      */
     protected $fields = [
-        'name'
+        'name' => [
+            'rules' => [
+                'regex:/^[a-zA-Z0-9_\s]+$/'
+            ]
+        ]
     ];
 
     /**
