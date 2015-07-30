@@ -1,9 +1,10 @@
-# Files Field Type
+# Files Module
 
 - [Introduction](#introduction)
 - [Disks](#disks)
     - [Obtaining Disk Instances](#obtaining-disk-instances)
     - [Custom Storage Adapters](#custom-storage-adapters)
+- [URL Access](#url-access)
 
 
 <a name="introduction"></a>
@@ -58,3 +59,80 @@ For more information on [extending Laravel's filesystem](http://laravel.com/docs
 **NOTE:** Any `Filesystem` class reference you see in Laravel or Flysystem documentation should be `Anomaly\FilesModule\Adapter\AdapterFilesystem` when using the Files module.
 
 For an example of a custom adapter extension check out the [Local Storage Adapter](https://github.com/anomalylabs/local_storage_adapter-extension) and it's [loader](https://github.com/anomalylabs/local_storage_adapter-extension/blob/1.0/master/src/LocalStorageAdapterLoader.php).
+
+
+<a name="url-access"></a>
+## URL Access
+
+### Get / Read
+
+To get / read files from a disk use:
+
+    // Twig usage
+    {{ url(file.public_path) }}
+    
+    // API usage
+    url($file->publicPath())
+    
+    // URL usage
+    http://example.com/files/get/{disk}/{path}
+    
+    http://example.com/files/get/uploads/my/favorite/file.txt
+
+### Download
+
+To download files from a disk use:
+
+    // Twig usage
+    {{ url(file.download_path) }}
+    
+    // API usage
+    url($file->downloadPath())
+    
+    // URL usage
+    http://example.com/files/download/{disk}/{path}
+    
+    http://example.com/files/download/uploads/my/favorite/file.txt
+
+### Stream
+
+To stream files from a disk use:
+
+    // Twig usage
+    {{ url(file.stream_path) }}
+    
+    // API usage
+    url($file->streamPath())
+    
+    // URL usage
+    http://example.com/files/stream/{disk}/{path}
+    
+    http://example.com/files/stream/uploads/my/favorite/video.mp4
+
+### Image
+
+To render an image from a disk use:
+
+    // Twig usage
+    {{ url(file.image_path) }}
+    
+    // API usage
+    url($file->imagePath())
+
+    // URL usage
+    http://example.com/files/image/{disk}/{path}
+    
+    http://example.com/files/image/uploads/my/favorite/image.jpg
+
+You may also manipulate the image via the query string API. Uniquely processed images will return `403` until it's source file has been updated.
+
+    // Twig usage
+    {{ url(file.imagePath({'greyscale': null, 'fit': [100,100,null,'top']})) }}
+    
+    // API usage
+    url($file->imagePath(['greyscale' => null, 'fit' => [100,100,null,'top']]))
+    
+    // URL usage
+    http://example.com/files/image/uploads/my/favorite/image.jpg
+    
+    http://example.com/files/image/uploads/my/favorite/image.jpg?greyscale&fit=100,100,,top
