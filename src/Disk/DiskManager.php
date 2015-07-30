@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
+use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Illuminate\Container\Container;
 
@@ -38,11 +39,11 @@ class DiskManager
      */
     public function register(DiskInterface $disk)
     {
-        if ($adapter = $disk->getAdapter()) {
-            $this->container->call(
-                substr(get_class($adapter), 0, -9) . 'Loader@load',
-                compact('disk', 'adapter')
-            );
+        /* @var AdapterExtension $adapter */
+        $adapter = $disk->getAdapter();
+
+        if ($loader = $adapter->newLoader()) {
+            $loader->load($disk);
         }
     }
 }
