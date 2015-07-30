@@ -47,7 +47,9 @@ Refer to the documentation for [Laravel's filesystem and cloud storage](http://l
 
 The Files module supports integration for storage "drivers" using Extensions. While many storage providers are available you may wish to create your own.
 
-In order to create a custom storage adapter to use with a disk you will need to build an extension which extends the `\Anomaly\FilesModule\Adapter\AdapterExtension` and provides an instance of `Anomaly\FilesModule\Adapter\Contract\DiskLoaderInterface` through it's `newLoader()` method. By default your `CustomAdapterExtension` will be transformed to `CustomAdapterLoader`.
+In order to create a custom storage adapter to use with a disk you will need to build an extension which extends `Anomaly\FilesModule\Adapter\AdapterExtension` and provides an instance of `Anomaly\FilesModule\Adapter\Contract\DiskLoaderInterface` through it's `newLoader()` method.
+
+**By default your `CustomAdapterExtension` will be transformed to `CustomAdapterLoader`.**
 
 The disk loader is responsible for extending Laravel and Flysystem with an instance of `Anomaly\FilesModule\Adapter\AdapterFilesystem`.
 
