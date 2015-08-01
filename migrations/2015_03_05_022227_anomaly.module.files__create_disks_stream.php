@@ -3,13 +3,13 @@
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 
 /**
- * Class AnomalyModuleFiles_100_CreateDisksStream
+ * Class AnomalyModuleFilesCreateDisksStream
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  */
-class AnomalyModuleFiles_1_0_0_CreateDisksStream extends Migration
+class AnomalyModuleFilesCreateDisksStream extends Migration
 {
 
     /**
