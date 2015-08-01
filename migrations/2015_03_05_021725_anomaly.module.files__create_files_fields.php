@@ -60,6 +60,7 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
         'mime_type'   => 'anomaly.field_type.text',
         'size'        => 'anomaly.field_type.integer',
         'downloads'   => [
+            'type'   => 'anomaly.field_type.integer',
             'config' => [
                 'default_value' => 0
             ]
