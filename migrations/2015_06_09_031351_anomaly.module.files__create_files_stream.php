@@ -44,6 +44,7 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
             'required' => true
         ],
         'description',
+        'downloads',
         'keywords',
         'folder',
         'alt'
