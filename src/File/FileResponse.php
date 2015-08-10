@@ -50,7 +50,6 @@ class FileResponse
         $response = $this->response->make();
 
         $response->headers->set('Etag', $file->etag());
-        $response->headers->set('Cache-Control', 'must-revalidate');
         $response->headers->set('Content-Type', $file->getMimetype());
         $response->headers->set('Last-Modified', $file->lastModified()->setTimezone('GMT')->format('D, d M Y H:i:s'));
 
