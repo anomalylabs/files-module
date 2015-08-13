@@ -8,7 +8,7 @@ use Illuminate\Routing\Redirector;
 use League\Flysystem\MountManager;
 
 /**
- * Class AdapterFormBuilder
+ * Class AdapterFormBuilder 
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
