@@ -48,8 +48,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'path' => '(.*)'
             ]
         ],
-        'files/image/{disk}/{path}'                 => [
-            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@image',
+        'files/thumb/{disk}/{path}'                 => [
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumb',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'

@@ -76,7 +76,7 @@ class FilesController extends PublicController
     }
 
     /**
-     * Return a processed images.
+     * Return thumbnail image.
      *
      * @param FileLocator $locator
      * @param FileImage   $thumbnail
@@ -86,7 +86,7 @@ class FilesController extends PublicController
      * @param             $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function image(
+    public function thumb(
         FileLocator $locator,
         FileImage $thumbnail,
         Request $request,
@@ -100,13 +100,15 @@ class FilesController extends PublicController
 
         $image = $image->make($file);
 
-        foreach ($request->all() as $method => $arguments) {
+        /*foreach ($request->all() as $method => $arguments) {
 
             if (in_array($method = camel_case($method), $image->getAllowedMethods())) {
                 call_user_func_array([$image, camel_case($method)], explode(',', $arguments));
             }
-        }
+        }*/
 
-        return $thumbnail->generate($image, $request->get('quality', 100));
+        $image->resize(148, 148);
+
+        return $thumbnail->generate($image, 75);
     }
 }
