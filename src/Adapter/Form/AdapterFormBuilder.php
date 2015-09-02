@@ -42,7 +42,7 @@ class AdapterFormBuilder extends MultipleFormBuilder
         app()->call('Anomaly\FilesModule\Disk\Listener\RegisterDisks@handle');
 
         try {
-            $manager->has($entry->path('test.me'));
+            $manager->listContents($entry->path('/'));
         } catch (\Exception $e) {
 
             $messages->error($e->getMessage());
