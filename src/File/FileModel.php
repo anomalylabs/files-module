@@ -182,6 +182,11 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         return $manager->get($disk->path($this->path()));
     }
 
+    /**
+     * Return a new image instance.
+     *
+     * @return Image
+     */
     public function image()
     {
         /* @var Image $image */

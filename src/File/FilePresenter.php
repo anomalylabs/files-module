@@ -69,6 +69,18 @@ class FilePresenter extends EntryPresenter
     }
 
     /**
+     * Return a thumbnail of the file.
+     *
+     * @param int $width
+     * @param int $height
+     * @return string
+     */
+    public function thumbnail($width = 48, $height = 48)
+    {
+        return $this->object->image()->fit($width, $height);
+    }
+
+    /**
      * Return the view link.
      *
      * @return string
