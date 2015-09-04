@@ -289,4 +289,14 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     {
         return $this->description;
     }
+
+    /**
+     * Return the public path by default.
+     *
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->publicPath();
+    }
 }
