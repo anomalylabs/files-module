@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Image\Image;
 use Carbon\Carbon;
 use League\Flysystem\File;
 
@@ -80,6 +81,13 @@ interface FileInterface extends EntryInterface
      * @return File
      */
     public function resource();
+
+    /**
+     * Return an image instance.
+     *
+     * @return Image
+     */
+    public function image();
 
     /**
      * Return the last modified datetime.

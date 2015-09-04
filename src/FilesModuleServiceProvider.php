@@ -19,7 +19,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $listeners = [
-        'Anomaly\Streams\Platform\Addon\Event\AddonsRegistered' => [
+        'Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered' => [
             'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
         ]
     ];
@@ -48,8 +48,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'path' => '(.*)'
             ]
         ],
-        'files/image/{disk}/{path}'                 => [
-            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@image',
+        'files/thumb/{disk}/{path}'                 => [
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumb',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
