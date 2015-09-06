@@ -18,8 +18,9 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
      * @var array
      */
     protected $stream = [
-        'slug'   => 'folders',
-        'locked' => true
+        'slug'         => 'folders',
+        'title_column' => 'name',
+        'locked'       => true
     ];
 
     /**
