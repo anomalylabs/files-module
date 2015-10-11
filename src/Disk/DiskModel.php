@@ -2,8 +2,10 @@
 
 use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Command\GetDiskEntriesStream;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
+use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
  * Class DiskModel
@@ -24,6 +26,16 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     protected $cacheMinutes = 99999;
 
     /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        self::observe(app(substr(__CLASS__, 0, -5) . 'Observer'));
+
+        parent::boot();
+    }
+
+    /**
      * Return the disk's path.
      *
      * @param null $path
@@ -31,7 +43,18 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
      */
     public function path($path = null)
     {
-        return $this->getSlug() . '://' . ($path ? $path : $path);
+        return trim($this->getSlug() . '://' . ($path ? $path : $path), '/');
+    }
+
+    /**
+     * Return the disk's browser path.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function browserPath($path = null)
+    {
+        return trim($this->getSlug() . '/' . ($path ? $path : $path), '/');
     }
 
     /**
@@ -72,5 +95,15 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    /**
+     * Get the entries stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntriesStream()
+    {
+        return $this->dispatch(new GetDiskEntriesStream($this));
     }
 }

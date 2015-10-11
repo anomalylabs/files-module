@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
  * Interface DiskInterface
@@ -21,6 +22,14 @@ interface DiskInterface
      * @return string
      */
     public function path($path = null);
+
+    /**
+     * Return the disk's browser path.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function browserPath($path = null);
 
     /**
      * Return the disk's filesystem.
@@ -56,4 +65,11 @@ interface DiskInterface
      * @return AdapterExtension
      */
     public function getAdapter();
+
+    /**
+     * Get the entries stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntriesStream();
 }

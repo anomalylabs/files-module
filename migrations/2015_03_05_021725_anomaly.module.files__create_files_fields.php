@@ -51,10 +51,13 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
                 'related' => 'Anomaly\FilesModule\Disk\DiskModel'
             ]
         ],
+        'entry'       => 'anomaly.field_type.polymorphic',
+        'title'       => 'anomaly.field_type.text',
+        'caption'     => 'anomaly.field_type.textarea',
         'description' => 'anomaly.field_type.textarea',
-        'extension'   => 'anomaly.field_type.text',
         'keywords'    => 'anomaly.field_type.tags',
-        'alt'         => 'anomaly.field_type.text',
+        'alt_text'    => 'anomaly.field_type.text',
+        'extension'   => 'anomaly.field_type.text',
         'width'       => 'anomaly.field_type.text',
         'height'      => 'anomaly.field_type.text',
         'mime_type'   => 'anomaly.field_type.text',

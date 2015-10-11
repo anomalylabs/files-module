@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use Carbon\Carbon;
@@ -293,6 +294,26 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Get the related entry.
+     *
+     * @return EntryInterface
+     */
+    public function getEntry()
+    {
+        return $this->entry;
+    }
+
+    /**
+     * Get the related entry ID.
+     *
+     * @return null|int
+     */
+    public function getEntryId()
+    {
+        return $this->entry_id;
     }
 
     /**

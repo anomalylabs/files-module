@@ -5,6 +5,7 @@ use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Image\Image;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use League\Flysystem\File;
 
 /**
@@ -158,4 +159,18 @@ interface FileInterface extends EntryInterface
      * @return string
      */
     public function getDescription();
+
+    /**
+     * Get the related entry.
+     *
+     * @return EntryInterface
+     */
+    public function getEntry();
+
+    /**
+     * Return the entry relation.
+     *
+     * @return MorphTo
+     */
+    public function entry();
 }

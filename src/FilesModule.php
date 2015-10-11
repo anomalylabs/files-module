@@ -47,10 +47,25 @@ class FilesModule extends Module
         ],
         'disks'   => [
             'buttons' => [
-                'new_disk' => [
+                'new_disk'  => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'href'        => 'admin/files/disks/choose'
+                ],
+                'add_field' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'enabled'     => 'admin/files/disks/assignments/*',
+                    'href'        => 'admin/files/disks/assignments/{request.route.parameters.id}/choose'
+                ]
+            ]
+        ],
+        'fields'  => [
+            'buttons' => [
+                'new_field' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/files/fields/choose'
                 ]
             ]
         ]

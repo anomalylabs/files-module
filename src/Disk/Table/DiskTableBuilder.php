@@ -31,10 +31,7 @@ class DiskTableBuilder extends TableBuilder
      */
     protected $buttons = [
         'edit',
-        'blue' => [
-            'href' => 'admin/files/browser/{entry.slug}',
-            'text' => 'anomaly.module.files::button.browse'
-        ]
+        'assignments'
     ];
 
     /**

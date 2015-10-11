@@ -1,8 +1,11 @@
 <?php
 
 return [
-    'alt'         => [
-        'name' => 'Alt Attribute'
+    'alt_text'    => [
+        'name' => 'Alt Text'
+    ],
+    'title'       => [
+        'name' => 'Title'
     ],
     'name'        => [
         'name' => 'Name'
@@ -12,6 +15,9 @@ return [
     ],
     'size'        => [
         'name' => 'Size'
+    ],
+    'caption'     => [
+        'name' => 'Caption'
     ],
     'adapter'     => [
         'name' => 'Adapter'

@@ -44,11 +44,16 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
         'mime_type' => [
             'required' => true
         ],
+        'entry'     => [
+            'required' => true
+        ],
+        'title',
+        'caption',
         'description',
         'downloads',
         'keywords',
-        'folder',
-        'alt'
+        'alt_text',
+        'folder'
     ];
 
 }

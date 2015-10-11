@@ -41,68 +41,76 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'files/get/{disk}/{path}'                   => [
+        'files/get/{disk}/{path}'                              => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'files/thumb/{disk}/{path}'                 => [
+        'files/thumb/{disk}/{path}'                            => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumb',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'files/stream/{disk}/{path}'                => [
+        'files/stream/{disk}/{path}'                           => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@stream',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'files/download/{disk}/{path}'              => [
+        'files/download/{disk}/{path}'                         => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@download',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'admin/files'                               => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
-        'admin/files/browser/{disk?}/{path?}'       => [
+        'admin/files'                                          => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
+        'admin/files/browser/{disk?}/{path?}'                  => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@index',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'admin/files/view/{disk}/{path}'            => [
+        'admin/files/view/{disk}/{path}'                       => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\BrowserController@view',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'admin/files/folders/create/{disk}/{path?}' => [
+        'admin/files/folders/create/{disk}/{path?}'            => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'admin/files/upload/{disk}/{path?}'         => [
+        'admin/files/upload/{disk}/{path?}'                    => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@upload',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
         ],
-        'admin/files/edit/{id}'                     => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@edit',
-        'admin/files/disks'                         => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
-        'admin/files/disks/choose'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
-        'admin/files/disks/create'                  => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
-        'admin/files/disks/edit/{id}'               => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit'
+        'admin/files/edit/{id}'                                => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@edit',
+        'admin/files/disks'                                    => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
+        'admin/files/disks/choose'                             => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
+        'admin/files/disks/create'                             => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
+        'admin/files/disks/edit/{id}'                          => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
+        'admin/files/fields'                                   => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@index',
+        'admin/files/fields/choose'                            => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@choose',
+        'admin/files/fields/create'                            => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@create',
+        'admin/files/fields/edit/{id}'                         => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@edit',
+        'admin/files/disks/assignments/{id}'                   => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@index',
+        'admin/files/disks/assignments/{id}/choose'            => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@choose',
+        'admin/files/disks/assignments/{id}/create/{field}'    => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@create',
+        'admin/files/disks/assignments/{id}/edit/{assignment}' => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@edit',
     ];
 
 }
