@@ -111,6 +111,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/disks/assignments/{id}/choose'            => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@choose',
         'admin/files/disks/assignments/{id}/create/{field}'    => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@create',
         'admin/files/disks/assignments/{id}/edit/{assignment}' => 'Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController@edit',
+        'admin/files/test'                                     => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@test',
     ];
 
 }

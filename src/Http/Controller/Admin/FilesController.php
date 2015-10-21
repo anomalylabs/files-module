@@ -72,4 +72,14 @@ class FilesController extends AdminController
 
         return $form->render($id);
     }
+
+    public function test(DiskRepositoryInterface $disks)
+    {
+        return view(
+            'module::admin/test',
+            [
+                'disks' => $disks->all()
+            ]
+        );
+    }
 }

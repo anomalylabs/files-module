@@ -26,7 +26,7 @@ class FilesModule extends Module
      * @var array
      */
     protected $sections = [
-        'browser' => [
+        'files' => [
             'buttons' => [
                 'upload'     => [
                     'button'      => 'success',

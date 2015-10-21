@@ -5,6 +5,7 @@ use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Command\GetDiskEntriesStream;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\Folder\FolderCollection;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
@@ -106,5 +107,25 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function getEntriesStream()
     {
         return $this->dispatch(new GetDiskEntriesStream($this));
+    }
+
+    /**
+     * Return related folders.
+     *
+     * @return FolderCollection
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * Return the folder relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function folders()
+    {
+        return $this->hasMany('Anomaly\FilesModule\Folder\FolderModel', 'disk_id');
     }
 }
