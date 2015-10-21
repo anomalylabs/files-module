@@ -1,12 +1,15 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
+use Anomaly\FilesModule\Browser\Table\BrowserTableBuilder;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Entry\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
+use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\File\Upload\UploadFormBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
+use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -73,12 +76,32 @@ class FilesController extends AdminController
         return $form->render($id);
     }
 
-    public function test(DiskRepositoryInterface $disks)
-    {
+    public function test(
+        DiskRepositoryInterface $disks,
+        BrowserTableBuilder $browser,
+        FolderTableBuilder $folders,
+        FileTableBuilder $files
+    ) {
+
+        /**
+         * If a disk is selected then don't include them
+         * but add them to the file and folder tables.
+         */
+        if ($disk = $disks->findBySlug('local')) {
+
+            $browser->addTable('folders', $folders->setDisk($disk));
+            $browser->addTable('files', $files->setDisk($disk));
+        } else {
+            $browser->addTable('disks', $disks);
+        }
+
+        $browser->make();
+
         return view(
             'module::admin/test',
             [
-                'disks' => $disks->all()
+                'disks'   => $disks->all(),
+                'browser' => $browser
             ]
         );
     }
