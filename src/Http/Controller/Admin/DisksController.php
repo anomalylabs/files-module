@@ -7,6 +7,7 @@ use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Ui\Form\Multiple\MultipleFormBuilder;
 
 /**
  * Class DisksController
@@ -51,14 +52,14 @@ class DisksController extends AdminController
      * Return the form to create a new disk.
      *
      * @param DiskFormBuilder          $disk
-     * @param AdapterFormBuilder       $form
+     * @param MultipleFormBuilder      $form
      * @param ExtensionCollection      $adapters
      * @param ConfigurationFormBuilder $configuration
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(
         DiskFormBuilder $disk,
-        AdapterFormBuilder $form,
+        MultipleFormBuilder $form,
         ExtensionCollection $adapters,
         ConfigurationFormBuilder $configuration
     ) {
@@ -74,7 +75,7 @@ class DisksController extends AdminController
      * Return the form to edit an existing disk.
      *
      * @param DiskFormBuilder          $disk
-     * @param AdapterFormBuilder       $form
+     * @param MultipleFormBuilder      $form
      * @param DiskRepositoryInterface  $disks
      * @param ConfigurationFormBuilder $configuration
      * @param                          $id
@@ -82,7 +83,7 @@ class DisksController extends AdminController
      */
     public function edit(
         DiskFormBuilder $disk,
-        AdapterFormBuilder $form,
+        MultipleFormBuilder $form,
         DiskRepositoryInterface $disks,
         ConfigurationFormBuilder $configuration,
         $id

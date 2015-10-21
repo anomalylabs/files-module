@@ -52,22 +52,15 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
             ]
         ],
         'entry'       => 'anomaly.field_type.polymorphic',
-        'title'       => 'anomaly.field_type.text',
-        'caption'     => 'anomaly.field_type.textarea',
         'description' => 'anomaly.field_type.textarea',
+        'path'        => 'anomaly.field_type.text',
         'keywords'    => 'anomaly.field_type.tags',
         'alt_text'    => 'anomaly.field_type.text',
         'extension'   => 'anomaly.field_type.text',
         'width'       => 'anomaly.field_type.text',
         'height'      => 'anomaly.field_type.text',
         'mime_type'   => 'anomaly.field_type.text',
-        'size'        => 'anomaly.field_type.integer',
-        'downloads'   => [
-            'type'   => 'anomaly.field_type.integer',
-            'config' => [
-                'default_value' => 0
-            ]
-        ]
+        'size'        => 'anomaly.field_type.integer'
     ];
 
 }

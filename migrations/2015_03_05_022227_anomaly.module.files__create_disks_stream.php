@@ -19,8 +19,7 @@ class AnomalyModuleFilesCreateDisksStream extends Migration
      */
     protected $stream = [
         'slug'         => 'disks',
-        'title_column' => 'name',
-        'locked'       => true
+        'title_column' => 'name'
     ];
 
     /**
@@ -29,9 +28,17 @@ class AnomalyModuleFilesCreateDisksStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'name'    => ['required' => true, 'unique' => true],
-        'slug'    => ['required' => true, 'unique' => true],
-        'adapter' => ['required' => true],
+        'name'    => [
+            'required' => true,
+            'unique'   => true
+        ],
+        'slug'    => [
+            'required' => true,
+            'unique'   => true
+        ],
+        'adapter' => [
+            'required' => true
+        ],
         'description'
     ];
 

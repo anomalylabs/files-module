@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
@@ -62,7 +63,7 @@ interface DiskInterface
     /**
      * Get the adapter.
      *
-     * @return AdapterExtension
+     * @return AdapterInterface
      */
     public function getAdapter();
 

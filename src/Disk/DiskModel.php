@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Command\GetDiskEntriesStream;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
@@ -90,7 +91,7 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     /**
      * Get the adapter.
      *
-     * @return AdapterExtension
+     * @return AdapterInterface
      */
     public function getAdapter()
     {

@@ -3,20 +3,28 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 
 /**
- * Interface DiskLoaderInterface
+ * Interface AdapterInterface
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Adapter\Contract
  */
-interface DiskLoaderInterface
+interface AdapterInterface
 {
 
     /**
-     * Load the disk into Laravel / Flysystem.
+     * Load the disk.
      *
      * @param DiskInterface $disk
      */
     public function load(DiskInterface $disk);
+
+    /**
+     * Validate adapter configuration.
+     *
+     * @param array $configuration
+     * @return bool
+     */
+    public function validate(array $configuration);
 }

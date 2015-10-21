@@ -19,8 +19,7 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
      */
     protected $stream = [
         'slug'         => 'files',
-        'title_column' => 'name',
-        'locked'       => true
+        'title_column' => 'name'
     ];
 
     /**
@@ -47,10 +46,10 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
         'entry'     => [
             'required' => true
         ],
-        'title',
-        'caption',
+        'path'      => [
+            'required' => true
+        ],
         'description',
-        'downloads',
         'keywords',
         'alt_text',
         'folder'
