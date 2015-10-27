@@ -5,9 +5,10 @@ return [
     'name'        => 'Files Module',
     'description' => 'Multi-provider files manager.',
     'section'     => [
+        'files'    => 'Files',
         'disks'    => 'Disks',
         'fields'   => 'Fields',
-        'browser'  => 'Browser',
+        'folders'  => 'Folders',
         'adapters' => 'Adapters',
         'settings' => 'Settings'
     ]

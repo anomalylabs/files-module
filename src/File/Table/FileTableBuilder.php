@@ -1,9 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Table;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class FileTableBuilder
@@ -17,105 +14,53 @@ class FileTableBuilder extends TableBuilder
 {
 
     /**
-     * The disk instance.
-     *
-     * @var DiskInterface
-     */
-    protected $disk;
-
-    /**
-     * The folder instance.
-     *
-     * @var FolderInterface
-     */
-    protected $folder;
-
-    /**
-     * The table options.
+     * The table filters.
      *
      * @var array
      */
-    protected $options = [
-        'order_by' => [
-            'name' => 'ASC'
-        ]
+    protected $filters = [
+        'folder',
+        'filename',
+        'title',
+        'keywords'
     ];
 
     /**
-     * Fired when the table is ready to build.
+     * The table columns.
      *
-     * @throws \Exception
+     * @var array
      */
-    public function onReady()
-    {
-        if (!$this->getDisk()) {
-            throw new \Exception('The $disk parameter is required.');
-        }
-    }
+    protected $columns = [
+        'entry.preview' => [
+            'heading' => 'anomaly.module.files::message.preview'
+        ],
+        'entry.edit_link',
+        'folder',
+        'title',
+        'size'          => [
+            'value' => 'entry.readable_size'
+        ],
+        'mime_type',
+        'entry.keywords.labels'
+    ];
 
     /**
-     * Fired just before querying.
+     * The table buttons.
      *
-     * @param Builder $query
+     * @var array
      */
-    public function onQuerying(Builder $query)
-    {
-        $disk = $this->getDisk();
-
-        // Limit results to the desired disk.
-        $query->where('disk_id', $disk->getId());
-
-        // Limit results to the desired folder if any.
-        if ($folder = $this->getFolder()) {
-            $query->where('folder_id', $folder->getId());
-        } else {
-            $query->where('folder_id', null);
-        }
-    }
+    protected $buttons = [
+        'view'
+    ];
 
     /**
-     * Get the disk.
+     * The table buttons.
      *
-     * @return DiskInterface
+     * @var array
      */
-    public function getDisk()
-    {
-        return $this->disk;
-    }
+    protected $actions = [
+        'delete',
+        'edit'
+    ];
 
-    /**
-     * Set the disk interface.
-     *
-     * @param DiskInterface $disk
-     * @return $this
-     */
-    public function setDisk(DiskInterface $disk)
-    {
-        $this->disk = $disk;
-
-        return $this;
-    }
-
-    /**
-     * Get the folder.
-     *
-     * @return FolderInterface
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * Set the folder.
-     *
-     * @param FolderInterface $folder
-     * @return $this
-     */
-    public function setFolder(FolderInterface $folder)
-    {
-        $this->folder = $folder;
-
-        return $this;
-    }
 }

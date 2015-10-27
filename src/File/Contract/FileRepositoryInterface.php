@@ -2,7 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\Streams\Platform\Model\EloquentModel;
+use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 
 /**
  * Interface FileRepositoryInterface
@@ -12,40 +12,16 @@ use Anomaly\Streams\Platform\Model\EloquentModel;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\File\Contract
  */
-interface FileRepositoryInterface
+interface FileRepositoryInterface extends EntryRepositoryInterface
 {
 
     /**
-     * Create a new file.
+     * Find a file by it's filename.
      *
-     * @param array $attributes
-     * @return FileInterface
-     */
-    public function create(array $attributes);
-
-    /**
-     * Find a file by it's ID.
-     *
-     * @param $id
-     * @return null|FileInterface
-     */
-    public function find($id);
-
-    /**
-     * Find a file by it's name.
-     *
-     * @param                 $name
+     * @param                 $filename
      * @param DiskInterface   $disk
      * @param FolderInterface $folder
      * @return null|FileInterface
      */
-    public function findByName($name, DiskInterface $disk, FolderInterface $folder = null);
-
-    /**
-     * Delete a file.
-     *
-     * @param FileInterface|EloquentModel $file
-     * @return bool
-     */
-    public function delete(FileInterface $file);
+    public function findByFilename($filename, DiskInterface $disk, FolderInterface $folder = null);
 }

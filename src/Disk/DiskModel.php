@@ -5,6 +5,7 @@ use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Command\GetDiskEntriesStream;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
@@ -34,28 +35,6 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
         self::observe(app(substr(__CLASS__, 0, -5) . 'Observer'));
 
         parent::boot();
-    }
-
-    /**
-     * Return the disk's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null)
-    {
-        return trim($this->getSlug() . '://' . ($path ? $path : $path), '/');
-    }
-
-    /**
-     * Return the disk's browser path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function browserPath($path = null)
-    {
-        return trim($this->getSlug() . '/' . ($path ? $path : $path), '/');
     }
 
     /**
@@ -91,7 +70,7 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     /**
      * Get the adapter.
      *
-     * @return AdapterInterface
+     * @return AdapterInterface|Extension
      */
     public function getAdapter()
     {

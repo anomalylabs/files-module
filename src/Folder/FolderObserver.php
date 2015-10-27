@@ -1,13 +1,10 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
-use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\Folder\Command\DeleteDirectory;
+use Anomaly\FilesModule\Folder\Command\DeleteFiles;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
-use Illuminate\Bus\Dispatcher as CommandDispatcher;
-use Illuminate\Events\Dispatcher as EventDispatcher;
-use League\Flysystem\MountManager;
 
 /**
  * Class FolderObserver
@@ -21,89 +18,13 @@ class FolderObserver extends EntryObserver
 {
 
     /**
-     * The files repository.
-     *
-     * @var FileRepositoryInterface
-     */
-    protected $files;
-
-    /**
-     * The folder repository.
-     *
-     * @var FolderRepositoryInterface
-     */
-    protected $folders;
-
-    /**
-     * The mount manager.
-     *
-     * @var MountManager
-     */
-    protected $manager;
-
-    /**
-     * Create a new FolderObserver instance.
-     *
-     * @param MountManager              $manager
-     * @param EventDispatcher           $events
-     * @param CommandDispatcher         $commands
-     * @param FileRepositoryInterface   $files
-     * @param FolderRepositoryInterface $folders
-     */
-    public function __construct(
-        MountManager $manager,
-        EventDispatcher $events,
-        CommandDispatcher $commands,
-        FileRepositoryInterface $files,
-        FolderRepositoryInterface $folders
-    ) {
-        $this->files   = $files;
-        $this->folders = $folders;
-        $this->manager = $manager;
-
-        parent::__construct($events, $commands);
-    }
-
-    /**
-     * Fire just before saving a folder.
-     *
-     * @param EntryInterface|FolderInterface $entry
-     * @return bool
-     */
-    public function saving(EntryInterface $entry)
-    {
-        $disk = $entry->getDisk();
-
-        /**
-         * If the folder already exists then
-         * skip it because even if it does not
-         * exist on the server it'll be written
-         * automatically soon.
-         */
-        if ($this->folders->findByName($entry->getName(), $disk, $entry->getParent())) {
-            return false;
-        }
-
-        return parent::saving($entry);
-    }
-
-    /**
-     * Fire just before saving a folder.
+     * Fire just before deleting a folder.
      *
      * @param EntryInterface|FolderInterface $entry
      */
     public function deleting(EntryInterface $entry)
     {
-        $this->manager->deleteDir($entry->diskPath());
-
-        // Delete contained files.
-        foreach ($entry->getFiles() as $file) {
-            $this->files->delete($file);
-        }
-
-        // Delete contained folders.
-        foreach ($entry->getChildren() as $folder) {
-            $this->folders->delete($folder);
-        }
+        $this->dispatch(new DeleteFiles($entry));
+        $this->dispatch(new DeleteDirectory($entry));
     }
 }

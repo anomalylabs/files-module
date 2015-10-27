@@ -2,7 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
-use Anomaly\FilesModule\Folder\FolderCollection;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -13,30 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Folder\Contract
  */
-interface FolderInterface
+interface FolderInterface extends EntryInterface
 {
-
-    /**
-     * Return the folder's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null);
-
-    /**
-     * Return the folders's path on it's disk.
-     *
-     * @return string
-     */
-    public function diskPath();
-
-    /**
-     * Get the ID.
-     *
-     * @return int
-     */
-    public function getId();
 
     /**
      * Get the name.
@@ -44,6 +22,13 @@ interface FolderInterface
      * @return string
      */
     public function getName();
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug();
 
     /**
      * Get the related disk.
@@ -60,30 +45,9 @@ interface FolderInterface
     public function getFiles();
 
     /**
-     * Get the related parent folder.
-     *
-     * @return null|FolderInterface
-     */
-    public function getParent();
-
-    /**
-     * Get related folders.
-     *
-     * @return FolderCollection
-     */
-    public function getChildren();
-
-    /**
      * Return the files relation.
      *
      * @return HasMany
      */
     public function files();
-
-    /**
-     * Return folders relation.
-     *
-     * @return HasMany
-     */
-    public function children();
 }

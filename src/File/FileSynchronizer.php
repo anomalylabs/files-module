@@ -55,10 +55,10 @@ class FileSynchronizer
     {
         $folder = $this->syncFolder($resource, $disk);
 
-        if (!$file = $this->files->findByName(basename($resource->getPath()), $disk, $folder)) {
+        if (!$file = $this->files->findByFilename(basename($resource->getPath()), $disk, $folder)) {
             $file = $this->files->create(
                 [
-                    'name'      => basename($resource->getPath()),
+                    'filename'      => basename($resource->getPath()),
                     'folder_id' => $folder ? $folder->getId() : null,
                     'disk_id'   => $disk->getId(),
                     'size'      => $resource->getSize(),
@@ -91,7 +91,7 @@ class FileSynchronizer
         $folder = null;
 
         foreach (explode('/', $path) as $name) {
-            if (!$folder = $this->folders->findByName($name, $disk, $parent)) {
+            if (!$folder = $this->folders->findBySlug($name)) {
                 $folder = $this->folders->create(
                     [
                         'name'      => $name,

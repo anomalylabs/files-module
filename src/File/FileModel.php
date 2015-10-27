@@ -6,7 +6,6 @@ use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
-use Carbon\Carbon;
 use League\Flysystem\File;
 use League\Flysystem\MountManager;
 
@@ -49,16 +48,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Return a hash of the file.
-     *
-     * @return string
-     */
-    public function hash()
-    {
-        return md5(json_encode($this->getAttributes()));
-    }
-
-    /**
      * Return the type of the file.
      *
      * @return string
@@ -71,116 +60,25 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Return the file's path.
-     *
-     * @return string
-     */
-    public function path()
-    {
-        if ($folder = $this->getFolder()) {
-            return $folder->path($this->getName());
-        }
-
-        return $this->getName();
-    }
-
-    /**
-     * Return the file's path on it's disk.
-     *
-     * @return string
-     */
-    public function diskPath()
-    {
-        $disk = $this->getDisk();
-
-        if ($folder = $this->getFolder()) {
-            return $disk->path($folder->path($this->getName()));
-        }
-
-        return $disk->path($this->getName());
-    }
-
-    /**
-     * Return the file's public path.
-     *
-     * @return string
-     */
-    public function publicPath()
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        return 'files/get/' . $disk->getSlug() . '/' . $path;
-    }
-
-    /**
-     * Return the file's image path.
-     *
-     * @param array $parameters
-     * @return string
-     */
-    public function imagePath(array $parameters = [])
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        $query = http_build_query(
-            array_map(
-                function ($value) {
-                    return implode(',', (array)$value);
-                },
-                $parameters
-            ),
-            '',
-            '&amp;'
-        );
-
-        return 'files/image/' . $disk->getSlug() . '/' . $path . ($query ? '?' . $query : null);
-    }
-
-    /**
-     * Return the file's stream path.
-     *
-     * @return string
-     */
-    public function streamPath()
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        return 'files/stream/' . $disk->getSlug() . '/' . $path;
-    }
-
-    /**
-     * Return the file's download path.
-     *
-     * @return string
-     */
-    public function downloadPath()
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        return 'files/download/' . $disk->getSlug() . '/' . $path;
-    }
-
-    /**
      * Return the file resource.
      *
      * @return File
      */
     public function resource()
     {
-        $disk = $this->getDisk();
+        $disk   = $this->getDisk();
+        $folder = $this->getFolder();
+
+        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getFilename();
 
         /* @var MountManager $manager */
         $manager = app('League\Flysystem\MountManager');
 
-        if (!$manager->has($disk->path($this->path()))) {
+        if (!$manager->has($path)) {
             return null;
         }
 
-        return $manager->get($disk->path($this->path()));
+        return $manager->get($path);
     }
 
     /**
@@ -190,40 +88,35 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function image()
     {
+        $disk   = $this->getDisk();
+        $folder = $this->getFolder();
+
+        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getFilename();
+
         /* @var Image $image */
         $image = app('Anomaly\Streams\Platform\Image\Image');
 
-        return $image->make($this->diskPath())->setOutput('image');
+        return $image->make($path)->setOutput('image');
     }
 
     /**
-     * Return the last modified datetime.
-     *
-     * @return Carbon
-     */
-    public function lastModified()
-    {
-        return $this->last_modified ?: $this->created_at;
-    }
-
-    /**
-     * Get the alt attribute.
+     * Get the title.
      *
      * @return string
      */
-    public function getAlt()
+    public function getTitle()
     {
-        return $this->alt;
+        return $this->title;
     }
 
     /**
-     * Get the name.
+     * Get the filename.
      *
      * @return string
      */
-    public function getName()
+    public function getFilename()
     {
-        return $this->name;
+        return $this->filename;
     }
 
     /**

@@ -26,23 +26,22 @@ class FilesModule extends Module
      * @var array
      */
     protected $sections = [
-        'browser' => [
+        'files'   => [
             'buttons' => [
-                'upload'     => [
-                    'button'      => 'success',
+                'upload' => [
+                    'data-toggle' => 'modal',
                     'icon'        => 'upload',
-                    'data-toggle' => 'modal',
+                    'button'      => 'success',
                     'data-target' => '#modal-large',
-                    'href'        => 'admin/files/upload{request.route.compiled.parameters_suffix}',
                     'text'        => 'module::button.upload',
-                    'enabled'     => 'admin/files/browser/*'
-                ],
-                'new_folder' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'enabled'     => 'admin/files/browser/*',
-                    'href'        => 'admin/files/folders/create{request.route.compiled.parameters_suffix}'
+                    'href'        => 'admin/files/upload/local/test',
+                    'disabled'    => 'Anomaly\FilesModule\FilesModuleUploadable@handle',
                 ]
+            ]
+        ],
+        'folders' => [
+            'buttons' => [
+                'new_folder'
             ]
         ],
         'disks'   => [

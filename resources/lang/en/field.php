@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'alt_text'    => [
-        'name' => 'Alt Text'
-    ],
     'title'       => [
         'name' => 'Title'
     ],
     'name'        => [
         'name' => 'Name'
+    ],
+    'filename'    => [
+        'name' => 'Filename'
     ],
     'slug'        => [
         'name' => 'Slug'
@@ -16,8 +16,11 @@ return [
     'size'        => [
         'name' => 'Size'
     ],
-    'caption'     => [
-        'name' => 'Caption'
+    'disk'        => [
+        'name' => 'Disk'
+    ],
+    'folder'      => [
+        'name' => 'Folder'
     ],
     'adapter'     => [
         'name' => 'Adapter'

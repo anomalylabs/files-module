@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'preview'           => 'Preview',
     'new_folder'        => 'New Folder',
     'upload_files'      => 'Upload Files',
     'choose_field'      => 'What field would you like to add?',

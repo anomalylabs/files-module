@@ -3,6 +3,8 @@
 use Anomaly\FilesModule\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
@@ -13,24 +15,8 @@ use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Disk\Contract
  */
-interface DiskInterface
+interface DiskInterface extends EntryInterface
 {
-
-    /**
-     * Return the disk's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null);
-
-    /**
-     * Return the disk's browser path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function browserPath($path = null);
 
     /**
      * Return the disk's filesystem.
@@ -38,13 +24,6 @@ interface DiskInterface
      * @return AdapterFilesystem
      */
     public function filesystem();
-
-    /**
-     * Get the ID.
-     *
-     * @return int
-     */
-    public function getId();
 
     /**
      * Get the name.
@@ -63,7 +42,7 @@ interface DiskInterface
     /**
      * Get the adapter.
      *
-     * @return AdapterInterface
+     * @return AdapterInterface|Extension
      */
     public function getAdapter();
 

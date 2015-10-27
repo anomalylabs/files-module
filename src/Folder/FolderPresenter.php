@@ -22,27 +22,4 @@ class FolderPresenter extends EntryPresenter
      */
     protected $object;
 
-    /**
-     * Return the browser link.
-     *
-     * @return string
-     */
-    public function viewLink()
-    {
-        return app('html')->link(
-            implode(
-                '/',
-                array_filter(
-                    [
-                        'admin',
-                        'files',
-                        'browser',
-                        $this->object->getDisk()->getSlug(),
-                        $this->object->path()
-                    ]
-                )
-            ),
-            $this->object->getName()
-        );
-    }
 }

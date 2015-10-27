@@ -68,6 +68,18 @@ class DisksController extends AdminController
         $form->addForm('disk', $disk->setAdapter($adapter));
         $form->addForm('configuration', $configuration->setEntry($adapter->getNamespace()));
 
+        $form->on(
+            'saving_configuration',
+            function () use ($form) {
+
+                /* @var ConfigurationFormBuilder $configuration */
+                $disk          = $form->getChildFormEntry('disk');
+                $configuration = $form->getChildForm('configuration');
+
+                $configuration->setScope($disk->getSlug());
+            }
+        );
+
         return $form->render();
     }
 

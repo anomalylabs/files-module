@@ -4,7 +4,7 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\Streams\Platform\Model\EloquentModel;
+use Anomaly\Streams\Platform\Entry\EntryRepository;
 
 /**
  * Class FileRepository
@@ -14,7 +14,7 @@ use Anomaly\Streams\Platform\Model\EloquentModel;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\File
  */
-class FileRepository implements FileRepositoryInterface
+class FileRepository extends EntryRepository implements FileRepositoryInterface
 {
 
     /**
@@ -35,52 +35,19 @@ class FileRepository implements FileRepositoryInterface
     }
 
     /**
-     * Create a new file.
+     * Find a file by it's filename.
      *
-     * @param array $attributes
-     * @return FileInterface
-     */
-    public function create(array $attributes)
-    {
-        return $this->model->create($attributes);
-    }
-
-    /**
-     * Find a file by it's ID.
-     *
-     * @param $id
-     * @return null|FileInterface
-     */
-    public function find($id)
-    {
-        return $this->model->find($id);
-    }
-
-    /**
-     * Find a file by it's name.
-     *
-     * @param                 $name
+     * @param                 $filename
      * @param DiskInterface   $disk
      * @param FolderInterface $folder
      * @return null|FileInterface
      */
-    public function findByName($name, DiskInterface $disk, FolderInterface $folder = null)
+    public function findByFilename($filename, DiskInterface $disk, FolderInterface $folder = null)
     {
         return $this->model
-            ->where('name', $name)
+            ->where('filename', $filename)
             ->where('disk_id', $disk->getId())
             ->where('folder_id', $folder ? $folder->getId() : null)
             ->first();
-    }
-
-    /**
-     * Delete a file.
-     *
-     * @param FileInterface|EloquentModel $file
-     * @return bool
-     */
-    public function delete(FileInterface $file)
-    {
-        return $file->delete();
     }
 }

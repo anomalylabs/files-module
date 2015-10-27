@@ -1,18 +1,18 @@
-<?php namespace Anomaly\FilesModule\Browser\Command;
+<?php namespace Anomaly\FilesModule\Folder\Command;
 
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\Streams\Platform\Ui\Breadcrumb\BreadcrumbCollection;
 use Illuminate\Contracts\Bus\SelfHandling;
+use League\Flysystem\MountManager;
 
 /**
- * Class AddFolderBreadcrumbs
+ * Class DeleteDirectory
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Browser\Command
+ * @package       Anomaly\FilesModule\Folder\Command
  */
-class AddFolderBreadcrumbs implements SelfHandling
+class DeleteDirectory implements SelfHandling
 {
 
     /**
@@ -23,7 +23,7 @@ class AddFolderBreadcrumbs implements SelfHandling
     protected $folder;
 
     /**
-     * Create a new AddFolderBreadcrumbs instance.
+     * Create a new DeleteDirectory instance.
      *
      * @param FolderInterface $folder
      */
@@ -35,16 +35,12 @@ class AddFolderBreadcrumbs implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param BreadcrumbCollection $breadcrumbs
+     * @param MountManager $manager
      */
-    public function handle(BreadcrumbCollection $breadcrumbs)
+    public function handle(MountManager $manager)
     {
         $disk = $this->folder->getDisk();
 
-        $uri = 'admin/files/browser/' . $disk->getSlug();
-
-        foreach (explode('/', $this->folder->path()) as $name) {
-            $breadcrumbs->add($name, $uri = $uri . '/' . $name);
-        }
+        $manager->deleteDir($disk->getSlug() . '://' . $this->folder->getSlug());
     }
 }

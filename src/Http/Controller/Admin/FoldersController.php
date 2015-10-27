@@ -1,8 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\FilesModule\Folder\Form\FolderFormBuilder;
+use Anomaly\FilesModule\Folder\Table\FolderTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -17,25 +16,36 @@ class FoldersController extends AdminController
 {
 
     /**
-     * Return a form to create a new folder.
+     * Display an index of existing entries.
      *
-     * @param FolderFormBuilder $form
-     * @param                   $path
+     * @param FolderTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(
-        FolderFormBuilder $form,
-        DiskRepositoryInterface $disks,
-        FolderRepositoryInterface $folders,
-        $disk,
-        $path = null
-    ) {
-        $form->setDisk($disk = $disks->findBySlug($disk));
+    public function index(FolderTableBuilder $table)
+    {
+        return $table->render();
+    }
 
-        if ($path && $parent = $folders->findByPath($path, $disk)) {
-            $form->setParent($parent);
-        }
-
+    /**
+     * Create a new entry.
+     *
+     * @param FolderFormBuilder $form
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function create(FolderFormBuilder $form)
+    {
         return $form->render();
+    }
+
+    /**
+     * Edit an existing entry.
+     *
+     * @param FolderFormBuilder $form
+     * @param                   $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(FolderFormBuilder $form, $id)
+    {
+        return $form->render($id);
     }
 }

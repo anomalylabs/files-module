@@ -24,9 +24,7 @@ class FileEntryFormSections
         $fileForm  = $builder->getChildForm('file');
 
         /* @var EntryInterface $entry */
-        /* @var EntryInterface $file */
         $entry = $entryForm->getFormEntry();
-        $file  = $fileForm->getFormEntry();
 
         $builder->setSections(
             [
@@ -34,12 +32,12 @@ class FileEntryFormSections
                     'tabs' => [
                         'file'   => [
                             'title'  => 'anomaly.module.files::tab.file',
-                            'fields' => function () use ($file) {
+                            'fields' => function () use ($fileForm) {
                                 return array_map(
-                                    function ($slug) {
-                                        return 'file_' . $slug;
+                                    function ($field) {
+                                        return 'file_' . $field['field'];
                                     },
-                                    $file->getAssignmentFieldSlugs()
+                                    $fileForm->getFields()
                                 );
                             }
                         ],

@@ -20,61 +20,11 @@ interface FileInterface extends EntryInterface
 {
 
     /**
-     * Return a hash of the file.
-     *
-     * @return string
-     */
-    public function hash();
-
-    /**
      * Return the type of the file.
      *
      * @return string
      */
     public function type();
-
-    /**
-     * Return the file's path.
-     *
-     * @return string
-     */
-    public function path();
-
-    /**
-     * Return the file's path on it's disk.
-     *
-     * @return string
-     */
-    public function diskPath();
-
-    /**
-     * Return the file's public path.
-     *
-     * @return string
-     */
-    public function publicPath();
-
-    /**
-     * Return the file's image path.
-     *
-     * @param array $parameters
-     * @return string
-     */
-    public function imagePath(array $parameters = []);
-
-    /**
-     * Return the file's stream path.
-     *
-     * @return string
-     */
-    public function streamPath();
-
-    /**
-     * Return the file's download path.
-     *
-     * @return string
-     */
-    public function downloadPath();
 
     /**
      * Return the file resource.
@@ -91,25 +41,18 @@ interface FileInterface extends EntryInterface
     public function image();
 
     /**
-     * Return the last modified datetime.
-     *
-     * @return Carbon
-     */
-    public function lastModified();
-
-    /**
-     * Get the alt attribute.
+     * Get the title.
      *
      * @return string
      */
-    public function getAlt();
+    public function getTitle();
 
     /**
-     * Get the name.
+     * Get the filename.
      *
      * @return string
      */
-    public function getName();
+    public function getFilename();
 
     /**
      * Get the related disk.

@@ -30,8 +30,7 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
      * @var array
      */
     protected $with = [
-        'disk',
-        'parent'
+        'disk'
     ];
 
     /**
@@ -45,40 +44,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Return the folder's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null)
-    {
-        $path = $this->getName() . ($path ? '/' . $path : $path);
-
-        if ($parent = $this->getParent()) {
-            return $parent->path($path);
-        }
-
-        return $path;
-    }
-
-    /**
-     * Return the folders's path on it's disk.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function diskPath($path = null)
-    {
-        if ($parent = $this->getParent()) {
-            return $parent->diskPath($this->getName() . ($path ? '/' . $path : $path));
-        }
-
-        $disk = $this->getDisk();
-
-        return $disk->path($this->getName() . ($path ? '/' . $path : $path));
-    }
-
-    /**
      * Get the name.
      *
      * @return string
@@ -86,6 +51,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -109,26 +84,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Get the related parent folder.
-     *
-     * @return null|FolderInterface
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Get related folders.
-     *
-     * @return FolderCollection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
      * Return the files relation.
      *
      * @return HasMany
@@ -136,15 +91,5 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function files()
     {
         return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id');
-    }
-
-    /**
-     * Return the folder relation.
-     *
-     * @return HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany('Anomaly\FilesModule\Folder\FolderModel', 'parent_id');
     }
 }

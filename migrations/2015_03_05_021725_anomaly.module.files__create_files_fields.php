@@ -33,12 +33,6 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
                 'search' => 'anomaly.module.files::adapter.*'
             ]
         ],
-        'parent'      => [
-            'type'   => 'anomaly.field_type.relationship',
-            'config' => [
-                'related' => 'Anomaly\FilesModule\Folder\FolderModel'
-            ]
-        ],
         'folder'      => [
             'type'   => 'anomaly.field_type.relationship',
             'config' => [
@@ -51,11 +45,12 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
                 'related' => 'Anomaly\FilesModule\Disk\DiskModel'
             ]
         ],
+        'filename'    => 'anomaly.field_type.text',
         'entry'       => 'anomaly.field_type.polymorphic',
         'description' => 'anomaly.field_type.textarea',
         'path'        => 'anomaly.field_type.text',
         'keywords'    => 'anomaly.field_type.tags',
-        'alt_text'    => 'anomaly.field_type.text',
+        'title'       => 'anomaly.field_type.text',
         'extension'   => 'anomaly.field_type.text',
         'width'       => 'anomaly.field_type.text',
         'height'      => 'anomaly.field_type.text',

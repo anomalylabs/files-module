@@ -77,32 +77,22 @@ class FilePresenter extends EntryPresenter
      */
     public function thumbnail($width = 48, $height = 48)
     {
-        return $this->object->image()->fit($width, $height);
+        return $this->object->image()->fit($width, $height)->class('img-rounded');
     }
 
     /**
-     * Return the view link.
+     * Return a file preview.
      *
      * @return string
      */
-    public function viewLink()
+    public function preview()
     {
-        return app('html')->link($this->object->publicPath(), $this->object->getName(), ['target' => '_blank']);
-    }
+        $output = '';
 
-    /**
-     * Return the URL for the file.
-     *
-     * @param array $attributes
-     * @param null  $secure
-     * @return string
-     */
-    public function url(array $attributes = [], $secure = null)
-    {
-        if ($secure === null) {
-            $secure = $this->request->isSecure();
+        if ($this->object->type() == 'image') {
+            $output = $this->thumbnail(32, 32);
         }
 
-        return $this->url->to($this->object->publicPath(), $attributes, $secure);
+        return $output;
     }
 }
