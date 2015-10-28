@@ -34,8 +34,7 @@ class FilesModule extends Module
                     'button'      => 'success',
                     'data-target' => '#modal-large',
                     'text'        => 'module::button.upload',
-                    'href'        => 'admin/files/upload/local/test',
-                    'disabled'    => 'Anomaly\FilesModule\FilesModuleUploadable@handle',
+                    'href'        => 'admin/files/upload/public/test_folder'
                 ]
             ]
         ],
