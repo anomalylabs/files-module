@@ -35,6 +35,17 @@ class FileRepository extends EntryRepository implements FileRepositoryInterface
     }
 
     /**
+     * Find a file by it's path.
+     *
+     * @param $path
+     * @return null|FileInterface
+     */
+    public function findByPath($path)
+    {
+        return $this->model->where('path', $path)->first();
+    }
+
+    /**
      * Find a file by it's filename.
      *
      * @param                 $filename
