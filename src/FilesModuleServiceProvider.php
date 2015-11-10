@@ -52,13 +52,12 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $routes = [
         'admin/files'                       => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@index',
+        'admin/files/choose'                => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@choose',
+        'admin/files/upload'                => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@upload',
         'admin/files/edit/{id}'             => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@edit',
         'admin/files/folders'               => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@index',
         'admin/files/folders/create'        => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
         'admin/files/folders/edit/{id}'     => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@edit',
-        'admin/files/containers'            => 'Anomaly\FilesModule\Http\Controller\Admin\ContainersController@index',
-        'admin/files/containers/create'     => 'Anomaly\FilesModule\Http\Controller\Admin\ContainersController@create',
-        'admin/files/containers/edit/{id}'  => 'Anomaly\FilesModule\Http\Controller\Admin\ContainersController@edit',
         'admin/files/disks'                 => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@index',
         'admin/files/disks/choose'          => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
         'admin/files/disks/create'          => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',

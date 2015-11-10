@@ -29,17 +29,20 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'name' => [
+        'disk'        => [
+            'required' => true
+        ],
+        'name'        => [
             'required'     => true,
             'translatable' => true
         ],
-        'slug' => [
+        'slug'        => [
             'required' => true,
             'unique'   => true
         ],
-        'disk' => [
-            'required' => true
-        ]
+        'description' => [
+            'translatable' => true
+        ],
     ];
 
 }

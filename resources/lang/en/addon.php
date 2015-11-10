@@ -5,9 +5,9 @@ return [
     'name'        => 'Files Module',
     'description' => 'Powerful asset management made easy.',
     'section'     => [
-        'files'      => 'Files',
-        'disks'      => 'Disks',
-        'adapters'   => 'Adapters',
-        'containers' => 'Containers'
+        'files'    => 'Files',
+        'disks'    => 'Disks',
+        'folders'  => 'Folders',
+        'adapters' => 'Adapters'
     ]
 ];

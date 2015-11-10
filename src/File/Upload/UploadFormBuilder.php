@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\File\Upload;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
@@ -16,25 +15,11 @@ class UploadFormBuilder extends FormBuilder
 {
 
     /**
-     * This is an ajax form.
-     *
-     * @var bool
-     */
-    protected $ajax = true;
-
-    /**
      * This is a model-less form.
      *
      * @var bool
      */
     protected $model = false;
-
-    /**
-     * The disk instance.
-     *
-     * @var null|DiskInterface
-     */
-    protected $disk = null;
 
     /**
      * The folder folder instance.
@@ -50,10 +35,7 @@ class UploadFormBuilder extends FormBuilder
      */
     protected $actions = [
         'done' => [
-            'icon'     => 'check',
-            'button'   => 'success',
-            'redirect' => '{url.previous}',
-            'text'     => 'anomaly.module.files::button.finished'
+            'redirect' => 'admin/files'
         ]
     ];
 
@@ -63,9 +45,7 @@ class UploadFormBuilder extends FormBuilder
      * @var array
      */
     protected $buttons = [
-        'cancel' => [
-            'href' => '{url.previous}'
-        ]
+        'cancel'
     ];
 
     /**
@@ -75,7 +55,8 @@ class UploadFormBuilder extends FormBuilder
      */
     protected $options = [
         'success_message' => false,
-        'title'           => 'anomaly.module.files::message.upload_files'
+        'title'           => 'Upload Files',
+        'description'     => 'Upload files to the Schmelly folder.'
     ];
 
     /**
@@ -86,32 +67,9 @@ class UploadFormBuilder extends FormBuilder
      */
     public function onReady()
     {
-        if (!$this->getDisk()) {
-            throw new \Exception('The $disk parameter is required.');
+        if (!$this->getFolder()) {
+            throw new \Exception('The $folder parameter is required.');
         }
-    }
-
-    /**
-     * Get the disk.
-     *
-     * @return DiskInterface|null
-     */
-    public function getDisk()
-    {
-        return $this->disk;
-    }
-
-    /**
-     * Set the disk.
-     *
-     * @param DiskInterface $disk
-     * @return $this
-     */
-    public function setDisk(DiskInterface $disk)
-    {
-        $this->disk = $disk;
-
-        return $this;
     }
 
     /**

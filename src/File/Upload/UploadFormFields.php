@@ -18,17 +18,16 @@ class UploadFormFields
      */
     public function handle(UploadFormBuilder $builder)
     {
-        $disk   = $builder->getDisk();
         $folder = $builder->getFolder();
 
         $builder->setFields(
             [
                 'files' => [
-                    'type'   => 'anomaly.field_type.files',
-                    'config' => [
-                        'disk' => $disk->getSlug(),
-                        'path' => $folder->getSlug(),
-                        'max'  => 32
+                    'label'        => false,
+                    'instructions' => false,
+                    'type'         => 'anomaly.field_type.files',
+                    'config'       => [
+                        'folder' => $folder->getId()
                     ]
                 ]
             ]

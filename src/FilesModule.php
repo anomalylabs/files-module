@@ -26,24 +26,22 @@ class FilesModule extends Module
      * @var array
      */
     protected $sections = [
-        'files'      => [
+        'files'   => [
             'buttons' => [
                 'upload' => [
                     'data-toggle' => 'modal',
                     'icon'        => 'upload',
-                    'button'      => 'success',
-                    'data-target' => '#modal-large',
-                    'text'        => 'module::button.upload',
-                    'href'        => 'admin/files/upload/local/test'
+                    'data-target' => '#modal',
+                    'href'        => 'admin/files/choose'
                 ]
             ]
         ],
-        'containers' => [
+        'folders' => [
             'buttons' => [
-                'new_container'
+                'new_folder'
             ]
         ],
-        'disks'      => [
+        'disks'   => [
             'buttons' => [
                 'new_disk' => [
                     'data-toggle' => 'modal',

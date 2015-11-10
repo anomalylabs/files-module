@@ -1,7 +1,8 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
+use Anomaly\FilesModule\Container\Contract\ContainerRepositoryInterface;
 use Anomaly\FilesModule\Entry\Form\EntryFormBuilder;
+use Anomaly\FilesModule\File\Browser\BrowserTableBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\File\Upload\UploadFormBuilder;
@@ -31,6 +32,23 @@ class FilesController extends AdminController
     }
 
     /**
+     * Return an ajax modal to choose the folder
+     * to use for uploading files.
+     *
+     * @param FolderRepositoryInterface
+     * @return \Illuminate\View\View
+     */
+    public function choose(FolderRepositoryInterface $folders)
+    {
+        return view(
+            'module::ajax/choose_folder',
+            [
+                'folders' => $folders->all()
+            ]
+        );
+    }
+
+    /**
      * Create a new entry.
      *
      * @param FileFormBuilder $form
@@ -57,23 +75,12 @@ class FilesController extends AdminController
      * Return the form to upload files.
      *
      * @param FolderRepositoryInterface $folders
-     * @param DiskRepositoryInterface   $disks
      * @param UploadFormBuilder         $form
-     * @param                           $disk
-     * @param null                      $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function upload(
-        FolderRepositoryInterface $folders,
-        DiskRepositoryInterface $disks,
-        UploadFormBuilder $form,
-        $disk,
-        $path = null
-    ) {
-        $form->setDisk($disk = $disks->findBySlug($disk));
-        if ($path && $folder = $folders->findBySlug($path, $disk)) {
-            $form->setFolder($folder);
-        }
+    public function upload(FolderRepositoryInterface $folders, UploadFormBuilder $form)
+    {
+        $form->setFolder($folders->findBySlug($this->request->get('folder')));
 
         return $form->render();
     }
