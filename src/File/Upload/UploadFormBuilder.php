@@ -49,17 +49,6 @@ class UploadFormBuilder extends FormBuilder
     ];
 
     /**
-     * The form options.
-     *
-     * @var array
-     */
-    protected $options = [
-        'success_message' => false,
-        'title'           => 'Upload Files',
-        'description'     => 'Upload files to the Schmelly folder.'
-    ];
-
-    /**
      * Fired when the builder
      * is ready to build.
      *

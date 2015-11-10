@@ -84,6 +84,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
      * Return the files relation.
      *
      * @return HasMany

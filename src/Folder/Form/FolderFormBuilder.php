@@ -13,6 +13,11 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 class FolderFormBuilder extends FormBuilder
 {
 
+    /**
+     * The form fields.
+     *
+     * @var array
+     */
     protected $fields = [
         'name',
         'slug' => [
@@ -20,7 +25,8 @@ class FolderFormBuilder extends FormBuilder
         ],
         'disk' => [
             'disabled' => 'edit'
-        ]
+        ],
+        'description'
     ];
 
 }

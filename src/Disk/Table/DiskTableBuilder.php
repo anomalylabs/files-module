@@ -30,8 +30,7 @@ class DiskTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
-        'edit',
-        'assignments'
+        'edit'
     ];
 
     /**

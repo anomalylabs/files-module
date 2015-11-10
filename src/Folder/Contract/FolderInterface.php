@@ -45,6 +45,13 @@ interface FolderInterface extends EntryInterface
     public function getFiles();
 
     /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription();
+
+    /**
      * Return the files relation.
      *
      * @return HasMany
