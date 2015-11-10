@@ -31,14 +31,17 @@ class FileTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
-        'entry.preview' => [
+        'entry.preview'   => [
             'heading' => 'anomaly.module.files::message.preview'
         ],
-        'entry.edit_link',
+        'entry.edit_link' => [
+            'sort_column' => 'filename'
+        ],
         'folder',
         'title',
-        'size'          => [
-            'value' => 'entry.readable_size'
+        'size'            => [
+            'sort_column' => 'size',
+            'value'       => 'entry.readable_size'
         ],
         'mime_type',
         'entry.keywords.labels'

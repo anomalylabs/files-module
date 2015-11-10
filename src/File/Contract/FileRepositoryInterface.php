@@ -16,6 +16,14 @@ interface FileRepositoryInterface extends EntryRepositoryInterface
 {
 
     /**
+     * Find a file by it's path.
+     *
+     * @param $path
+     * @return null|FileInterface
+     */
+    public function findByPath($path);
+
+    /**
      * Find a file by it's filename.
      *
      * @param                 $filename

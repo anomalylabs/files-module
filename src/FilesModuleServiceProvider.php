@@ -14,6 +14,15 @@ class FilesModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
+     * The plugins.
+     *
+     * @var array
+     */
+    protected $plugins = [
+        'Anomaly\FilesModule\File\Plugin\FilePlugin'
+    ];
+
+    /**
      * The event listeners.
      *
      * @var array
