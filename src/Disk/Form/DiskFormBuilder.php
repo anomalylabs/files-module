@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk\Form;
 
-use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
+use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 

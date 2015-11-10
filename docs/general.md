@@ -48,15 +48,15 @@ Refer to the documentation for [Laravel's filesystem and cloud storage](http://l
 
 The Files module supports integration for storage "drivers" using Extensions. While many storage providers are available you may wish to create your own.
 
-In order to create a custom storage adapter to use with a disk you will need to build an extension which extends `Anomaly\FilesModule\Adapter\AdapterExtension` and provides an instance of `Anomaly\FilesModule\Adapter\Contract\DiskLoaderInterface` through it's `newLoader()` method.
+In order to create a custom storage adapter to use with a disk you will need to build an extension which extends `Anomaly\FilesModule\Disk\Adapter\AdapterExtension` and provides an instance of `Anomaly\FilesModule\Disk\Adapter\Contract\DiskLoaderInterface` through it's `newLoader()` method.
 
 **By default your `CustomAdapterExtension` will be transformed to `CustomAdapterLoader`.**
 
-The disk loader is responsible for extending Laravel and Flysystem with an instance of `Anomaly\FilesModule\Adapter\AdapterFilesystem`.
+The disk loader is responsible for extending Laravel and Flysystem with an instance of `Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem`.
 
 For more information on [extending Laravel's filesystem](http://laravel.com/docs/5.1/filesystem#custom-filesystems) and [mounting Flysystem filesystems](http://flysystem.thephpleague.com/mount-manager/) see the documentation.
 
-**NOTE:** Any `Filesystem` class reference you see in Laravel or Flysystem documentation should be `Anomaly\FilesModule\Adapter\AdapterFilesystem` when using the Files module.
+**NOTE:** Any `Filesystem` class reference you see in Laravel or Flysystem documentation should be `Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem` when using the Files module.
 
 For an example of a custom adapter extension check out the [Local Storage Adapter](https://github.com/anomalylabs/local_storage_adapter-extension) and it's [loader](https://github.com/anomalylabs/local_storage_adapter-extension/blob/1.0/master/src/LocalStorageAdapterLoader.php).
 

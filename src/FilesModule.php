@@ -26,7 +26,7 @@ class FilesModule extends Module
      * @var array
      */
     protected $sections = [
-        'files'   => [
+        'files'      => [
             'buttons' => [
                 'upload' => [
                     'data-toggle' => 'modal',
@@ -34,37 +34,21 @@ class FilesModule extends Module
                     'button'      => 'success',
                     'data-target' => '#modal-large',
                     'text'        => 'module::button.upload',
-                    'href'        => 'admin/files/upload/local/test',
-                    'disabled'    => 'Anomaly\FilesModule\FilesModuleUploadable@handle',
+                    'href'        => 'admin/files/upload/local/test'
                 ]
             ]
         ],
-        'folders' => [
+        'containers' => [
             'buttons' => [
-                'new_folder'
+                'new_container'
             ]
         ],
-        'disks'   => [
+        'disks'      => [
             'buttons' => [
-                'new_disk'  => [
+                'new_disk' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'href'        => 'admin/files/disks/choose'
-                ],
-                'add_field' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'enabled'     => 'admin/files/disks/assignments/*',
-                    'href'        => 'admin/files/disks/assignments/{request.route.parameters.id}/choose'
-                ]
-            ]
-        ],
-        'fields'  => [
-            'buttons' => [
-                'new_field' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'href'        => 'admin/files/fields/choose'
                 ]
             ]
         ]

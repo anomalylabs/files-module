@@ -1,8 +1,8 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
-use Anomaly\FilesModule\Adapter\AdapterExtension;
-use Anomaly\FilesModule\Adapter\AdapterFilesystem;
-use Anomaly\FilesModule\Adapter\Contract\AdapterInterface;
+use Anomaly\FilesModule\Disk\Adapter\AdapterExtension;
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Command\GetDiskEntriesStream;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;

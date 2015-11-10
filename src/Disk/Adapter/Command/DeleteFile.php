@@ -1,6 +1,6 @@
-<?php namespace Anomaly\FilesModule\Adapter\Command;
+<?php namespace Anomaly\FilesModule\Disk\Adapter\Command;
 
-use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
@@ -13,7 +13,7 @@ use League\Flysystem\File;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Adapter\Command
+ * @package       Anomaly\FilesModule\Disk\Adapter\Command
  */
 class DeleteFile implements SelfHandling
 {

@@ -1,20 +1,20 @@
-<?php namespace Anomaly\FilesModule\Adapter\Command;
+<?php namespace Anomaly\FilesModule\Disk\Adapter\Command;
 
-use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\FilesModule\Folder\FolderSynchronizer;
+use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\Directory;
 
 /**
- * Class SyncFolder
+ * Class DeleteFolder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Adapter\Command
+ * @package       Anomaly\FilesModule\Disk\Adapter\Command
  */
-class SyncFolder implements SelfHandling
+class DeleteFolder implements SelfHandling
 {
 
     /**
@@ -25,7 +25,7 @@ class SyncFolder implements SelfHandling
     protected $directory;
 
     /**
-     * Create a new SyncFolder instance.
+     * Create a new DeleteFolder instance.
      *
      * @param Directory $directory
      */
@@ -37,12 +37,18 @@ class SyncFolder implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param FolderSynchronizer $synchronizer
-     * @return null|FolderInterface
+     * @param FolderRepositoryInterface $folders
+     * @return FolderInterface|bool
      */
-    public function handle(FolderSynchronizer $synchronizer)
+    public function handle(FolderRepositoryInterface $folders)
     {
-        return $synchronizer->sync($this->directory, $this->getFilesystemDisk());
+        $folder = $folders->findByPath($this->directory->getPath(), $this->getFilesystemDisk());
+
+        if ($folder && $folders->delete($folder)) {
+            return $folder;
+        }
+
+        return true;
     }
 
     /**

@@ -3,13 +3,11 @@
 return [
     'title'       => 'Files',
     'name'        => 'Files Module',
-    'description' => 'Multi-provider files manager.',
+    'description' => 'Powerful asset management made easy.',
     'section'     => [
-        'files'    => 'Files',
-        'disks'    => 'Disks',
-        'fields'   => 'Fields',
-        'folders'  => 'Folders',
-        'adapters' => 'Adapters',
-        'settings' => 'Settings'
+        'files'      => 'Files',
+        'disks'      => 'Disks',
+        'adapters'   => 'Adapters',
+        'containers' => 'Containers'
     ]
 ];

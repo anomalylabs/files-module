@@ -1,9 +1,9 @@
-<?php namespace Anomaly\FilesModule\Adapter;
+<?php namespace Anomaly\FilesModule\Disk\Adapter;
 
-use Anomaly\FilesModule\Adapter\Command\DeleteFile;
-use Anomaly\FilesModule\Adapter\Command\DeleteFolder;
-use Anomaly\FilesModule\Adapter\Command\SyncFile;
-use Anomaly\FilesModule\Adapter\Command\SyncFolder;
+use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFile;
+use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFolder;
+use Anomaly\FilesModule\Disk\Adapter\Command\SyncFile;
+use Anomaly\FilesModule\Disk\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use InvalidArgumentException;

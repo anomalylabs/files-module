@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Adapter\Form;
+<?php namespace Anomaly\FilesModule\Disk\Adapter\Form;
 
 use Anomaly\ConfigurationModule\Configuration\Form\ConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
@@ -11,7 +11,7 @@ use Anomaly\Streams\Platform\Ui\Form\Multiple\MultipleFormBuilder;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Adapter\Form
+ * @package       Anomaly\FilesModule\Disk\Adapter\Form
  */
 class AdapterFormBuilder extends MultipleFormBuilder
 {

@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Adapter\Contract;
+<?php namespace Anomaly\FilesModule\Disk\Adapter\Contract;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 
@@ -8,7 +8,7 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\Adapter\Contract
+ * @package       Anomaly\FilesModule\Disk\Adapter\Contract
  */
 interface AdapterInterface
 {

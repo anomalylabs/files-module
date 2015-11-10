@@ -4,7 +4,6 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Image\Image;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use League\Flysystem\File;
 

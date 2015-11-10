@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\ConfigurationModule\Configuration\Form\ConfigurationFormBuilder;
-use Anomaly\FilesModule\Adapter\Form\AdapterFormBuilder;
+use Anomaly\FilesModule\Disk\Adapter\Form\AdapterFormBuilder;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;

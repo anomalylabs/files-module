@@ -2,8 +2,6 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Entry\Form\EntryFormBuilder;
-use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
-use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\File\Upload\UploadFormBuilder;
@@ -46,33 +44,12 @@ class FilesController extends AdminController
     /**
      * Edit an existing entry.
      *
-     * @param FileFormBuilder   $form
-     * @param                   $id
+     * @param FileFormBuilder $form
+     * @param                 $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    /*public function edit(FileFormBuilder $form, $id)
+    public function edit(FileFormBuilder $form, $id)
     {
-        return $form->render($id);
-    }*/
-
-    public function edit(
-        FileEntryFormBuilder $form,
-        FileRepositoryInterface $files,
-        EntryFormBuilder $entryForm,
-        FileFormBuilder $fileForm,
-        $id
-    ) {
-        $file   = $files->find($id);
-        $disk   = $file->getDisk();
-        $stream = $disk->getEntriesStream();
-        $entryForm
-            ->setModel($stream->getEntryModel())
-            ->setEntry($file->getEntryId());
-        $fileForm->setEntry($id);
-        $form
-            ->addForm('entry', $entryForm)
-            ->addForm('file', $fileForm);
-
         return $form->render($id);
     }
 
@@ -97,6 +74,7 @@ class FilesController extends AdminController
         if ($path && $folder = $folders->findBySlug($path, $disk)) {
             $form->setFolder($folder);
         }
+
         return $form->render();
     }
 }

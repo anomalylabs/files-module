@@ -35,7 +35,7 @@ class AssignmentsController extends AdminController
     ) {
         /* @var DiskInterface $disk */
         $disk = $disks->find($id);
-        
+
         return $table->setStream($streams->findBySlugAndNamespace($disk->getSlug(), 'files'))->render();
     }
 

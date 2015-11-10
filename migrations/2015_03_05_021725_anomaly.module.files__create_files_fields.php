@@ -22,7 +22,7 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
         'slug'        => [
             'type'   => 'anomaly.field_type.slug',
             'config' => [
-                'type'    => '_',
+                'type'    => '-',
                 'slugify' => 'name'
             ]
         ],
@@ -31,6 +31,12 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
             'config' => [
                 'type'   => 'extensions',
                 'search' => 'anomaly.module.files::adapter.*'
+            ]
+        ],
+        'container'   => [
+            'type'   => 'anomaly.field_type.relationship',
+            'config' => [
+                'related' => 'Anomaly\FilesModule\Container\ContainerModel'
             ]
         ],
         'folder'      => [
