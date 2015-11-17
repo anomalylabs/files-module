@@ -33,5 +33,8 @@ return [
     ],
     'description' => [
         'name' => 'Description'
+    ],
+    'preview'     => [
+        'name' => 'Preview'
     ]
 ];

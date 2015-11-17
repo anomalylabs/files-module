@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
+use Anomaly\Streams\Platform\Image\Image;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 
@@ -32,6 +33,13 @@ class FilePresenter extends EntryPresenter
     protected $object;
 
     /**
+     * The image utility.
+     *
+     * @var Image
+     */
+    protected $image;
+
+    /**
      * The request object.
      *
      * @var Request
@@ -42,12 +50,14 @@ class FilePresenter extends EntryPresenter
      * Create a new FilePresenter instance.
      *
      * @param UrlGenerator $url
+     * @param Image        $image
      * @param Request      $request
      * @param              $object
      */
-    public function __construct(UrlGenerator $url, Request $request, $object)
+    public function __construct(UrlGenerator $url, Image $image, Request $request, $object)
     {
         $this->url     = $url;
+        $this->image   = $image;
         $this->request = $request;
 
         parent::__construct($object);
@@ -87,12 +97,22 @@ class FilePresenter extends EntryPresenter
      */
     public function preview()
     {
-        $output = '';
-
         if ($this->object->type() == 'image') {
-            $output = $this->thumbnail(32, 32);
+            return $this->thumbnail(48, 48);
         }
 
-        return $output;
+        if ($this->object->getExtension() == 'pdf') {
+            return $this->image->make('anomaly.module.files::img/pdf.png')->style('margin-left: 2px;')->height(48)->image();
+        }
+
+        if ($this->object->getExtension() == 'zip') {
+            return $this->image->make('anomaly.module.files::img/archive.png')->style('margin-left: 2px;')->height(48)->image();
+        }
+
+        if ($this->object->type() != 'image') {
+            return $this->image->make('anomaly.module.files::img/document.png')->style('margin-left: 2px;')->height(48)->image();
+        }
+
+        return null;
     }
 }
