@@ -29,7 +29,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $listeners = [
         'Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered' => [
-            //'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
+            'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
         ]
     ];
 
