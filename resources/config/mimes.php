@@ -70,7 +70,9 @@ return [
         'photoshop'    => [
             'psd'
         ],
-        'presentation' => [],
+        'presentation' => [
+            'ppt'
+        ],
         'spreadsheet'  => [
             'xls',
             'xlsx',
