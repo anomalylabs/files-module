@@ -98,19 +98,39 @@ class FilePresenter extends EntryPresenter
     public function preview()
     {
         if ($this->object->type() == 'image') {
-            return $this->thumbnail(48, 48);
+            if (!str_contains($this->object->getMimeType(), 'photoshop')) {
+                return $this->thumbnail(48, 48);
+            }else {
+                return $this->image->make('anomaly.module.files::img/photoshop.png')->style('margin-left: 5px;')->height(48)->image();
+            }
         }
 
         if ($this->object->getExtension() == 'pdf') {
-            return $this->image->make('anomaly.module.files::img/pdf.png')->style('margin-left: 2px;')->height(48)->image();
+            return $this->image->make('anomaly.module.files::img/pdf.png')->style('margin-left: 5px;')->height(48)->image();
+        }
+
+        if ($this->object->getExtension() == 'sql') {
+            return $this->image->make('anomaly.module.files::img/data.png')->style('margin-left: 5px;')->height(48)->image();
         }
 
         if ($this->object->getExtension() == 'zip') {
-            return $this->image->make('anomaly.module.files::img/archive.png')->style('margin-left: 2px;')->height(48)->image();
+            return $this->image->make('anomaly.module.files::img/archive.png')->style('margin-left: 5px;')->height(48)->image();
+        }
+
+        if ($this->object->getExtension() == 'mp3') {
+            return $this->image->make('anomaly.module.files::img/audio.png')->style('margin-left: 5px;')->height(48)->image();
+        }
+
+        if ($this->object->getExtension() == 'mp4') {
+            return $this->image->make('anomaly.module.files::img/video.png')->style('margin-left: 5px;')->height(48)->image();
+        }
+
+        if ($this->object->getExtension() == 'psd') {
+            return $this->image->make('anomaly.module.files::img/photoshop.png')->style('margin-left: 5px;')->height(48)->image();
         }
 
         if ($this->object->type() != 'image') {
-            return $this->image->make('anomaly.module.files::img/document.png')->style('margin-left: 2px;')->height(48)->image();
+            return $this->image->make('anomaly.module.files::img/document.png')->style('margin-left: 5px;')->height(48)->image();
         }
 
         return null;
