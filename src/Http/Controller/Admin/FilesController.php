@@ -1,8 +1,7 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Container\Contract\ContainerRepositoryInterface;
-use Anomaly\FilesModule\Entry\Form\EntryFormBuilder;
-use Anomaly\FilesModule\File\Browser\BrowserTableBuilder;
+use Anomaly\FilesModule\File\Contract\FileInterface;
+use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\File\Upload\UploadFormBuilder;
@@ -69,6 +68,21 @@ class FilesController extends AdminController
     public function edit(FileFormBuilder $form, $id)
     {
         return $form->render($id);
+    }
+
+    /**
+     * Redirect to a file's URL.
+     *
+     * @param FileRepositoryInterface $files
+     * @param                         $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function view(FileRepositoryInterface $files, $id)
+    {
+        /* @var FileInterface $file */
+        $file = $files->find($id);
+
+        return $this->redirect->to('files/get/' . $file->getFolder()->getSlug() . '/' . $file->getFilename());
     }
 
     /**

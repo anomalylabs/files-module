@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\File;
 
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
@@ -17,13 +16,6 @@ class FileLocator
 {
 
     /**
-     * The disk repository.
-     *
-     * @var DiskRepositoryInterface
-     */
-    protected $disks;
-
-    /**
      * The file repository.
      *
      * @var FileRepositoryInterface
@@ -38,16 +30,13 @@ class FileLocator
     protected $folders;
 
     /**
-     * @param DiskRepositoryInterface   $disks
      * @param FileRepositoryInterface   $files
      * @param FolderRepositoryInterface $folders
      */
     function __construct(
-        DiskRepositoryInterface $disks,
         FileRepositoryInterface $files,
         FolderRepositoryInterface $folders
     ) {
-        $this->disks   = $disks;
         $this->files   = $files;
         $this->folders = $folders;
     }
@@ -55,19 +44,15 @@ class FileLocator
     /**
      * Locate a file by disk and path.
      *
-     * @param $disk
+     * @param $folder
      * @param $path
      * @return FileInterface|null
      */
-    public function locate($disk, $path)
+    public function locate($folder, $filename)
     {
-        if (!$disk = $this->disks->findBySlug($disk)) {
-            return null;
-        }
+        $folder = $this->folders->findBySlug($folder);
 
-        $folder = dirname($path) !== '.' ? $this->folders->findByPath(dirname($path), $disk) : null;
-
-        if (!$file = $this->files->findByFilename(basename($path), $disk, $folder)) {
+        if (!$file = $this->files->findByFilename($filename, $folder)) {
             return null;
         }
 

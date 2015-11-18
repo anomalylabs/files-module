@@ -26,13 +26,13 @@ class FilesController extends PublicController
      *
      * @param FileLocator $locator
      * @param FileReader  $reader
-     * @param             $disk
+     * @param             $folder
      * @param             $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function read(FileLocator $locator, FileReader $reader, $disk, $path)
+    public function read(FileLocator $locator, FileReader $reader, $folder, $filename)
     {
-        if (!$file = $locator->locate($disk, $path)) {
+        if (!$file = $locator->locate($folder, $filename)) {
             abort(404);
         }
 
@@ -44,13 +44,13 @@ class FilesController extends PublicController
      *
      * @param FileLocator  $locator
      * @param FileStreamer $streamer
-     * @param              $disk
+     * @param              $folder
      * @param              $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function stream(FileLocator $locator, FileStreamer $streamer, $disk, $path)
+    public function stream(FileLocator $locator, FileStreamer $streamer, $folder, $filename)
     {
-        if (!$file = $locator->locate($disk, $path)) {
+        if (!$file = $locator->locate($folder, $filename)) {
             abort(404);
         }
 
@@ -62,13 +62,13 @@ class FilesController extends PublicController
      *
      * @param FileLocator    $locator
      * @param FileDownloader $downloader
-     * @param                $disk
+     * @param                $folder
      * @param                $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function download(FileLocator $locator, FileDownloader $downloader, $disk, $path)
+    public function download(FileLocator $locator, FileDownloader $downloader, $folder, $filename)
     {
-        if (!$file = $locator->locate($disk, $path)) {
+        if (!$file = $locator->locate($folder, $filename)) {
             abort(404);
         }
 
@@ -82,19 +82,18 @@ class FilesController extends PublicController
      * @param FileImage   $thumbnail
      * @param Request     $request
      * @param Image       $image
-     * @param             $disk
+     * @param             $folder
      * @param             $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function thumb(
         FileLocator $locator,
         FileImage $thumbnail,
-        Request $request,
         Image $image,
-        $disk,
-        $path
+        $folder,
+        $filename
     ) {
-        if (!$file = $locator->locate($disk, $path)) {
+        if (!$file = $locator->locate($folder, $filename)) {
             abort(404);
         }
 
