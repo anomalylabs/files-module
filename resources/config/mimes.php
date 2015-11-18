@@ -62,7 +62,8 @@ return [
             'jpe',
             'png',
             'tiff',
-            'tif'
+            'tif',
+            'ico'
         ],
         'pdf'          => [
             'pdf'

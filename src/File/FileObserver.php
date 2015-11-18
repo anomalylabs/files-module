@@ -34,21 +34,18 @@ class FileObserver extends EntryObserver
     }
 
     /**
-     * Fired before deleting the file.
+     * Fired after deleting the file.
      *
      * @param EntryInterface|FileInterface $entry
-     * @return bool
      */
-    public function deleting(EntryInterface $entry)
+    public function deleted(EntryInterface $entry)
     {
         /**
          * Make sure the resource exists
          * and is deleted successfully.
          */
         if ($resource = $entry->resource()) {
-            return $resource->delete();
+            $resource->delete();
         }
-
-        return true;
     }
 }

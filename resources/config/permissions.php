@@ -1,16 +1,20 @@
 <?php
 
 return [
-    'browser'  => [
-        'read'
+    'files'   => [
+        'manage'
     ],
-    'disks'    => [
+    'folders' => [
         'read',
         'write',
         'delete'
     ],
-    'settings' => [
+    'disks'   => [
         'read',
-        'write'
+        'write',
+        'delete'
+    ],
+    'fields'  => [
+        'manage'
     ]
 ];

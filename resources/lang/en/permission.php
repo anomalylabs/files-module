@@ -1,20 +1,34 @@
 <?php
 
 return [
-    'browser'  => [
-        'title' => 'Browser',
-        'read'  => 'Can read files and folders?',
+    'files'   => [
+        'name'    => 'Files',
+        'warning' => 'File permissions are managed in the module\'s <strong>Folders</strong> section.',
+        'option'  => [
+            'manage' => 'Can access files section?'
+        ],
     ],
-    'disks'    => [
-        'title'  => 'Disks',
-        'read'   => 'Can read disks?',
-        'write'  => 'Can create and edit disks?',
-        'delete' => 'Can delete disks?'
+    'folders' => [
+        'name'   => 'Folders',
+        'option' => [
+            'read'   => 'Can access folders section?',
+            'write'  => 'Can create and edit folders?',
+            'delete' => 'Can delete folders?'
+        ]
     ],
-    'settings' => [
-        'title' => 'Settings',
-        'read'  => 'Can read settings?',
-        'write' => 'Can edit settings?'
+    'disks'   => [
+        'name'   => 'Disks',
+        'option' => [
+            'read'   => 'Can view disks?',
+            'write'  => 'Can create and edit disks?',
+            'delete' => 'Can delete disks?'
+        ]
+    ],
+    'fields'  => [
+        'name'   => 'Fields',
+        'option' => [
+            'manage' => 'Can manage custom fields?'
+        ]
     ]
 ];
 

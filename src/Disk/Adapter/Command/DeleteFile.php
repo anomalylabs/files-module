@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk\Adapter\Command;
 
 use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
-use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -40,18 +39,15 @@ class DeleteFile implements SelfHandling
      *
      * @param FileRepositoryInterface   $files
      * @param FolderRepositoryInterface $folders
-     * @return FileInterface|bool
      */
     public function handle(FileRepositoryInterface $files, FolderRepositoryInterface $folders)
     {
-        $folder = $folders->findByPath($this->file->getPath(), $this->getFilesystemDisk());
-        $file   = $files->findByName(basename($this->file->getPath()), $this->getFilesystemDisk(), $folder);
+        $folder = $folders->findBySlug(dirname($this->file->getPath()));
+        $file   = $files->findByFilename(basename($this->file->getPath()), $folder);
 
-        if ($file && $files->delete($file)) {
-            return $file;
+        if ($file) {
+            $files->delete($file);
         }
-
-        return true;
     }
 
     /**

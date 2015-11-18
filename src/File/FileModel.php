@@ -38,16 +38,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     ];
 
     /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::observe('Anomaly\FilesModule\File\FileObserver');
-    }
-
-    /**
      * Return the type of the file.
      *
      * @return string

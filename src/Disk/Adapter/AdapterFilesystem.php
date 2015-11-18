@@ -209,9 +209,11 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
      */
     public function delete($path)
     {
+        $resource = $resource = $this->get($path);
+
         $result = parent::delete($path);
 
-        if ($result && $resource = $this->get($path)) {
+        if ($result && $resource) {
             return $this->dispatch(new DeleteFile($resource));
         }
 

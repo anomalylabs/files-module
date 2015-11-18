@@ -27,9 +27,8 @@ interface FileRepositoryInterface extends EntryRepositoryInterface
      * Find a file by it's filename.
      *
      * @param                 $filename
-     * @param DiskInterface   $disk
      * @param FolderInterface $folder
      * @return null|FileInterface
      */
-    public function findByFilename($filename, DiskInterface $disk, FolderInterface $folder = null);
+    public function findByFilename($filename, FolderInterface $folder);
 }

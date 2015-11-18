@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\File;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
@@ -49,16 +48,14 @@ class FileRepository extends EntryRepository implements FileRepositoryInterface
      * Find a file by it's filename.
      *
      * @param                 $filename
-     * @param DiskInterface   $disk
      * @param FolderInterface $folder
      * @return null|FileInterface
      */
-    public function findByFilename($filename, DiskInterface $disk, FolderInterface $folder = null)
+    public function findByFilename($filename, FolderInterface $folder = null)
     {
         return $this->model
             ->where('filename', $filename)
-            ->where('disk_id', $disk->getId())
-            ->where('folder_id', $folder ? $folder->getId() : null)
+            ->where('folder_id', $folder->getId())
             ->first();
     }
 }
