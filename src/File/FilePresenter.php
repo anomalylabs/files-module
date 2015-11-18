@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
 use Anomaly\Streams\Platform\Image\Image;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 
@@ -33,6 +34,13 @@ class FilePresenter extends EntryPresenter
     protected $object;
 
     /**
+     * The config repository.
+     *
+     * @var Repository
+     */
+    protected $config;
+
+    /**
      * The image utility.
      *
      * @var Image
@@ -52,12 +60,14 @@ class FilePresenter extends EntryPresenter
      * @param UrlGenerator $url
      * @param Image        $image
      * @param Request      $request
+     * @param Repository   $config
      * @param              $object
      */
-    public function __construct(UrlGenerator $url, Image $image, Request $request, $object)
+    public function __construct(UrlGenerator $url, Image $image, Request $request, Repository $config, $object)
     {
         $this->url     = $url;
         $this->image   = $image;
+        $this->config  = $config;
         $this->request = $request;
 
         parent::__construct($object);
@@ -93,46 +103,30 @@ class FilePresenter extends EntryPresenter
     /**
      * Return a file preview.
      *
+     * @param int $width
+     * @param int $height
      * @return string
      */
-    public function preview()
+    public function preview($width = 48, $height = 48)
     {
-        if ($this->object->type() == 'image') {
-            if (!str_contains($this->object->getMimeType(), 'photoshop')) {
-                return $this->thumbnail(48, 48);
-            }else {
-                return $this->image->make('anomaly.module.files::img/photoshop.png')->style('margin-left: 5px;')->height(48)->image();
+        if (in_array($this->object->getExtension(), $this->config->get('anomaly.module.files::mimes.thumbnails'))) {
+            return $this->thumbnail($width, $height);
+        }
+
+        foreach ($this->config->get('anomaly.module.files::mimes.types') as $type => $extensions) {
+            if (in_array($this->object->getExtension(), $extensions)) {
+                return $this->image
+                    ->make('anomaly.module.files::img/types/' . $type . '.png')
+                    ->style('margin-left: 6px;')
+                    ->height($height)
+                    ->image();
             }
         }
 
-        if ($this->object->getExtension() == 'pdf') {
-            return $this->image->make('anomaly.module.files::img/pdf.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        if ($this->object->getExtension() == 'sql') {
-            return $this->image->make('anomaly.module.files::img/data.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        if ($this->object->getExtension() == 'zip') {
-            return $this->image->make('anomaly.module.files::img/archive.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        if ($this->object->getExtension() == 'mp3') {
-            return $this->image->make('anomaly.module.files::img/audio.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        if ($this->object->getExtension() == 'mp4') {
-            return $this->image->make('anomaly.module.files::img/video.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        if ($this->object->getExtension() == 'psd') {
-            return $this->image->make('anomaly.module.files::img/photoshop.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        if ($this->object->type() != 'image') {
-            return $this->image->make('anomaly.module.files::img/document.png')->style('margin-left: 5px;')->height(48)->image();
-        }
-
-        return null;
+        return $this->image
+            ->make('anomaly.module.files::img/types/document.png')
+            ->style('margin-left: 5px;')
+            ->height($height)
+            ->image();
     }
 }
