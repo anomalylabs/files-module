@@ -25,15 +25,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     protected $cacheMinutes = 99999;
 
     /**
-     * Always eager load these relations.
-     *
-     * @var array
-     */
-    protected $with = [
-        'disk'
-    ];
-
-    /**
      * Boot the model.
      */
     protected static function boot()

@@ -33,7 +33,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      * @var array
      */
     protected $with = [
-        'disk',
         'folder'
     ];
 
