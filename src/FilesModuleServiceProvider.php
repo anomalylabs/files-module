@@ -70,7 +70,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'path' => '(.*)'
             ]
         ],
-        'files/get/{folder}/{filename}'      => [
+        'files/{folder}/{filename}'          => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',

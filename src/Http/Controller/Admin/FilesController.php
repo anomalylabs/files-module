@@ -82,7 +82,7 @@ class FilesController extends AdminController
         /* @var FileInterface $file */
         $file = $files->find($id);
 
-        return $this->redirect->to('files/get/' . $file->getFolder()->getSlug() . '/' . $file->getFilename());
+        return $this->redirect->to('files/' . $file->getFolder()->getSlug() . '/' . $file->getFilename());
     }
 
     /**
