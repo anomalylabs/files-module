@@ -50,7 +50,7 @@ class PreviewColumn extends Column
         }
 
         if ($this->entry instanceof FileInterface) {
-            return '<img class="img-rounded" src="' . $this->entry->image()->thumb()->url() . '" width="48">';
+            return $this->entry->image()->thumb()->width(48)->class('img-rounded')->image();
         }
     }
 }
