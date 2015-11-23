@@ -2,8 +2,10 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
+use Anomaly\FilesModule\Folder\Command\GetStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
+use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -23,16 +25,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
      * @var int
      */
     protected $cacheMinutes = 99999;
-
-    /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::observe('Anomaly\FilesModule\Folder\FolderObserver');
-    }
 
     /**
      * Get the name.
@@ -85,12 +77,34 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Get the related entry model name.
+     *
+     * @return string
+     */
+    public function getEntryModelName()
+    {
+        $stream = $this->getEntryStream();
+
+        return $stream->getEntryModelName();
+    }
+
+    /**
+     * Get the related entry stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntryStream()
+    {
+        return $this->dispatch(new GetStream($this));
+    }
+
+    /**
      * Return the files relation.
      *
      * @return HasMany
      */
     public function files()
     {
-        return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id');
+        return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id')/*->orderBy('sort_order', 'ASC')*/;
     }
 }

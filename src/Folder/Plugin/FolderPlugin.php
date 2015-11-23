@@ -1,18 +1,17 @@
-<?php namespace Anomaly\FilesModule\File\Plugin;
+<?php namespace Anomaly\FilesModule\Folder\Plugin;
 
-use Anomaly\FilesModule\File\Plugin\Command\FindFile;
-use Anomaly\FilesModule\File\Plugin\Command\GetFiles;
+use Anomaly\FilesModule\Folder\Plugin\Command\FindFolder;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 
 /**
- * Class FilePlugin
+ * Class FolderPlugin
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\File\Plugin
+ * @package       Anomaly\FilesModule\Folder\Plugin
  */
-class FilePlugin extends Plugin
+class FolderPlugin extends Plugin
 {
 
     /**
@@ -24,9 +23,9 @@ class FilePlugin extends Plugin
     {
         return [
             new \Twig_SimpleFunction(
-                'file',
+                'folder',
                 function ($identifier) {
-                    return $this->dispatch(new FindFile($identifier));
+                    return $this->dispatch(new FindFolder($identifier));
                 }
             )
         ];

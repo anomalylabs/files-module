@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\File\Form;
 
-use Anomaly\FilesModule\Entry\Form\EntryFormBuilder;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Anomaly\Streams\Platform\Ui\Form\Multiple\MultipleFormBuilder;
 

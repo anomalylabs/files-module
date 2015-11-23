@@ -63,10 +63,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         /* @var MountManager $manager */
         $manager = app('League\Flysystem\MountManager');
 
-        if (!$manager->has($path)) {
-            return null;
-        }
-
         return $manager->get($path);
     }
 

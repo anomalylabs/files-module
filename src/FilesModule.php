@@ -38,7 +38,13 @@ class FilesModule extends Module
         ],
         'folders' => [
             'buttons' => [
-                'new_folder'
+                'new_folder',
+                'add_field' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'enabled'     => 'admin/files/folders/fields/*',
+                    'href'        => 'admin/files/folders/choose/{request.route.parameters.id}'
+                ]
             ]
         ],
         'disks'   => [
@@ -47,6 +53,15 @@ class FilesModule extends Module
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'href'        => 'admin/files/disks/choose'
+                ]
+            ]
+        ],
+        'fields'  => [
+            'buttons' => [
+                'new_field' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/files/fields/choose'
                 ]
             ]
         ]

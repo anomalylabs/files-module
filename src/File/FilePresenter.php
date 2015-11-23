@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
 use Anomaly\Streams\Platform\Image\Image;
+use Anomaly\Streams\Platform\Support\Decorator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
@@ -128,5 +129,23 @@ class FilePresenter extends EntryPresenter
             ->style('margin-left: 5px;')
             ->height($height)
             ->image();
+    }
+
+    /**
+     * Catch calls to fields on
+     * the file's related entry.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        $entry = $this->object->getEntry();
+
+        if ($entry && $entry->hasField($key)) {
+            return (New Decorator())->decorate($entry)->{$key};
+        }
+
+        return parent::__get($key);
     }
 }

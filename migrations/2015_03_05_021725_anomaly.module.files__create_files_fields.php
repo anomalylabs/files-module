@@ -53,7 +53,6 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
         'filename'    => 'anomaly.field_type.text',
         'entry'       => 'anomaly.field_type.polymorphic',
         'description' => 'anomaly.field_type.textarea',
-        'path'        => 'anomaly.field_type.text',
         'keywords'    => 'anomaly.field_type.tags',
         'title'       => 'anomaly.field_type.text',
         'extension'   => 'anomaly.field_type.text',

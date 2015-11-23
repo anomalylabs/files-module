@@ -58,12 +58,13 @@ class FileSynchronizer
         if (!$file = $this->files->findByFilename(basename($resource->getPath()), $folder)) {
             $file = $this->files->create(
                 [
-                    'filename'  => basename($resource->getPath()),
-                    'folder_id' => $folder ? $folder->getId() : null,
-                    'disk_id'   => $disk->getId(),
-                    'size'      => $resource->getSize(),
-                    'mime_type' => $resource->getMimetype(),
-                    'extension' => pathinfo($resource->getPath(), PATHINFO_EXTENSION)
+                    'filename'   => basename($resource->getPath()),
+                    'folder_id'  => $folder ? $folder->getId() : null,
+                    'disk_id'    => $disk->getId(),
+                    'size'       => $resource->getSize(),
+                    'mime_type'  => $resource->getMimetype(),
+                    'extension'  => pathinfo($resource->getPath(), PATHINFO_EXTENSION),
+                    'entry_type' => $folder->getEntryModelName()
                 ]
             );
         }

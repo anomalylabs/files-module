@@ -2,6 +2,8 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\Form\EntryFormBuilder;
+use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\File\Upload\UploadFormBuilder;
@@ -59,14 +61,21 @@ class FilesController extends AdminController
     }
 
     /**
-     * Edit an existing entry.
+     * Return the form for editing an existing file.
      *
-     * @param FileFormBuilder $form
-     * @param                 $id
+     * @param FileRepositoryInterface $files
+     * @param FileEntryFormBuilder    $form
+     * @param                         $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(FileFormBuilder $form, $id)
+    public function edit(FileRepositoryInterface $files, FileFormBuilder $fileForm, EntryFormBuilder $entryForm, FileEntryFormBuilder $form, $id)
     {
+        /* @var FileInterface $file */
+        $file = $files->find($id);
+
+        $form->addForm('entry', $entryForm->setModel($file->getFolder()->getEntryModelName())->setEntry($file->getEntry()));
+        $form->addForm('file', $fileForm->setEntry($file));
+
         return $form->render($id);
     }
 

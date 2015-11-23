@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -50,6 +51,20 @@ interface FolderInterface extends EntryInterface
      * @return string
      */
     public function getDescription();
+
+    /**
+     * Get the related entry stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntryStream();
+
+    /**
+     * Get the related entry model name.
+     *
+     * @return string
+     */
+    public function getEntryModelName();
 
     /**
      * Return the files relation.

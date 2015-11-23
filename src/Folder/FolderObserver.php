@@ -1,7 +1,9 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
+use Anomaly\FilesModule\Folder\Command\CreateFolderEntryStream;
 use Anomaly\FilesModule\Folder\Command\DeleteDirectory;
 use Anomaly\FilesModule\Folder\Command\DeleteFiles;
+use Anomaly\FilesModule\Folder\Command\DeleteFolderEntryStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
@@ -18,13 +20,40 @@ class FolderObserver extends EntryObserver
 {
 
     /**
-     * Fire just before deleting a folder.
+     * Fired just after creating an entry.
+     *
+     * @param EntryInterface $entry
+     */
+    public function created(EntryInterface $entry)
+    {
+        $this->dispatch(new CreateFolderEntryStream($entry));
+
+        parent::created($entry);
+    }
+
+    /**
+     * Fire just before deleting an entry.
      *
      * @param EntryInterface|FolderInterface $entry
+     * @return bool
      */
     public function deleting(EntryInterface $entry)
     {
         $this->dispatch(new DeleteFiles($entry));
         $this->dispatch(new DeleteDirectory($entry));
+
+        return parent::deleting($entry);
+    }
+
+    /**
+     * Fired just after deleting an entry.
+     *
+     * @param EntryInterface $entry
+     */
+    public function deleted(EntryInterface $entry)
+    {
+        $this->dispatch(new DeleteFolderEntryStream($entry));
+
+        parent::deleted($entry);
     }
 }

@@ -19,7 +19,7 @@ class FolderTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
-        'name',
+        'entry.edit_link',
         'slug',
         'disk'
     ];
@@ -30,7 +30,7 @@ class FolderTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
-        'edit'
+        'fields'
     ];
 
     /**

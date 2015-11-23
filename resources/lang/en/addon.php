@@ -7,6 +7,7 @@ return [
     'section'     => [
         'files'    => 'Files',
         'disks'    => 'Disks',
+        'fields'   => 'Fields',
         'folders'  => 'Folders',
         'adapters' => 'Adapters'
     ]
