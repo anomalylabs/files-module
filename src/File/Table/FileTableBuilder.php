@@ -36,10 +36,13 @@ class FileTableBuilder extends TableBuilder
         ],
         'filename'      => [
             'sort_column' => 'filename',
-            'wrapper'     => '<h4 style="margin: 0 0 3px;">{value.link}<br><small>{value.keywords}</small></h4>',
+            'wrapper'     => '<h4>{value.link}<br><small>{value.disk}://{value.folder}/{value.file}</small><small>{value.keywords}</small></h4>',
             'value'       => [
                 'link'     => 'entry.edit_link',
-                'keywords' => 'entry.keywords.labels'
+                'keywords' => 'entry.keywords.labels',
+                'file'     => 'entry.filename',
+                'folder'   => 'entry.folder.slug',
+                'disk'     => 'entry.folder.disk.slug'
             ]
         ],
         'size'          => [
