@@ -1,9 +1,9 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
-use Anomaly\FilesModule\Folder\Command\CreateFolderEntryStream;
+use Anomaly\FilesModule\Folder\Command\CreateStream;
 use Anomaly\FilesModule\Folder\Command\DeleteDirectory;
 use Anomaly\FilesModule\Folder\Command\DeleteFiles;
-use Anomaly\FilesModule\Folder\Command\DeleteFolderEntryStream;
+use Anomaly\FilesModule\Folder\Command\DeleteStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
@@ -26,7 +26,7 @@ class FolderObserver extends EntryObserver
      */
     public function created(EntryInterface $entry)
     {
-        $this->dispatch(new CreateFolderEntryStream($entry));
+        $this->dispatch(new CreateStream($entry));
 
         parent::created($entry);
     }
@@ -52,7 +52,7 @@ class FolderObserver extends EntryObserver
      */
     public function deleted(EntryInterface $entry)
     {
-        $this->dispatch(new DeleteFolderEntryStream($entry));
+        $this->dispatch(new DeleteStream($entry));
 
         parent::deleted($entry);
     }
