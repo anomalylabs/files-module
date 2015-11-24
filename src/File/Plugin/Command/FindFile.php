@@ -47,13 +47,13 @@ class FindFile implements SelfHandling
 
         if (is_string($this->identifier)) {
 
-            list($folder, $filename) = explode('/', $this->identifier);
+            list($folder, $name) = explode('/', $this->identifier);
 
             if (!$folder = $folders->findBySlug($folder)) {
                 return null;
             }
 
-            return $decorator->decorate($files->findByFilename($filename, $folder));
+            return $decorator->decorate($files->findByName($name, $folder));
         }
 
         return null;

@@ -23,10 +23,11 @@ class FolderFormBuilder extends FormBuilder
         'slug' => [
             'disabled' => 'edit'
         ],
+        'description',
+        'allowed_types',
         'disk' => [
             'disabled' => 'edit'
-        ],
-        'description'
+        ]
     ];
 
 }

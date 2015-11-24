@@ -10,7 +10,7 @@
         <ul class="nav nav-stacked">
             {% for folder in folders %}
                 <li>
-                    <a href="{{ url_to('admin/files/upload?folder=' ~ folder.slug) }}">
+                    <a href="{{ url_to('admin/files/upload/' ~ folder.slug) }}">
                         <strong>{{ folder.name }}</strong>
                         <br>
                         <small>{{ folder.description }}</small>

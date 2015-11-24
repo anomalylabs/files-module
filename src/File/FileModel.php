@@ -58,7 +58,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $disk   = $this->getDisk();
         $folder = $this->getFolder();
 
-        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getFilename();
+        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getName();
 
         /* @var MountManager $manager */
         $manager = app('League\Flysystem\MountManager');
@@ -76,7 +76,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $disk   = $this->getDisk();
         $folder = $this->getFolder();
 
-        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getFilename();
+        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getName();
 
         /* @var Image $image */
         $image = app('Anomaly\Streams\Platform\Image\Image');
@@ -85,23 +85,23 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Get the title.
+     * Get the alt text.
      *
      * @return string
      */
-    public function getTitle()
+    public function getAltText()
     {
-        return $this->title;
+        return $this->alt_text;
     }
 
     /**
-     * Get the filename.
+     * Get the name.
      *
      * @return string
      */
-    public function getFilename()
+    public function getName()
     {
-        return $this->filename;
+        return $this->name;
     }
 
     /**

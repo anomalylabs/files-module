@@ -43,7 +43,7 @@ class FileReader extends FileResponse
         $disk   = $folder->getDisk();
 
         return $response->setContent(
-            $this->manager->read("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getFilename()}")
+            $this->manager->read("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getName()}")
         );
     }
 }

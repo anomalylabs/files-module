@@ -43,7 +43,7 @@ class DeleteFile implements SelfHandling
     public function handle(FileRepositoryInterface $files, FolderRepositoryInterface $folders)
     {
         $folder = $folders->findBySlug(dirname($this->file->getPath()));
-        $file   = $files->findByFilename(basename($this->file->getPath()), $folder);
+        $file   = $files->findByName(basename($this->file->getPath()), $folder);
 
         if ($file) {
             $files->delete($file);

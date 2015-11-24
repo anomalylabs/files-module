@@ -77,6 +77,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Get the allowed types.
+     *
+     * @return array
+     */
+    public function getAllowedTypes()
+    {
+        return $this->allowed_types;
+    }
+
+    /**
      * Get the related entry model name.
      *
      * @return string
@@ -105,6 +115,7 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
      */
     public function files()
     {
-        return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id')/*->orderBy('sort_order', 'ASC')*/;
+        return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id')/*->orderBy('sort_order', 'ASC')*/
+            ;
     }
 }

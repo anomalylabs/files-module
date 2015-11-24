@@ -53,6 +53,13 @@ interface FolderInterface extends EntryInterface
     public function getDescription();
 
     /**
+     * Get the allowed types.
+     *
+     * @return array
+     */
+    public function getAllowedTypes();
+
+    /**
      * Get the related entry stream.
      *
      * @return StreamInterface

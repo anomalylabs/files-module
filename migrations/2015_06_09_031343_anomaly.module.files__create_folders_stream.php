@@ -42,7 +42,8 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
         ],
         'description' => [
             'translatable' => true
-        ]
+        ],
+        'allowed_types'
     ];
 
 }

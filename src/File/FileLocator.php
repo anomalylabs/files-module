@@ -48,11 +48,11 @@ class FileLocator
      * @param $path
      * @return FileInterface|null
      */
-    public function locate($folder, $filename)
+    public function locate($folder, $name)
     {
         $folder = $this->folders->findBySlug($folder);
 
-        if (!$file = $this->files->findByFilename($filename, $folder)) {
+        if (!$file = $this->files->findByName($name, $folder)) {
             return null;
         }
 

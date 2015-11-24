@@ -40,18 +40,18 @@ interface FileInterface extends EntryInterface
     public function image();
 
     /**
-     * Get the title.
+     * Get the alt text.
      *
      * @return string
      */
-    public function getTitle();
+    public function getAltText();
 
     /**
-     * Get the filename.
+     * Get the name.
      *
      * @return string
      */
-    public function getFilename();
+    public function getName();
 
     /**
      * Get the related disk.

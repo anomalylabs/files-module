@@ -1,40 +1,42 @@
 <?php
 
 return [
-    'title'       => [
-        'name' => 'Title'
+    'alt_text'      => [
+        'name' => 'Alt Text'
     ],
-    'name'        => [
+    'name'          => [
         'name' => 'Name'
     ],
-    'filename'    => [
-        'name' => 'Filename'
-    ],
-    'slug'        => [
+    'slug'          => [
         'name' => 'Slug'
     ],
-    'size'        => [
+    'size'          => [
         'name' => 'Size'
     ],
-    'disk'        => [
+    'disk'          => [
         'name' => 'Disk'
     ],
-    'folder'      => [
+    'folder'        => [
         'name' => 'Folder'
     ],
-    'adapter'     => [
+    'adapter'       => [
         'name' => 'Adapter'
     ],
-    'keywords'    => [
+    'keywords'      => [
         'name' => 'Keywords'
     ],
-    'mime_type'   => [
+    'mime_type'     => [
         'name' => 'Mime Type'
     ],
-    'description' => [
+    'preview'       => [
+        'name' => 'Preview'
+    ],
+    'description'   => [
         'name' => 'Description'
     ],
-    'preview'     => [
-        'name' => 'Preview'
+    'allowed_types' => [
+        'name'         => 'Allowed Types',
+        'instructions' => 'Specify the file mime types and/or extensions that are allowed in this folder.',
+        'placeholder'  => 'image/*, application/pdf, .psd, .jp*g'
     ]
 ];

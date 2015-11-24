@@ -30,9 +30,9 @@ class FilesController extends PublicController
      * @param             $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function read(FileLocator $locator, FileReader $reader, $folder, $filename)
+    public function read(FileLocator $locator, FileReader $reader, $folder, $name)
     {
-        if (!$file = $locator->locate($folder, $filename)) {
+        if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
 
@@ -48,9 +48,9 @@ class FilesController extends PublicController
      * @param              $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function stream(FileLocator $locator, FileStreamer $streamer, $folder, $filename)
+    public function stream(FileLocator $locator, FileStreamer $streamer, $folder, $name)
     {
-        if (!$file = $locator->locate($folder, $filename)) {
+        if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
 
@@ -66,9 +66,9 @@ class FilesController extends PublicController
      * @param                $path
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function download(FileLocator $locator, FileDownloader $downloader, $folder, $filename)
+    public function download(FileLocator $locator, FileDownloader $downloader, $folder, $name)
     {
-        if (!$file = $locator->locate($folder, $filename)) {
+        if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
 
@@ -91,9 +91,9 @@ class FilesController extends PublicController
         FileImage $thumbnail,
         Image $image,
         $folder,
-        $filename
+        $name
     ) {
-        if (!$file = $locator->locate($folder, $filename)) {
+        if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
 

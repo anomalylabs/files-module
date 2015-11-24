@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\File\Contract;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 
@@ -24,11 +23,11 @@ interface FileRepositoryInterface extends EntryRepositoryInterface
     public function findByPath($path);
 
     /**
-     * Find a file by it's filename.
+     * Find a file by it's name.
      *
-     * @param                 $filename
+     * @param                 $name
      * @param FolderInterface $folder
      * @return null|FileInterface
      */
-    public function findByFilename($filename, FolderInterface $folder);
+    public function findByName($name, FolderInterface $folder);
 }

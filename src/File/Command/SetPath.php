@@ -38,7 +38,7 @@ class SetPath implements SelfHandling
     {
         $folder = $this->file->getFolder();
 
-        $this->file->setFieldValue('path', $folder->getSlug() . '/' . $this->file->getFilename());
+        $this->file->setFieldValue('path', $folder->getSlug() . '/' . $this->file->getName());
     }
 
 }

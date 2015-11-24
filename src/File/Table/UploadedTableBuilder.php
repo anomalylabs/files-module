@@ -1,29 +1,32 @@
 <?php namespace Anomaly\FilesModule\File\Table;
 
+use Anomaly\FilesModule\File\FileModel;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
 /**
- * Class FileTableBuilder
+ * Class UploadedTableBuilder
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\File\Table
  */
-class FileTableBuilder extends TableBuilder
+class UploadedTableBuilder extends TableBuilder
 {
+
+    /**
+     * The table model.
+     *
+     * @var string
+     */
+    protected $model = FileModel::class;
 
     /**
      * The table filters.
      *
      * @var array
      */
-    protected $filters = [
-        'folder',
-        'name',
-        'mime_type',
-        'keywords'
-    ];
+    protected $filters = [];
 
     /**
      * The table columns.
@@ -65,13 +68,13 @@ class FileTableBuilder extends TableBuilder
     ];
 
     /**
-     * The table buttons.
+     * The table options.
      *
      * @var array
      */
-    protected $actions = [
-        'delete',
-        'edit'
+    protected $options = [
+        'container_class'    => '',
+        'no_results_message' => 'module::message.no_uploads'
     ];
 
 }

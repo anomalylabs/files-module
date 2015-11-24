@@ -27,7 +27,7 @@ class FileStreamer extends FileResponse
         $folder = $file->getFolder();
         $disk   = $folder->getDisk();
 
-        $stream = $this->manager->readStream("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getFilename()}");
+        $stream = $this->manager->readStream("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getName()}");
 
         return $this->response->stream(
             function () use ($stream) {

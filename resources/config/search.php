@@ -2,7 +2,7 @@
 
 return [
     \Anomaly\FilesModule\File\FileModel::class => [
-        'title'       => 'filename',
+        'title'       => 'name',
         'keywords'    => 'keywords',
         'description' => null,
         //'view_path'   => 'entry.path',
