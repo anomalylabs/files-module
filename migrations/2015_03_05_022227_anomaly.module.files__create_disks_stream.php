@@ -19,7 +19,8 @@ class AnomalyModuleFilesCreateDisksStream extends Migration
      */
     protected $stream = [
         'slug'         => 'disks',
-        'title_column' => 'name'
+        'title_column' => 'name',
+        'translatable' => true
     ];
 
     /**

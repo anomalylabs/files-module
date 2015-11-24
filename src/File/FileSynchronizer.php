@@ -67,6 +67,8 @@ class FileSynchronizer
                     'entry_type' => $folder->getEntryModelName()
                 ]
             );
+        } else {
+            $this->files->save($file);
         }
 
         return $file;

@@ -54,8 +54,9 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     protected $routes = [
         'admin/files'                                             => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@index',
         'admin/files/choose'                                      => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@choose',
-        'admin/files/upload/handle'                               => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@handle',
-        'admin/files/upload/{folder}'                             => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@upload',
+        'admin/files/upload/handle'                               => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@upload',
+        'admin/files/upload/recent'                               => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@recent',
+        'admin/files/upload/{folder}'                             => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@index',
         'admin/files/edit/{id}'                                   => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@edit',
         'admin/files/view/{id}'                                   => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@view',
         'admin/files/folders'                                     => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@index',

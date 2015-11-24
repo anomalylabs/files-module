@@ -1,9 +1,6 @@
 <?php
 
 return [
-    'title'         => [
-        'name' => 'Title'
-    ],
     'name'          => [
         'name' => 'Name'
     ],
@@ -36,7 +33,7 @@ return [
     ],
     'allowed_types' => [
         'name'         => 'Allowed Types',
-        'instructions' => 'Specify the file mime types and/or extensions that are allowed in this folder.',
-        'placeholder'  => 'image/*, application/pdf, .psd, .jp*g'
+        'instructions' => 'Specify the file type extensions that are allowed in this folder.',
+        'placeholder'  => 'pdf, psd, jpg'
     ]
 ];

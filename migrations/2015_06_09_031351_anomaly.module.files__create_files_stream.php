@@ -51,7 +51,6 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
         ],
         'description',
         'keywords',
-        'title',
         'height',
         'width'
     ];

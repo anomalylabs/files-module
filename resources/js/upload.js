@@ -1,6 +1,13 @@
 $(function () {
 
+    var uploaded = [];
+
+    var uploader = $('#upload');
     var element = $('.dropzone');
+    var template = uploader.find('.template');
+    var preview = template.html();
+
+    template.remove();
 
     var dropzone = new Dropzone('.dropzone',
         {
@@ -12,21 +19,21 @@ $(function () {
             sending: function (file, xhr, formData) {
                 formData.append('folder', element.data('folder'));
             },
+
             autoQueue: true,
-            thumbnailWidth: 80,
-            thumbnailHeight: 80,
-            parallelUploads: 20,
+            thumbnailWidth: 24,
+            thumbnailHeight: 24,
+            previewTemplate: preview,
+            previewsContainer: '.uploads',
+            maxFilesize: element.data('max-size'),
             acceptedFiles: element.data('allowed'),
-            //maxFilesize: element.find('.files').data('max'),
+            parallelUploads: element.data('max-parallel'),
             dictDefaultMessage: element.data('icon') + ' ' + element.data('message')
         }
     );
 
-    // While file is in transit...
+    // While file is in transit.
     dropzone.on('sending', function (file) {
-
-        // Update the progress bar when sending.
-        element.find('[data-progress="total"]').css('visibility', 'visible');
 
         // If a preview is not possible - use no-preview.
         var images = ['jpeg', 'jpg', 'png', 'bmp', 'gif'];
@@ -35,8 +42,9 @@ $(function () {
 
         extension = extension.toLowerCase();
 
-        // Reveal file upload progress.
-        //file.previewElement.querySelector('[data-progress="file"]').setAttribute('style', 'visibility: visible;');
+        if (images.indexOf(extension) == -1) {
+            file.previewElement.querySelector('img').remove();
+        }
     });
 
     // When file successfully uploads.
@@ -44,23 +52,19 @@ $(function () {
 
         var response = JSON.parse(file.xhr.response);
 
-        var uploaded = element.data('uploaded');
-
-        if (uploaded == undefined) {
-            uploaded = [];
-        } else {
-            uploaded = uploaded.split(',');
-        }
-
         uploaded.push(response.id);
 
-        element.data('uploaded', uploaded.join(','));
+        file.previewElement.querySelector('[data-progress="file"] .progress-bar').setAttribute('class', 'progress-bar progress-bar-success');
 
-        $('#table').load('/streams/file-field_type/uploaded?uploaded=' + element.data('uploaded'));
+        uploader.find('.uploaded').load('/admin/files/upload/recent?uploaded=' + uploaded.join(','));
+
+        setTimeout(function () {
+            file.previewElement.remove();
+        }, 500);
     });
 
-    // Hide the progress bar when done.
-    dropzone.on('queuecomplete', function (progress) {
-        element.find('[data-progress="total"]').css('visibility', 'hidden');
+    // When file fails to upload.
+    dropzone.on('error', function (file) {
+        file.previewElement.querySelector('[data-progress="file"] .progress-bar').setAttribute('class', 'progress-bar progress-bar-danger');
     });
 });

@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Plugin;
 
+use Anomaly\FilesModule\File\Command\GetMaxUploadSize;
 use Anomaly\FilesModule\File\Plugin\Command\FindFile;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 
@@ -26,6 +27,12 @@ class FilePlugin extends Plugin
                 'file',
                 function ($identifier) {
                     return $this->dispatch(new FindFile($identifier));
+                }
+            ),
+            new \Twig_SimpleFunction(
+                'max_upload_size',
+                function () {
+                    return $this->dispatch(new GetMaxUploadSize());
                 }
             )
         ];

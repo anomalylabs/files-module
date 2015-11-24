@@ -92,16 +92,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Get the title.
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Get the name.
      *
      * @return string

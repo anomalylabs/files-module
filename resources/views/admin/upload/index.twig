@@ -1,0 +1,28 @@
+{% extends "theme::layouts/default" %}
+
+{% block content %}
+
+    {{ asset_add('styles.css', 'anomaly.module.files::less/uploader.less') }}
+
+    {{ asset_add('scripts.js', 'anomaly.module.files::js/dropzone.min.js') }}
+    {{ asset_add('scripts.js', 'anomaly.module.files::js/upload.js') }}
+
+    <div class="inner">
+        <div class="container-fluid">
+
+            <div id="upload">
+
+                {% include "module::admin/upload/partials/heading" %}
+                {% include "module::admin/upload/partials/body" %}
+                {% include "module::admin/upload/partials/template" %}
+
+                <div class="uploaded">
+                    {{ table.content|raw }}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

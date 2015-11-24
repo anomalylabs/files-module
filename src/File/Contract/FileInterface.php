@@ -47,13 +47,6 @@ interface FileInterface extends EntryInterface
     public function image();
 
     /**
-     * Get the title.
-     *
-     * @return string
-     */
-    public function getTitle();
-
-    /**
      * Get the name.
      *
      * @return string
