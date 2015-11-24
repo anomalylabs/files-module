@@ -19,7 +19,7 @@ class FileFormBuilder extends FormBuilder
      * @var array
      */
     protected $fields = [
-        'alt_text',
+        'title',
         'name' => [
             'disabled' => true
         ],

@@ -48,7 +48,7 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
         'description'   => 'anomaly.field_type.textarea',
         'allowed_types' => 'anomaly.field_type.tags',
         'keywords'      => 'anomaly.field_type.tags',
-        'alt_text'      => 'anomaly.field_type.text',
+        'title'         => 'anomaly.field_type.text',
         'extension'     => 'anomaly.field_type.text',
         'width'         => 'anomaly.field_type.text',
         'height'        => 'anomaly.field_type.text',

@@ -33,19 +33,31 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      * @var array
      */
     protected $with = [
-        'folder'
+        'folder.disk'
     ];
 
     /**
-     * Return the type of the file.
+     * Return the file path.
      *
      * @return string
      */
-    public function type()
+    public function path()
     {
-        $parts = explode('/', $this->getMimeType());
+        $folder = $this->getFolder();
 
-        return array_shift($parts);
+        return "{$folder->getSlug()}/{$this->getName()}";
+    }
+
+    /**
+     * Return the file location.
+     *
+     * @return string
+     */
+    public function location()
+    {
+        $disk = $this->getDisk();
+
+        return "{$disk->getSlug()}://{$this->path()}";
     }
 
     /**
@@ -55,15 +67,10 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function resource()
     {
-        $disk   = $this->getDisk();
-        $folder = $this->getFolder();
-
-        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getName();
-
         /* @var MountManager $manager */
         $manager = app('League\Flysystem\MountManager');
 
-        return $manager->get($path);
+        return $manager->get($this->location());
     }
 
     /**
@@ -85,13 +92,13 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Get the alt text.
+     * Get the title.
      *
      * @return string
      */
-    public function getAltText()
+    public function getTitle()
     {
-        return $this->alt_text;
+        return $this->title;
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Plugin;
 
 use Anomaly\FilesModule\File\Plugin\Command\FindFile;
-use Anomaly\FilesModule\File\Plugin\Command\GetFiles;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 
 /**

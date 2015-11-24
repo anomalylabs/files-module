@@ -132,6 +132,36 @@ class FilePresenter extends EntryPresenter
     }
 
     /**
+     * Return the view path for a file.
+     *
+     * @return string
+     */
+    public function viewPath()
+    {
+        return 'files/' . $this->object->path();
+    }
+
+    /**
+     * Return the stream path for a file.
+     *
+     * @return string
+     */
+    public function streamPath()
+    {
+        return 'files/stream/' . $this->object->path();
+    }
+
+    /**
+     * Return the download path for a file.
+     *
+     * @return string
+     */
+    public function downloadPath()
+    {
+        return 'files/download/' . $this->object->path();
+    }
+
+    /**
      * Catch calls to fields on
      * the file's related entry.
      *

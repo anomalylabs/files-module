@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'alt_text'      => [
-        'name' => 'Alt Text'
+    'title'         => [
+        'name' => 'Title'
     ],
     'name'          => [
         'name' => 'Name'
