@@ -2,10 +2,11 @@
 
 return [
     'files'   => [
-        'name'    => 'Files',
-        'warning' => 'File permissions are managed in the module\'s <strong>Folders</strong> section.',
-        'option'  => [
-            'manage' => 'Can access files section?'
+        'name'   => 'Files',
+        'option' => [
+            'read'   => 'Can access files section?',
+            'write'  => 'Can upload and edit files?',
+            'delete' => 'Can delete files?'
         ],
     ],
     'folders' => [
