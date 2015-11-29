@@ -45,11 +45,17 @@ class UploadController extends AdminController
      */
     public function upload(FileUploader $uploader, FolderRepositoryInterface $folders)
     {
-        if ($file = $uploader->upload($this->request->file('upload'), $folders->find($this->request->get('folder')))) {
-            return $this->response->json($file->getAttributes());
+        $error = trans('anomaly.module.files::error.generic');
+
+        try {
+            if ($file = $uploader->upload($this->request->file('upload'), $folders->find($this->request->get('folder')))) {
+                return $this->response->json($file->getAttributes());
+            }
+        } catch (\Exception $e) {
+            $error = $e->getMessage(); 
         }
 
-        return $this->response->json(['error' => 'There was a problem uploading the file.'], 500);
+        return $this->response->json(['error' => $error], 500);
     }
 
     /**
