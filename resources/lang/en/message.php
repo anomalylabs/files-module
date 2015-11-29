@@ -8,5 +8,7 @@ return [
     'choose_field_type' => 'What field type would you like to use?',
     'choose_field'      => 'What field would you like to add?',
     'upload'            => 'Click or drop files here to upload.',
-    'no_uploads'        => 'No files have been uploaded.'
+    'no_uploads'        => 'No files have been uploaded.',
+    'uploading'         => 'Uploading',
+    'loading'           => 'Loading'
 ];

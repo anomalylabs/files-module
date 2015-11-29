@@ -35,6 +35,8 @@ $(function () {
     // While file is in transit.
     dropzone.on('sending', function (file) {
 
+        uploader.find('.uploaded .panel-body').html(element.data('uploading') + '...');
+
         // If a preview is not possible - use no-preview.
         var images = ['jpeg', 'jpg', 'png', 'bmp', 'gif'];
         var regex = /(?:\.([^.]+))?$/;
@@ -56,8 +58,6 @@ $(function () {
 
         file.previewElement.querySelector('[data-progress="file"] .progress-bar').setAttribute('class', 'progress-bar progress-bar-success');
 
-        uploader.find('.uploaded').load('/admin/files/upload/recent?uploaded=' + uploaded.join(','));
-
         setTimeout(function () {
             file.previewElement.remove();
         }, 500);
@@ -66,5 +66,13 @@ $(function () {
     // When file fails to upload.
     dropzone.on('error', function (file) {
         file.previewElement.querySelector('[data-progress="file"] .progress-bar').setAttribute('class', 'progress-bar progress-bar-danger');
+    });
+
+    // When all files are processed.
+    dropzone.on('queuecomplete', function () {
+
+        uploader.find('.uploaded .panel-body').html(element.data('loading') + '...');
+
+        uploader.find('.uploaded').load('/admin/files/upload/recent?uploaded=' + uploaded.join(','));
     });
 });

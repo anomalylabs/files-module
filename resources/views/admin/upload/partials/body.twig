@@ -6,6 +6,8 @@
              data-icon="{{ icon('upload')|escape }}"
              data-max-size="{{ max_upload_size() }}"
              data-message="{{ trans('module::message.upload') }}"
+             data-loading="{{ trans('module::message.loading') }}"
+             data-uploading="{{ trans('module::message.uploading') }}"
              data-max-parallel="{{ setting_value('anomaly.module.files::max_parallel_uploads', 3) }}"
              data-allowed="{{ folder.allowed_types.value ? '.' ~ folder.allowed_types.value|join(',.') }}"></div>
 
