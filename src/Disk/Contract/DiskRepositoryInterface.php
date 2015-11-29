@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\Disk\Contract;
 
-use Anomaly\Streams\Platform\Entry\EntryCollection;
+use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 
 /**
  * Interface DiskRepositoryInterface
@@ -10,23 +10,8 @@ use Anomaly\Streams\Platform\Entry\EntryCollection;
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Disk\Contract
  */
-interface DiskRepositoryInterface
+interface DiskRepositoryInterface extends EntryRepositoryInterface
 {
-
-    /**
-     * Return all disks.
-     *
-     * @return EntryCollection
-     */
-    public function all();
-
-    /**
-     * Find a disk by ID.
-     *
-     * @param $id
-     * @return null|DiskInterface
-     */
-    public function find($id);
 
     /**
      * Find a disk by slug.

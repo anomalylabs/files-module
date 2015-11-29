@@ -47,5 +47,7 @@ class FileObserver extends EntryObserver
         if ($resource = $entry->resource()) {
             $resource->delete();
         }
+
+        parent::deleted($entry);
     }
 }

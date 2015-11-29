@@ -92,9 +92,9 @@ class FileUploader
         $disk = $folder->getDisk();
 
         /* @var FileInterface $entry */
-        $entry = $this->manager->putStream(
+        $entry = $this->manager->put(
             $disk->getSlug() . '://' . $folder->getSlug() . '/' . $file->getClientOriginalName(),
-            fopen($file->getRealPath(), 'r+')
+            file_get_contents($file->getRealPath())
         );
 
         if (in_array($entry->getExtension(), $this->config->get('anomaly.module.files::mimes.types.image'))) {

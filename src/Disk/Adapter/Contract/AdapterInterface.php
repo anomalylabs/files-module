@@ -19,12 +19,4 @@ interface AdapterInterface
      * @param DiskInterface $disk
      */
     public function load(DiskInterface $disk);
-
-    /**
-     * Validate adapter configuration.
-     *
-     * @param array $configuration
-     * @return bool
-     */
-    public function validate(array $configuration);
 }

@@ -2,7 +2,9 @@
 
 return [
     'files'   => [
-        'manage'
+        'read',
+        'write',
+        'delete'
     ],
     'folders' => [
         'read',

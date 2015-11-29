@@ -115,7 +115,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
      */
     public function files()
     {
-        return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id')/*->orderBy('sort_order', 'ASC')*/
-            ;
+        return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id');
     }
 }

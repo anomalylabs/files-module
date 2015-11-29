@@ -33,10 +33,8 @@ class FileLocator
      * @param FileRepositoryInterface   $files
      * @param FolderRepositoryInterface $folders
      */
-    function __construct(
-        FileRepositoryInterface $files,
-        FolderRepositoryInterface $folders
-    ) {
+    function __construct(FileRepositoryInterface $files, FolderRepositoryInterface $folders)
+    {
         $this->files   = $files;
         $this->folders = $folders;
     }
@@ -52,7 +50,7 @@ class FileLocator
     {
         $folder = $this->folders->findBySlug($folder);
 
-        if (!$file = $this->files->findByName($name, $folder)) {
+        if (!$file = $this->files->findByNameAndFolder($name, $folder)) {
             return null;
         }
 

@@ -1,13 +1,10 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
-use Anomaly\FilesModule\Disk\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
-use Anomaly\FilesModule\Disk\Command\GetDiskEntriesStream;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
  * Class DiskModel
@@ -26,16 +23,6 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
      * @var int
      */
     protected $cacheMinutes = 99999;
-
-    /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        self::observe(app(substr(__CLASS__, 0, -5) . 'Observer'));
-
-        parent::boot();
-    }
 
     /**
      * Return the disk's filesystem.
@@ -75,15 +62,5 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function getAdapter()
     {
         return $this->adapter;
-    }
-
-    /**
-     * Get the entries stream.
-     *
-     * @return StreamInterface
-     */
-    public function getEntriesStream()
-    {
-        return $this->dispatch(new GetDiskEntriesStream($this));
     }
 }

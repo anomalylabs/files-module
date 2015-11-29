@@ -1,10 +1,11 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
-use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Support\Decorator;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 
@@ -19,12 +20,7 @@ use Illuminate\Routing\UrlGenerator;
 class FilePresenter extends EntryPresenter
 {
 
-    /**
-     * The URL generator.
-     *
-     * @var UrlGenerator
-     */
-    protected $url;
+    use DispatchesJobs;
 
     /**
      * The decorated object.
@@ -35,18 +31,18 @@ class FilePresenter extends EntryPresenter
     protected $object;
 
     /**
+     * The URL generator.
+     *
+     * @var UrlGenerator
+     */
+    protected $url;
+
+    /**
      * The config repository.
      *
      * @var Repository
      */
     protected $config;
-
-    /**
-     * The image utility.
-     *
-     * @var Image
-     */
-    protected $image;
 
     /**
      * The request object.
@@ -59,15 +55,13 @@ class FilePresenter extends EntryPresenter
      * Create a new FilePresenter instance.
      *
      * @param UrlGenerator $url
-     * @param Image        $image
      * @param Request      $request
      * @param Repository   $config
      * @param              $object
      */
-    public function __construct(UrlGenerator $url, Image $image, Request $request, Repository $config, $object)
+    public function __construct(UrlGenerator $url, Request $request, Repository $config, $object)
     {
         $this->url     = $url;
-        $this->image   = $image;
         $this->config  = $config;
         $this->request = $request;
 
@@ -77,28 +71,36 @@ class FilePresenter extends EntryPresenter
     /**
      * Return the size in a readable format.
      *
-     * @param int $decimals
+     * @param string $unit
+     * @param int    $decimals
      * @return string
      */
-    public function readableSize($decimals = 2)
+    public function readableSize($unit = null, $decimals = 2)
     {
-        $size = [' B', ' KB', ' MB', ' GB'];
+        $bytes = $this->object->getSize();
 
-        $factor = floor((strlen($bytes = $this->object->getSize()) - 1) / 3);
+        if (!$unit) {
 
-        return (float)sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[(int)$factor];
-    }
+            $size = ['B', 'KB', 'MB', 'GB'];
 
-    /**
-     * Return a thumbnail of the file.
-     *
-     * @param int $width
-     * @param int $height
-     * @return string
-     */
-    public function thumbnail($width = 48, $height = 48)
-    {
-        return $this->object->image()->fit($width, $height)->class('img-rounded');
+            $factor = floor((strlen($bytes) - 1) / 3);
+
+            return (float)sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[(int)$factor];
+        }
+
+        if ($bytes >= 1 << 30 || $unit == "GB" || $unit == "G") {
+            return number_format($bytes / (1 << 30), 2) . " {$unit}";
+        }
+
+        if ($bytes >= 1 << 20 || $unit == "MB" || $unit == "M") {
+            return number_format($bytes / (1 << 20), 2) . " {$unit}";
+        }
+
+        if ($bytes >= 1 << 10 || $unit == "KB" || $unit == "K") {
+            return number_format($bytes / (1 << 10), 2) . " {$unit}";
+        }
+
+        return number_format($bytes) . " B";
     }
 
     /**
@@ -111,22 +113,13 @@ class FilePresenter extends EntryPresenter
     public function preview($width = 48, $height = 48)
     {
         if (in_array($this->object->getExtension(), $this->config->get('anomaly.module.files::mimes.thumbnails'))) {
-            return $this->thumbnail($width, $height);
+            return $this->object->image()->fit($width, $height)->class('img-rounded');
         }
 
-        foreach ($this->config->get('anomaly.module.files::mimes.types') as $type => $extensions) {
-            if (in_array($this->object->getExtension(), $extensions)) {
-                return $this->image
-                    ->make('anomaly.module.files::img/types/' . $type . '.png')
-                    ->style('margin-left: 6px;')
-                    ->height($height)
-                    ->image();
-            }
-        }
+        $type = $this->dispatch(new GetType($this->object)) ?: 'document';
 
         return $this->image
-            ->make('anomaly.module.files::img/types/document.png')
-            ->style('margin-left: 5px;')
+            ->make('anomaly.module.files::img/types/' . $type . '.png')
             ->height($height)
             ->image();
     }

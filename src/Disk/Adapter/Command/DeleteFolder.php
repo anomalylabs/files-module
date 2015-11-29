@@ -42,7 +42,7 @@ class DeleteFolder implements SelfHandling
      */
     public function handle(FolderRepositoryInterface $folders)
     {
-        $folder = $folders->findByPath($this->directory->getPath(), $this->getFilesystemDisk());
+        $folder = $folders->findBySlug($this->directory->getPath(), $this->getFilesystemDisk());
 
         if ($folder && $folders->delete($folder)) {
             return $folder;
