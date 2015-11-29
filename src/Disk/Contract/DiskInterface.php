@@ -45,11 +45,4 @@ interface DiskInterface extends EntryInterface
      * @return AdapterInterface|Extension
      */
     public function getAdapter();
-
-    /**
-     * Get the entries stream.
-     *
-     * @return StreamInterface
-     */
-    public function getEntriesStream();
 }

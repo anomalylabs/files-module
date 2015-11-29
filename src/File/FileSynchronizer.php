@@ -55,7 +55,7 @@ class FileSynchronizer
     {
         $folder = $this->syncFolder($resource, $disk);
 
-        if (!$file = $this->files->findByName(basename($resource->getPath()), $folder)) {
+        if (!$file = $this->files->findByNameAndFolder(basename($resource->getPath()), $folder)) {
             $file = $this->files->create(
                 [
                     'name'       => basename($resource->getPath()),

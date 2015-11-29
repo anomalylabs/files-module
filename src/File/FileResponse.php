@@ -17,11 +17,15 @@ class FileResponse
 {
 
     /**
+     * The mount manager.
+     *
      * @var MountManager
      */
     protected $manager;
 
     /**
+     * The response factory
+     *
      * @var ResponseFactory
      */
     protected $response;

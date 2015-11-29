@@ -33,4 +33,24 @@ class FileCollection extends EntryCollection
 
         return new static($files);
     }
+
+    /**
+     * Return files of a desired mime type.
+     *
+     * @param $type
+     * @return static|FileCollection
+     */
+    public function mimeType($type)
+    {
+        $files = [];
+
+        /* @var FileInterface $item */
+        foreach ($this->items as $item) {
+            if (str_is($type, $item->getMimeType())) {
+                $files[] = $item;
+            }
+        }
+
+        return new static($files);
+    }
 }

@@ -19,6 +19,13 @@ interface FileInterface extends EntryInterface
 {
 
     /**
+     * Return the file type.
+     *
+     * @return string
+     */
+    public function type();
+
+    /**
      * Return the file path.
      *
      * @return string
@@ -33,18 +40,18 @@ interface FileInterface extends EntryInterface
     public function location();
 
     /**
-     * Return the file resource.
-     *
-     * @return File
-     */
-    public function resource();
-
-    /**
      * Return an image instance.
      *
      * @return Image
      */
     public function image();
+
+    /**
+     * Return the file resource.
+     *
+     * @return File
+     */
+    public function resource();
 
     /**
      * Get the name.
@@ -66,6 +73,20 @@ interface FileInterface extends EntryInterface
      * @return int
      */
     public function getSize();
+
+    /**
+     * Get the width.
+     *
+     * @return null|int
+     */
+    public function getWidth();
+
+    /**
+     * Get the height.
+     *
+     * @return null|int
+     */
+    public function getHeight();
 
     /**
      * Get the related folder.

@@ -53,7 +53,7 @@ class FindFile implements SelfHandling
                 return null;
             }
 
-            return $decorator->decorate($files->findByName($name, $folder));
+            return $decorator->decorate($files->findByNameAndFolder($name, $folder));
         }
 
         return null;

@@ -21,8 +21,7 @@ class FolderTableBuilder extends TableBuilder
     protected $columns = [
         'entry.edit_link',
         'slug',
-        'disk',
-        'entry.allowed_types.labels'
+        'disk'
     ];
 
     /**

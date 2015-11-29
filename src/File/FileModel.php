@@ -1,13 +1,15 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\File\Command\GetImage;
+use Anomaly\FilesModule\File\Command\GetResource;
+use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use League\Flysystem\File;
-use League\Flysystem\MountManager;
 
 /**
  * Class FileModel
@@ -67,10 +69,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function resource()
     {
-        /* @var MountManager $manager */
-        $manager = app('League\Flysystem\MountManager');
-
-        return $manager->get($this->location());
+        return $this->dispatch(new GetResource($this));
     }
 
     /**
@@ -80,15 +79,41 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function image()
     {
-        $disk   = $this->getDisk();
-        $folder = $this->getFolder();
+        return $this->dispatch(new GetImage($this));
+    }
 
-        $path = $disk->getSlug() . '://' . $folder->getSlug() . '/' . $this->getName();
+    /**
+     * Return the file type.
+     *
+     * @return string
+     */
+    public function type()
+    {
+        return $this->dispatch(new GetType($this));
+    }
 
-        /* @var Image $image */
-        $image = app('Anomaly\Streams\Platform\Image\Image');
+    /**
+     * Return the file's primary mime type.
+     *
+     * @return string
+     */
+    public function primaryMimeType()
+    {
+        $mimes = explode('/', $this->getMimeType());
 
-        return $image->make($path)->setOutput('image');
+        return array_shift($mimes);
+    }
+
+    /**
+     * Return the file's sub mime type.
+     *
+     * @return string
+     */
+    public function secondaryMimeType()
+    {
+        $mimes = explode('/', $this->getMimeType());
+
+        return array_pop($mimes);
     }
 
     /**
@@ -119,6 +144,26 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getSize()
     {
         return $this->size;
+    }
+
+    /**
+     * Get the width.
+     *
+     * @return null|int
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Get the height.
+     *
+     * @return null|int
+     */
+    public function getHeight()
+    {
+        return $this->height;
     }
 
     /**
@@ -192,12 +237,17 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Return the public path by default.
+     * Return the entry as an array.
      *
-     * @return string
+     * @return array
      */
-    function __toString()
+    public function toArray()
     {
-        return $this->publicPath();
+        $array = parent::toArray();
+
+        $array['path']     = $this->path();
+        $array['location'] = $this->location();
+
+        return $array;
     }
 }

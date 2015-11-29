@@ -1,17 +1,19 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Anomaly\Streams\Platform\Image\Image;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Config\Repository;
 
 /**
- * Class SetPath
+ * Class GetImage
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\File\Command
  */
-class SetPath implements SelfHandling
+class GetImage implements SelfHandling
 {
 
     /**
@@ -22,9 +24,9 @@ class SetPath implements SelfHandling
     protected $file;
 
     /**
-     * Create a new SetPath instance.
+     * Create a new GetImage instance.
      *
-     * @param $file
+     * @param FileInterface $file
      */
     public function __construct(FileInterface $file)
     {
@@ -33,11 +35,12 @@ class SetPath implements SelfHandling
 
     /**
      * Handle the command.
+     *
+     * @param Image $image
+     * @return Image
      */
-    public function handle()
+    public function handle(Image $image)
     {
-        $folder = $this->file->getFolder();
-
-        $this->file->setFieldValue('path', $folder->getSlug() . '/' . $this->file->getName());
+        return $image->make($this->file->location())->setOutput('image');
     }
 }

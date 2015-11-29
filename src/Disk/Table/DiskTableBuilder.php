@@ -39,19 +39,7 @@ class DiskTableBuilder extends TableBuilder
      * @var array
      */
     protected $actions = [
-        'reorder',
         'delete'
-    ];
-
-    /**
-     * The table options.
-     *
-     * @var array
-     */
-    protected $options = [
-        'order_by' => [
-            'name' => 'ASC'
-        ]
     ];
 
 }

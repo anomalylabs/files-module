@@ -39,11 +39,6 @@ class FileReader extends FileResponse
 
         $response->headers->set('Content-Disposition', 'inline');
 
-        $folder = $file->getFolder();
-        $disk   = $folder->getDisk();
-
-        return $response->setContent(
-            $this->manager->read("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getName()}")
-        );
+        return $response->setContent($this->manager->read($file->location()));
     }
 }
