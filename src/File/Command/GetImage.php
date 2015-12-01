@@ -41,6 +41,6 @@ class GetImage implements SelfHandling
      */
     public function handle(Image $image)
     {
-        return $image->make($this->file->location())->setOutput('image');
+        return $image->make($this->file)->setOutput('image');
     }
 }
