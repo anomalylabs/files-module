@@ -12,7 +12,7 @@ $(function () {
     var dropzone = new Dropzone('.dropzone',
         {
             paramName: 'upload',
-            url: '/admin/files/upload/handle',
+            url: APPLICATION_URL + '/admin/files/upload/handle',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -73,6 +73,6 @@ $(function () {
 
         uploader.find('.uploaded .panel-body').html(element.data('loading') + '...');
 
-        uploader.find('.uploaded').load('/admin/files/upload/recent?uploaded=' + uploaded.join(','));
+        uploader.find('.uploaded').load(APPLICATION_URL + '/admin/files/upload/recent?uploaded=' + uploaded.join(','));
     });
 });
