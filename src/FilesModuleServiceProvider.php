@@ -19,7 +19,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $plugins = [
-        'Anomaly\FilesModule\File\Plugin\FilePlugin'
+        'Anomaly\FilesModule\FilesModulePlugin'
     ];
 
     /**

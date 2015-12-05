@@ -1,17 +1,17 @@
-<?php namespace Anomaly\FilesModule\File\Plugin;
+<?php namespace Anomaly\FilesModule;
 
 use Anomaly\FilesModule\File\Command\GetMaxUploadSize;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 
 /**
- * Class FilePlugin
+ * Class FilesModulePlugin
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\FilesModule\File\Plugin
+ * @package       Anomaly\FilesModule
  */
-class FilePlugin extends Plugin
+class FilesModulePlugin extends Plugin
 {
 
     /**
