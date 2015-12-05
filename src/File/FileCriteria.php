@@ -15,26 +15,21 @@ class FileCriteria extends EntryCriteria
 {
 
     /**
-     * Find a file.
+     * Find a file by it's path.
      *
-     * @param       $identifier
+     * @param       $path
      * @param array $columns
      * @return \Anomaly\Streams\Platform\Entry\EntryPresenter
      */
-    public function find($identifier, array $columns = ['*'])
+    public function findByPath($path, array $columns = ['*'])
     {
-        if (!is_numeric($identifier)) {
+        list($folder, $name) = explode('/', $path);
 
-            list($folder, $name) = explode('/', $identifier);
+        $this->query
+            ->join('files_folders', 'files_folders.id', '=', 'files_files.folder_id')
+            ->where('files_folders.slug', $folder)
+            ->where('files_files.name', $name);
 
-            $this->query
-                ->join('files_folders', 'files_folders.id', '=', 'files_files.folder_id')
-                ->where('files_folders.slug', $folder)
-                ->where('files_files.name', $name);
-
-            return (new Decorator())->decorate($this->first($columns));
-        }
-
-        return parent::find($identifier, $columns);
+        return (new Decorator())->decorate($this->first($columns));
     }
 }
