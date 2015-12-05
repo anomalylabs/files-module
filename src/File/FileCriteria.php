@@ -23,7 +23,7 @@ class FileCriteria extends EntryCriteria
      */
     public function find($identifier, array $columns = ['*'])
     {
-        if (is_string($identifier)) {
+        if (!is_numeric($identifier)) {
 
             list($folder, $name) = explode('/', $identifier);
 
