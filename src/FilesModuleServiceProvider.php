@@ -19,8 +19,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $plugins = [
-        'Anomaly\FilesModule\File\Plugin\FilePlugin',
-        'Anomaly\FilesModule\Folder\Plugin\FolderPlugin'
+        'Anomaly\FilesModule\File\Plugin\FilePlugin'
     ];
 
     /**
@@ -32,6 +31,16 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered' => [
             'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
         ]
+    ];
+
+    /**
+     * The class bindings.
+     *
+     * @var array
+     */
+    protected $bindings = [
+        'Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel'     => 'Anomaly\FilesModule\File\FileModel',
+        'Anomaly\Streams\Platform\Model\Folders\FilesFoldersEntryModel' => 'Anomaly\FilesModule\Folder\FolderModel'
     ];
 
     /**
