@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
-use Anomaly\SettingsModule\Setting\Contract\SettingRepositoryInterface;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 /**

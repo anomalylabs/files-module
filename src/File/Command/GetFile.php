@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Folder\Command;
+<?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;

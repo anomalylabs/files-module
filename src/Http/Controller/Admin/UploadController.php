@@ -39,7 +39,7 @@ class UploadController extends AdminController
     /**
      * Handle the upload.
      *
-     * @param FileUploader              $uploader
+     * @param FileUploader $uploader
      * @param FolderRepositoryInterface $folders
      * @return \Illuminate\Http\JsonResponse
      */
@@ -48,11 +48,15 @@ class UploadController extends AdminController
         $error = trans('anomaly.module.files::error.generic');
 
         try {
-            if ($file = $uploader->upload($this->request->file('upload'), $folders->find($this->request->get('folder')))) {
+            if ($file = $uploader->upload(
+                $this->request->file('upload'),
+                $folders->find($this->request->get('folder'))
+            )
+            ) {
                 return $this->response->json($file->getAttributes());
             }
         } catch (\Exception $e) {
-            $error = $e->getMessage(); 
+            $error = $e->getMessage();
         }
 
         return $this->response->json(['error' => $error], 500);

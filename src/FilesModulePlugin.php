@@ -1,8 +1,8 @@
 <?php namespace Anomaly\FilesModule;
 
+use Anomaly\FilesModule\File\Command\GetFile;
 use Anomaly\FilesModule\File\Command\GetMaxUploadSize;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
-use Anomaly\MarkdownFieldType\Command\GetFile;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 use Anomaly\Streams\Platform\Support\Decorator;
 
