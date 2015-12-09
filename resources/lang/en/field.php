@@ -34,6 +34,7 @@ return [
     'allowed_types' => [
         'name'         => 'Allowed Types',
         'instructions' => 'Specify the file type extensions that are allowed in this folder.',
-        'placeholder'  => 'pdf, psd, jpg'
+        'warning'      => 'Note subtle differences between mime types like jpg and jpeg.',
+        'placeholder'  => 'pdf, psd, jpg, jpeg'
     ]
 ];
