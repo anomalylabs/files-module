@@ -1,11 +1,9 @@
 <?php namespace Anomaly\FilesModule\Disk\Contract;
 
-use Anomaly\FilesModule\Disk\Adapter\AdapterExtension;
 use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
-use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 
 /**
  * Interface DiskInterface
