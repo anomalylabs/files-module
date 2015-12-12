@@ -30,6 +30,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     protected $cacheMinutes = 99999;
 
     /**
+     * Always eager load these.
+     *
+     * @var array
+     */
+    protected $with = [
+        'disk',
+        'folder'
+    ];
+    
+    /**
      * Return the file path.
      *
      * @return string
