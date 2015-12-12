@@ -39,8 +39,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $bindings = [
-        'Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel'     => 'Anomaly\FilesModule\File\FileModel',
-        'Anomaly\Streams\Platform\Model\Folders\FilesFoldersEntryModel' => 'Anomaly\FilesModule\Folder\FolderModel'
+        'Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel'   => 'Anomaly\FilesModule\File\FileModel',
+        'Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel' => 'Anomaly\FilesModule\Folder\FolderModel'
     ];
 
     /**
