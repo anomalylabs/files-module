@@ -112,7 +112,7 @@ class FilePresenter extends EntryPresenter
      */
     public function preview($width = 48, $height = 48)
     {
-        if (in_array($this->object->getExtension(), $this->config->get('anomaly.module.files::mimes.thumbnails'))) {
+        if (in_array(strtolower($this->object->getExtension()), $this->config->get('anomaly.module.files::mimes.thumbnails'))) {
             return $this->object->image()->fit($width, $height)->class('img-rounded');
         }
 
