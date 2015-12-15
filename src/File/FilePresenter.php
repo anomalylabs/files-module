@@ -112,7 +112,7 @@ class FilePresenter extends EntryPresenter
      */
     public function preview($width = 48, $height = 48)
     {
-        if (in_array(strtolower($this->object->getExtension()), $this->config->get('anomaly.module.files::mimes.thumbnails'))) {
+        if ($this->type() == 'image') {
             return $this->object->image()->fit($width, $height)->class('img-rounded');
         }
 
@@ -122,6 +122,22 @@ class FilePresenter extends EntryPresenter
             ->make('anomaly.module.files::img/types/' . $type . '.png')
             ->height($height)
             ->image();
+    }
+
+    /**
+     * Return the type of the mime.
+     *
+     * @return int|null|string
+     */
+    public function type()
+    {
+        foreach ($this->config->get('anomaly.module.files::mimes.types') as $type => $extensions) {
+            if (in_array($this->object->getExtension(), $extensions)) {
+                return $type;
+            }
+        }
+
+        return null;
     }
 
     /**
