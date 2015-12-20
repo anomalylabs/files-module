@@ -38,7 +38,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         'disk',
         'folder'
     ];
-    
+
     /**
      * Return the file path.
      *
@@ -195,6 +195,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getExtension()
     {
         return $this->extension;
+    }
+
+    /**
+     * Lowercase the extension.
+     *
+     * @param $value
+     */
+    public function setExtensionAttribute($value)
+    {
+        $this->attributes['extension'] = strtolower($value);
     }
 
     /**
