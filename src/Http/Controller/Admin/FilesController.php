@@ -67,12 +67,12 @@ class FilesController extends AdminController
         /* @var FileInterface $file */
         $file = $files->find($id);
 
-        $form->addForm('file', $fileForm->setEntry($file));
-
         $form->addForm(
             'entry',
             $entryForm->setModel($file->getFolder()->getEntryModelName())->setEntry($file->getEntry())
         );
+
+        $form->addForm('file', $fileForm->setEntry($file));
 
         return $form->render($id);
     }

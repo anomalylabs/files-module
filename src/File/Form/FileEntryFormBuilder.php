@@ -35,4 +35,17 @@ class FileEntryFormBuilder extends MultipleFormBuilder
         $file->entry_id   = $entry->getId();
         $file->entry_type = get_class($entry);
     }
+
+    /**
+     * Get the contextual entry ID.
+     *
+     * @return int|mixed|null
+     */
+    public function getContextualId()
+    {
+        /* @var FormBuilder $form */
+        $form = $this->forms->get('file');
+
+        return $form->getContextualId();
+    }
 }
