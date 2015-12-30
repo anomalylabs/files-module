@@ -1,7 +1,8 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\Folder\Command\GetFolder;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\EntryCriteria;
-use Anomaly\Streams\Platform\Support\Decorator;
 
 /**
  * Class FileCriteria
@@ -15,21 +16,24 @@ class FileCriteria extends EntryCriteria
 {
 
     /**
-     * Find a file by it's path.
+     * Add the folder constraint.
      *
-     * @param       $path
-     * @param array $columns
-     * @return \Anomaly\Streams\Platform\Entry\EntryPresenter
+     * @param $identifier
+     * @return $this
      */
-    public function findByPath($path, array $columns = ['*'])
+    public function folder($identifier)
     {
-        list($folder, $name) = explode('/', $path);
+        /* @var FolderInterface $folder */
+        $folder = $this->dispatch(new GetFolder($identifier));
+
+        $stream = $folder->getEntryStream();
+        $table  = $stream->getEntryTableName();
 
         $this->query
-            ->join('files_folders', 'files_folders.id', '=', 'files_files.folder_id')
-            ->where('files_folders.slug', $folder)
-            ->where('files_files.name', $name);
+            ->select('files_files.*')
+            ->where('folder_id', $folder->getId())
+            ->join($table . ' AS entry', 'entry.id', '=', 'files_files.entry_id');
 
-        return (new Decorator())->decorate($this->first($columns));
+        return $this;
     }
 }
