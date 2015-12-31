@@ -14,6 +14,15 @@ class FilesModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
+     * The commands.
+     *
+     * @var array
+     */
+    protected $commands = [
+        'Anomaly\FilesModule\Console\Clean'
+    ];
+
+    /**
      * The plugins.
      *
      * @var array

@@ -42,6 +42,10 @@ class GetResource implements SelfHandling
      */
     public function handle(MountManager $manager)
     {
-        return $manager->get($this->file->location());
+        try {
+            return $manager->get($this->file->location());
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }
