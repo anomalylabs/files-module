@@ -7,14 +7,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class Clean
+ * Class Check
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Console
  */
-class Clean extends Command
+class Check extends Command
 {
 
     /**
@@ -22,14 +22,14 @@ class Clean extends Command
      *
      * @var string
      */
-    protected $name = 'files:clean';
+    protected $name = 'files:check';
 
     /**
      * The command description.
      *
      * @var string
      */
-    protected $description = 'Clean missing files from the files table.';
+    protected $description = 'Check for missing files from the files table.';
 
     /**
      * Fire the command.
@@ -38,9 +38,14 @@ class Clean extends Command
      */
     public function fire(FileRepositoryInterface $files)
     {
+        $missing = false;
+
         /* @var FileInterface|EloquentModel $file */
         foreach ($files->all() as $file) {
+
             if (!$file->resource()) {
+
+                $missing = true;
 
                 if ($this->option('delete')) {
                     $files->delete($file);
@@ -48,6 +53,14 @@ class Clean extends Command
 
                 $this->info($file->path() . ' ' . ($this->option('delete') ? 'deleted' : 'missing') . '.');
             }
+        }
+
+        if ($missing && !$this->option('delete')) {
+            $this->error('Run with the --delete flag to delete missing files.');
+        }
+
+        if (!$missing) {
+            $this->info('Files database is clean.');
         }
     }
 
