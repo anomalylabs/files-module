@@ -4,6 +4,7 @@ use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class Clean
@@ -41,10 +42,24 @@ class Clean extends Command
         foreach ($files->all() as $file) {
             if (!$file->resource()) {
 
-                $files->delete($file);
+                if ($this->option('delete')) {
+                    $files->delete($file);
+                }
 
-                $this->info($file->path() . ' removed.');
+                $this->info($file->path() . ' ' . ($this->option('delete') ? 'deleted' : 'missing') . '.');
             }
         }
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['delete', null, InputOption::VALUE_NONE, 'Delete missing files.']
+        ];
     }
 }
