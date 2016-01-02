@@ -85,6 +85,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Alias for image()
+     *
+     * @return Image
+     */
+    public function make()
+    {
+        return $this->image();
+    }
+
+    /**
      * Return the file type.
      *
      * @return string
