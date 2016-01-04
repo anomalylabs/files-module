@@ -19,7 +19,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $commands = [
-        'Anomaly\FilesModule\Console\Check'
+        'Anomaly\FilesModule\Console\Clean'
     ];
 
     /**

@@ -7,14 +7,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class Check
+ * Class Clean
  *
  * @link          http://anomaly.is/streams-platform
  * @author        AnomalyLabs, Inc. <hello@anomaly.is>
  * @author        Ryan Thompson <ryan@anomaly.is>
  * @package       Anomaly\FilesModule\Console
  */
-class Check extends Command
+class Clean extends Command
 {
 
     /**
@@ -22,14 +22,14 @@ class Check extends Command
      *
      * @var string
      */
-    protected $name = 'files:check';
+    protected $name = 'files:clean';
 
     /**
      * The command description.
      *
      * @var string
      */
-    protected $description = 'Check for missing files from the files table.';
+    protected $description = 'Clean missing files from the files table.';
 
     /**
      * Fire the command.
@@ -47,16 +47,12 @@ class Check extends Command
 
                 $missing = true;
 
-                if ($this->option('delete')) {
+                if (!$this->option('pretend')) {
                     $files->delete($file);
                 }
 
-                $this->info($file->path() . ' ' . ($this->option('delete') ? 'deleted' : 'missing') . '.');
+                $this->info($file->path() . ' ' . (!$this->option('delete') ? 'deleted' : 'missing') . '.');
             }
-        }
-
-        if ($missing && !$this->option('delete')) {
-            $this->error('Run with the --delete flag to delete missing files.');
         }
 
         if (!$missing) {
@@ -72,7 +68,7 @@ class Check extends Command
     protected function getOptions()
     {
         return [
-            ['delete', null, InputOption::VALUE_NONE, 'Delete missing files.']
+            ['pretend', null, InputOption::VALUE_NONE, 'Perform a dry run without deleting.']
         ];
     }
 }
