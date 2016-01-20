@@ -43,6 +43,13 @@ class FileUploader
     protected $manager;
 
     /**
+     * The file rotator.
+     *
+     * @var FileRotator
+     */
+    protected $rotator;
+
+    /**
      * The validation factory.
      *
      * @var Factory
@@ -54,18 +61,21 @@ class FileUploader
      *
      * @param Factory                 $validator
      * @param MountManager            $manager
+     * @param FileRotator             $rotator
      * @param Repository              $config
      * @param FileRepositoryInterface $files
      */
     public function __construct(
         Factory $validator,
         MountManager $manager,
+        FileRotator $rotator,
         Repository $config,
         FileRepositoryInterface $files
     ) {
         $this->files     = $files;
         $this->config    = $config;
         $this->manager   = $manager;
+        $this->rotator   = $rotator;
         $this->validator = $validator;
     }
 
@@ -91,6 +101,8 @@ class FileUploader
         }
 
         $disk = $folder->getDisk();
+
+        $file = $this->rotator->rotate($file);
 
         /* @var FileInterface|EloquentModel $entry */
         $entry = $this->manager->put(
