@@ -3,6 +3,7 @@
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Factory;
@@ -91,7 +92,7 @@ class FileUploader
 
         $disk = $folder->getDisk();
 
-        /* @var FileInterface $entry */
+        /* @var FileInterface|EloquentModel $entry */
         $entry = $this->manager->put(
             $disk->getSlug() . '://' . $folder->getSlug() . '/' . $file->getClientOriginalName(),
             file_get_contents($file->getRealPath())
