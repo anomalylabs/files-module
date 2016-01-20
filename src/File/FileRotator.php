@@ -44,12 +44,34 @@ class FileRotator
         $image = imagecreatefromjpeg($file->getRealPath());
 
         switch ($orientation) {
+
+            case 2:
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+
             case 3:
                 $image = imagerotate($image, 180, 0);
                 break;
+
+            case 4:
+                $image = imagerotate($image, 180, 0);
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+
+            case 5:
+                $image = imagerotate($image, -90, 0);
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+
             case 6:
                 $image = imagerotate($image, -90, 0);
                 break;
+
+            case 7:
+                $image = imagerotate($image, 90, 0);
+                imageflip($image, IMG_FLIP_HORIZONTAL);
+                break;
+
             case 8:
                 $image = imagerotate($image, 90, 0);
                 break;
