@@ -147,25 +147,6 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
      */
     public function put($path, $contents, array $config = [])
     {
-        if (is_callable('exif_read_data')) {
-
-            $exif = exif_read_data($_FILES['ImageFile']['tmp_name']);
-
-            if (!empty($exif['Orientation'])) {
-                switch ($exif['Orientation']) {
-                    case 8:
-                        $createdImage = imagerotate($image, 90, 0);
-                        break;
-                    case 3:
-                        $createdImage = imagerotate($image, 180, 0);
-                        break;
-                    case 6:
-                        $createdImage = imagerotate($image, -90, 0);
-                        break;
-                }
-            }
-        }
-
         $result = parent::put($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
