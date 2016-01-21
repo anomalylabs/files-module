@@ -97,7 +97,7 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
 
         return $this->allowed_types = array_map(
             function ($type) {
-                return ltrim($type, '.');
+                return strtolower(preg_replace("/[^A-Za-z0-9 ]/", '', $type));
             },
             $this->getAllowedTypes()
         );
