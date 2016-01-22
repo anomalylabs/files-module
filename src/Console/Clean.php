@@ -51,7 +51,7 @@ class Clean extends Command
                     $files->delete($file);
                 }
 
-                $this->info($file->path() . ' ' . (!$this->option('delete') ? 'deleted' : 'missing') . '.');
+                $this->info($file->path() . ' ' . (!$this->option('pretend') ? 'deleted' : 'missing') . '.');
             }
         }
 
