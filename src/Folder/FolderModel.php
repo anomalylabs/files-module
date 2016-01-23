@@ -87,6 +87,23 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Set the allowed types attribute.
+     *
+     * @return array
+     */
+    public function setAllowedTypesAttribute(array $types)
+    {
+        $this->setFieldValue('allowed_types', $types);
+
+        return $this->allowed_types = array_map(
+            function ($type) {
+                return strtolower(preg_replace("/[^A-Za-z0-9 ]/", '', $type));
+            },
+            $this->getAllowedTypes()
+        );
+    }
+
+    /**
      * Get the related entry model name.
      *
      * @return string
