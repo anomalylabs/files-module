@@ -21,6 +21,9 @@ return [
             'rv',
             'wav'
         ],
+        'calendar'     => [
+            'ics'
+        ],
         'code'         => [
             'html',
             'js',
