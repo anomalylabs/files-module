@@ -27,7 +27,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      *
      * @var int
      */
-    protected $cacheMinutes = 99999;
+    protected $ttl = 99999;
 
     /**
      * Always eager load these.
