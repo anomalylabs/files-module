@@ -21,7 +21,7 @@ class FileRotator
      */
     public function rotate(UploadedFile $file)
     {
-        if (is_callable('exif_imagetype') && !exif_imagetype($file->getRealPath()) !== IMAGETYPE_JPEG) {
+        if (is_callable('exif_read_data') && !exif_imagetype($file->getRealPath()) !== IMAGETYPE_JPEG) {
             return $file;
         }
 
