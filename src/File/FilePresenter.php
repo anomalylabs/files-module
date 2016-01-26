@@ -113,7 +113,7 @@ class FilePresenter extends EntryPresenter
     public function preview($width = 48, $height = 48)
     {
         if ($this->type() == 'image') {
-            return $this->object->image()->fit($width, $height)->class('img-rounded');
+            return $this->object->image()->fit($width, $height)->class('img-rounded')->output();
         }
 
         $type = $this->dispatch(new GetType($this->object)) ?: 'document';
