@@ -36,7 +36,8 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     protected $with = [
         'disk',
-        'folder'
+        'folder',
+        'entry'
     ];
 
     /**
