@@ -44,7 +44,7 @@ class FileImage extends FileResponse
      * @param int   $quality
      * @return Response
      */
-    public function generate(Image $image, $quality = 100)
+    public function generate(Image $image, $quality = 60)
     {
         $response = parent::make($image->getImage());
 
