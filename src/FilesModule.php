@@ -32,6 +32,7 @@ class FilesModule extends Module
                     'data-toggle' => 'modal',
                     'icon'        => 'upload',
                     'data-target' => '#modal',
+                    'type'        => 'success',
                     'href'        => 'admin/files/choose'
                 ]
             ]
