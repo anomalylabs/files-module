@@ -62,16 +62,16 @@ class FoldersController extends AdminController
      * @param                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function fields(
-        AssignmentTableBuilder $table,
-        FolderRepositoryInterface $folders,
-        $id
-    ) {
+    public function fields(AssignmentTableBuilder $table, FolderRepositoryInterface $folders, $id)
+    {
         /* @var FolderInterface $folder */
         $folder = $folders->find($id);
 
-        $this->breadcrumbs->put($folder->getName(), 'admin/files/types/edit/' . $folder->getId());
-        $this->breadcrumbs->put('module::breadcrumb.fields', 'admin/files/types/fields/' . $folder->getId());
+        $this->breadcrumbs->put($folder->getName(), 'admin/files/folders/edit/' . $folder->getId());
+        $this->breadcrumbs->put(
+            'streams::breadcrumb.assignments',
+            'admin/files/folders/assignments/' . $folder->getId()
+        );
 
         return $table
             ->setButtons(
@@ -129,7 +129,7 @@ class FoldersController extends AdminController
             ->setActions(
                 [
                     'save' => [
-                        'redirect' => 'admin/files/folders/fields/' . $id
+                        'redirect' => 'admin/files/folders/assignments/' . $id
                     ]
                 ]
             )
@@ -154,7 +154,7 @@ class FoldersController extends AdminController
     ) {
         $folder = $folders->find($id);
 
-        $this->breadcrumbs->put('module::breadcrumb.fields', 'admin/files/types/fields/' . $folder->getId());
+        $this->breadcrumbs->put('module::breadcrumb.fields', 'admin/files/types/assignments/' . $folder->getId());
 
         return $form->render($assignment);
     }

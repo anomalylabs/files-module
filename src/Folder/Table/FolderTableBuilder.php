@@ -30,7 +30,7 @@ class FolderTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
-        'fields',
+        'assignments',
         'upload' => [
             'icon' => 'upload',
             'type' => 'success',

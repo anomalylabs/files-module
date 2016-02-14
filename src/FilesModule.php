@@ -40,10 +40,10 @@ class FilesModule extends Module
         'folders' => [
             'buttons' => [
                 'new_folder',
-                'add_field' => [
+                'assign_fields' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'enabled'     => 'admin/files/folders/fields/*',
+                    'enabled'     => 'admin/files/folders/assignments/*',
                     'href'        => 'admin/files/folders/choose/{request.route.parameters.id}'
                 ]
             ]
