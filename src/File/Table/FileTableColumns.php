@@ -28,12 +28,9 @@ class FileTableColumns
                 'name'          => [
                     'sort_column' => 'name',
                     'wrapper'     => '
-                    <h4>
-                        {value.link}
-                        <br>
-                        <small>{value.disk}://{value.folder}/{value.file}</small>
-                        <small>{value.size}{value.keywords}</small>
-                    </h4>',
+                    {value.link} <span>{value.size}{value.keywords}</span>
+                    <br>
+                    <small>{value.disk}://{value.folder}/{value.file}</small>',
                     'value'       => [
                         'file'     => 'entry.name',
                         'link'     => 'entry.edit_link',
