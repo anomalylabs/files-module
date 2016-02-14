@@ -154,7 +154,7 @@ class FoldersController extends AdminController
     ) {
         $folder = $folders->find($id);
 
-        $this->breadcrumbs->put('module::breadcrumb.fields', 'admin/files/types/assignments/' . $folder->getId());
+        $this->breadcrumbs->put('streams::breadcrumb.assignments', 'admin/files/types/assignments/' . $folder->getId());
 
         return $form->render($assignment);
     }
