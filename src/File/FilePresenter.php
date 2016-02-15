@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
-use Anomaly\Streams\Platform\Support\Decorator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -182,7 +181,7 @@ class FilePresenter extends EntryPresenter
         $entry = $this->object->getEntry();
 
         if ($entry && $entry->hasField($key)) {
-            return (New Decorator())->decorate($entry)->{$key};
+            return $entry->{$key};
         }
 
         return parent::__get($key);
