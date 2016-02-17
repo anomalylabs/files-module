@@ -36,7 +36,7 @@ class DiskTableBuilder extends TableBuilder
     protected $columns = [
         'name',
         'description',
-        'entry.adapter.name'
+        'entry.adapter.title'
     ];
 
     /**
