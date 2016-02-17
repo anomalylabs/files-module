@@ -28,31 +28,25 @@ class FileEntryFormSections
 
         $builder->setSections(
             [
-                [
-                    'tabs' => [
-                        'file'   => [
-                            'title'  => 'anomaly.module.files::tab.file',
-                            'fields' => function () use ($fileForm) {
-                                return array_map(
-                                    function ($field) {
-                                        return 'file_' . $field['field'];
-                                    },
-                                    $fileForm->getFields()
-                                );
-                            }
-                        ],
-                        'fields' => [
-                            'title'  => 'anomaly.module.files::tab.fields',
-                            'fields' => function () use ($entry) {
-                                return array_map(
-                                    function ($slug) {
-                                        return 'entry_' . $slug;
-                                    },
-                                    $entry->getAssignmentFieldSlugs()
-                                );
-                            }
-                        ]
-                    ]
+                'file'   => [
+                    'fields' => function () use ($fileForm) {
+                        return array_map(
+                            function ($field) {
+                                return 'file_' . $field['field'];
+                            },
+                            $fileForm->getFields()
+                        );
+                    }
+                ],
+                'fields' => [
+                    'fields' => function () use ($entry) {
+                        return array_map(
+                            function ($slug) {
+                                return 'entry_' . $slug;
+                            },
+                            $entry->getAssignmentFieldSlugs()
+                        );
+                    }
                 ]
             ]
         );
