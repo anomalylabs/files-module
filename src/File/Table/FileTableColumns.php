@@ -28,12 +28,13 @@ class FileTableColumns
                 'name'          => [
                     'sort_column' => 'name',
                     'wrapper'     => '
-                    {value.link} <span>{value.size}{value.keywords}</span>
+                    <strong>{value.file}</strong>
                     <br>
-                    <small>{value.disk}://{value.folder}/{value.file}</small>',
+                    <small>{value.disk}://{value.folder}/{value.file}</small>
+                    <br>
+                    <span>{value.size} {value.keywords}</span>',
                     'value'       => [
                         'file'     => 'entry.name',
-                        'link'     => 'entry.edit_link',
                         'folder'   => 'entry.folder.slug',
                         'keywords' => 'entry.keywords.labels',
                         'disk'     => 'entry.folder.disk.slug',
