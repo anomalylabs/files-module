@@ -19,10 +19,15 @@ class FileTableBuilder extends TableBuilder
      * @var array
      */
     protected $filters = [
-        'folder',
-        'name',
-        'mime_type',
-        'keywords'
+        'search' => [
+            'columns' => [
+                'name',
+                'keywords',
+                'mime_type',
+                'description'
+            ]
+        ],
+        'folder'
     ];
 
     /**

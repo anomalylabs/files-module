@@ -14,13 +14,28 @@ class DiskTableBuilder extends TableBuilder
 {
 
     /**
+     * The table filters.
+     *
+     * @var array
+     */
+    protected $filters = [
+        'search' => [
+            'columns' => [
+                'name',
+                'slug',
+                'description'
+            ]
+        ]
+    ];
+
+    /**
      * The table columns.
      *
      * @var array
      */
     protected $columns = [
         'name',
-        'slug',
+        'description',
         'entry.adapter.name'
     ];
 

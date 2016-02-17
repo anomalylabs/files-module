@@ -14,13 +14,29 @@ class FolderTableBuilder extends TableBuilder
 {
 
     /**
+     * The table filters.
+     *
+     * @var array
+     */
+    protected $filters = [
+        'search' => [
+            'columns' => [
+                'name',
+                'slug',
+                'description'
+            ]
+        ],
+        'disk'
+    ];
+
+    /**
      * The table columns.
      *
      * @var array
      */
     protected $columns = [
         'name',
-        'slug',
+        'description',
         'disk'
     ];
 
