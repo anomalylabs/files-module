@@ -7,9 +7,9 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 /**
  * Class DiskFormBuilder
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Disk\Form
  */
 class DiskFormBuilder extends FormBuilder
