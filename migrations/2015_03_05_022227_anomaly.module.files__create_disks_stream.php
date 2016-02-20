@@ -29,18 +29,21 @@ class AnomalyModuleFilesCreateDisksStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'name'    => [
+        'name'        => [
+            'translatable' => true,
+            'required'     => true,
+            'unique'       => true
+        ],
+        'slug'        => [
             'required' => true,
             'unique'   => true
         ],
-        'slug'    => [
-            'required' => true,
-            'unique'   => true
-        ],
-        'adapter' => [
+        'adapter'     => [
             'required' => true
         ],
-        'description'
+        'description' => [
+            'translatable' => true
+        ]
     ];
 
 }
