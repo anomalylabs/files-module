@@ -41,6 +41,7 @@ class FolderObserver extends EntryObserver
     {
         $this->dispatch(new DeleteFiles($entry));
         $this->dispatch(new DeleteDirectory($entry));
+        $this->dispatch(new DeleteStream($entry));
 
         return parent::deleting($entry);
     }

@@ -39,7 +39,9 @@ class DeleteDirectory implements SelfHandling
      */
     public function handle(MountManager $manager)
     {
-        $disk = $this->folder->getDisk();
+        if (!$disk = $this->folder->getDisk()) {
+            return;
+        }
 
         $manager->deleteDir($disk->getSlug() . '://' . $this->folder->getSlug());
     }

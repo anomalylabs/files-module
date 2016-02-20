@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Seeder;
 
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Database\Seeder\Seeder;
 
@@ -15,6 +16,13 @@ class FolderSeeder extends Seeder
 {
 
     /**
+     * The disk repository.
+     *
+     * @var DiskRepositoryInterface
+     */
+    protected $disks;
+
+    /**
      * The folder repository.
      *
      * @var FolderRepositoryInterface
@@ -24,10 +32,12 @@ class FolderSeeder extends Seeder
     /**
      * Create a new FolderSeeder instance.
      *
-     * @param $folders
+     * @param DiskRepositoryInterface   $disks
+     * @param FolderRepositoryInterface $folders
      */
-    public function __construct(FolderRepositoryInterface $folders)
+    public function __construct(DiskRepositoryInterface $disks, FolderRepositoryInterface $folders)
     {
+        $this->disks   = $disks;
         $this->folders = $folders;
     }
 
@@ -36,6 +46,8 @@ class FolderSeeder extends Seeder
      */
     public function run()
     {
+        $disk = $this->disks->findBySlug('local');
+
         $this->folders->truncate();
 
         $this->folders->create(
@@ -45,7 +57,7 @@ class FolderSeeder extends Seeder
                     'description' => 'A folder for images.'
                 ],
                 'slug'          => 'images',
-                'disk'          => 1,
+                'disk'          => $disk,
                 'allowed_types' => [
                     'png',
                     'jpeg',
@@ -61,7 +73,7 @@ class FolderSeeder extends Seeder
                     'description' => 'A folder for documents.'
                 ],
                 'slug'          => 'documents',
-                'disk'          => 1,
+                'disk'          => $disk,
                 'allowed_types' => [
                     'pdf',
                     'docx'
