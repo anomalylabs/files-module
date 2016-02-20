@@ -28,7 +28,6 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'title',
         'name'      => [
             'required' => true
         ],
@@ -50,7 +49,6 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
         'entry'     => [
             'required' => true
         ],
-        'description',
         'keywords',
         'height',
         'width'
