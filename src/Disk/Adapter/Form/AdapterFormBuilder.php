@@ -29,6 +29,7 @@ class AdapterFormBuilder extends MultipleFormBuilder
 
         /* @var ConfigurationFormBuilder $configuration */
         $configuration = $this->forms->get('configuration');
+
         if (!$configuration->getScope()) {
             $configuration->setScope($entry->getSlug());
         }
