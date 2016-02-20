@@ -28,6 +28,7 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
      * @var array
      */
     protected $assignments = [
+        'title',
         'name'      => [
             'required' => true
         ],

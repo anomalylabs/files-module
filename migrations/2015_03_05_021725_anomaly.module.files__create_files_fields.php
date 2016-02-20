@@ -19,6 +19,7 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
      */
     protected $fields = [
         'name'          => 'anomaly.field_type.text',
+        'title'         => 'anomaly.field_type.text',
         'slug'          => [
             'type'   => 'anomaly.field_type.slug',
             'config' => [
@@ -42,6 +43,12 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
             'type'   => 'anomaly.field_type.relationship',
             'config' => [
                 'related' => 'Anomaly\FilesModule\Disk\DiskModel'
+            ]
+        ],
+        'allowed_roles' => [
+            'type'   => 'anomaly.field_type.multiple',
+            'config' => [
+                'related' => 'Anomaly\UsersModule\Role\RoleModel'
             ]
         ],
         'entry'         => 'anomaly.field_type.polymorphic',

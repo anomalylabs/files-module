@@ -2,16 +2,27 @@
 
 return [
     'name'          => [
-        'name' => 'Name'
+        'name'         => 'Name',
+        'instructions' => [
+            'disks'   => 'Specify a short descriptive name for the disk.',
+            'folders' => 'Specify a short descriptive name for the folder.',
+            'files'   => 'Specify the name of this file.'
+        ]
+    ],
+    'title'         => [
+        'name'         => 'Title',
+        'instructions' => 'Specify a short descriptive title for this file.'
     ],
     'slug'          => [
-        'name' => 'Slug'
+        'name'         => 'Slug',
+        'instructions' => 'The slug is used in building the storage location.'
     ],
     'size'          => [
         'name' => 'Size'
     ],
     'disk'          => [
-        'name' => 'Disk'
+        'name'         => 'Disk',
+        'instructions' => 'Choose which disk this folder belongs to.'
     ],
     'folder'        => [
         'name' => 'Folder'
@@ -20,7 +31,8 @@ return [
         'name' => 'Adapter'
     ],
     'keywords'      => [
-        'name' => 'Keywords'
+        'name'         => 'Keywords',
+        'instructions' => 'Specify any organizational keywords to help group files.'
     ],
     'mime_type'     => [
         'name' => 'Mime Type'
@@ -29,7 +41,17 @@ return [
         'name' => 'Preview'
     ],
     'description'   => [
-        'name' => 'Description'
+        'name'         => 'Description',
+        'instructions' => [
+            'disks'  => 'Briefly describe this disk.',
+            'folder' => 'Briefly describe this folder.',
+            'files'  => 'Briefly describe this file.'
+        ]
+    ],
+    'allowed_roles' => [
+        'name'         => 'Allowed Roles',
+        'instructions' => 'Specify which user roles can access this disk.',
+        'warning'      => 'If no roles are specified then everyone can access this disk.'
     ],
     'allowed_types' => [
         'name'         => 'Allowed Types',

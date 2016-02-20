@@ -104,10 +104,12 @@ class UploadTableBuilder extends TableBuilder
     {
         $uploaded = $this->getUploaded();
 
-        $query->whereIn('id', $uploaded ?: [0]);
+        if ($uploaded) {
+            $query->whereIn('id', $uploaded);
 
-        $query->orderBy('updated_at', 'ASC');
-        $query->orderBy('created_at', 'ASC');
+            $query->orderBy('updated_at', 'ASC');
+            $query->orderBy('created_at', 'ASC');
+        }
     }
 
     /**
