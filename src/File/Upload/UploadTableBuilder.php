@@ -42,26 +42,26 @@ class UploadTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
-        'entry.thumbnail' => [
+        'entry.preview' => [
             'heading' => 'anomaly.module.files::field.preview.name'
         ],
-        'name'            => [
+        'name'          => [
             'sort_column' => 'name',
             'wrapper'     => '
-                <h5>
-                    {value.file}
+                    <strong>{value.file}</strong>
                     <br>
                     <small class="text-muted">{value.disk}://{value.folder}/{value.file}</small>
-                    <small>{value.keywords}</small>
-                </h5>',
+                    <br>
+                    <span>{value.size} {value.keywords}</span>',
             'value'       => [
                 'file'     => 'entry.name',
                 'folder'   => 'entry.folder.slug',
                 'keywords' => 'entry.keywords.labels',
-                'disk'     => 'entry.folder.disk.slug'
+                'disk'     => 'entry.folder.disk.slug',
+                'size'     => 'entry.size_label'
             ]
         ],
-        'size'            => [
+        'size'          => [
             'sort_column' => 'size',
             'value'       => 'entry.readable_size'
         ],

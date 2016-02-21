@@ -70,6 +70,20 @@ class FilePresenter extends EntryPresenter
     }
 
     /**
+     * Return the size label.
+     *
+     * @return null|string
+     */
+    public function sizeLabel()
+    {
+        if (!in_array($this->object->getExtension(), config('anomaly.module.files::mimes.thumbnails'))) {
+            return null;
+        }
+
+        return $this->label($this->object->getWidth() . ' x ' . $this->object->getHeight(), 'info');
+    }
+
+    /**
      * Return the size in a readable format.
      *
      * @param string $unit
