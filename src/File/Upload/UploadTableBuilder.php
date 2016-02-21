@@ -42,27 +42,26 @@ class UploadTableBuilder extends TableBuilder
      * @var array
      */
     protected $columns = [
-        'entry.preview' => [
+        'entry.thumbnail' => [
             'heading' => 'anomaly.module.files::field.preview.name'
         ],
-        'name'          => [
+        'name'            => [
             'sort_column' => 'name',
             'wrapper'     => '
-                <h4>
-                    {value.link}
+                <h5>
+                    {value.file}
                     <br>
-                    <small>{value.disk}://{value.folder}/{value.file}</small>
+                    <small class="text-muted">{value.disk}://{value.folder}/{value.file}</small>
                     <small>{value.keywords}</small>
-                </h4>',
+                </h5>',
             'value'       => [
                 'file'     => 'entry.name',
-                'link'     => 'entry.edit_link',
                 'folder'   => 'entry.folder.slug',
                 'keywords' => 'entry.keywords.labels',
                 'disk'     => 'entry.folder.disk.slug'
             ]
         ],
-        'size'          => [
+        'size'            => [
             'sort_column' => 'size',
             'value'       => 'entry.readable_size'
         ],
@@ -76,6 +75,7 @@ class UploadTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
+        'edit',
         'view' => [
             'target' => '_blank'
         ]
@@ -104,12 +104,10 @@ class UploadTableBuilder extends TableBuilder
     {
         $uploaded = $this->getUploaded();
 
-        if ($uploaded) {
-            $query->whereIn('id', $uploaded);
+        $query->whereIn('id', $uploaded ?: 0);
 
-            $query->orderBy('updated_at', 'ASC');
-            $query->orderBy('created_at', 'ASC');
-        }
+        $query->orderBy('updated_at', 'ASC');
+        $query->orderBy('created_at', 'ASC');
     }
 
     /**

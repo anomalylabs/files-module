@@ -8,6 +8,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
+use Intervention\Image\Constraint;
 
 /**
  * Class FilePresenter
@@ -110,10 +111,38 @@ class FilePresenter extends EntryPresenter
      * @param int $height
      * @return string
      */
-    public function preview($width = 48, $height = 48)
+    public function preview($width = 64, $height = 64)
     {
         if ($this->type() == 'image') {
-            return $this->object->image()->fit($width, $height)->class('img-rounded')->output();
+            return $this->object->image()
+                ->resize(
+                    $width,
+                    $height,
+                    function (Constraint $constraint) {
+                        $constraint->aspectRatio();
+                    }
+                )->output();
+        }
+
+        $type = $this->dispatch(new GetType($this->object)) ?: 'document';
+
+        return $this->image
+            ->make('anomaly.module.files::img/types/' . $type . '.png')
+            ->height($height)
+            ->image();
+    }
+
+    /**
+     * Return a file preview.
+     *
+     * @param int $width
+     * @param int $height
+     * @return string
+     */
+    public function thumbnail($width = 64, $height = 64)
+    {
+        if ($this->type() == 'image') {
+            return $this->object->image()->fit($width, $height)->output();
         }
 
         $type = $this->dispatch(new GetType($this->object)) ?: 'document';

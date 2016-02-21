@@ -7,22 +7,18 @@
     {{ asset_add('scripts.js', 'anomaly.module.files::js/dropzone.min.js') }}
     {{ asset_add('scripts.js', 'anomaly.module.files::js/upload.js') }}
 
-    <div class="inner">
+    <div id="upload">
+
         <div class="container-fluid">
-
-            <div id="upload">
-
-                {% include "module::admin/upload/partials/heading" %}
-                {% include "module::admin/upload/partials/body" %}
-                {% include "module::admin/upload/partials/template" %}
-
-                <div class="uploaded">
-                    {{ table.content|raw }}
-                </div>
-
-            </div>
-
+            {% include "module::admin/upload/partials/heading" %}
+            {% include "module::admin/upload/partials/body" %}
+            {% include "module::admin/upload/partials/template" %}
         </div>
+
+        <div class="uploaded">
+            {{ table.content|raw }}
+        </div>
+
     </div>
 
 {% endblock %}
