@@ -7,10 +7,10 @@
 
 <div class="modal-body">
     {% if not adapters.isEmpty() %}
-        <ul class="nav nav-stacked">
+        <ul class="nav nav-pills nav-stacked">
             {% for adapter in adapters %}
-                <li>
-                    <a href="{{ url_to('admin/files/disks/create?adapter=' ~ adapter.namespace) }}">
+                <li class="nav-item">
+                    <a href="{{ url_to('admin/files/disks/create?adapter=' ~ adapter.namespace) }}" class="nav-link">
                         <strong>{{ trans(adapter.getTitle()) }}</strong>
                         <br>
                         <small>{{ trans(adapter.getDescription()) }}</small>

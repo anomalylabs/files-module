@@ -7,10 +7,10 @@
 
 <div class="modal-body">
     {% if not folders.isEmpty() %}
-        <ul class="nav nav-stacked">
+        <ul class="nav nav-pills nav-stacked">
             {% for folder in folders %}
-                <li>
-                    <a href="{{ url_to('admin/files/upload/' ~ folder.slug) }}">
+                <li class="nav-item">
+                    <a href="{{ url_to('admin/files/upload/' ~ folder.slug) }}" class="nav-link">
                         <strong>{{ folder.name }}</strong>
                         <br>
                         <small>{{ folder.description }}</small>
