@@ -5,6 +5,7 @@ use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
+use Anomaly\UsersModule\Role\RoleCollection;
 
 /**
  * Class DiskModel
@@ -62,5 +63,15 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    /**
+     * Get the allowed roles.
+     *
+     * @return RoleCollection
+     */
+    public function getAllowedRoles()
+    {
+        return $this->allowed_roles;
     }
 }

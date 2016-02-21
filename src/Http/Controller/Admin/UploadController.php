@@ -4,6 +4,9 @@ use Anomaly\FilesModule\File\FileUploader;
 use Anomaly\FilesModule\File\Upload\UploadTableBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\UsersModule\Role\RoleCollection;
+use Anomaly\UsersModule\User\Contract\UserInterface;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -22,12 +25,23 @@ class UploadController extends AdminController
      *
      * @param FolderRepositoryInterface $folders
      * @param UploadTableBuilder        $table
+     * @param Guard                     $auth
      * @param                           $folder
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(FolderRepositoryInterface $folders, UploadTableBuilder $table, $folder)
+    public function index(FolderRepositoryInterface $folders, UploadTableBuilder $table, Guard $auth, $folder)
     {
         $folder = $folders->findBySlug($folder);
+        $disk   = $folder->getDisk();
+        $user   = $auth->user();
+
+        /* @var RoleCollection $roles */
+        $roles = $disk->getAllowedRoles();
+
+        /* @var UserInterface $user */
+        if (!$roles->isEmpty() && !$user->isAdmin() && !$user->hasAnyRole($roles)) {
+            abort(403);
+        }
 
         $table->make();
 
@@ -39,7 +53,7 @@ class UploadController extends AdminController
     /**
      * Handle the upload.
      *
-     * @param FileUploader $uploader
+     * @param FileUploader              $uploader
      * @param FolderRepositoryInterface $folders
      * @return \Illuminate\Http\JsonResponse
      */
