@@ -47,7 +47,9 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function path()
     {
-        $folder = $this->getFolder();
+        if (!$folder = $this->getFolder()) {
+            return null;
+        }
 
         return "{$folder->getSlug()}/{$this->getName()}";
     }

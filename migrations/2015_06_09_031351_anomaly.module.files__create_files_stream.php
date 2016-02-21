@@ -19,7 +19,8 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
      */
     protected $stream = [
         'slug'         => 'files',
-        'title_column' => 'name'
+        'title_column' => 'name',
+        'trashable'    => true
     ];
 
     /**

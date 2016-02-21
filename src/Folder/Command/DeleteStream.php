@@ -39,8 +39,10 @@ class DeleteStream implements SelfHandling
      */
     public function handle(StreamRepositoryInterface $streams)
     {
-        if ($stream = $streams->findBySlugAndNamespace($this->folder->getSlug(), 'files')) {
-            $streams->delete($stream);
+        if (!$this->folder->isForceDeleting()) {
+            return;
         }
+
+        $streams->delete($streams->findBySlugAndNamespace($this->folder->getSlug(), 'files'));
     }
 }

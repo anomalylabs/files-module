@@ -87,11 +87,12 @@ class UploadTableBuilder extends TableBuilder
      * @var array
      */
     protected $options = [
-        'limit'              => 50,
-        'container_class'    => '',
-        'paginate'           => false,
-        'sortable_headers'   => false,
-        'no_results_message' => 'module::message.no_uploads'
+        'limit'                    => 50,
+        'container_class'          => '',
+        'disable_views'            => true,
+        'disable_pagination'       => true,
+        'disable_sortable_headers' => true,
+        'no_results_message'       => 'module::message.no_uploads'
     ];
 
     /**

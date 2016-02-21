@@ -44,7 +44,7 @@ class FileObserver extends EntryObserver
          * Make sure the resource exists
          * and is deleted successfully.
          */
-        if ($resource = $entry->resource()) {
+        if ($entry->isForceDeleting() && $resource = $entry->resource()) {
             $resource->delete();
         }
 

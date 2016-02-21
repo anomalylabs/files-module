@@ -43,6 +43,10 @@ class DeleteDirectory implements SelfHandling
             return;
         }
 
+        if (!$this->folder->isForceDeleting()) {
+            return;
+        }
+
         $manager->deleteDir($disk->getSlug() . '://' . $this->folder->getSlug());
     }
 }

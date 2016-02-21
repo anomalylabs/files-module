@@ -20,7 +20,8 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
     protected $stream = [
         'slug'         => 'folders',
         'title_column' => 'name',
-        'translatable' => true
+        'translatable' => true,
+        'trashable'    => true
     ];
 
     /**

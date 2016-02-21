@@ -20,6 +20,22 @@ class FileTableBuilder extends TableBuilder
 {
 
     /**
+     * The table views.
+     *
+     * @var array
+     */
+    protected $views = [
+        'all',
+        'trash' => [
+            'columns' => [
+                'name',
+                'size',
+                'type'
+            ]
+        ]
+    ];
+
+    /**
      * The table filters.
      *
      * @var array

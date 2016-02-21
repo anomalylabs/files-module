@@ -64,10 +64,16 @@ class FileSynchronizer
                     'size'       => $resource->getSize(),
                     'mime_type'  => $resource->getMimetype(),
                     'extension'  => pathinfo($resource->getPath(), PATHINFO_EXTENSION),
-                    'entry_type' => $folder->getEntryModelName()
+                    'entry_type' => $folder->getEntryModelName(),
+                    'deleted_at' => null
                 ]
             );
         } else {
+
+            if ($file->trashed()) {
+                $this->files->restore($file);
+            }
+
             $this->files->save($file);
         }
 

@@ -40,6 +40,9 @@ class FolderRepository extends EntryRepository implements FolderRepositoryInterf
      */
     public function findBySlug($slug)
     {
-        return $this->model->where('slug', $slug)->first();
+        return $this->model
+            ->withTrashed()
+            ->where('slug', $slug)
+            ->first();
     }
 }
