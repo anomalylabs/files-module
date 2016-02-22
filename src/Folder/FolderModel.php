@@ -6,6 +6,7 @@ use Anomaly\FilesModule\Folder\Command\GetStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
+use Anomaly\UsersModule\Role\RoleCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**

@@ -48,11 +48,6 @@ return [
             'files'  => 'Briefly describe this file.'
         ]
     ],
-    'allowed_roles' => [
-        'name'         => 'Allowed Roles',
-        'instructions' => 'Specify which user roles can access this disk.',
-        'warning'      => 'If no roles are specified then everyone can access this disk.'
-    ],
     'allowed_types' => [
         'name'         => 'Allowed Types',
         'instructions' => 'Specify the file type extensions that are allowed in this folder.',

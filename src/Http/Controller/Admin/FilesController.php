@@ -6,12 +6,8 @@ use Anomaly\FilesModule\File\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
-use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Anomaly\FilesModule\Folder\FolderCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Anomaly\UsersModule\User\Contract\UserInterface;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -43,32 +39,8 @@ class FilesController extends AdminController
      * @param FolderRepositoryInterface
      * @return \Illuminate\View\View
      */
-    public function choose(FolderRepositoryInterface $folders, Guard $auth)
+    public function choose(FolderRepositoryInterface $folders)
     {
-        $user    = $auth->user();
-        $folders = $folders->all();
-
-        /* @var UserInterface $user */
-        /* @var FolderCollection $folders */
-        $folders = $folders->filter(
-            function (FolderInterface $folder) use ($user) {
-
-                $disk = $folder->getDisk();
-
-                if ($user->isAdmin()) {
-                    return true;
-                }
-
-                $roles = $disk->getAllowedRoles();
-
-                if ($roles->isEmpty()) {
-                    return true;
-                }
-
-                return $user->hasAnyRole($roles);
-            }
-        );
-
         return $this->view->make(
             'module::ajax/choose_folder',
             [

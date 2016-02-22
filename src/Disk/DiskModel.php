@@ -68,16 +68,6 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     }
 
     /**
-     * Get the allowed roles.
-     *
-     * @return RoleCollection
-     */
-    public function getAllowedRoles()
-    {
-        return $this->allowed_roles;
-    }
-
-    /**
      * Get related folders.
      *
      * @return FolderCollection

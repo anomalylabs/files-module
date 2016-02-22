@@ -49,20 +49,6 @@ interface DiskInterface extends EntryInterface
     public function getAdapter();
 
     /**
-     * Get the allowed roles.
-     *
-     * @return RoleCollection
-     */
-    public function getAllowedRoles();
-
-    /**
-     * Return the allowed roles relation.
-     *
-     * @return BelongsToMany
-     */
-    public function allowedRoles();
-
-    /**
      * Get related folders.
      *
      * @return FolderCollection

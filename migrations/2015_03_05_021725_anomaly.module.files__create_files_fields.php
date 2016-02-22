@@ -44,12 +44,6 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
                 'related' => 'Anomaly\FilesModule\Disk\DiskModel'
             ]
         ],
-        'allowed_roles' => [
-            'type'   => 'anomaly.field_type.multiple',
-            'config' => [
-                'related' => 'Anomaly\UsersModule\Role\RoleModel'
-            ]
-        ],
         'entry'         => 'anomaly.field_type.polymorphic',
         'description'   => 'anomaly.field_type.textarea',
         'allowed_types' => 'anomaly.field_type.tags',

@@ -1,12 +1,7 @@
 <?php namespace Anomaly\FilesModule\File\Table;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\Streams\Platform\Entry\EntryCollection;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\UsersModule\User\Contract\UserInterface;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class FileTableBuilder
@@ -106,37 +101,4 @@ class FileTableBuilder extends TableBuilder
         'edit'
     ];
 
-    /**
-     * Run before querying.
-     *
-     * @param Guard                   $auth
-     * @param Builder                 $query
-     * @param DiskRepositoryInterface $disks
-     */
-    public function onQuerying(Guard $auth, Builder $query, DiskRepositoryInterface $disks)
-    {
-        $user  = $auth->user();
-        $disks = $disks->all();
-
-        /* @var UserInterface $user */
-        /* @var EntryCollection $disks */
-        $disks = $disks->filter(
-            function (DiskInterface $disk) use ($user) {
-
-                if ($user->isAdmin()) {
-                    return true;
-                }
-
-                $roles = $disk->getAllowedRoles();
-
-                if ($roles->isEmpty()) {
-                    return true;
-                }
-
-                return $user->hasAnyRole($roles);
-            }
-        );
-
-        $query->whereIn('disk_id', $disks->ids());
-    }
 }

@@ -32,8 +32,7 @@ class DiskFormBuilder extends FormBuilder
         'slug' => [
             'disabled' => 'edit'
         ],
-        'description',
-        'allowed_roles'
+        'description'
     ];
 
     /**
