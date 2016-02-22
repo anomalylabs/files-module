@@ -3,9 +3,11 @@
 use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\Folder\FolderCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 use Anomaly\UsersModule\Role\RoleCollection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class DiskModel
@@ -73,5 +75,25 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function getAllowedRoles()
     {
         return $this->allowed_roles;
+    }
+
+    /**
+     * Get related folders.
+     *
+     * @return FolderCollection
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * Return the folders relation.
+     *
+     * @return HasMany
+     */
+    public function folders()
+    {
+        return $this->hasMany('Anomaly\FilesModule\Folder\FolderModel', 'disk_id');
     }
 }

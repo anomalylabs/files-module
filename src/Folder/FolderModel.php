@@ -57,16 +57,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Get related files.
-     *
-     * @return FileCollection
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
      * Get the description.
      *
      * @return string
@@ -123,6 +113,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function getEntryStream()
     {
         return $this->dispatch(new GetStream($this));
+    }
+
+    /**
+     * Get related files.
+     *
+     * @return FileCollection
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 
     /**

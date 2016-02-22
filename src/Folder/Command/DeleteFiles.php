@@ -40,7 +40,11 @@ class DeleteFiles implements SelfHandling
     public function handle(FileRepositoryInterface $files)
     {
         foreach ($this->folder->getFiles() as $file) {
-            $files->delete($file);
+            if ($this->folder->isForceDeleting()) {
+                $files->forceDelete($file);
+            } else {
+                $files->delete($file);
+            }
         }
     }
 }

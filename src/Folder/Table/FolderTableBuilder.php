@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FoldersModule\Folder\Table
+ * @package       Anomaly\FilesModule\Folder\Table
  */
 class FolderTableBuilder extends TableBuilder
 {
