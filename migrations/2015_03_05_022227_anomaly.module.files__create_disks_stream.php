@@ -20,7 +20,8 @@ class AnomalyModuleFilesCreateDisksStream extends Migration
     protected $stream = [
         'slug'         => 'disks',
         'title_column' => 'name',
-        'translatable' => true
+        'translatable' => true,
+        'trashable'    => true
     ];
 
     /**
