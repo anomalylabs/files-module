@@ -65,35 +65,6 @@ class FileLocator
             return null;
         }
 
-        $disk  = $file->getDisk();
-        $roles = $disk->getAllowedRoles();
-
-        /**
-         * No role restriction means
-         * it's public - go for it!
-         */
-        if ($roles->isEmpty()) {
-            return $file;
-        }
-
-        /**
-         * If we have a role restriction and
-         * no user then we can not proceed.
-         *
-         * @var UserInterface $user
-         */
-        if (!$user = $this->auth->user()) {
-            return null;
-        }
-
-        /**
-         * If the user is an admin or has any
-         * of the allowed roles then we're good.
-         */
-        if ($user->isAdmin() || $user->hasAnyRole($roles)) {
-            return $file;
-        }
-
-        return null;
+        return $file;
     }
 }
