@@ -5,13 +5,28 @@ use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 /**
  * Class DiskTableBuilder
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Disk\Table
  */
 class DiskTableBuilder extends TableBuilder
 {
+
+    /**
+     * The table filters.
+     *
+     * @var array
+     */
+    protected $filters = [
+        'search' => [
+            'columns' => [
+                'name',
+                'slug',
+                'description'
+            ]
+        ]
+    ];
 
     /**
      * The table columns.
@@ -20,8 +35,8 @@ class DiskTableBuilder extends TableBuilder
      */
     protected $columns = [
         'name',
-        'slug',
-        'entry.adapter.name'
+        'description',
+        'entry.adapter.title'
     ];
 
     /**
@@ -39,8 +54,7 @@ class DiskTableBuilder extends TableBuilder
      * @var array
      */
     protected $actions = [
-        'reorder',
-        'delete'
+        'prompt'
     ];
 
 }

@@ -1,27 +1,28 @@
 <?php namespace Anomaly\FilesModule\File;
 
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
+use Anomaly\UsersModule\User\Contract\UserInterface;
+use Illuminate\Contracts\Auth\Guard;
 
 /**
  * Class FileLocator
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileLocator
 {
 
     /**
-     * The disk repository.
+     * The auth utility.
      *
-     * @var DiskRepositoryInterface
+     * @var Guard
      */
-    protected $disks;
+    protected $auth;
 
     /**
      * The file repository.
@@ -38,16 +39,13 @@ class FileLocator
     protected $folders;
 
     /**
-     * @param DiskRepositoryInterface   $disks
      * @param FileRepositoryInterface   $files
      * @param FolderRepositoryInterface $folders
+     * @param Guard                     $auth
      */
-    function __construct(
-        DiskRepositoryInterface $disks,
-        FileRepositoryInterface $files,
-        FolderRepositoryInterface $folders
-    ) {
-        $this->disks   = $disks;
+    function __construct(FileRepositoryInterface $files, FolderRepositoryInterface $folders, Guard $auth)
+    {
+        $this->auth    = $auth;
         $this->files   = $files;
         $this->folders = $folders;
     }
@@ -55,20 +53,15 @@ class FileLocator
     /**
      * Locate a file by disk and path.
      *
-     * @param $disk
+     * @param $folder
      * @param $path
      * @return FileInterface|null
      */
-    public function locate($disk, $path)
+    public function locate($folder, $name)
     {
+        $folder = $this->folders->findBySlug($folder);
 
-        if (!$disk = $this->disks->findBySlug($disk)) {
-            return null;
-        }
-
-        $folder = $path ? $this->folders->findByPath(dirname($path), $disk) : null;
-
-        if (!$file = $this->files->findByName(basename($path), $folder, $disk)) {
+        if (!$file = $this->files->findByNameAndFolder($name, $folder)) {
             return null;
         }
 

@@ -5,9 +5,9 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
 /**
  * Class FilesModule
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule
  */
 class FilesModule extends Module
@@ -18,7 +18,7 @@ class FilesModule extends Module
      *
      * @var string
      */
-    protected $icon = 'duplicate';
+    protected $icon = 'file-image';
 
     /**
      * The addon sections.
@@ -26,22 +26,25 @@ class FilesModule extends Module
      * @var array
      */
     protected $sections = [
-        'browser' => [
+        'files'   => [
             'buttons' => [
-                'upload'     => [
-                    'button'      => 'success',
-                    'icon'        => 'upload',
+                'upload' => [
                     'data-toggle' => 'modal',
-                    'data-target' => '#modal-large',
-                    'href'        => 'admin/files/upload/{route.parameters_string}',
-                    'text'        => 'module::button.upload',
-                    'enabled'     => 'admin/files/browser/*'
-                ],
-                'new_folder' => [
+                    'icon'        => 'upload',
+                    'data-target' => '#modal',
+                    'type'        => 'success',
+                    'href'        => 'admin/files/choose'
+                ]
+            ]
+        ],
+        'folders' => [
+            'buttons' => [
+                'new_folder',
+                'assign_fields' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'enabled'     => 'admin/files/browser/*',
-                    'href'        => 'admin/files/folders/create/{route.parameters_string}'
+                    'enabled'     => 'admin/files/folders/assignments/*',
+                    'href'        => 'admin/files/folders/choose/{request.route.parameters.id}'
                 ]
             ]
         ],
@@ -50,11 +53,19 @@ class FilesModule extends Module
                 'new_disk' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'href'        => 'admin/files/disks/choose_adapter'
+                    'href'        => 'admin/files/disks/choose'
                 ]
             ]
         ],
-        'settings'
+        'fields'  => [
+            'buttons' => [
+                'new_field' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/files/fields/choose'
+                ]
+            ]
+        ]
     ];
 
 }

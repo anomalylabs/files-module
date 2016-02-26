@@ -1,14 +1,15 @@
 <?php namespace Anomaly\FilesModule\Disk\Form;
 
-use Anomaly\FilesModule\Adapter\AdapterExtension;
+use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 
 /**
  * Class DiskFormBuilder
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Disk\Form
  */
 class DiskFormBuilder extends FormBuilder
@@ -17,9 +18,22 @@ class DiskFormBuilder extends FormBuilder
     /**
      * The storage adapter.
      *
-     * @var null|AdapterExtension
+     * @var Extension|AdapterInterface|null
      */
     protected $adapter = null;
+
+    /**
+     * The form fields.
+     *
+     * @var array
+     */
+    protected $fields = [
+        'name',
+        'slug' => [
+            'disabled' => 'edit'
+        ],
+        'description'
+    ];
 
     /**
      * The fields to skip.
@@ -45,7 +59,7 @@ class DiskFormBuilder extends FormBuilder
     /**
      * Get the adapter.
      *
-     * @return AdapterExtension|null
+     * @return Extension|AdapterInterface|null
      */
     public function getAdapter()
     {
@@ -55,10 +69,10 @@ class DiskFormBuilder extends FormBuilder
     /**
      * Set the adapter.
      *
-     * @param AdapterExtension $adapter
+     * @param AdapterInterface $adapter
      * @return $this
      */
-    public function setAdapter(AdapterExtension $adapter)
+    public function setAdapter(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
 

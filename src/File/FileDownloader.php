@@ -6,28 +6,13 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class FileDownloader
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileDownloader extends FileResponse
 {
-
-    /**
-     * Make the response.
-     *
-     * @param FileInterface $file
-     * @return Response
-     */
-    public function make(FileInterface $file)
-    {
-        $response = parent::make($file);
-
-        $response->headers->set('Content-disposition', 'attachment; filename=\"' . $file->getName() . '\"');
-
-        return $response->setContent($this->manager->read($file->diskPath()));
-    }
 
     /**
      * Return the response headers.
@@ -40,5 +25,25 @@ class FileDownloader extends FileResponse
         $response = $this->make($file);
 
         return $response->sendHeaders();
+    }
+
+    /**
+     * Make the response.
+     *
+     * @param FileInterface $file
+     * @return Response
+     */
+    public function make(FileInterface $file)
+    {
+        $response = parent::make($file);
+
+        $response->headers->set('Content-disposition', 'attachment; name=' . $file->getName());
+
+        $folder = $file->getFolder();
+        $disk   = $folder->getDisk();
+
+        return $response->setContent(
+            $this->manager->read("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getName()}")
+        );
     }
 }

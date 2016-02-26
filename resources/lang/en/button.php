@@ -1,9 +1,8 @@
 <?php
 
 return [
+    'sync'       => 'Sync',
     'upload'     => 'Upload',
-    'finished'   => 'Finished',
-    'new_folder' => 'New Folder',
     'new_disk'   => 'New Disk',
-    'sync'       => 'Sync'
+    'new_folder' => 'New Folder'
 ];

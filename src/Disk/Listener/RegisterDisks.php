@@ -1,15 +1,15 @@
 <?php namespace Anomaly\FilesModule\Disk\Listener;
 
+use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\FilesModule\Disk\DiskManager;
 
 /**
  * Class RegisterDisks
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Disk\Listener
  */
 class RegisterDisks
@@ -23,22 +23,13 @@ class RegisterDisks
     protected $disks;
 
     /**
-     * The adapter manager.
-     *
-     * @var DiskManager
-     */
-    protected $manager;
-
-    /**
      * Create a new RegisterDisks instance.
      *
      * @param DiskRepositoryInterface $disks
-     * @param DiskManager             $manager
      */
-    function __construct(DiskRepositoryInterface $disks, DiskManager $manager)
+    function __construct(DiskRepositoryInterface $disks)
     {
-        $this->disks   = $disks;
-        $this->manager = $manager;
+        $this->disks = $disks;
     }
 
     /**
@@ -48,7 +39,11 @@ class RegisterDisks
     {
         /* @var DiskInterface $disk */
         foreach ($this->disks->all() as $disk) {
-            $this->manager->register($disk);
+
+            /* @var AdapterInterface $adapter */
+            $adapter = $disk->getAdapter();
+
+            $adapter->load($disk);
         }
     }
 }

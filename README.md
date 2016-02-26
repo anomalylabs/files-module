@@ -1,3 +1,3 @@
 # Files Module
 
-Multi-provider files manager.
+Powerful asset management made easy.

@@ -1,45 +1,94 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
+use Anomaly\FilesModule\File\Contract\FileInterface;
+use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\Form\EntryFormBuilder;
+use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
+use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class FilesController
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
 class FilesController extends AdminController
 {
 
     /**
-     * Return the form to upload files.
+     * Display an index of existing entries.
      *
-     * @param FolderRepositoryInterface $folders
-     * @param DiskRepositoryInterface   $disks
-     * @param FileFormBuilder           $form
-     * @param                           $disk
-     * @param null                      $path
-     * @return Response
+     * @param FileTableBuilder $table
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function upload(
-        FolderRepositoryInterface $folders,
-        DiskRepositoryInterface $disks,
-        FileFormBuilder $form,
-        $disk,
-        $path = null
+    public function index(FileTableBuilder $table)
+    {
+        return $table->render();
+    }
+
+    /**
+     * Return an ajax modal to choose the folder
+     * to use for uploading files.
+     *
+     * @param FolderRepositoryInterface
+     * @return \Illuminate\View\View
+     */
+    public function choose(FolderRepositoryInterface $folders)
+    {
+        return $this->view->make(
+            'module::ajax/choose_folder',
+            [
+                'folders' => $folders->all()
+            ]
+        );
+    }
+
+    /**
+     * Return the form for editing an existing file.
+     *
+     * @param FileRepositoryInterface $files
+     * @param FileEntryFormBuilder    $form
+     * @param                         $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(
+        FileRepositoryInterface $files,
+        FileFormBuilder $fileForm,
+        EntryFormBuilder $entryForm,
+        FileEntryFormBuilder $form,
+        $id
     ) {
-        $form->setDisk($disk = $disks->findBySlug($disk));
+        /* @var FileInterface $file */
+        $file = $files->find($id);
 
-        if ($folder = $folders->findByPath($path, $disk)) {
-            $form->setFolder($folder);
-        }
+        $form->addForm(
+            'entry',
+            $entryForm->setModel($file->getFolder()->getEntryModelName())->setEntry($file->getEntry())
+        );
 
-        return $form->render();
+        $form->addForm('file', $fileForm->setEntry($file));
+
+        return $form->render($id);
+    }
+
+    /**
+     * Redirect to a file's URL.
+     *
+     * @param FileRepositoryInterface $files
+     * @param                         $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function view(FileRepositoryInterface $files, $id)
+    {
+        /* @var FileInterface $file */
+        $file = $files->find($id);
+
+        return $this->redirect->to('files/' . $file->getFolder()->getSlug() . '/' . $file->getName());
     }
 }

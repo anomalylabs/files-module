@@ -5,7 +5,7 @@ return [
     'description' => 'Gestionnaire de fichier multi-stockage.',
     'section'     => [
         'browser'  => 'Parcourir',
-        'disks'   => 'Disques',
+        'disks'    => 'Disques',
         'adapters' => 'Adaptateurs',
         'settings' => 'Paramètres'
     ]

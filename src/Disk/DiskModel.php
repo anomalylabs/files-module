@@ -1,15 +1,20 @@
 <?php namespace Anomaly\FilesModule\Disk;
 
-use Anomaly\FilesModule\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\Folder\FolderCollection;
+use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
+use Anomaly\UsersModule\Role\RoleCollection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class DiskModel
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Disk
  */
 class DiskModel extends FilesDisksEntryModel implements DiskInterface
@@ -21,17 +26,6 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
      * @var int
      */
     protected $cacheMinutes = 99999;
-
-    /**
-     * Return the disk's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null)
-    {
-        return $this->getSlug() . '://' . ($path ? $path : $path);
-    }
 
     /**
      * Return the disk's filesystem.
@@ -66,10 +60,30 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     /**
      * Get the adapter.
      *
-     * @return AdapterExtension
+     * @return AdapterInterface|Extension
      */
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    /**
+     * Get related folders.
+     *
+     * @return FolderCollection
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * Return the folders relation.
+     *
+     * @return HasMany
+     */
+    public function folders()
+    {
+        return $this->hasMany('Anomaly\FilesModule\Folder\FolderModel', 'disk_id');
     }
 }

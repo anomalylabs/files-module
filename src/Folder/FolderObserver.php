@@ -1,114 +1,60 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
-use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\Folder\Command\CreateStream;
+use Anomaly\FilesModule\Folder\Command\DeleteDirectory;
+use Anomaly\FilesModule\Folder\Command\DeleteFiles;
+use Anomaly\FilesModule\Folder\Command\DeleteStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
-use Illuminate\Bus\Dispatcher as CommandDispatcher;
-use Illuminate\Events\Dispatcher as EventDispatcher;
-use League\Flysystem\MountManager;
 
 /**
  * Class FolderObserver
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Folder
  */
 class FolderObserver extends EntryObserver
 {
 
     /**
-     * The files repository.
+     * Fired just after creating an entry.
      *
-     * @var FileRepositoryInterface
+     * @param EntryInterface $entry
      */
-    protected $files;
+    public function created(EntryInterface $entry)
+    {
+        $this->dispatch(new CreateStream($entry));
 
-    /**
-     * The folder repository.
-     *
-     * @var FolderRepositoryInterface
-     */
-    protected $folders;
-
-    /**
-     * The mount manager.
-     *
-     * @var MountManager
-     */
-    protected $manager;
-
-    /**
-     * Create a new FolderObserver instance.
-     *
-     * @param MountManager              $manager
-     * @param EventDispatcher           $events
-     * @param CommandDispatcher         $commands
-     * @param FileRepositoryInterface   $files
-     * @param FolderRepositoryInterface $folders
-     */
-    public function __construct(
-        MountManager $manager,
-        EventDispatcher $events,
-        CommandDispatcher $commands,
-        FileRepositoryInterface $files,
-        FolderRepositoryInterface $folders
-    ) {
-        $this->files   = $files;
-        $this->folders = $folders;
-        $this->manager = $manager;
-
-        parent::__construct($events, $commands);
+        parent::created($entry);
     }
 
     /**
-     * Fire just before saving a folder.
+     * Fire just before deleting an entry.
      *
      * @param EntryInterface|FolderInterface $entry
      * @return bool
      */
-    public function saving(EntryInterface $entry)
+    public function deleting(EntryInterface $entry)
     {
-        $disk = $entry->getDisk();
+        $this->dispatch(new DeleteFiles($entry));
+        $this->dispatch(new DeleteDirectory($entry));
+        $this->dispatch(new DeleteStream($entry));
 
-        /**
-         * If the folder already exists then
-         * skip it because even if it does not
-         * exist on the server it'll be written
-         * automatically soon.
-         */
-        if ($this->folders->findByName($entry->getName(), $entry->getParent(), $disk)) {
-            return false;
-        }
-
-        /**
-         * If there was a failure then abort!
-         */
-        if (!$this->manager->createDir($disk->path($entry->path()))) {
-            return false;
-        }
-
-        return parent::saving($entry);
+        return parent::deleting($entry);
     }
 
     /**
-     * Fire just before saving a folder.
+     * Fired just after deleting an entry.
      *
-     * @param EntryInterface|FolderInterface $entry
+     * @param EntryInterface $entry
      */
-    public function deleting(EntryInterface $entry)
+    public function deleted(EntryInterface $entry)
     {
-        $this->manager->deleteDir($entry->diskPath());
+        $this->dispatch(new DeleteStream($entry));
 
-        foreach ($entry->getFiles() as $file) {
-            $this->files->delete($file);
-        }
-
-        foreach ($entry->getChildren() as $folder) {
-            $this->folders->delete($folder);
-        }
+        parent::deleted($entry);
     }
 }

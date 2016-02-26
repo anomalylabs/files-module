@@ -1,16 +1,57 @@
 <?php
 
 return [
-    'name'    => [
-        'name' => 'Name'
+    'name'          => [
+        'name'         => 'Name',
+        'instructions' => [
+            'disks'   => 'Specify a short descriptive name for the disk.',
+            'folders' => 'Specify a short descriptive name for the folder.',
+            'files'   => 'Specify the name of this file.'
+        ]
     ],
-    'slug'    => [
-        'name' => 'Slug'
+    'title'         => [
+        'name'         => 'Title',
+        'instructions' => 'Specify a short descriptive title for this file.'
     ],
-    'adapter' => [
+    'slug'          => [
+        'name'         => 'Slug',
+        'instructions' => 'The slug is used in building the storage location.'
+    ],
+    'size'          => [
+        'name' => 'Size'
+    ],
+    'disk'          => [
+        'name'         => 'Disk',
+        'instructions' => 'Choose which disk this folder belongs to.'
+    ],
+    'folder'        => [
+        'name' => 'Folder'
+    ],
+    'adapter'       => [
         'name' => 'Adapter'
     ],
-    'size'    => [
-        'name' => 'Size'
+    'keywords'      => [
+        'name'         => 'Keywords',
+        'instructions' => 'Specify any organizational keywords to help group files.'
+    ],
+    'mime_type'     => [
+        'name' => 'Mime Type'
+    ],
+    'preview'       => [
+        'name' => 'Preview'
+    ],
+    'description'   => [
+        'name'         => 'Description',
+        'instructions' => [
+            'disks'  => 'Briefly describe this disk.',
+            'folder' => 'Briefly describe this folder.',
+            'files'  => 'Briefly describe this file.'
+        ]
+    ],
+    'allowed_types' => [
+        'name'         => 'Allowed Types',
+        'instructions' => 'Specify the file type extensions that are allowed in this folder.',
+        'warning'      => 'Note subtle differences between mime types like jpg and jpeg.',
+        'placeholder'  => 'pdf, psd, jpg, jpeg'
     ]
 ];

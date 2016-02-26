@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'name'        => 'Files',
-    'description' => 'Multi-provider files manager.',
+    'title'       => 'Files',
+    'name'        => 'Files Module',
+    'description' => 'Powerful asset management made easy.',
     'section'     => [
-        'browser'  => 'Browser',
-        'disks'   => 'Disks',
-        'adapters' => 'Adapters',
-        'settings' => 'Settings'
+        'files'    => 'Files',
+        'disks'    => 'Disks',
+        'fields'   => 'Fields',
+        'folders'  => 'Folders',
+        'adapters' => 'Adapters'
     ]
 ];

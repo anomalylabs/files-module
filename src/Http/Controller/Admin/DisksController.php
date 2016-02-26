@@ -1,10 +1,9 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
 use Anomaly\ConfigurationModule\Configuration\Form\ConfigurationFormBuilder;
+use Anomaly\FilesModule\Disk\Adapter\Form\AdapterFormBuilder;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\FilesModule\Disk\Form\DiskConfigurationFormBuilder;
 use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
-use Anomaly\FilesModule\Disk\Grid\DiskGridBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
@@ -12,9 +11,9 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
 /**
  * Class DisksController
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\DisksModule\Http\Controller\Admin
  */
 class DisksController extends AdminController
@@ -38,54 +37,66 @@ class DisksController extends AdminController
      * @param ExtensionCollection $extensions
      * @return \Illuminate\View\View
      */
-    public function chooseAdapter(ExtensionCollection $extensions)
+    public function choose(ExtensionCollection $extensions)
     {
         return view(
-            'module::admin/ajax/choose_adapter',
+            'module::ajax/choose_adapter',
             [
-                'adapters' => $extensions->search('anomaly.module.files::adapter.*')
+                'adapters' => $extensions->search('anomaly.module.files::adapter.*')->enabled()
             ]
         );
     }
 
     /**
-     * Return a form to create a new disk
-     * and it's configuration.
+     * Return the form to create a new disk.
      *
-     * @param DiskFormBuilder     $form
-     * @param ExtensionCollection $adapters
+     * @param DiskFormBuilder          $disk
+     * @param AdapterFormBuilder       $form
+     * @param ExtensionCollection      $adapters
+     * @param ConfigurationFormBuilder $configuration
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(
         DiskFormBuilder $disk,
+        AdapterFormBuilder $form,
         ExtensionCollection $adapters,
-        ConfigurationFormBuilder $configuration,
-        DiskConfigurationFormBuilder $form
+        ConfigurationFormBuilder $configuration
     ) {
         $adapter = $adapter = $adapters->get($_GET['adapter']);
 
         $form->addForm('disk', $disk->setAdapter($adapter));
         $form->addForm('configuration', $configuration->setEntry($adapter->getNamespace()));
 
+        $form->on(
+            'saving_configuration',
+            function () use ($form) {
+
+                /* @var ConfigurationFormBuilder $configuration */
+                $disk          = $form->getChildFormEntry('disk');
+                $configuration = $form->getChildForm('configuration');
+
+                $configuration->setScope($disk->getSlug());
+            }
+        );
+
         return $form->render();
     }
 
     /**
-     * Return a form to edit an existing disk
-     * and it's configuration.
+     * Return the form to edit an existing disk.
      *
-     * @param DiskFormBuilder              $disk
-     * @param ConfigurationFormBuilder     $configuration
-     * @param DiskConfigurationFormBuilder $form
-     * @param DiskRepositoryInterface      $disks
-     * @param                              $id
+     * @param DiskFormBuilder          $disk
+     * @param AdapterFormBuilder       $form
+     * @param DiskRepositoryInterface  $disks
+     * @param ConfigurationFormBuilder $configuration
+     * @param                          $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(
         DiskFormBuilder $disk,
-        ConfigurationFormBuilder $configuration,
-        DiskConfigurationFormBuilder $form,
+        AdapterFormBuilder $form,
         DiskRepositoryInterface $disks,
+        ConfigurationFormBuilder $configuration,
         $id
     ) {
         $entry = $disks->find($id);

@@ -1,46 +1,25 @@
 <?php namespace Anomaly\FilesModule\File\Contract;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\Streams\Platform\Model\EloquentModel;
-use League\Flysystem\File;
+use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 
 /**
  * Interface FileRepositoryInterface
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File\Contract
  */
-interface FileRepositoryInterface
+interface FileRepositoryInterface extends EntryRepositoryInterface
 {
 
     /**
-     * Sync a file.
-     *
-     * @param File            $file
-     * @param FolderInterface $folder
-     * @param DiskInterface   $disk
-     * @return FileInterface
-     */
-    public function sync(File $file, FolderInterface $folder = null, DiskInterface $disk);
-
-    /**
-     * Find a file by it's name.
+     * Find a file by it's name and folder.
      *
      * @param                 $name
      * @param FolderInterface $folder
-     * @param DiskInterface   $disk
      * @return null|FileInterface
      */
-    public function findByName($name, FolderInterface $folder = null, DiskInterface $disk);
-
-    /**
-     * Delete a file.
-     *
-     * @param FileInterface|EloquentModel $file
-     * @return bool
-     */
-    public function delete(FileInterface $file);
+    public function findByNameAndFolder($name, FolderInterface $folder);
 }

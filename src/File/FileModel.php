@@ -1,19 +1,22 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Anomaly\FilesModule\File\Command\GetImage;
+use Anomaly\FilesModule\File\Command\GetResource;
+use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
-use Carbon\Carbon;
 use League\Flysystem\File;
-use League\Flysystem\FileNotFoundException;
 
 /**
  * Class FileModel
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileModel extends FilesFilesEntryModel implements FileInterface
@@ -24,105 +27,43 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      *
      * @var int
      */
-    protected $cacheMinutes = 99999;
+    protected $ttl = 99999;
 
     /**
-     * Always eager load these relations.
+     * Always eager load these.
      *
      * @var array
      */
     protected $with = [
         'disk',
-        'folder'
+        'folder',
+        'entry'
     ];
 
     /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::observe('Anomaly\FilesModule\File\FileObserver');
-    }
-
-    /**
-     * Return a hash of the file.
-     *
-     * @return string
-     */
-    public function hash()
-    {
-        return md5(json_encode($this->getAttributes()));
-    }
-
-    /**
-     * Return the file's path.
+     * Return the file path.
      *
      * @return string
      */
     public function path()
     {
-        if ($folder = $this->getFolder()) {
-            return $folder->path($this->getName());
+        if (!$folder = $this->getFolder()) {
+            return null;
         }
 
-        return $this->getName();
+        return "{$folder->getSlug()}/{$this->getName()}";
     }
 
     /**
-     * Return the file's path on it's disk.
+     * Return the file location.
      *
      * @return string
      */
-    public function diskPath()
+    public function location()
     {
         $disk = $this->getDisk();
 
-        if ($folder = $this->getFolder()) {
-            return $disk->path($folder->path($this->getName()));
-        }
-
-        return $disk->path($this->getName());
-    }
-
-    /**
-     * Return the file's public path.
-     *
-     * @return string
-     */
-    public function publicPath()
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        return 'files/get/' . $disk->getSlug() . '/' . $path;
-    }
-
-    /**
-     * Return the file's stream path.
-     *
-     * @return string
-     */
-    public function streamPath()
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        return 'files/stream/' . $disk->getSlug() . '/' . $path;
-    }
-
-    /**
-     * Return the file's download path.
-     *
-     * @return string
-     */
-    public function downloadPath()
-    {
-        $disk = $this->getDisk();
-        $path = $this->path();
-
-        return 'files/download/' . $disk->getSlug() . '/' . $path;
+        return "{$disk->getSlug()}://{$this->path()}";
     }
 
     /**
@@ -132,25 +73,61 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function resource()
     {
-        $disk = $this->getDisk();
-
-        $manager = app('League\Flysystem\MountManager');
-
-        try {
-            return $manager->get($disk->getSlug() . '://' . $this->path());
-        } catch (FileNotFoundException $e) {
-            return null;
-        }
+        return $this->dispatch(new GetResource($this));
     }
 
     /**
-     * Return the last modified datetime.
+     * Return a new image instance.
      *
-     * @return Carbon
+     * @return Image
      */
-    public function lastModified()
+    public function image()
     {
-        return $this->last_modified ?: $this->created_at;
+        return $this->dispatch(new GetImage($this));
+    }
+
+    /**
+     * Alias for image()
+     *
+     * @return Image
+     */
+    public function make()
+    {
+        return $this->image();
+    }
+
+    /**
+     * Return the file type.
+     *
+     * @return string
+     */
+    public function type()
+    {
+        return $this->dispatch(new GetType($this));
+    }
+
+    /**
+     * Return the file's primary mime type.
+     *
+     * @return string
+     */
+    public function primaryMimeType()
+    {
+        $mimes = explode('/', $this->getMimeType());
+
+        return array_shift($mimes);
+    }
+
+    /**
+     * Return the file's sub mime type.
+     *
+     * @return string
+     */
+    public function secondaryMimeType()
+    {
+        $mimes = explode('/', $this->getMimeType());
+
+        return array_pop($mimes);
     }
 
     /**
@@ -184,6 +161,26 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Get the width.
+     *
+     * @return null|int
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Get the height.
+     *
+     * @return null|int
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
      * Get the related folder.
      *
      * @return null|FolderInterface
@@ -211,5 +208,70 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getExtension()
     {
         return $this->extension;
+    }
+
+    /**
+     * Lowercase the extension.
+     *
+     * @param $value
+     */
+    public function setExtensionAttribute($value)
+    {
+        $this->attributes['extension'] = strtolower($value);
+    }
+
+    /**
+     * Get the keywords.
+     *
+     * @return array
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Get the related entry.
+     *
+     * @return EntryInterface
+     */
+    public function getEntry()
+    {
+        return $this->entry;
+    }
+
+    /**
+     * Get the related entry ID.
+     *
+     * @return null|int
+     */
+    public function getEntryId()
+    {
+        return $this->entry_id;
+    }
+
+    /**
+     * Return the entry as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        $array['path']     = $this->path();
+        $array['location'] = $this->location();
+
+        return $array;
     }
 }

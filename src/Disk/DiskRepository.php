@@ -2,17 +2,17 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
-use Anomaly\Streams\Platform\Entry\EntryCollection;
+use Anomaly\Streams\Platform\Entry\EntryRepository;
 
 /**
  * Class DiskRepository
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Disk
  */
-class DiskRepository implements DiskRepositoryInterface
+class DiskRepository extends EntryRepository implements DiskRepositoryInterface
 {
 
     /**
@@ -30,27 +30,6 @@ class DiskRepository implements DiskRepositoryInterface
     public function __construct(DiskModel $model)
     {
         $this->model = $model;
-    }
-
-    /**
-     * Return all disks.
-     *
-     * @return EntryCollection
-     */
-    public function all()
-    {
-        return $this->model->all();
-    }
-
-    /**
-     * Find a disk by ID.
-     *
-     * @param $id
-     * @return null|DiskInterface
-     */
-    public function find($id)
-    {
-        return $this->model->find($id);
     }
 
     /**

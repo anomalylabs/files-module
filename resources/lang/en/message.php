@@ -1,5 +1,14 @@
 <?php
 
 return [
-    'create_disk_first' => 'Please create a disk before using the Files module.'
+    'upload_files'      => 'Upload Files',
+    'new_container'     => 'New Container',
+    'choose_adapter'    => 'What storage adapter would you like to use?',
+    'choose_folder'     => 'What folder would you like to upload to?',
+    'choose_field_type' => 'What field type would you like to use?',
+    'choose_field'      => 'What field would you like to add?',
+    'upload'            => 'Click or drop files here to upload.',
+    'no_uploads'        => 'No files have been uploaded.',
+    'uploading'         => 'Uploading',
+    'loading'           => 'Loading'
 ];

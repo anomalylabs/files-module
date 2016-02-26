@@ -2,41 +2,21 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
-use Anomaly\FilesModule\Folder\FolderCollection;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Interface FolderInterface
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Folder\Contract
  */
-interface FolderInterface
+interface FolderInterface extends EntryInterface
 {
-
-    /**
-     * Return the folder's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null);
-
-    /**
-     * Return the folders's path on it's disk.
-     *
-     * @return string
-     */
-    public function diskPath();
-
-    /**
-     * Get the ID.
-     *
-     * @return int
-     */
-    public function getId();
 
     /**
      * Get the name.
@@ -44,6 +24,13 @@ interface FolderInterface
      * @return string
      */
     public function getName();
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug();
 
     /**
      * Get the related disk.
@@ -60,18 +47,32 @@ interface FolderInterface
     public function getFiles();
 
     /**
-     * Get the related parent folder.
+     * Get the description.
      *
-     * @return null|FolderInterface
+     * @return string
      */
-    public function getParent();
+    public function getDescription();
 
     /**
-     * Get related folders.
+     * Get the allowed types.
      *
-     * @return FolderCollection
+     * @return array
      */
-    public function getChildren();
+    public function getAllowedTypes();
+
+    /**
+     * Get the related entry stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntryStream();
+
+    /**
+     * Get the related entry model name.
+     *
+     * @return string
+     */
+    public function getEntryModelName();
 
     /**
      * Return the files relation.
@@ -79,11 +80,4 @@ interface FolderInterface
      * @return HasMany
      */
     public function files();
-
-    /**
-     * Return folders relation.
-     *
-     * @return HasMany
-     */
-    public function children();
 }

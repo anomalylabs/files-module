@@ -8,20 +8,24 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class FileResponse
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileResponse
 {
 
     /**
+     * The mount manager.
+     *
      * @var MountManager
      */
     protected $manager;
 
     /**
+     * The response factory
+     *
      * @var ResponseFactory
      */
     protected $response;
@@ -49,12 +53,11 @@ class FileResponse
         // Start the response.
         $response = $this->response->make();
 
-        $response->headers->set('Pragma', 'public');
-        $response->headers->set('Etag', $file->hash());
-        $response->headers->set('Content-Length', $file->getSize());
+        $response->headers->set('Etag', $file->etag());
         $response->headers->set('Content-Type', $file->getMimetype());
-        $response->headers->set('Cache-Control', 'public,max-age=300,s-maxage=900'); // Should be configurable
         $response->headers->set('Last-Modified', $file->lastModified()->setTimezone('GMT')->format('D, d M Y H:i:s'));
+
+        $response->setTtl(3600);
 
         return $response;
     }

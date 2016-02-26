@@ -1,36 +1,28 @@
 {
     "name": "anomaly/files-module",
     "type": "streams-addon",
-    "description": "Multi-provider files manager.",
-    "version": "1.0.0",
+    "description": "Powerful asset management made easy.",
     "keywords": [
-        "streams-addon",
         "files",
-        "pyrocms",
-        "laravel"
+        "module",
+        "streams"
     ],
-    "homepage": "http://anomaly.is/",
+    "homepage": "http://pyrocms.com/",
     "license": "MIT",
     "authors": [
         {
-            "name": "AnomalyLabs, Inc.",
-            "email": "hello@anomaly.is",
-            "homepage": "http://anomaly.is/",
+            "name": "PyroCMS, Inc.",
+            "email": "support@pyrocms.com",
+            "homepage": "http://pyrocms.com/",
             "role": "Owner"
         }
     ],
     "support": {
-        "email": "support@anomaly.is"
+        "email": "support@pyrocms.com"
     },
     "autoload": {
         "psr-4": {
             "Anomaly\\FilesModule\\": "src/"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
-    },
-    "minimum-stability": "dev"
+    }
 }

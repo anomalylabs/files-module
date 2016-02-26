@@ -6,13 +6,26 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class FileReader
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileReader extends FileResponse
 {
+
+    /**
+     * Return the response headers.
+     *
+     * @param FileInterface $file
+     * @return Response
+     */
+    public function read(FileInterface $file)
+    {
+        $response = $this->make($file);
+
+        return $response->sendHeaders();
+    }
 
     /**
      * Make the response.
@@ -26,19 +39,6 @@ class FileReader extends FileResponse
 
         $response->headers->set('Content-Disposition', 'inline');
 
-        return $response->setContent($this->manager->read($file->diskPath()));
-    }
-
-    /**
-     * Return the response headers.
-     *
-     * @param FileInterface $file
-     * @return Response
-     */
-    public function read(FileInterface $file)
-    {
-        $response = $this->make($file);
-
-        return $response->sendHeaders();
+        return $response->setContent($this->manager->read($file->location()));
     }
 }

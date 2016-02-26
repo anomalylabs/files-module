@@ -6,31 +6,13 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class FileStreamer
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileStreamer extends FileResponse
 {
-
-    /**
-     * Make the response.
-     *
-     * @param FileInterface $file
-     * @return Response
-     */
-    public function make(FileInterface $file)
-    {
-        $response = parent::make($file);
-
-        $response->headers->set('Accept-Ranges', 'bytes');
-        $response->headers->set('Cache-Control', 'no-cache'); // Cache breaks streaming.
-
-        $this->chunk($response, $file);
-
-        return $response;
-    }
 
     /**
      * Return the response headers.
@@ -42,7 +24,7 @@ class FileStreamer extends FileResponse
     {
         $response = $this->make($file);
 
-        $stream = $this->manager->readStream($file->diskPath());
+        $stream = $this->manager->readStream($file->location());
 
         return $this->response->stream(
             function () use ($stream) {
@@ -59,6 +41,25 @@ class FileStreamer extends FileResponse
                 )
             )
         );
+    }
+
+    /**
+     * Make the response.
+     *
+     * @param FileInterface $file
+     * @return Response
+     */
+    public function make(FileInterface $file)
+    {
+        $response = parent::make($file);
+
+        $response->headers->set('Accept-Ranges', 'bytes');
+        $response->headers->set('Cache-Control', 'no-cache'); // Cache breaks streaming.
+        $response->headers->set('Content-Length', $file->getSize());
+
+        $this->chunk($response, $file);
+
+        return $response;
     }
 
     /**

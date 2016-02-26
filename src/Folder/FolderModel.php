@@ -2,16 +2,19 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
+use Anomaly\FilesModule\Folder\Command\GetStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
+use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
+use Anomaly\UsersModule\Role\RoleCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class FolderModel
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\Folder
  */
 class FolderModel extends FilesFoldersEntryModel implements FolderInterface
@@ -25,60 +28,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     protected $cacheMinutes = 99999;
 
     /**
-     * Always eager load these relations.
-     *
-     * @var array
-     */
-    protected $with = [
-        'disk',
-        'parent'
-    ];
-
-    /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::observe('Anomaly\FilesModule\Folder\FolderObserver');
-    }
-
-    /**
-     * Return the folder's path.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function path($path = null)
-    {
-        $path = $this->getName() . ($path ? '/' . $path : $path);
-
-        if ($parent = $this->getParent()) {
-            return $parent->path($path);
-        }
-
-        return $path;
-    }
-
-    /**
-     * Return the folders's path on it's disk.
-     *
-     * @param null $path
-     * @return string
-     */
-    public function diskPath($path = null)
-    {
-        if ($parent = $this->getParent()) {
-            return $parent->diskPath($this->getName() . ($path ? '/' . $path : $path));
-        }
-
-        $disk = $this->getDisk();
-
-        return $disk->path($this->getName() . ($path ? '/' . $path : $path));
-    }
-
-    /**
      * Get the name.
      *
      * @return string
@@ -86,6 +35,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -99,6 +58,65 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Get the allowed types.
+     *
+     * @return array
+     */
+    public function getAllowedTypes()
+    {
+        return $this->allowed_types;
+    }
+
+    /**
+     * Set the allowed types attribute.
+     *
+     * @return array
+     */
+    public function setAllowedTypesAttribute(array $types)
+    {
+        $this->setFieldValue('allowed_types', $types);
+
+        return $this->allowed_types = array_map(
+            function ($type) {
+                return strtolower(preg_replace("/[^A-Za-z0-9 ]/", '', $type));
+            },
+            $this->getAllowedTypes()
+        );
+    }
+
+    /**
+     * Get the related entry model name.
+     *
+     * @return string
+     */
+    public function getEntryModelName()
+    {
+        $stream = $this->getEntryStream();
+
+        return $stream->getEntryModelName();
+    }
+
+    /**
+     * Get the related entry stream.
+     *
+     * @return StreamInterface
+     */
+    public function getEntryStream()
+    {
+        return $this->dispatch(new GetStream($this));
+    }
+
+    /**
      * Get related files.
      *
      * @return FileCollection
@@ -109,26 +127,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Get the related parent folder.
-     *
-     * @return null|FolderInterface
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Get related folders.
-     *
-     * @return FolderCollection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
      * Return the files relation.
      *
      * @return HasMany
@@ -136,15 +134,5 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function files()
     {
         return $this->hasMany('Anomaly\FilesModule\File\FileModel', 'folder_id');
-    }
-
-    /**
-     * Return the folder relation.
-     *
-     * @return HasMany
-     */
-    public function children()
-    {
-        return $this->hasMany('Anomaly\FilesModule\Folder\FolderModel', 'parent_id');
     }
 }

@@ -2,61 +2,49 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Carbon\Carbon;
+use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
+use Anomaly\Streams\Platform\Image\Image;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use League\Flysystem\File;
 
 /**
  * Interface FileInterface
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File\Contract
  */
-interface FileInterface
+interface FileInterface extends EntryInterface
 {
 
     /**
-     * Return a hash of the file.
+     * Return the file type.
      *
      * @return string
      */
-    public function hash();
+    public function type();
 
     /**
-     * Return the file's path.
+     * Return the file path.
      *
      * @return string
      */
     public function path();
 
     /**
-     * Return the file's path on it's disk.
+     * Return the file location.
      *
      * @return string
      */
-    public function diskPath();
+    public function location();
 
     /**
-     * Return the file's public path.
+     * Return an image instance.
      *
-     * @return string
+     * @return Image
      */
-    public function publicPath();
-
-    /**
-     * Return the file's stream path.
-     *
-     * @return string
-     */
-    public function streamPath();
-
-    /**
-     * Return the file's download path.
-     *
-     * @return string
-     */
-    public function downloadPath();
+    public function image();
 
     /**
      * Return the file resource.
@@ -64,13 +52,6 @@ interface FileInterface
      * @return File
      */
     public function resource();
-
-    /**
-     * Return the last modified datetime.
-     *
-     * @return Carbon
-     */
-    public function lastModified();
 
     /**
      * Get the name.
@@ -94,6 +75,20 @@ interface FileInterface
     public function getSize();
 
     /**
+     * Get the width.
+     *
+     * @return null|int
+     */
+    public function getWidth();
+
+    /**
+     * Get the height.
+     *
+     * @return null|int
+     */
+    public function getHeight();
+
+    /**
      * Get the related folder.
      *
      * @return null|FolderInterface
@@ -113,4 +108,32 @@ interface FileInterface
      * @return string
      */
     public function getExtension();
+
+    /**
+     * Get the keywords.
+     *
+     * @return array
+     */
+    public function getKeywords();
+
+    /**
+     * Get the description.
+     *
+     * @return string
+     */
+    public function getDescription();
+
+    /**
+     * Get the related entry.
+     *
+     * @return EntryInterface
+     */
+    public function getEntry();
+
+    /**
+     * Return the entry relation.
+     *
+     * @return MorphTo
+     */
+    public function entry();
 }

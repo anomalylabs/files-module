@@ -1,110 +1,104 @@
 <?php namespace Anomaly\FilesModule\File\Table;
 
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Auth\Guard;
 
 /**
  * Class FileTableBuilder
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File\Table
  */
 class FileTableBuilder extends TableBuilder
 {
 
     /**
-     * The disk instance.
+     * The table views.
      *
-     * @var DiskInterface
+     * @var array
      */
-    protected $disk;
+    protected $views = [
+        'all',
+        'trash' => [
+            'columns' => [
+                'name',
+                'size',
+                'type'
+            ]
+        ]
+    ];
 
     /**
-     * The folder instance.
+     * The table filters.
      *
-     * @var FolderInterface
+     * @var array
      */
-    protected $folder;
+    protected $filters = [
+        'search' => [
+            'fields' => [
+                'name',
+                'keywords',
+                'mime_type'
+            ]
+        ],
+        'folder'
+    ];
 
     /**
-     * Fired when the table is ready to build.
+     * The table columns.
      *
-     * @throws \Exception
+     * @var array
      */
-    public function onReady()
-    {
-        if (!$this->getDisk()) {
-            throw new \Exception('The $disk parameter is required.');
-        }
-    }
+    protected $columns = [
+        'entry.preview' => [
+            'heading' => 'anomaly.module.files::field.preview.name'
+        ],
+        'name'          => [
+            'sort_column' => 'name',
+            'wrapper'     => '
+                    <strong>{value.file}</strong>
+                    <br>
+                    <small class="text-muted">{value.disk}://{value.folder}/{value.file}</small>
+                    <br>
+                    <span>{value.size} {value.keywords}</span>',
+            'value'       => [
+                'file'     => 'entry.name',
+                'folder'   => 'entry.folder.slug',
+                'keywords' => 'entry.keywords.labels',
+                'disk'     => 'entry.folder.disk.slug',
+                'size'     => 'entry.size_label'
+            ]
+        ],
+        'size'          => [
+            'sort_column' => 'size',
+            'value'       => 'entry.readable_size'
+        ],
+        'mime_type',
+        'folder'
+    ];
 
     /**
-     * Fired just before querying.
+     * The table buttons.
      *
-     * @param Builder $query
+     * @var array
      */
-    public function onQuerying(Builder $query)
-    {
-        $disk = $this->getDisk();
-
-        // Limit results to the desired disk.
-        $query->where('disk_id', $disk->getId());
-
-        // Limit results to the desired folder if any.
-        if ($folder = $this->getFolder()) {
-            $query->where('folder_id', $folder->getId());
-        } else {
-            $query->where('folder_id', null);
-        }
-    }
+    protected $buttons = [
+        'edit',
+        'view' => [
+            'target' => '_blank'
+        ]
+    ];
 
     /**
-     * Get the disk.
+     * The table buttons.
      *
-     * @return DiskInterface
+     * @var array
      */
-    public function getDisk()
-    {
-        return $this->disk;
-    }
+    protected $actions = [
+        'delete',
+        'edit'
+    ];
 
-    /**
-     * Set the disk interface.
-     *
-     * @param DiskInterface $disk
-     * @return $this
-     */
-    public function setDisk(DiskInterface $disk)
-    {
-        $this->disk = $disk;
-
-        return $this;
-    }
-
-    /**
-     * Get the folder.
-     *
-     * @return FolderInterface
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * Set the folder.
-     *
-     * @param FolderInterface $folder
-     * @return $this
-     */
-    public function setFolder(FolderInterface $folder)
-    {
-        $this->folder = $folder;
-
-        return $this;
-    }
 }

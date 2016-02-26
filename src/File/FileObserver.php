@@ -7,23 +7,47 @@ use Anomaly\Streams\Platform\Entry\EntryObserver;
 /**
  * Class FileObserver
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
  * @package       Anomaly\FilesModule\File
  */
 class FileObserver extends EntryObserver
 {
 
     /**
-     * Fired before deleting the file.
+     * Fired before saving the file.
+     *
+     * @param EntryInterface|FileInterface $entry
+     * @return bool
+     */
+    public function saving(EntryInterface $entry)
+    {
+        /**
+         * Make sure the resource exists.
+         */
+        if (!$resource = $entry->resource()) {
+            return false;
+        }
+
+        return parent::saving($entry);
+    }
+
+    /**
+     * Fired after deleting the file.
      *
      * @param EntryInterface|FileInterface $entry
      */
-    public function deleting(EntryInterface $entry)
+    public function deleted(EntryInterface $entry)
     {
-        if ($resource = $entry->resource()) {
-            return $resource->delete();
+        /**
+         * Make sure the resource exists
+         * and is deleted successfully.
+         */
+        if ($entry->isForceDeleting() && $resource = $entry->resource()) {
+            $resource->delete();
         }
+
+        parent::deleted($entry);
     }
 }
