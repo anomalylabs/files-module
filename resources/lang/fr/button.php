@@ -1,9 +1,8 @@
 <?php
 
 return [
+    'sync'       => 'Synchroniser',
     'upload'     => 'Envoyer',
-    'finished'   => 'Terminé',
-    'new_folder' => 'Nouveau Dossier',
-    'new_disk'   => 'Nouveau Disque',
-    'sync'       => 'Synchroniser'
+    'new_disk'   => 'Nouveau disque',
+    'new_folder' => 'Nouveau dossier'
 ];
