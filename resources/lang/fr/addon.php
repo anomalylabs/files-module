@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'name'        => 'Fichiers',
-    'description' => 'Gestionnaire de fichier multi-stockage.',
+    'title'       => 'Fichiers',
+    'name'        => 'Module Fichiers',
+    'description' => 'Gestion des fichiers pour votre site.',
     'section'     => [
-        'browser'  => 'Parcourir',
+        'files'    => 'Fichiers',
         'disks'    => 'Disques',
-        'adapters' => 'Adaptateurs',
-        'settings' => 'Paramètres'
+        'fields'   => 'Champs',
+        'folders'  => 'Dossiers',
+        'adapters' => 'Adaptateurs'
     ]
 ];
