@@ -35,7 +35,7 @@ return [
         'instructions' => 'Specify any organizational keywords to help group files.'
     ],
     'mime_type'     => [
-        'name' => 'Mime Type'
+        'name' => 'MIME Type'
     ],
     'preview'       => [
         'name' => 'Preview'
