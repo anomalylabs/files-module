@@ -50,9 +50,10 @@ class CreateStream implements SelfHandling
                     'name'        => $this->folder->getName(),
                     'description' => $this->folder->getDescription()
                 ],
-                'namespace'                         => 'files',
                 'slug'                              => $this->folder->getSlug(),
+                'namespace'                         => 'files',
                 'translatable'                      => true,
+                'trashable'                         => true,
                 'locked'                            => false
             ]
         );
