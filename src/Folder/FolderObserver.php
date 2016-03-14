@@ -32,27 +32,14 @@ class FolderObserver extends EntryObserver
     }
 
     /**
-     * Fire just before deleting an entry.
-     *
-     * @param EntryInterface|FolderInterface $entry
-     * @return bool
-     */
-    public function deleting(EntryInterface $entry)
-    {
-        $this->dispatch(new DeleteFiles($entry));
-        $this->dispatch(new DeleteDirectory($entry));
-        $this->dispatch(new DeleteStream($entry));
-
-        return parent::deleting($entry);
-    }
-
-    /**
      * Fired just after deleting an entry.
      *
      * @param EntryInterface $entry
      */
     public function deleted(EntryInterface $entry)
     {
+        $this->dispatch(new DeleteFiles($entry));
+        $this->dispatch(new DeleteDirectory($entry));
         $this->dispatch(new DeleteStream($entry));
 
         parent::deleted($entry);
