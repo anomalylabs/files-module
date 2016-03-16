@@ -190,7 +190,7 @@ class FilePresenter extends EntryPresenter
      */
     public function viewPath()
     {
-        return 'files/' . $this->object->path();
+        return '/files/' . $this->object->path();
     }
 
     /**
@@ -200,7 +200,7 @@ class FilePresenter extends EntryPresenter
      */
     public function streamPath()
     {
-        return 'files/stream/' . $this->object->path();
+        return '/files/stream/' . $this->object->path();
     }
 
     /**
@@ -210,7 +210,7 @@ class FilePresenter extends EntryPresenter
      */
     public function downloadPath()
     {
-        return 'files/download/' . $this->object->path();
+        return '/files/download/' . $this->object->path();
     }
 
     /**
