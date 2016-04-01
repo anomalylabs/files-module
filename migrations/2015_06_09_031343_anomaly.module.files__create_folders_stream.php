@@ -35,11 +35,17 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
         ],
         'name'        => [
             'required'     => true,
-            'translatable' => true
+            'translatable' => true,
+            'config'       => [
+                'max' => 50
+            ]
         ],
         'slug'        => [
             'required' => true,
-            'unique'   => true
+            'unique'   => true,
+            'config'   => [
+                'max' => 50
+            ]
         ],
         'description' => [
             'translatable' => true
