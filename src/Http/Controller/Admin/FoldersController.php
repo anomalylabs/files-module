@@ -126,7 +126,6 @@ class FoldersController extends AdminController
         $folder = $folders->find($id);
 
         return $form
-            ->setOption('redirect', 'admin/files/folders/assignments/' . $id)
             ->setStream($folder->getEntryStream())
             ->setField($fields->find($field))
             ->render();
