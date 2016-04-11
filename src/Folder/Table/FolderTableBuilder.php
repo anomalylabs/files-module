@@ -64,4 +64,13 @@ class FolderTableBuilder extends TableBuilder
         'delete'
     ];
 
+    /**
+     * The table options.
+     *
+     * @var array
+     */
+    protected $options = [
+        'sortable' => true
+    ];
+
 }

@@ -21,7 +21,8 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
         'slug'         => 'folders',
         'title_column' => 'name',
         'translatable' => true,
-        'trashable'    => true
+        'trashable'    => true,
+        'sortable'    => true
     ];
 
     /**
