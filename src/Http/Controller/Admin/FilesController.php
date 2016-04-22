@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
@@ -53,7 +54,7 @@ class FilesController extends AdminController
      * Return the form for editing an existing file.
      *
      * @param FileRepositoryInterface $files
-     * @param FileEntryFormBuilder    $form
+     * @param FileEntryFormBuilder $form
      * @param                         $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -81,14 +82,17 @@ class FilesController extends AdminController
      * Redirect to a file's URL.
      *
      * @param FileRepositoryInterface $files
-     * @param                         $id
+     * @param FileReader $reader
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function view(FileRepositoryInterface $files, $id)
+    public function view(FileRepositoryInterface $files, FileReader $reader, $id)
     {
         /* @var FileInterface $file */
-        $file = $files->find($id);
+        if (!$file = $files->find($id)) {
+            abort(404);
+        }
 
-        return $this->redirect->to('files/' . $file->getFolder()->getSlug() . '/' . $file->getName());
+        return $reader->read($file);
     }
 }

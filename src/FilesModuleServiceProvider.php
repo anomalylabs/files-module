@@ -99,7 +99,10 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'path' => '(.*)'
             ]
         ],
-        'files/{folder}/{name}'                                        => [
+        /**
+         * TODO: Implement some kind of permissions.
+         */
+        /*'files/{folder}/{name}'                                        => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
@@ -126,7 +129,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)'
             ]
-        ]
+        ]*/
     ];
 
 }
