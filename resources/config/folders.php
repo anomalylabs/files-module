@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'public' => explode(',', env('PUBLIC_FOLDERS'))
+    'public' => array_filter(explode(',', env('PUBLIC_FOLDERS')))
 ];
