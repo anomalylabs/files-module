@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Assignment\Form\AssignmentFormBuilder;
 use Anomaly\Streams\Platform\Assignment\Table\AssignmentTableBuilder;
 use Anomaly\Streams\Platform\Field\Contract\FieldRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Http\Response;
 
 /**
  * Class FoldersController
