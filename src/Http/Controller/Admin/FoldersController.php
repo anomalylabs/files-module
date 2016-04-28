@@ -8,6 +8,7 @@ use Anomaly\Streams\Platform\Assignment\Form\AssignmentFormBuilder;
 use Anomaly\Streams\Platform\Assignment\Table\AssignmentTableBuilder;
 use Anomaly\Streams\Platform\Field\Contract\FieldRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Illuminate\Http\Response;
 
 /**
  * Class FoldersController
@@ -52,6 +53,34 @@ class FoldersController extends AdminController
     public function edit(FolderFormBuilder $form, $id)
     {
         return $form->render($id);
+    }
+
+    /**
+     * Check if a folder contains a file
+     *
+     * @param FolderRepositoryInterface $folders
+     * @param                           $id
+     * @param                           $filename
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function contains(FolderRepositoryInterface $folders, $id, $filename)
+    {
+        /* @var FolderInterface $folder */
+        $folder = $folders->find($id);
+       
+        $return = [
+            'success'      => true,
+            'containsFile' => false
+        ];
+
+        /**
+         * If we found a file by that name in this folder
+         */
+        if ($folder->files()->where('name', $filename)->first()) {
+            array_set($return, 'containsFile', true);
+        }
+
+        return $this->response->json($return);
     }
 
     /**
@@ -121,7 +150,8 @@ class FoldersController extends AdminController
         FieldRepositoryInterface $fields,
         $id,
         $field
-    ) {
+    )
+    {
         /* @var FolderInterface $folder */
         $folder = $folders->find($id);
 
@@ -144,7 +174,8 @@ class FoldersController extends AdminController
         FolderRepositoryInterface $folders,
         $id,
         $assignment
-    ) {
+    )
+    {
         $folder = $folders->find($id);
 
         $this->breadcrumbs->put('streams::breadcrumb.assignments', 'admin/files/types/assignments/' . $folder->getId());

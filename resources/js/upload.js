@@ -1,3 +1,6 @@
+// Disabling autoDiscover, otherwise Dropzone will try to attach twice.
+Dropzone.autoDiscover = false;
+
 $(function () {
 
     var uploaded = [];
@@ -8,6 +11,7 @@ $(function () {
     var preview = template.html();
 
     template.remove();
+
 
     var dropzone = new Dropzone('.dropzone',
         {
@@ -20,6 +24,18 @@ $(function () {
                 formData.append('folder', element.data('folder'));
             },
 
+            accept: function(file, done) {
+                $.getJSON('/admin/files/folders/contains/' + element.data('folder') + '/' + file.name, function(data) {
+                    if(data.containsFile) {
+                        if(!confirm(file.name + " " + element.data('overwrite'))) {
+                            dropzone.removeFile(file);
+                            return;
+                        }
+                    }
+                    
+                    done();
+                });
+            },
             autoQueue: true,
             thumbnailWidth: 24,
             thumbnailHeight: 24,

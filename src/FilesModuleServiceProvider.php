@@ -80,6 +80,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/folders'                                          => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@index',
         'admin/files/folders/create'                                   => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
         'admin/files/folders/edit/{id}'                                => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@edit',
+        'admin/files/folders/contains/{id}/{filename}'                 => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@contains',
         'admin/files/folders/assignments/{id}'                         => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@fields',
         'admin/files/folders/choose/{id}'                              => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@choose',
         'admin/files/folders/assignments/{id}/assign/{field}'          => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@assign',
