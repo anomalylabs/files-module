@@ -2,10 +2,13 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
+use Anomaly\FilesModule\Folder\Command\GetFolder;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Contracts\Config\Repository;
@@ -81,14 +84,40 @@ class FilesController extends AdminController
      * Redirect to a file's URL.
      *
      * @param FileRepositoryInterface $files
+     * @param FileReader              $reader
      * @param                         $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function view(FileRepositoryInterface $files, $id)
+    public function view(FileRepositoryInterface $files, FileReader $reader, $id)
     {
         /* @var FileInterface $file */
-        $file = $files->find($id);
+        if (!$file = $files->find($id)) {
+            abort(404);
+        }
 
-        return $this->redirect->to('files/' . $file->getFolder()->getSlug() . '/' . $file->getName());
+        return $reader->read($file);
+    }
+
+    /**
+     * Return if a file exists or not.
+     *
+     * @param FileRepositoryInterface   $files
+     * @param                           $folder
+     * @param                           $name
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function exists(FileRepositoryInterface $files, $folder, $name)
+    {
+        $success = true;
+        $exists  = false;
+
+        /* @var FolderInterface|null $folder */
+        $folder = $this->dispatch(new GetFolder($folder));
+
+        if ($folder && $file = $files->findByNameAndFolder($name, $folder)) {
+            $exists = true;
+        }
+
+        return $this->response->json(compact('success', 'exists'));
     }
 }

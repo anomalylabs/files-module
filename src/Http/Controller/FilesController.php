@@ -7,7 +7,7 @@ use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\FileStreamer;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
 use Anomaly\Streams\Platform\Image\Image;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Config\Repository;
 
 
 /**
@@ -26,12 +26,20 @@ class FilesController extends PublicController
      *
      * @param FileLocator $locator
      * @param FileReader  $reader
+     * @param Repository  $config
      * @param             $folder
-     * @param             $path
+     * @param             $name
      * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param $path
      */
-    public function read(FileLocator $locator, FileReader $reader, $folder, $name)
+    public function read(FileLocator $locator, FileReader $reader, Repository $config, $folder, $name)
     {
+        $public = $config->get('anomaly.module.files::folders.public');
+
+        if ($public && !in_array($folder, $public)) {
+            abort(404);
+        }
+
         if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
@@ -44,12 +52,20 @@ class FilesController extends PublicController
      *
      * @param FileLocator  $locator
      * @param FileStreamer $streamer
+     * @param Repository   $config
      * @param              $folder
-     * @param              $path
+     * @param              $name
      * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param $path
      */
-    public function stream(FileLocator $locator, FileStreamer $streamer, $folder, $name)
+    public function stream(FileLocator $locator, FileStreamer $streamer, Repository $config, $folder, $name)
     {
+        $public = $config->get('anomaly.module.files::folders.public');
+
+        if ($public && !in_array($folder, $public)) {
+            abort(404);
+        }
+
         if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
@@ -62,12 +78,20 @@ class FilesController extends PublicController
      *
      * @param FileLocator    $locator
      * @param FileDownloader $downloader
+     * @param Repository     $config
      * @param                $folder
-     * @param                $path
+     * @param                $name
      * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param $path
      */
-    public function download(FileLocator $locator, FileDownloader $downloader, $folder, $name)
+    public function download(FileLocator $locator, FileDownloader $downloader, Repository $config, $folder, $name)
     {
+        $public = $config->get('anomaly.module.files::folders.public');
+
+        if ($public && !in_array($folder, $public)) {
+            abort(404);
+        }
+
         if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }
@@ -80,19 +104,28 @@ class FilesController extends PublicController
      *
      * @param FileLocator $locator
      * @param FileImage   $thumbnail
-     * @param Request     $request
+     * @param Repository  $config
      * @param Image       $image
      * @param             $folder
-     * @param             $path
+     * @param             $name
      * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param Request $request
+     * @internal param $path
      */
     public function thumb(
         FileLocator $locator,
         FileImage $thumbnail,
+        Repository $config,
         Image $image,
         $folder,
         $name
     ) {
+        $public = $config->get('anomaly.module.files::folders.public');
+
+        if ($public && !in_array($folder, $public)) {
+            abort(404);
+        }
+
         if (!$file = $locator->locate($folder, $name)) {
             abort(404);
         }

@@ -9,6 +9,7 @@ return [
     'choose_field'      => 'What field would you like to add?',
     'upload'            => 'Click or drop files here to upload.',
     'no_uploads'        => 'No files have been uploaded.',
+    'overwrite'         => 'has already been uploaded. Would you like to overwrite it?',
     'uploading'         => 'Uploading',
     'loading'           => 'Loading'
 ];

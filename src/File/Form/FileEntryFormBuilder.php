@@ -15,6 +15,15 @@ class FileEntryFormBuilder extends MultipleFormBuilder
 {
 
     /**
+     * The form options.
+     *
+     * @var array
+     */
+    protected $options = [
+        'breadcrumb' => 'streams::form.mode.edit'
+    ];
+
+    /**
      * Fired after the entry form is saved.
      *
      * After the entry form is saved take the

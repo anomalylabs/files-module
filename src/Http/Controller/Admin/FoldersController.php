@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
+use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\FilesModule\Folder\Form\FolderFormBuilder;

@@ -8,6 +8,7 @@
              data-message="{{ trans('module::message.upload') }}"
              data-loading="{{ trans('module::message.loading') }}"
              data-uploading="{{ trans('module::message.uploading') }}"
+             data-overwrite="{{ trans('module::message.overwrite') }}"
              data-max-parallel="{{ setting_value('anomaly.module.files::max_parallel_uploads', 3) }}"
              data-allowed="{{ folder.allowed_types.value ? '.' ~ folder.allowed_types.value|join(',.') }}"></div>
 
