@@ -18,10 +18,10 @@ class GetResource implements SelfHandling
 {
 
     /**
-     * The file instance.
-     *
-     * @var FileInterface
-     */
+ * The file instance.
+ *
+ * @var FileInterface
+ */
     protected $file;
 
     /**

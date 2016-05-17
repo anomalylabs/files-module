@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\File\Command\SetDimensions;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
@@ -29,6 +30,8 @@ class FileObserver extends EntryObserver
         if (!$resource = $entry->resource()) {
             return false;
         }
+
+        $this->dispatch(new SetDimensions($entry));
 
         return parent::saving($entry);
     }
