@@ -47,12 +47,12 @@ class FolderTableBuilder extends TableBuilder
      */
     protected $buttons = [
         'edit',
-        'assignments',
         'upload' => [
             'icon' => 'upload',
             'type' => 'success',
             'href' => 'admin/files/upload/{entry.slug}'
-        ]
+        ],
+        'assignments'
     ];
 
     /**
