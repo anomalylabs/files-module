@@ -112,9 +112,15 @@ class FileUploader
 
         if (in_array($entry->getExtension(), $this->config->get('anomaly.module.files::mimes.types.image'))) {
 
-            $size = getimagesize($file->getRealPath());
+            $size       = filesize($file->getRealPath());
+            $dimensions = getimagesize($file->getRealPath());
 
-            $this->files->save($entry->setAttribute('width', $size[0])->setAttribute('height', $size[1]));
+            $this->files->save(
+                $entry
+                    ->setAttribute('size', $size)
+                    ->setAttribute('width', $dimensions[0])
+                    ->setAttribute('height', $dimensions[1])
+            );
         }
 
         return $entry;
