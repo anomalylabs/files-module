@@ -4,19 +4,19 @@ return [
     'files'   => [
         'read',
         'write',
-        'delete'
+        'delete',
     ],
     'folders' => [
         'read',
         'write',
-        'delete'
+        'delete',
     ],
     'disks'   => [
         'read',
         'write',
-        'delete'
+        'delete',
     ],
     'fields'  => [
-        'manage'
-    ]
+        'manage',
+    ],
 ];

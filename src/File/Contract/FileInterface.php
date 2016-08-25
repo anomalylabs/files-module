@@ -13,7 +13,6 @@ use League\Flysystem\File;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Contract
  */
 interface FileInterface extends EntryInterface
 {

@@ -8,6 +8,6 @@ return [
         'browser'  => 'Utforskare',
         'disks'    => 'Diskar',
         'adapters' => 'Adaptrar',
-        'settings' => 'Inställningar'
-    ]
+        'settings' => 'Inställningar',
+    ],
 ];

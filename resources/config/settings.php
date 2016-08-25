@@ -17,15 +17,15 @@ return [
 
                 return $file > $post ? $post : $file;
             },
-            'min'           => 1
-        ]
+            'min'           => 1,
+        ],
     ],
     'max_parallel_uploads' => [
         'type'     => 'anomaly.field_type.integer',
         'required' => true,
         'config'   => [
             'default_value' => 3,
-            'min'           => 1
-        ]
-    ]
+            'min'           => 1,
+        ],
+    ],
 ];

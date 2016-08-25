@@ -6,52 +6,52 @@ return [
         'instructions' => [
             'disks'   => 'Specify a short descriptive name for the disk.',
             'folders' => 'Specify a short descriptive name for the folder.',
-            'files'   => 'Specify the name of this file.'
-        ]
+            'files'   => 'Specify the name of this file.',
+        ],
     ],
     'title'         => [
         'name'         => 'Title',
-        'instructions' => 'Specify a short descriptive title for this file.'
+        'instructions' => 'Specify a short descriptive title for this file.',
     ],
     'slug'          => [
         'name'         => 'Slug',
-        'instructions' => 'The slug is used in building the storage location.'
+        'instructions' => 'The slug is used in building the storage location.',
     ],
     'size'          => [
-        'name' => 'Size'
+        'name' => 'Size',
     ],
     'disk'          => [
         'name'         => 'Disk',
-        'instructions' => 'Choose which disk this folder belongs to.'
+        'instructions' => 'Choose which disk this folder belongs to.',
     ],
     'folder'        => [
-        'name' => 'Folder'
+        'name' => 'Folder',
     ],
     'adapter'       => [
-        'name' => 'Adapter'
+        'name' => 'Adapter',
     ],
     'keywords'      => [
         'name'         => 'Keywords',
-        'instructions' => 'Specify any organizational keywords to help group files.'
+        'instructions' => 'Specify any organizational keywords to help group files.',
     ],
     'mime_type'     => [
-        'name' => 'MIME Type'
+        'name' => 'MIME Type',
     ],
     'preview'       => [
-        'name' => 'Preview'
+        'name' => 'Preview',
     ],
     'description'   => [
         'name'         => 'Description',
         'instructions' => [
             'disks'  => 'Briefly describe this disk.',
             'folder' => 'Briefly describe this folder.',
-            'files'  => 'Briefly describe this file.'
-        ]
+            'files'  => 'Briefly describe this file.',
+        ],
     ],
     'allowed_types' => [
         'name'         => 'Allowed Types',
         'instructions' => 'Specify the file type extensions that are allowed in this folder.',
         'warning'      => 'Note subtle differences between mime types like jpg and jpeg.',
-        'placeholder'  => 'pdf, psd, jpg, jpeg'
-    ]
+        'placeholder'  => 'pdf, psd, jpg, jpeg',
+    ],
 ];

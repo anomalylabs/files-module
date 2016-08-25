@@ -13,7 +13,6 @@ use League\Flysystem\File;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileSynchronizer
 {
@@ -47,8 +46,8 @@ class FileSynchronizer
     /**
      * Sync a file.
      *
-     * @param File          $resource
-     * @param DiskInterface $disk
+     * @param  File               $resource
+     * @param  DiskInterface      $disk
      * @return null|FileInterface
      */
     public function sync(File $resource, DiskInterface $disk)
@@ -65,7 +64,7 @@ class FileSynchronizer
                     'mime_type'  => $resource->getMimetype(),
                     'extension'  => pathinfo($resource->getPath(), PATHINFO_EXTENSION),
                     'entry_type' => $folder->getEntryModelName(),
-                    'deleted_at' => null
+                    'deleted_at' => null,
                 ]
             );
         } else {
@@ -83,8 +82,8 @@ class FileSynchronizer
     /**
      * Sync the files folder.
      *
-     * @param File          $resource
-     * @param DiskInterface $disk
+     * @param  File                 $resource
+     * @param  DiskInterface        $disk
      * @return null|FolderInterface
      */
     protected function syncFolder(File $resource, DiskInterface $disk)
@@ -105,7 +104,7 @@ class FileSynchronizer
                     [
                         'name'      => $name,
                         'disk_id'   => $disk->getId(),
-                        'parent_id' => $parent ? $parent->getId() : null
+                        'parent_id' => $parent ? $parent->getId() : null,
                     ]
                 );
             }

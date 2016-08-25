@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\SettingsModule\Setting\Contract\SettingRepositoryInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
@@ -10,9 +9,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Command
  */
-class GetMaxUploadSize implements SelfHandling
+class GetMaxUploadSize
 {
 
     use DispatchesJobs;
@@ -20,7 +18,7 @@ class GetMaxUploadSize implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param SettingRepositoryInterface $settings
+     * @param  SettingRepositoryInterface $settings
      * @return int
      */
     public function handle(SettingRepositoryInterface $settings)

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileStreamer extends FileResponse
 {
@@ -17,7 +16,7 @@ class FileStreamer extends FileResponse
     /**
      * Return the response headers.
      *
-     * @param FileInterface $file
+     * @param  FileInterface $file
      * @return Response
      */
     public function stream(FileInterface $file)
@@ -46,7 +45,7 @@ class FileStreamer extends FileResponse
     /**
      * Make the response.
      *
-     * @param FileInterface $file
+     * @param  FileInterface $file
      * @return Response
      */
     public function make(FileInterface $file)

@@ -10,7 +10,6 @@ use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk\Listener
  */
 class RegisterDisks
 {

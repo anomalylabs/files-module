@@ -16,7 +16,6 @@ use Intervention\Image\Constraint;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FilePresenter extends EntryPresenter
 {
@@ -86,8 +85,8 @@ class FilePresenter extends EntryPresenter
     /**
      * Return the size in a readable format.
      *
-     * @param string $unit
-     * @param int    $decimals
+     * @param  string $unit
+     * @param  int    $decimals
      * @return string
      */
     public function readableSize($unit = null, $decimals = 2)
@@ -121,8 +120,8 @@ class FilePresenter extends EntryPresenter
     /**
      * Return a file preview.
      *
-     * @param int $width
-     * @param int $height
+     * @param  int    $width
+     * @param  int    $height
      * @return string
      */
     public function preview($width = 64, $height = 64)
@@ -149,8 +148,8 @@ class FilePresenter extends EntryPresenter
     /**
      * Return a file preview.
      *
-     * @param int $width
-     * @param int $height
+     * @param  int    $width
+     * @param  int    $height
      * @return string
      */
     public function thumbnail($width = 64, $height = 64)
@@ -217,7 +216,7 @@ class FilePresenter extends EntryPresenter
      * Catch calls to fields on
      * the file's related entry.
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function __get($key)

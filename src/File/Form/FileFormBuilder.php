@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Form
  */
 class FileFormBuilder extends FormBuilder
 {
@@ -20,9 +19,9 @@ class FileFormBuilder extends FormBuilder
      */
     protected $fields = [
         'name' => [
-            'disabled' => true
+            'disabled' => true,
         ],
-        'keywords'
+        'keywords',
     ];
 
 }

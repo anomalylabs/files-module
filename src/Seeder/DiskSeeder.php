@@ -9,7 +9,6 @@ use Anomaly\Streams\Platform\Database\Seeder\Seeder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Seeder
  */
 class DiskSeeder extends Seeder
 {
@@ -42,10 +41,10 @@ class DiskSeeder extends Seeder
                 [
                     'en'      => [
                         'name'        => 'Local',
-                        'description' => 'A local (public) storage disk.'
+                        'description' => 'A local (public) storage disk.',
                     ],
                     'slug'    => 'local',
-                    'adapter' => 'anomaly.extension.local_storage_adapter'
+                    'adapter' => 'anomaly.extension.local_storage_adapter',
                 ]
             );
     }

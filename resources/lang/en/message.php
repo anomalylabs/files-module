@@ -11,5 +11,5 @@ return [
     'no_uploads'        => 'No files have been uploaded.',
     'overwrite'         => 'has already been uploaded. Would you like to overwrite it?',
     'uploading'         => 'Uploading',
-    'loading'           => 'Loading'
+    'loading'           => 'Loading',
 ];

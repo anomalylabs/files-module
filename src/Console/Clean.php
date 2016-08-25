@@ -12,7 +12,6 @@ use Symfony\Component\Console\Input\InputOption;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Console
  */
 class Clean extends Command
 {
@@ -68,7 +67,7 @@ class Clean extends Command
     protected function getOptions()
     {
         return [
-            ['pretend', null, InputOption::VALUE_NONE, 'Perform a dry run without deleting.']
+            ['pretend', null, InputOption::VALUE_NONE, 'Perform a dry run without deleting.'],
         ];
     }
 }

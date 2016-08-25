@@ -10,5 +10,5 @@ return [
     'upload'            => 'Cliquez ici ou glisser un fichier pour démarrer l\'envoi.',
     'no_uploads'        => 'Aucun fichier n\'a été envoyé.',
     'uploading'         => 'Envoi en cours...',
-    'loading'           => 'Chargement'
+    'loading'           => 'Chargement',
 ];

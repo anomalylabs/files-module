@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileReader extends FileResponse
 {
@@ -17,7 +16,7 @@ class FileReader extends FileResponse
     /**
      * Return the response headers.
      *
-     * @param FileInterface $file
+     * @param  FileInterface $file
      * @return Response
      */
     public function read(FileInterface $file)
@@ -30,7 +29,7 @@ class FileReader extends FileResponse
     /**
      * Make the response.
      *
-     * @param FileInterface $file
+     * @param  FileInterface $file
      * @return Response
      */
     public function make(FileInterface $file)

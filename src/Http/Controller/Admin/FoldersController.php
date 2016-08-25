@@ -16,7 +16,6 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
 class FoldersController extends AdminController
 {
@@ -24,7 +23,7 @@ class FoldersController extends AdminController
     /**
      * Display an index of existing entries.
      *
-     * @param FolderTableBuilder $table
+     * @param  FolderTableBuilder                         $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(FolderTableBuilder $table)
@@ -35,7 +34,7 @@ class FoldersController extends AdminController
     /**
      * Create a new entry.
      *
-     * @param FolderFormBuilder $form
+     * @param  FolderFormBuilder                          $form
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(FolderFormBuilder $form)
@@ -46,8 +45,8 @@ class FoldersController extends AdminController
     /**
      * Edit an existing entry.
      *
-     * @param FolderFormBuilder $form
-     * @param                   $id
+     * @param  FolderFormBuilder                          $form
+     * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(FolderFormBuilder $form, $id)
@@ -58,9 +57,9 @@ class FoldersController extends AdminController
     /**
      * Return a table of existing folder assignments.
      *
-     * @param AssignmentTableBuilder      $table
-     * @param FolderRepositoryInterface   $folders
-     * @param                             $id
+     * @param  AssignmentTableBuilder                     $table
+     * @param  FolderRepositoryInterface                  $folders
+     * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function fields(AssignmentTableBuilder $table, FolderRepositoryInterface $folders, $id)
@@ -78,8 +77,8 @@ class FoldersController extends AdminController
             ->setButtons(
                 [
                     'edit' => [
-                        'href' => '{request.path}/assignment/{entry.id}'
-                    ]
+                        'href' => '{request.path}/assignment/{entry.id}',
+                    ],
                 ]
             )
             ->setStream($folder->getEntryStream())
@@ -89,7 +88,7 @@ class FoldersController extends AdminController
     /**
      * Choose a field to assign.
      *
-     * @param FieldRepositoryInterface $fields
+     * @param  FieldRepositoryInterface $fields
      * @return \Illuminate\View\View
      */
     public function choose(FieldRepositoryInterface $fields, FolderRepositoryInterface $folders, $id)
@@ -101,7 +100,7 @@ class FoldersController extends AdminController
             'module::ajax/choose_field',
             [
                 'fields' => $fields->findAllByNamespace('files')->notAssignedTo($folder->getEntryStream())->unlocked(),
-                'id'     => $id
+                'id'     => $id,
             ]
         );
     }
@@ -109,11 +108,11 @@ class FoldersController extends AdminController
     /**
      * Create an assignment.
      *
-     * @param AssignmentFormBuilder     $form
-     * @param FolderRepositoryInterface $folders
-     * @param FieldRepositoryInterface  $fields
-     * @param                           $id
-     * @param                           $field
+     * @param  AssignmentFormBuilder     $form
+     * @param  FolderRepositoryInterface $folders
+     * @param  FieldRepositoryInterface  $fields
+     * @param                            $id
+     * @param                            $field
      * @return mixed
      */
     public function assign(
@@ -135,9 +134,9 @@ class FoldersController extends AdminController
     /**
      * Return a form for an existing file type field and assignment.
      *
-     * @param AssignmentFormBuilder       $form
-     * @param FolderRepositoryInterface   $folders
-     * @param                             $id
+     * @param  AssignmentFormBuilder                      $form
+     * @param  FolderRepositoryInterface                  $folders
+     * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function assignment(

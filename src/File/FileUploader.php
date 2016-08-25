@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileUploader
 {
@@ -82,8 +81,8 @@ class FileUploader
     /**
      * Upload a file.
      *
-     * @param UploadedFile    $file
-     * @param FolderInterface $folder
+     * @param  UploadedFile       $file
+     * @param  FolderInterface    $folder
      * @return bool|FileInterface
      */
     public function upload(UploadedFile $file, FolderInterface $folder)

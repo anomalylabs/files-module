@@ -22,7 +22,7 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
         'title_column' => 'name',
         'translatable' => true,
         'trashable'    => true,
-        'sortable'    => true
+        'sortable'     => true,
     ];
 
     /**
@@ -32,26 +32,26 @@ class AnomalyModuleFilesCreateFoldersStream extends Migration
      */
     protected $assignments = [
         'disk'        => [
-            'required' => true
+            'required' => true,
         ],
         'name'        => [
             'required'     => true,
             'translatable' => true,
             'config'       => [
-                'max' => 50
-            ]
+                'max' => 50,
+            ],
         ],
         'slug'        => [
             'required' => true,
             'unique'   => true,
             'config'   => [
-                'max' => 50
-            ]
+                'max' => 50,
+            ],
         ],
         'description' => [
-            'translatable' => true
+            'translatable' => true,
         ],
-        'allowed_types'
+        'allowed_types',
     ];
 
 }

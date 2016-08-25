@@ -6,6 +6,6 @@ return [
         'keywords'    => 'keywords',
         'description' => 'description',
         'edit_path'   => 'admin/files/edit/{entry.id}',
-        'view_path'   => 'files/{entry.path}'
-    ]
+        'view_path'   => 'files/{entry.path}',
+    ],
 ];

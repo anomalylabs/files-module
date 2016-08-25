@@ -2,7 +2,7 @@
 
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamRepositoryInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class GetStream
@@ -10,9 +10,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder\Command
  */
-class GetStream implements SelfHandling
+class GetStream
 {
 
     /**
@@ -35,7 +34,7 @@ class GetStream implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param StreamRepositoryInterface $streams
+     * @param  StreamRepositoryInterface                                      $streams
      * @return \Anomaly\Streams\Platform\Stream\Contract\StreamInterface|null
      */
     public function handle(StreamRepositoryInterface $streams)

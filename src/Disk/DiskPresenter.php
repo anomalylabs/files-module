@@ -9,7 +9,6 @@ use Anomaly\Streams\Platform\Entry\EntryPresenter;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk
  */
 class DiskPresenter extends EntryPresenter
 {
@@ -37,7 +36,7 @@ class DiskPresenter extends EntryPresenter
                         'admin',
                         'files',
                         'browser',
-                        $this->object->getSlug()
+                        $this->object->getSlug(),
                     ]
                 )
             ),

@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Addon\Module\Module;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule
  */
 class FilesModule extends Module
 {
@@ -33,9 +32,9 @@ class FilesModule extends Module
                     'icon'        => 'upload',
                     'data-target' => '#modal',
                     'type'        => 'success',
-                    'href'        => 'admin/files/choose'
-                ]
-            ]
+                    'href'        => 'admin/files/choose',
+                ],
+            ],
         ],
         'folders' => [
             'buttons' => [
@@ -44,28 +43,28 @@ class FilesModule extends Module
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'enabled'     => 'admin/files/folders/assignments/*',
-                    'href'        => 'admin/files/folders/choose/{request.route.parameters.id}'
-                ]
-            ]
+                    'href'        => 'admin/files/folders/choose/{request.route.parameters.id}',
+                ],
+            ],
         ],
         'disks'   => [
             'buttons' => [
                 'new_disk' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'href'        => 'admin/files/disks/choose'
-                ]
-            ]
+                    'href'        => 'admin/files/disks/choose',
+                ],
+            ],
         ],
         'fields'  => [
             'buttons' => [
                 'new_field' => [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
-                    'href'        => 'admin/files/fields/choose'
-                ]
-            ]
-        ]
+                    'href'        => 'admin/files/fields/choose',
+                ],
+            ],
+        ],
     ];
 
 }

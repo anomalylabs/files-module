@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileRotator
 {
@@ -16,7 +15,7 @@ class FileRotator
     /**
      * Rotate the uploaded file appropriately.
      *
-     * @param UploadedFile $file
+     * @param  UploadedFile $file
      * @return UploadedFile
      */
     public function rotate(UploadedFile $file)
@@ -39,8 +38,8 @@ class FileRotator
     /**
      * Orientate the image.
      *
-     * @param UploadedFile $file
-     * @param              $orientation
+     * @param  UploadedFile $file
+     * @param               $orientation
      * @return UploadedFile
      */
     protected function orientate(UploadedFile $file, $orientation)

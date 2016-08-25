@@ -12,7 +12,6 @@ use Illuminate\Contracts\Auth\Guard;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileLocator
 {

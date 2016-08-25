@@ -9,7 +9,6 @@ use Anomaly\Streams\Platform\Ui\Form\Multiple\MultipleFormBuilder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Form
  */
 class FileEntryFormBuilder extends MultipleFormBuilder
 {
@@ -20,7 +19,7 @@ class FileEntryFormBuilder extends MultipleFormBuilder
      * @var array
      */
     protected $options = [
-        'breadcrumb' => 'streams::form.mode.edit'
+        'breadcrumb' => 'streams::form.mode.edit',
     ];
 
     /**

@@ -10,7 +10,6 @@ use Anomaly\Streams\Platform\Database\Seeder\Seeder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Seeder
  */
 class FolderSeeder extends Seeder
 {
@@ -54,15 +53,15 @@ class FolderSeeder extends Seeder
             [
                 'en'            => [
                     'name'        => 'Images',
-                    'description' => 'A folder for images.'
+                    'description' => 'A folder for images.',
                 ],
                 'slug'          => 'images',
                 'disk'          => $disk,
                 'allowed_types' => [
                     'png',
                     'jpeg',
-                    'jpg'
-                ]
+                    'jpg',
+                ],
             ]
         );
 
@@ -70,14 +69,14 @@ class FolderSeeder extends Seeder
             [
                 'en'            => [
                     'name'        => 'Documents',
-                    'description' => 'A folder for documents.'
+                    'description' => 'A folder for documents.',
                 ],
                 'slug'          => 'documents',
                 'disk'          => $disk,
                 'allowed_types' => [
                     'pdf',
-                    'docx'
-                ]
+                    'docx',
+                ],
             ]
         );
     }

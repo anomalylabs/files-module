@@ -8,6 +8,6 @@ return [
         'browser'  => 'Browser',
         'disks'    => 'Disks',
         'adapters' => 'Adapter',
-        'settings' => 'Einstellungen'
-    ]
+        'settings' => 'Einstellungen',
+    ],
 ];

@@ -6,5 +6,5 @@ return [
     'finished'   => 'Avslutat',
     'new_folder' => 'Ny Mapp',
     'new_disk'   => 'Ny Disk',
-    'sync'       => 'Synka'
+    'sync'       => 'Synka',
 ];

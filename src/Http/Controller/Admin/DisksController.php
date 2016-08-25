@@ -14,7 +14,6 @@ use Anomaly\Streams\Platform\Http\Controller\AdminController;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\DisksModule\Http\Controller\Admin
  */
 class DisksController extends AdminController
 {
@@ -22,7 +21,7 @@ class DisksController extends AdminController
     /**
      * Return an index of existing disks.
      *
-     * @param DiskTableBuilder $table
+     * @param  DiskTableBuilder                           $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(DiskTableBuilder $table)
@@ -34,7 +33,7 @@ class DisksController extends AdminController
      * Return an ajax modal to choose the type
      * of adapter to use for creating a new disk.
      *
-     * @param ExtensionCollection $extensions
+     * @param  ExtensionCollection   $extensions
      * @return \Illuminate\View\View
      */
     public function choose(ExtensionCollection $extensions)
@@ -42,7 +41,7 @@ class DisksController extends AdminController
         return view(
             'module::ajax/choose_adapter',
             [
-                'adapters' => $extensions->search('anomaly.module.files::adapter.*')->enabled()
+                'adapters' => $extensions->search('anomaly.module.files::adapter.*')->enabled(),
             ]
         );
     }
@@ -50,10 +49,10 @@ class DisksController extends AdminController
     /**
      * Return the form to create a new disk.
      *
-     * @param DiskFormBuilder          $disk
-     * @param AdapterFormBuilder       $form
-     * @param ExtensionCollection      $adapters
-     * @param ConfigurationFormBuilder $configuration
+     * @param  DiskFormBuilder                            $disk
+     * @param  AdapterFormBuilder                         $form
+     * @param  ExtensionCollection                        $adapters
+     * @param  ConfigurationFormBuilder                   $configuration
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(
@@ -85,11 +84,11 @@ class DisksController extends AdminController
     /**
      * Return the form to edit an existing disk.
      *
-     * @param DiskFormBuilder          $disk
-     * @param AdapterFormBuilder       $form
-     * @param DiskRepositoryInterface  $disks
-     * @param ConfigurationFormBuilder $configuration
-     * @param                          $id
+     * @param  DiskFormBuilder                            $disk
+     * @param  AdapterFormBuilder                         $form
+     * @param  DiskRepositoryInterface                    $disks
+     * @param  ConfigurationFormBuilder                   $configuration
+     * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(

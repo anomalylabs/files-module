@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Config\Repository;
 use League\Flysystem\File;
 use League\Flysystem\MountManager;
@@ -12,16 +11,15 @@ use League\Flysystem\MountManager;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Command
  */
-class GetResource implements SelfHandling
+class GetResource
 {
 
     /**
- * The file instance.
- *
- * @var FileInterface
- */
+     * The file instance.
+     *
+     * @var FileInterface
+     */
     protected $file;
 
     /**
@@ -37,7 +35,7 @@ class GetResource implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param MountManager $manager
+     * @param  MountManager $manager
      * @return File
      */
     public function handle(MountManager $manager)

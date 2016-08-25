@@ -20,7 +20,6 @@ use League\Flysystem\RootViolationException;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule
  */
 class AdapterFilesystem extends Filesystem implements FilesystemInterface
 {
@@ -139,9 +138,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     }
 
     /**
-     * @param string $path     path to file
-     * @param string $contents file contents
-     * @param mixed  $config
+     * @param  string              $path     path to file
+     * @param  string              $contents file contents
+     * @param  mixed               $config
      * @throws FileExistsException
      * @return bool
      */
@@ -157,9 +156,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     }
 
     /**
-     * @param string $path     path to file
-     * @param string $contents file contents
-     * @param mixed  $config
+     * @param  string              $path     path to file
+     * @param  string              $contents file contents
+     * @param  mixed               $config
      * @throws FileExistsException
      * @return bool
      */

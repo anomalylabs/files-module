@@ -1,6 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class GetSystemMaxUploadSize
@@ -8,9 +8,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Command
  */
-class GetSystemMaxUploadSize implements SelfHandling
+class GetSystemMaxUploadSize
 {
 
     /**

@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Form
  */
 class FileEntryFormSections
 {
@@ -36,7 +35,7 @@ class FileEntryFormSections
                             },
                             $fileForm->getFields()
                         );
-                    }
+                    },
                 ],
                 'fields' => [
                     'fields' => function () use ($entry) {
@@ -46,8 +45,8 @@ class FileEntryFormSections
                             },
                             $entry->getAssignmentFieldSlugs()
                         );
-                    }
-                ]
+                    },
+                ],
             ]
         );
     }

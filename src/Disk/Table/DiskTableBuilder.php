@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk\Table
  */
 class DiskTableBuilder extends TableBuilder
 {
@@ -23,9 +22,9 @@ class DiskTableBuilder extends TableBuilder
             'columns' => [
                 'name',
                 'slug',
-                'description'
-            ]
-        ]
+                'description',
+            ],
+        ],
     ];
 
     /**
@@ -36,7 +35,7 @@ class DiskTableBuilder extends TableBuilder
     protected $columns = [
         'name',
         'description',
-        'entry.adapter.title'
+        'entry.adapter.title',
     ];
 
     /**
@@ -45,7 +44,7 @@ class DiskTableBuilder extends TableBuilder
      * @var array
      */
     protected $buttons = [
-        'edit'
+        'edit',
     ];
 
     /**
@@ -54,7 +53,7 @@ class DiskTableBuilder extends TableBuilder
      * @var array
      */
     protected $actions = [
-        'prompt'
+        'prompt',
     ];
 
 }

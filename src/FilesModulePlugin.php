@@ -12,7 +12,6 @@ use Anomaly\Streams\Platform\Support\Decorator;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule
  */
 class FilesModulePlugin extends Plugin
 {
@@ -42,7 +41,7 @@ class FilesModulePlugin extends Plugin
                 function ($identifier) {
                     return (new Decorator())->decorate($this->dispatch(new GetFolder($identifier)));
                 }
-            )
+            ),
         ];
     }
 }

@@ -16,7 +16,6 @@ use Illuminate\Contracts\Config\Repository;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Http\Controller
  */
 class FilesController extends PublicController
 {
@@ -24,11 +23,11 @@ class FilesController extends PublicController
     /**
      * Return a file's contents.
      *
-     * @param FileLocator $locator
-     * @param FileReader  $reader
-     * @param Repository  $config
-     * @param             $folder
-     * @param             $name
+     * @param  FileLocator                                $locator
+     * @param  FileReader                                 $reader
+     * @param  Repository                                 $config
+     * @param                                             $folder
+     * @param                                             $name
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param $path
      */
@@ -50,11 +49,11 @@ class FilesController extends PublicController
     /**
      * Stream a file's contents.
      *
-     * @param FileLocator  $locator
-     * @param FileStreamer $streamer
-     * @param Repository   $config
-     * @param              $folder
-     * @param              $name
+     * @param  FileLocator                                $locator
+     * @param  FileStreamer                               $streamer
+     * @param  Repository                                 $config
+     * @param                                             $folder
+     * @param                                             $name
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param $path
      */
@@ -76,11 +75,11 @@ class FilesController extends PublicController
     /**
      * Download a file.
      *
-     * @param FileLocator    $locator
-     * @param FileDownloader $downloader
-     * @param Repository     $config
-     * @param                $folder
-     * @param                $name
+     * @param  FileLocator                                $locator
+     * @param  FileDownloader                             $downloader
+     * @param  Repository                                 $config
+     * @param                                             $folder
+     * @param                                             $name
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param $path
      */
@@ -102,12 +101,12 @@ class FilesController extends PublicController
     /**
      * Return thumbnail image.
      *
-     * @param FileLocator $locator
-     * @param FileImage   $thumbnail
-     * @param Repository  $config
-     * @param Image       $image
-     * @param             $folder
-     * @param             $name
+     * @param  FileLocator                                $locator
+     * @param  FileImage                                  $thumbnail
+     * @param  Repository                                 $config
+     * @param  Image                                      $image
+     * @param                                             $folder
+     * @param                                             $name
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param Request $request
      * @internal param $path

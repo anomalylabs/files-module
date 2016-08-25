@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileImage extends FileResponse
 {
@@ -40,8 +39,8 @@ class FileImage extends FileResponse
     /**
      * Return the response headers.
      *
-     * @param Image $image
-     * @param int   $quality
+     * @param  Image    $image
+     * @param  int      $quality
      * @return Response
      */
     public function generate(Image $image, $quality = 60)

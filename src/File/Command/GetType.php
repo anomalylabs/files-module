@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -10,9 +9,8 @@ use Illuminate\Contracts\Config\Repository;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Command
  */
-class GetType implements SelfHandling
+class GetType
 {
 
     /**
@@ -35,7 +33,7 @@ class GetType implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param Repository $config
+     * @param  Repository      $config
      * @return int|null|string
      */
     public function handle(Repository $config)

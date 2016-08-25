@@ -9,6 +9,6 @@ return [
         'disks'    => '磁碟',
         'fields'   => '欄位',
         'folders'  => '目錄',
-        'adapters' => '連接器'
-    ]
+        'adapters' => '連接器',
+    ],
 ];

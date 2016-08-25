@@ -11,7 +11,6 @@ use League\Flysystem\Directory;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder
  */
 class FolderSynchronizer
 {
@@ -36,8 +35,8 @@ class FolderSynchronizer
     /**
      * Sync a file.
      *
-     * @param Directory     $resource
-     * @param DiskInterface $disk
+     * @param  Directory            $resource
+     * @param  DiskInterface        $disk
      * @return null|FolderInterface
      */
     public function sync(Directory $resource, DiskInterface $disk)
@@ -52,7 +51,7 @@ class FolderSynchronizer
             $folder = $this->folders->create(
                 [
                     'name'    => $path,
-                    'disk_id' => $disk->getId()
+                    'disk_id' => $disk->getId(),
                 ]
             );
         }

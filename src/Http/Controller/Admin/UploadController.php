@@ -13,7 +13,6 @@ use Illuminate\Contracts\Config\Repository;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
 class UploadController extends AdminController
 {
@@ -21,10 +20,10 @@ class UploadController extends AdminController
     /**
      * Return the form to upload files.
      *
-     * @param FolderRepositoryInterface $folders
-     * @param UploadTableBuilder        $table
-     * @param Guard                     $auth
-     * @param                           $folder
+     * @param  FolderRepositoryInterface                  $folders
+     * @param  UploadTableBuilder                         $table
+     * @param  Guard                                      $auth
+     * @param                                             $folder
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(FolderRepositoryInterface $folders, UploadTableBuilder $table, Guard $auth, $folder)
@@ -41,8 +40,8 @@ class UploadController extends AdminController
     /**
      * Handle the upload.
      *
-     * @param FileUploader              $uploader
-     * @param FolderRepositoryInterface $folders
+     * @param  FileUploader                  $uploader
+     * @param  FolderRepositoryInterface     $folders
      * @return \Illuminate\Http\JsonResponse
      */
     public function upload(FileUploader $uploader, FolderRepositoryInterface $folders)
@@ -67,7 +66,7 @@ class UploadController extends AdminController
     /**
      * Return table of uploaded files.
      *
-     * @param UploadTableBuilder $builder
+     * @param  UploadTableBuilder $builder
      * @return null|string
      */
     public function recent(UploadTableBuilder $builder)

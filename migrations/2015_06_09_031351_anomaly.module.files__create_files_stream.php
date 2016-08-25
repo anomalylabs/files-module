@@ -20,7 +20,7 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
     protected $stream = [
         'slug'         => 'files',
         'title_column' => 'name',
-        'trashable'    => true
+        'trashable'    => true,
     ];
 
     /**
@@ -30,29 +30,29 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
      */
     protected $assignments = [
         'name'      => [
-            'required' => true
+            'required' => true,
         ],
         'disk'      => [
-            'required' => true
+            'required' => true,
         ],
         'folder'    => [
-            'required' => true
+            'required' => true,
         ],
         'extension' => [
-            'required' => true
+            'required' => true,
         ],
         'size'      => [
-            'required' => true
+            'required' => true,
         ],
         'mime_type' => [
-            'required' => true
+            'required' => true,
         ],
         'entry'     => [
-            'required' => true
+            'required' => true,
         ],
         'keywords',
         'height',
-        'width'
+        'width',
     ];
 
 }

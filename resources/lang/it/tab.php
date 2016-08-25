@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'file' => 'File',
+    'file'   => 'File',
     'fields' => 'Campi',
 ];

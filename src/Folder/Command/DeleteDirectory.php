@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder\Command;
 
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\MountManager;
 
 /**
@@ -10,9 +9,8 @@ use League\Flysystem\MountManager;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder\Command
  */
-class DeleteDirectory implements SelfHandling
+class DeleteDirectory
 {
 
     /**

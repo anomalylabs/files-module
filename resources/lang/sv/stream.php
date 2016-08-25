@@ -2,12 +2,12 @@
 
 return [
     'files'   => [
-        'name' => 'Filer'
+        'name' => 'Filer',
     ],
     'disks'   => [
-        'name' => 'Diskar'
+        'name' => 'Diskar',
     ],
     'folders' => [
-        'name' => 'Mappar'
-    ]
+        'name' => 'Mappar',
+    ],
 ];

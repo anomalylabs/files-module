@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Table
  */
 class UploadTableBuilder extends TableBuilder
 {
@@ -43,7 +42,7 @@ class UploadTableBuilder extends TableBuilder
      */
     protected $columns = [
         'entry.preview' => [
-            'heading' => 'anomaly.module.files::field.preview.name'
+            'heading' => 'anomaly.module.files::field.preview.name',
         ],
         'name'          => [
             'sort_column' => 'name',
@@ -58,15 +57,15 @@ class UploadTableBuilder extends TableBuilder
                 'folder'   => 'entry.folder.slug',
                 'keywords' => 'entry.keywords.labels',
                 'disk'     => 'entry.folder.disk.slug',
-                'size'     => 'entry.size_label'
-            ]
+                'size'     => 'entry.size_label',
+            ],
         ],
         'size'          => [
             'sort_column' => 'size',
-            'value'       => 'entry.readable_size'
+            'value'       => 'entry.readable_size',
         ],
         'mime_type',
-        'folder'
+        'folder',
     ];
 
     /**
@@ -77,8 +76,8 @@ class UploadTableBuilder extends TableBuilder
     protected $buttons = [
         'edit',
         'view' => [
-            'target' => '_blank'
-        ]
+            'target' => '_blank',
+        ],
     ];
 
     /**
@@ -91,7 +90,7 @@ class UploadTableBuilder extends TableBuilder
         'enable_views'       => false,
         'enable_pagination'  => false,
         'sortable_headers'   => false,
-        'no_results_message' => 'module::message.no_uploads'
+        'no_results_message' => 'module::message.no_uploads',
     ];
 
     /**
@@ -123,7 +122,7 @@ class UploadTableBuilder extends TableBuilder
     /**
      * Set the uploaded IDs.
      *
-     * @param array $uploaded
+     * @param  array $uploaded
      * @return $this
      */
     public function setUploaded(array $uploaded)

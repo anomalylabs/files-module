@@ -2,26 +2,26 @@
 
 return [
     'name' => [
-        'name' => 'Nome',
+        'name'     => 'Nome',
     'instructions' => [
         'disks' => 'Indica un breve ma descrittivo nome per il disco.',
-    'folders' => 'Indica un breve ma descrittivo nome per la cartella.',
-    'files' => 'Indica il nome del file.',
+    'folders'   => 'Indica un breve ma descrittivo nome per la cartella.',
+    'files'     => 'Indica il nome del file.',
     ],
     ],
     'title' => [
-        'name' => 'Titolo',
+        'name'     => 'Titolo',
     'instructions' => 'Indica un breve ma descrittivo titolo per il file.',
     ],
     'slug' => [
-        'name' => 'Slug',
+        'name'     => 'Slug',
     'instructions' => 'Lo slug sarà usato per creare la destinazione di salvataggio.',
     ],
     'size' => [
         'name' => 'Dimensione',
     ],
     'disk' => [
-        'name' => 'Disco',
+        'name'     => 'Disco',
     'instructions' => 'Scegli a quale disco assegnare la cartella.',
     ],
     'folder' => [
@@ -31,7 +31,7 @@ return [
         'name' => 'Adapter',
     ],
     'keywords' => [
-        'name' => 'Keywords',
+        'name'     => 'Keywords',
     'instructions' => 'Indica delle keywords che ti aiutino a raggruppare i file.',
     ],
     'mime_type' => [
@@ -41,17 +41,17 @@ return [
         'name' => 'Anteprima',
     ],
     'description' => [
-        'name' => 'Descrizione',
+        'name'     => 'Descrizione',
     'instructions' => [
         'disks' => 'Descrivi brevemente il disco.',
-    'folder' => 'Descrivi brevemente la cartella.',
-    'files' => 'Descrivi brevemente il file.',
+    'folder'    => 'Descrivi brevemente la cartella.',
+    'files'     => 'Descrivi brevemente il file.',
     ],
     ],
     'allowed_types' => [
-        'name' => 'Tipi consentiti',
+        'name'     => 'Tipi consentiti',
     'instructions' => 'Indica quali tipi di file possono essere caricati in questa cartella.',
-    'warning' => 'Nota: ci sono differenze tra jpg e jpeg',
-    'placeholder' => 'pdf, psd, jpg, jpeg',
+    'warning'      => 'Nota: ci sono differenze tra jpg e jpeg',
+    'placeholder'  => 'pdf, psd, jpg, jpeg',
     ],
 ];

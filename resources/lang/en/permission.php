@@ -6,7 +6,7 @@ return [
         'option' => [
             'read'   => 'Can access files section?',
             'write'  => 'Can upload and edit files?',
-            'delete' => 'Can delete files?'
+            'delete' => 'Can delete files?',
         ],
     ],
     'folders' => [
@@ -14,22 +14,22 @@ return [
         'option' => [
             'read'   => 'Can access folders section?',
             'write'  => 'Can create and edit folders?',
-            'delete' => 'Can delete folders?'
-        ]
+            'delete' => 'Can delete folders?',
+        ],
     ],
     'disks'   => [
         'name'   => 'Disks',
         'option' => [
             'read'   => 'Can view disks?',
             'write'  => 'Can create and edit disks?',
-            'delete' => 'Can delete disks?'
-        ]
+            'delete' => 'Can delete disks?',
+        ],
     ],
     'fields'  => [
         'name'   => 'Fields',
         'option' => [
-            'manage' => 'Can manage custom fields?'
-        ]
-    ]
+            'manage' => 'Can manage custom fields?',
+        ],
+    ],
 ];
 

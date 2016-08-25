@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'file' => 'Fájl',
+    'file'   => 'Fájl',
     'fields' => 'Mezők',
 ];

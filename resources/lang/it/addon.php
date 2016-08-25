@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'title' => 'File',
-    'name' => 'Modulo File',
+    'title'       => 'File',
+    'name'        => 'Modulo File',
     'description' => 'Potente gestore di asset',
-    'section' => [
+    'section'     => [
         'files' => 'File',
-    'disks' => 'Dischi',
-    'fields' => 'Campi',
-    'folders' => 'Cartelle',
-    'adapters' => 'Adapter',
+    'disks'     => 'Dischi',
+    'fields'    => 'Campi',
+    'folders'   => 'Cartelle',
+    'adapters'  => 'Adapter',
     ],
 ];

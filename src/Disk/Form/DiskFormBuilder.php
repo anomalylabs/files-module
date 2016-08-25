@@ -10,7 +10,6 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk\Form
  */
 class DiskFormBuilder extends FormBuilder
 {
@@ -30,9 +29,9 @@ class DiskFormBuilder extends FormBuilder
     protected $fields = [
         'name',
         'slug' => [
-            'disabled' => 'edit'
+            'disabled' => 'edit',
         ],
-        'description'
+        'description',
     ];
 
     /**
@@ -41,7 +40,7 @@ class DiskFormBuilder extends FormBuilder
      * @var array
      */
     protected $skips = [
-        'adapter'
+        'adapter',
     ];
 
     /**
@@ -69,7 +68,7 @@ class DiskFormBuilder extends FormBuilder
     /**
      * Set the adapter.
      *
-     * @param AdapterInterface $adapter
+     * @param  AdapterInterface $adapter
      * @return $this
      */
     public function setAdapter(AdapterInterface $adapter)

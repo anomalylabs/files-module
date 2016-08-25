@@ -2,5 +2,5 @@
 
 return [
     'file'   => 'File',
-    'fields' => 'Fields'
+    'fields' => 'Fields',
 ];

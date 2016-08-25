@@ -15,16 +15,15 @@ use Anomaly\Streams\Platform\Stream\Contract\StreamRepositoryInterface;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
 class AssignmentsController extends AdminController
 {
 
     /**
-     * @param AssignmentTableBuilder    $table
-     * @param StreamRepositoryInterface $streams
-     * @param DiskRepositoryInterface   $disks
-     * @param                           $id
+     * @param  AssignmentTableBuilder                     $table
+     * @param  StreamRepositoryInterface                  $streams
+     * @param  DiskRepositoryInterface                    $disks
+     * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(
@@ -42,10 +41,10 @@ class AssignmentsController extends AdminController
     /**
      * Return the modal for choosing a field to assign.
      *
-     * @param FieldRepositoryInterface  $fields
-     * @param StreamRepositoryInterface $streams
-     * @param DiskRepositoryInterface   $disks
-     * @param                           $id
+     * @param  FieldRepositoryInterface  $fields
+     * @param  StreamRepositoryInterface $streams
+     * @param  DiskRepositoryInterface   $disks
+     * @param                            $id
      * @return \Illuminate\View\View
      */
     public function choose(
@@ -63,7 +62,7 @@ class AssignmentsController extends AdminController
             'module::ajax/choose_field',
             [
                 'fields' => $fields->findAllByNamespace('files')->notAssignedTo($stream)->unlocked(),
-                'id'     => $id
+                'id'     => $id,
             ]
         );
     }
@@ -71,12 +70,12 @@ class AssignmentsController extends AdminController
     /**
      * Create a new field assignment.
      *
-     * @param AssignmentFormBuilder     $builder
-     * @param DiskRepositoryInterface   $disks
-     * @param FieldRepositoryInterface  $fields
-     * @param StreamRepositoryInterface $streams
-     * @param                           $id
-     * @param                           $field
+     * @param  AssignmentFormBuilder                      $builder
+     * @param  DiskRepositoryInterface                    $disks
+     * @param  FieldRepositoryInterface                   $fields
+     * @param  StreamRepositoryInterface                  $streams
+     * @param                                             $id
+     * @param                                             $field
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(

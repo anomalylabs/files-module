@@ -9,7 +9,6 @@ use Illuminate\Contracts\Auth\Guard;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Table
  */
 class FileTableBuilder extends TableBuilder
 {
@@ -25,9 +24,9 @@ class FileTableBuilder extends TableBuilder
             'columns' => [
                 'name',
                 'size',
-                'type'
-            ]
-        ]
+                'type',
+            ],
+        ],
     ];
 
     /**
@@ -40,10 +39,10 @@ class FileTableBuilder extends TableBuilder
             'fields' => [
                 'name',
                 'keywords',
-                'mime_type'
-            ]
+                'mime_type',
+            ],
         ],
-        'folder'
+        'folder',
     ];
 
     /**
@@ -53,7 +52,7 @@ class FileTableBuilder extends TableBuilder
      */
     protected $columns = [
         'entry.preview' => [
-            'heading' => 'anomaly.module.files::field.preview.name'
+            'heading' => 'anomaly.module.files::field.preview.name',
         ],
         'name'          => [
             'sort_column' => 'name',
@@ -68,15 +67,15 @@ class FileTableBuilder extends TableBuilder
                 'folder'   => 'entry.folder.slug',
                 'keywords' => 'entry.keywords.labels',
                 'disk'     => 'entry.folder.disk.slug',
-                'size'     => 'entry.size_label'
-            ]
+                'size'     => 'entry.size_label',
+            ],
         ],
         'size'          => [
             'sort_column' => 'size',
-            'value'       => 'entry.readable_size'
+            'value'       => 'entry.readable_size',
         ],
         'mime_type',
-        'folder'
+        'folder',
     ];
 
     /**
@@ -87,8 +86,8 @@ class FileTableBuilder extends TableBuilder
     protected $buttons = [
         'edit',
         'view' => [
-            'target' => '_blank'
-        ]
+            'target' => '_blank',
+        ],
     ];
 
     /**
@@ -98,7 +97,7 @@ class FileTableBuilder extends TableBuilder
      */
     protected $actions = [
         'delete',
-        'edit'
+        'edit',
     ];
 
 }

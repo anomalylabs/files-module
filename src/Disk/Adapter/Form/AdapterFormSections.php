@@ -6,7 +6,6 @@
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk\Adapter\Form
  */
 class AdapterFormSections
 {
@@ -31,7 +30,7 @@ class AdapterFormSections
                             },
                             $disk->getFormFieldSlugs()
                         );
-                    }
+                    },
                 ],
                 'configuration' => [
                     'fields' => function () use ($configuration) {
@@ -41,8 +40,8 @@ class AdapterFormSections
                             },
                             $configuration->getFormFieldSlugs()
                         );
-                    }
-                ]
+                    },
+                ],
             ]
         );
     }

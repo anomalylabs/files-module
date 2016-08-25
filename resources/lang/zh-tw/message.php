@@ -10,5 +10,5 @@ return [
     'upload'            => '請點擊或直接將檔案拖曳至這裡，即可上傳。',
     'no_uploads'        => '沒有檔案被上傳。',
     'uploading'         => '上傳中',
-    'loading'           => '載入中'
+    'loading'           => '載入中',
 ];

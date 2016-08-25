@@ -3,31 +3,31 @@
 return [
     'files' => [
         'name' => 'Médiatár',
-    'option' => [
+    'option'   => [
         'read' => 'Hozzáférhet a fájlok szekcióhoz?',
-    'write' => 'Feltölthet és szerkeszthet fájlokat?',
-    'delete' => 'Törölhet fájlokat?',
+    'write'    => 'Feltölthet és szerkeszthet fájlokat?',
+    'delete'   => 'Törölhet fájlokat?',
     ],
     ],
     'folders' => [
         'name' => 'Könyvtárak',
-    'option' => [
+    'option'   => [
         'read' => 'Hozzáférhet a könyvtárak szekcióhoz?',
-    'write' => 'Létrehozhat és szerkeszthet könyvtárakat?',
-    'delete' => 'Törölhet könyvtárakat?',
+    'write'    => 'Létrehozhat és szerkeszthet könyvtárakat?',
+    'delete'   => 'Törölhet könyvtárakat?',
     ],
     ],
     'disks' => [
         'name' => 'Lemezek',
-    'option' => [
+    'option'   => [
         'read' => 'Láthatja a lemezeket?',
-    'write' => 'Létrehozhat és szerkeszthet lemezeket?',
-    'delete' => 'Törölhet lemezeket?',
+    'write'    => 'Létrehozhat és szerkeszthet lemezeket?',
+    'delete'   => 'Törölhet lemezeket?',
     ],
     ],
     'fields' => [
         'name' => 'Mezők',
-    'option' => [
+    'option'   => [
         'manage' => 'Kezelhet egyéni mezőket?',
     ],
     ],

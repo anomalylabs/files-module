@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder\Form
  */
 class FolderFormBuilder extends FormBuilder
 {
@@ -21,13 +20,13 @@ class FolderFormBuilder extends FormBuilder
     protected $fields = [
         'name',
         'slug' => [
-            'disabled' => 'edit'
+            'disabled' => 'edit',
         ],
         'description',
         'allowed_types',
         'disk' => [
-            'disabled' => 'edit'
-        ]
+            'disabled' => 'edit',
+        ],
     ];
 
 }

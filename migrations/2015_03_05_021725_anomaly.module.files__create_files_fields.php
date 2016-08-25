@@ -22,27 +22,27 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
         'slug'          => [
             'type'   => 'anomaly.field_type.slug',
             'config' => [
-                'slugify' => 'name'
-            ]
+                'slugify' => 'name',
+            ],
         ],
         'adapter'       => [
             'type'   => 'anomaly.field_type.addon',
             'config' => [
                 'type'   => 'extensions',
-                'search' => 'anomaly.module.files::adapter.*'
-            ]
+                'search' => 'anomaly.module.files::adapter.*',
+            ],
         ],
         'folder'        => [
             'type'   => 'anomaly.field_type.relationship',
             'config' => [
-                'related' => 'Anomaly\FilesModule\Folder\FolderModel'
-            ]
+                'related' => 'Anomaly\FilesModule\Folder\FolderModel',
+            ],
         ],
         'disk'          => [
             'type'   => 'anomaly.field_type.relationship',
             'config' => [
-                'related' => 'Anomaly\FilesModule\Disk\DiskModel'
-            ]
+                'related' => 'Anomaly\FilesModule\Disk\DiskModel',
+            ],
         ],
         'entry'         => 'anomaly.field_type.polymorphic',
         'description'   => 'anomaly.field_type.textarea',
@@ -52,7 +52,7 @@ class AnomalyModuleFilesCreateFilesFields extends Migration
         'width'         => 'anomaly.field_type.text',
         'height'        => 'anomaly.field_type.text',
         'mime_type'     => 'anomaly.field_type.text',
-        'size'          => 'anomaly.field_type.integer'
+        'size'          => 'anomaly.field_type.integer',
     ];
 
 }

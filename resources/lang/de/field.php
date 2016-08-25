@@ -2,27 +2,27 @@
 
 return [
     'alt'         => [
-        'name' => 'Alt Attribut'
+        'name' => 'Alt Attribut',
     ],
     'name'        => [
-        'name' => 'Name'
+        'name' => 'Name',
     ],
     'slug'        => [
-        'name' => 'Slug'
+        'name' => 'Slug',
     ],
     'size'        => [
-        'name' => 'Grösse'
+        'name' => 'Grösse',
     ],
     'adapter'     => [
-        'name' => 'Adapter'
+        'name' => 'Adapter',
     ],
     'keywords'    => [
-        'name' => 'Keywords'
+        'name' => 'Keywords',
     ],
     'mime_type'   => [
-        'name' => 'Mime-Typ'
+        'name' => 'Mime-Typ',
     ],
     'description' => [
-        'name' => 'Beschreibung'
-    ]
+        'name' => 'Beschreibung',
+    ],
 ];

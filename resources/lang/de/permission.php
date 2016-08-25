@@ -9,12 +9,12 @@ return [
         'title'  => 'Disks',
         'read'   => 'Kann Disks lesen?',
         'write'  => 'Kann Disks erstellen und bearbeiten?',
-        'delete' => 'Kann Disks löschen?'
+        'delete' => 'Kann Disks löschen?',
     ],
     'settings' => [
         'title' => 'Einstellungen',
         'read'  => 'Kann Einstellungen einsehen?',
-        'write' => 'Kann Einstellungen bearbeiten?'
-    ]
+        'write' => 'Kann Einstellungen bearbeiten?',
+    ],
 ];
 

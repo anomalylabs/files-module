@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\File;
 
 /**
@@ -12,9 +11,8 @@ use League\Flysystem\File;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk\Adapter\Command
  */
-class DeleteFile implements SelfHandling
+class DeleteFile
 {
 
     /**

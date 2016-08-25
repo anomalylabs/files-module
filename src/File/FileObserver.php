@@ -11,7 +11,6 @@ use Anomaly\Streams\Platform\Entry\EntryObserver;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File
  */
 class FileObserver extends EntryObserver
 {
@@ -19,12 +18,12 @@ class FileObserver extends EntryObserver
     /**
      * Fired before saving the file.
      *
-     * @param EntryInterface|FileInterface $entry
+     * @param  EntryInterface|FileInterface $entry
      * @return bool
      */
     public function saving(EntryInterface $entry)
     {
-        /**
+        /*
          * Make sure the resource exists.
          */
         if (!$resource = $entry->resource()) {
@@ -43,7 +42,7 @@ class FileObserver extends EntryObserver
      */
     public function deleted(EntryInterface $entry)
     {
-        /**
+        /*
          * Make sure the resource exists
          * and is deleted successfully.
          */

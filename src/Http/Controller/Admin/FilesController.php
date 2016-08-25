@@ -19,7 +19,6 @@ use Illuminate\Contracts\Config\Repository;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Http\Controller\Admin
  */
 class FilesController extends AdminController
 {
@@ -27,7 +26,7 @@ class FilesController extends AdminController
     /**
      * Display an index of existing entries.
      *
-     * @param FileTableBuilder $table
+     * @param  FileTableBuilder                           $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(FileTableBuilder $table)
@@ -47,7 +46,7 @@ class FilesController extends AdminController
         return $this->view->make(
             'module::ajax/choose_folder',
             [
-                'folders' => $folders->all()
+                'folders' => $folders->all(),
             ]
         );
     }
@@ -55,9 +54,9 @@ class FilesController extends AdminController
     /**
      * Return the form for editing an existing file.
      *
-     * @param FileRepositoryInterface $files
-     * @param FileEntryFormBuilder    $form
-     * @param                         $id
+     * @param  FileRepositoryInterface                    $files
+     * @param  FileEntryFormBuilder                       $form
+     * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(
@@ -83,9 +82,9 @@ class FilesController extends AdminController
     /**
      * Redirect to a file's URL.
      *
-     * @param FileRepositoryInterface $files
-     * @param FileReader              $reader
-     * @param                         $id
+     * @param  FileRepositoryInterface           $files
+     * @param  FileReader                        $reader
+     * @param                                    $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function view(FileRepositoryInterface $files, FileReader $reader, $id)
@@ -101,9 +100,9 @@ class FilesController extends AdminController
     /**
      * Return if a file exists or not.
      *
-     * @param FileRepositoryInterface   $files
-     * @param                           $folder
-     * @param                           $name
+     * @param  FileRepositoryInterface       $files
+     * @param                                $folder
+     * @param                                $name
      * @return \Illuminate\Http\JsonResponse
      */
     public function exists(FileRepositoryInterface $files, $folder, $name)

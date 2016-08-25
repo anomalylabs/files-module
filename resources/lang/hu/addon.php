@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'title' => 'Médiatár',
-    'name' => 'Fájl Modul',
+    'title'       => 'Médiatár',
+    'name'        => 'Fájl Modul',
     'description' => 'Fájlok kezelése egyszerűen',
-    'section' => [
+    'section'     => [
         'files' => 'Fájlok',
-    'disks' => 'Lemezek',
-    'fields' => 'Mezők',
-    'folders' => 'Könyvtárak',
-    'adapters' => 'Adapterek',
+    'disks'     => 'Lemezek',
+    'fields'    => 'Mezők',
+    'folders'   => 'Könyvtárak',
+    'adapters'  => 'Adapterek',
     ],
 ];

@@ -4,14 +4,14 @@ return [
     'thumbnails' => [
         'jpeg',
         'jpg',
-        'png'
+        'png',
     ],
     'types'      => [
         'archive'      => [
             '7z',
             'zip',
             'tar',
-            'tgz'
+            'tgz',
         ],
         'audio'        => [
             'mpga',
@@ -19,10 +19,10 @@ return [
             'mp3',
             'ra',
             'rv',
-            'wav'
+            'wav',
         ],
         'calendar'     => [
-            'ics'
+            'ics',
         ],
         'code'         => [
             'html',
@@ -30,32 +30,32 @@ return [
             'css',
             'php',
             'xml',
-            'json'
+            'json',
         ],
         'data'         => [
-            'csv'
+            'csv',
         ],
         'database'     => [
             'sql',
-            'spf'
+            'spf',
         ],
         'document'     => [
             'doc',
             'docx',
             'word',
             'pages',
-            'numbers'
+            'numbers',
         ],
         'font'         => [
             'eot',
             'ttf',
             'svg',
             'otf',
-            'woff'
+            'woff',
         ],
         'illustrator'  => [
             'ai',
-            'eps'
+            'eps',
         ],
         'image'        => [
             'bmp',
@@ -66,25 +66,25 @@ return [
             'png',
             'tiff',
             'tif',
-            'ico'
+            'ico',
         ],
         'pdf'          => [
-            'pdf'
+            'pdf',
         ],
         'photoshop'    => [
-            'psd'
+            'psd',
         ],
         'presentation' => [
-            'ppt'
+            'ppt',
         ],
         'spreadsheet'  => [
             'xls',
             'xlsx',
-            'xlsm'
+            'xlsm',
         ],
         'text'         => [
             'txt',
-            'rtf'
+            'rtf',
         ],
         'video'        => [
             'mpeg',
@@ -97,7 +97,7 @@ return [
             'avi',
             'movie',
             'ogv',
-            'webm'
-        ]
-    ]
+            'webm',
+        ],
+    ],
 ];

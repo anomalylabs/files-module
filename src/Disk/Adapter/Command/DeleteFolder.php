@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Illuminate\Contracts\Bus\SelfHandling;
 use League\Flysystem\Directory;
 
 /**
@@ -12,9 +11,8 @@ use League\Flysystem\Directory;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Disk\Adapter\Command
  */
-class DeleteFolder implements SelfHandling
+class DeleteFolder
 {
 
     /**
@@ -37,7 +35,7 @@ class DeleteFolder implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param FolderRepositoryInterface $folders
+     * @param  FolderRepositoryInterface $folders
      * @return FolderInterface|bool
      */
     public function handle(FolderRepositoryInterface $folders)

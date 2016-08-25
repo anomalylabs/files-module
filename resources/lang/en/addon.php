@@ -9,6 +9,6 @@ return [
         'disks'    => 'Disks',
         'fields'   => 'Fields',
         'folders'  => 'Folders',
-        'adapters' => 'Adapters'
-    ]
+        'adapters' => 'Adapters',
+    ],
 ];

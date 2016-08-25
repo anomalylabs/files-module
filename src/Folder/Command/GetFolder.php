@@ -3,7 +3,7 @@
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Support\Decorator;
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class GetFolder
@@ -11,9 +11,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder\Command
  */
-class GetFolder implements SelfHandling
+class GetFolder
 {
 
     /**
@@ -36,9 +35,9 @@ class GetFolder implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param FileRepositoryInterface   $files
-     * @param FolderRepositoryInterface $folders
-     * @param Decorator                 $decorator
+     * @param  FileRepositoryInterface                                                                                 $files
+     * @param  FolderRepositoryInterface                                                                               $folders
+     * @param  Decorator                                                                                               $decorator
      * @return \Anomaly\FilesModule\Folder\Contract\FolderInterface|\Anomaly\Streams\Platform\Model\EloquentModel|null
      */
     public function handle(FolderRepositoryInterface $folders)

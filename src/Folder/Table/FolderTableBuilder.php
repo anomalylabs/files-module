@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder\Table
  */
 class FolderTableBuilder extends TableBuilder
 {
@@ -23,10 +22,10 @@ class FolderTableBuilder extends TableBuilder
             'columns' => [
                 'name',
                 'slug',
-                'description'
-            ]
+                'description',
+            ],
         ],
-        'disk'
+        'disk',
     ];
 
     /**
@@ -37,7 +36,7 @@ class FolderTableBuilder extends TableBuilder
     protected $columns = [
         'name',
         'description',
-        'disk'
+        'disk',
     ];
 
     /**
@@ -50,9 +49,9 @@ class FolderTableBuilder extends TableBuilder
         'upload' => [
             'icon' => 'upload',
             'type' => 'success',
-            'href' => 'admin/files/upload/{entry.slug}'
+            'href' => 'admin/files/upload/{entry.slug}',
         ],
-        'assignments'
+        'assignments',
     ];
 
     /**
@@ -61,7 +60,7 @@ class FolderTableBuilder extends TableBuilder
      * @var array
      */
     protected $actions = [
-        'delete'
+        'delete',
     ];
 
     /**
@@ -70,7 +69,7 @@ class FolderTableBuilder extends TableBuilder
      * @var array
      */
     protected $options = [
-        'sortable' => true
+        'sortable' => true,
     ];
 
 }

@@ -8,7 +8,6 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule
  */
 class FilesModuleServiceProvider extends AddonServiceProvider
 {
@@ -19,7 +18,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $commands = [
-        'Anomaly\FilesModule\Console\Clean'
+        'Anomaly\FilesModule\Console\Clean',
     ];
 
     /**
@@ -28,7 +27,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $plugins = [
-        'Anomaly\FilesModule\FilesModulePlugin'
+        'Anomaly\FilesModule\FilesModulePlugin',
     ];
 
     /**
@@ -38,8 +37,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $listeners = [
         'Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered' => [
-            'Anomaly\FilesModule\Disk\Listener\RegisterDisks'
-        ]
+            'Anomaly\FilesModule\Disk\Listener\RegisterDisks',
+        ],
     ];
 
     /**
@@ -49,7 +48,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $bindings = [
         'Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel'   => 'Anomaly\FilesModule\File\FileModel',
-        'Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel' => 'Anomaly\FilesModule\Folder\FolderModel'
+        'Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel' => 'Anomaly\FilesModule\Folder\FolderModel',
     ];
 
     /**
@@ -61,7 +60,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'           => 'Anomaly\FilesModule\File\FileRepository',
         'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'           => 'Anomaly\FilesModule\Disk\DiskRepository',
         'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface'       => 'Anomaly\FilesModule\Folder\FolderRepository',
-        'Anomaly\FilesModule\Container\Contract\ContainerRepositoryInterface' => 'Anomaly\FilesModule\Container\ContainerRepository'
+        'Anomaly\FilesModule\Container\Contract\ContainerRepositoryInterface' => 'Anomaly\FilesModule\Container\ContainerRepository',
     ];
 
     /**
@@ -97,37 +96,37 @@ class FilesModuleServiceProvider extends AddonServiceProvider
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@upload',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)'
-            ]
+                'path' => '(.*)',
+            ],
         ],
         'files/{folder}/{name}'                                        => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)'
-            ]
+                'path' => '(.*)',
+            ],
         ],
         'files/thumb/{folder}/{name}'                                  => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumb',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)'
-            ]
+                'path' => '(.*)',
+            ],
         ],
         'files/stream/{folder}/{name}'                                 => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@stream',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)'
-            ]
+                'path' => '(.*)',
+            ],
         ],
         'files/download/{folder}/{name}'                               => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@download',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)'
-            ]
-        ]
+                'path' => '(.*)',
+            ],
+        ],
     ];
 
 }

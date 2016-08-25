@@ -9,7 +9,6 @@ use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Contract
  */
 interface FileRepositoryInterface extends EntryRepositoryInterface
 {
@@ -17,8 +16,8 @@ interface FileRepositoryInterface extends EntryRepositoryInterface
     /**
      * Find a file by it's name and folder.
      *
-     * @param                 $name
-     * @param FolderInterface $folder
+     * @param                     $name
+     * @param  FolderInterface    $folder
      * @return null|FileInterface
      */
     public function findByNameAndFolder($name, FolderInterface $folder);

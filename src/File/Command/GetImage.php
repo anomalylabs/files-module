@@ -2,7 +2,6 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Image\Image;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -11,9 +10,8 @@ use Illuminate\Contracts\Config\Repository;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Command
  */
-class GetImage implements SelfHandling
+class GetImage
 {
 
     /**
@@ -36,7 +34,7 @@ class GetImage implements SelfHandling
     /**
      * Handle the command.
      *
-     * @param Image $image
+     * @param  Image $image
      * @return Image
      */
     public function handle(Image $image)

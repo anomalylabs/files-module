@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamRepositoryInterface;
 use Illuminate\Config\Repository;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
@@ -12,9 +11,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\Folder\Command
  */
-class CreateStream implements SelfHandling
+class CreateStream
 {
 
     use DispatchesJobs;
@@ -48,13 +46,13 @@ class CreateStream implements SelfHandling
             [
                 $config->get('app.fallback_locale') => [
                     'name'        => $this->folder->getName(),
-                    'description' => $this->folder->getDescription()
+                    'description' => $this->folder->getDescription(),
                 ],
                 'slug'                              => $this->folder->getSlug(),
                 'namespace'                         => 'files',
                 'translatable'                      => true,
                 'trashable'                         => true,
-                'locked'                            => false
+                'locked'                            => false,
             ]
         );
     }

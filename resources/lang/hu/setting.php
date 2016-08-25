@@ -2,12 +2,12 @@
 
 return [
     'max_upload_size' => [
-        'name' => 'Maximális Feltöltési Méret',
+        'name'     => 'Maximális Feltöltési Méret',
     'instructions' => 'Határozd meg a maximális fájl méretet a feltöltéshez.',
-    'warning' => 'A szerver maximális feltöltési mérete jelenleg 2000MB',
+    'warning'      => 'A szerver maximális feltöltési mérete jelenleg 2000MB',
     ],
     'max_parallel_uploads' => [
-        'name' => 'Maximális párhuzamos feltöltések',
+        'name'     => 'Maximális párhuzamos feltöltések',
     'instructions' => 'Határozd meg a párhuzamosan futó feltöltések maximális számát.',
     ],
 ];
