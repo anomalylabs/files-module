@@ -2,13 +2,6 @@
 
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 
-/**
- * Class AnomalyModuleFilesCreateFilesStream
- *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
- */
 class AnomalyModuleFilesCreateFilesStream extends Migration
 {
 
@@ -47,12 +40,9 @@ class AnomalyModuleFilesCreateFilesStream extends Migration
         'mime_type' => [
             'required' => true,
         ],
-        'entry'     => [
-            'required' => true,
-        ],
+        'entry',
         'keywords',
         'height',
         'width',
     ];
-
 }
