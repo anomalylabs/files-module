@@ -71,7 +71,9 @@ class FilesController extends AdminController
 
         $form->addForm(
             'entry',
-            $entryForm->setModel($file->getFolder()->getEntryModelName())->setEntry($file->getEntry())
+            $entryForm
+                ->setFormMode('edit')
+                ->setModel($file->getFolder()->getEntryModelName())->setEntry($file->getEntry())
         );
 
         $form->addForm('file', $fileForm->setEntry($file));

@@ -23,5 +23,4 @@ class FileFormBuilder extends FormBuilder
         ],
         'keywords',
     ];
-
 }

@@ -65,7 +65,7 @@ class FileTableBuilder extends TableBuilder
             'value'       => [
                 'file'     => 'entry.name',
                 'folder'   => 'entry.folder.slug',
-                'keywords' => 'entry.keywords.labels',
+                'keywords' => 'entry.keywords.labels|join',
                 'disk'     => 'entry.folder.disk.slug',
                 'size'     => 'entry.size_label',
             ],
@@ -99,5 +99,4 @@ class FileTableBuilder extends TableBuilder
         'delete',
         'edit',
     ];
-
 }
