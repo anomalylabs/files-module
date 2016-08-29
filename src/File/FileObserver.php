@@ -5,13 +5,6 @@ use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
 
-/**
- * Class FileObserver
- *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
- */
 class FileObserver extends EntryObserver
 {
 
