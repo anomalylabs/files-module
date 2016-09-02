@@ -11,13 +11,6 @@ use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use League\Flysystem\File;
 
-/**
- * Class FileModel
- *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
- */
 class FileModel extends FilesFilesEntryModel implements FileInterface
 {
 
@@ -267,6 +260,10 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function toArray()
     {
         $array = parent::toArray();
+
+        if ($entry = $this->getEntry()) {
+            $array = array_merge($array, $entry->toArray());
+        }
 
         $array['path']     = $this->path();
         $array['location'] = $this->location();
