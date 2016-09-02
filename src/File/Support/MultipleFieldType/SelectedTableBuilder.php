@@ -6,7 +6,6 @@
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesModule\File\Support\MultipleFieldType
  */
 class SelectedTableBuilder extends \Anomaly\MultipleFieldType\Table\SelectedTableBuilder
 {
@@ -21,10 +20,10 @@ class SelectedTableBuilder extends \Anomaly\MultipleFieldType\Table\SelectedTabl
             'fields' => [
                 'name',
                 'keywords',
-                'mime_type'
-            ]
+                'mime_type',
+            ],
         ],
-        'folder'
+        'folder',
     ];
 
     /**
@@ -34,7 +33,7 @@ class SelectedTableBuilder extends \Anomaly\MultipleFieldType\Table\SelectedTabl
      */
     protected $columns = [
         'entry.preview' => [
-            'heading' => 'anomaly.module.files::field.preview.name'
+            'heading' => 'anomaly.module.files::field.preview.name',
         ],
         'name'          => [
             'sort_column' => 'name',
@@ -47,16 +46,16 @@ class SelectedTableBuilder extends \Anomaly\MultipleFieldType\Table\SelectedTabl
             'value'       => [
                 'file'     => 'entry.name',
                 'folder'   => 'entry.folder.slug',
-                'keywords' => 'entry.keywords.labels',
+                'keywords' => 'entry.keywords.labels|join',
                 'disk'     => 'entry.folder.disk.slug',
-                'size'     => 'entry.size_label'
-            ]
+                'size'     => 'entry.size_label',
+            ],
         ],
         'size'          => [
             'sort_column' => 'size',
-            'value'       => 'entry.readable_size'
+            'value'       => 'entry.readable_size',
         ],
         'mime_type',
-        'folder'
+        'folder',
     ];
 }
