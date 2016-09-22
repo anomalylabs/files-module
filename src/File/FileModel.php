@@ -264,7 +264,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $array = parent::toArray();
 
         if ($entry = $this->getEntry()) {
-            $array = array_merge($array, $entry->toArray());
+            $array = array_merge($entry->toArray(), $array);
         }
 
         $array['path']     = $this->path();
