@@ -48,7 +48,12 @@ class GetFile
 
         if (!is_numeric($this->identifier)) {
 
-            list($folder, $name) = explode('/', $this->identifier);
+            /**
+             * The expected format is disk://folder/filename.extension
+             * We can ignore the first since it is the disk.
+             * We can ignore the second since it is always blank (//)
+             */
+            list(, , $folder, $name) = explode('/', $this->identifier);
 
             if (!$folder = $folders->findBySlug($folder)) {
                 return null;
