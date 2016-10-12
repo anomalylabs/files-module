@@ -53,6 +53,14 @@ interface FileInterface extends EntryInterface
     public function resource();
 
     /**
+     * Return if the image can
+     * be previewed or not.
+     *
+     * @return boolean
+     */
+    public function canPreview();
+
+    /**
      * Get the name.
      *
      * @return string

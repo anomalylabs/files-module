@@ -126,7 +126,7 @@ class FilePresenter extends EntryPresenter
      */
     public function preview($width = 64, $height = 64)
     {
-        if ($this->type() == 'image') {
+        if ($this->type() == 'image' && $this->object->canPreview()) {
             return $this->object->image()
                 ->resize(
                     $width,
@@ -154,7 +154,7 @@ class FilePresenter extends EntryPresenter
      */
     public function thumbnail($width = 64, $height = 64)
     {
-        if ($this->type() == 'image') {
+        if ($this->type() == 'image' && $this->object->canPreview()) {
             return $this->object->image()->fit($width, $height)->output();
         }
 

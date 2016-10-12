@@ -67,6 +67,7 @@ return [
             'tiff',
             'tif',
             'ico',
+            'webp',
         ],
         'pdf'          => [
             'pdf',

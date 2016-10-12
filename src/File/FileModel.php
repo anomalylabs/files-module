@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Command\GetImage;
+use Anomaly\FilesModule\File\Command\GetPreviewSupport;
 use Anomaly\FilesModule\File\Command\GetResource;
 use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Contract\FileInterface;
@@ -61,7 +62,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function location()
     {
         if (!$disk = $this->getDisk()) {
-            return;
+            return null;
         }
 
         return "{$disk->getSlug()}://{$this->path()}";
@@ -105,6 +106,17 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function type()
     {
         return $this->dispatch(new GetType($this));
+    }
+
+    /**
+     * Return if the image can
+     * be previewed or not.
+     *
+     * @return boolean
+     */
+    public function canPreview()
+    {
+        return $this->dispatch(new GetPreviewSupport($this));
     }
 
     /**
