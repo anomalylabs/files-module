@@ -60,6 +60,14 @@ interface FileInterface extends EntryInterface
     public function resource();
 
     /**
+     * Return if the image can
+     * be previewed or not.
+     *
+     * @return boolean
+     */
+    public function canPreview();
+
+    /**
      * Return the file's primary mime type.
      *
      * @return string
