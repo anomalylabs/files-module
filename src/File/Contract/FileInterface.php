@@ -39,11 +39,18 @@ interface FileInterface extends EntryInterface
     public function location();
 
     /**
-     * Return an image instance.
+     * Return an Image instance.
      *
      * @return Image
      */
     public function image();
+
+    /**
+     * Return an Image instance.
+     *
+     * @return Image
+     */
+    public function make();
 
     /**
      * Return the file resource.
@@ -51,6 +58,20 @@ interface FileInterface extends EntryInterface
      * @return File
      */
     public function resource();
+
+    /**
+     * Return the file's primary mime type.
+     *
+     * @return string
+     */
+    public function primaryMimeType();
+
+    /**
+     * Return the file's sub mime type.
+     *
+     * @return string
+     */
+    public function secondaryMimeType();
 
     /**
      * Get the name.

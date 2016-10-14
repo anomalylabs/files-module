@@ -61,7 +61,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function location()
     {
         if (!$disk = $this->getDisk()) {
-            return;
+            return null;
         }
 
         return "{$disk->getSlug()}://{$this->path()}";

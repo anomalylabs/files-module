@@ -71,15 +71,43 @@ class FilePresenter extends EntryPresenter
     /**
      * Return the size label.
      *
+     * @deprecated since v2.2 use "entry.label(entry.dimensions)"
      * @return null|string
      */
     public function sizeLabel()
+    {
+        if (!$dimensions = $this->dimensions()) {
+            return null;
+        }
+
+        return $this->label($dimensions, 'info');
+    }
+
+    /**
+     * Return the image dimensions.
+     *
+     * @return null|string
+     */
+    public function dimensions()
     {
         if (!in_array($this->object->getExtension(), config('anomaly.module.files::mimes.thumbnails'))) {
             return null;
         }
 
-        return $this->label($this->object->getWidth() . ' x ' . $this->object->getHeight(), 'info');
+        return $this->object->getWidth() . ' x ' . $this->object->getHeight();
+    }
+
+    /**
+     * Return the size in a readable format.
+     *
+     * @deprecated since v2.2 use "size($unit, $decimals)";
+     * @param  string $unit
+     * @param  int    $decimals
+     * @return string
+     */
+    public function readableSize($unit = null, $decimals = 2)
+    {
+        return $this->size($unit, $decimals);
     }
 
     /**
@@ -89,7 +117,7 @@ class FilePresenter extends EntryPresenter
      * @param  int    $decimals
      * @return string
      */
-    public function readableSize($unit = null, $decimals = 2)
+    public function size($unit = null, $decimals = 2)
     {
         $bytes = $this->object->getSize();
 
@@ -120,8 +148,8 @@ class FilePresenter extends EntryPresenter
     /**
      * Return a file preview.
      *
-     * @param  int    $width
-     * @param  int    $height
+     * @param  int $width
+     * @param  int $height
      * @return string
      */
     public function preview($width = 64, $height = 64)
@@ -148,8 +176,8 @@ class FilePresenter extends EntryPresenter
     /**
      * Return a file preview.
      *
-     * @param  int    $width
-     * @param  int    $height
+     * @param  int $width
+     * @param  int $height
      * @return string
      */
     public function thumbnail($width = 64, $height = 64)
@@ -164,22 +192,6 @@ class FilePresenter extends EntryPresenter
             ->make('anomaly.module.files::img/types/' . $type . '.png')
             ->height($height)
             ->image();
-    }
-
-    /**
-     * Return the type of the mime.
-     *
-     * @return int|null|string
-     */
-    public function type()
-    {
-        foreach ($this->config->get('anomaly.module.files::mimes.types') as $type => $extensions) {
-            if (in_array($this->object->getExtension(), $extensions)) {
-                return $type;
-            }
-        }
-
-        return null;
     }
 
     /**
