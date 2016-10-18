@@ -24,7 +24,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
      *
      * @var int
      */
-    protected $cacheMinutes = 99999;
+    protected $ttl = 99999;
+
+    /**
+     * Always eager load these.
+     *
+     * @var array
+     */
+    protected $with = [
+        'translations',
+    ];
 
     /**
      * Get the name.
