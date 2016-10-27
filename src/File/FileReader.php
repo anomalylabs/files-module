@@ -23,7 +23,7 @@ class FileReader extends FileResponse
     {
         $response = $this->make($file);
 
-        return $response->sendHeaders();
+        return $response;
     }
 
     /**

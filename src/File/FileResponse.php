@@ -1,9 +1,9 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Illuminate\Http\Response;
 use Illuminate\Routing\ResponseFactory;
 use League\Flysystem\MountManager;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class FileResponse
@@ -49,7 +49,7 @@ class FileResponse
      */
     public function make(FileInterface $file)
     {
-        // Start the response.
+        /* @var Response $response */
         $response = $this->response->make();
 
         $response->headers->set('Etag', $file->etag());

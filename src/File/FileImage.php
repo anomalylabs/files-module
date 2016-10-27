@@ -52,6 +52,6 @@ class FileImage extends FileResponse
 
         $response = $response->setContent($image->encode(null, $quality));
 
-        return $response->sendHeaders();
+        return $response;
     }
 }
