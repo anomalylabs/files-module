@@ -111,7 +111,7 @@ class FilesController extends PublicController
      * @internal param Request $request
      * @internal param $path
      */
-    public function thumb(
+    public function thumbnail(
         FileLocator $locator,
         FileImage $thumbnail,
         Repository $config,
@@ -131,15 +131,8 @@ class FilesController extends PublicController
 
         $image = $image->make($file);
 
-        /*foreach ($request->all() as $method => $arguments) {
-
-            if (in_array($method = camel_case($method), $image->getAllowedMethods())) {
-                call_user_func_array([$image, camel_case($method)], explode(',', $arguments));
-            }
-        }*/
-
         $image->resize(148, 148);
 
-        return $thumbnail->generate($image, 75);
+        return $thumbnail->generate($image);
     }
 }

@@ -293,6 +293,22 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return the entry as a routable array.
+     *
+     * @return array
+     */
+    public function toRoutableArray()
+    {
+        $array = self::toArray();
+
+        $folder = $this->getFolder();
+
+        $array['folder'] = $folder->getSlug();
+
+        return $array;
+    }
+
+    /**
      * Return the searchable array.
      *
      * @return array

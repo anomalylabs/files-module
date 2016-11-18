@@ -100,6 +100,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
             ],
         ],
         'files/{folder}/{name}'                                        => [
+            'as'          => 'anomaly.module.files::files.view',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
@@ -107,13 +108,15 @@ class FilesModuleServiceProvider extends AddonServiceProvider
             ],
         ],
         'files/thumb/{folder}/{name}'                                  => [
-            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumb',
+            'as'          => 'anomaly.module.files::files.thumbnail',
+            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumbnail',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
                 'path' => '(.*)',
             ],
         ],
         'files/stream/{folder}/{name}'                                 => [
+            'as'          => 'anomaly.module.files::files.stream',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@stream',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',
@@ -121,6 +124,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
             ],
         ],
         'files/download/{folder}/{name}'                               => [
+            'as'          => 'anomaly.module.files::files.download',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@download',
             'constraints' => [
                 'disk' => '^[a-z0-9_]+$',

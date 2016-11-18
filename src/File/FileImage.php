@@ -39,18 +39,22 @@ class FileImage extends FileResponse
     /**
      * Return the response headers.
      *
-     * @param  Image    $image
-     * @param  int      $quality
+     * @param  Image $image
+     * @param  int   $quality
      * @return Response
      */
     public function generate(Image $image, $quality = 60)
     {
+        $image->quality($quality);
+        
         $response = parent::make($image->getImage());
 
         $response->headers->set('Content-Disposition', 'inline');
         $response->headers->remove('Content-Length');
 
-        $response = $response->setContent($image->encode(null, $quality));
+        $response = $response->setContent(
+            file_get_contents(base_path('public' . DIRECTORY_SEPARATOR . $image->path()))
+        );
 
         return $response;
     }
