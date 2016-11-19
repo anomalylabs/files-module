@@ -46,7 +46,7 @@ class FileImage extends FileResponse
     public function generate(Image $image, $quality = 60)
     {
         $image->quality($quality);
-        
+
         $response = parent::make($image->getImage());
 
         $response->headers->set('Content-Disposition', 'inline');
