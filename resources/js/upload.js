@@ -17,7 +17,7 @@ $(function () {
             paramName: 'upload',
             url: REQUEST_ROOT_PATH + '/admin/files/upload/handle',
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': CSRF_TOKEN
             },
             sending: function (file, xhr, formData) {
                 formData.append('folder', element.data('folder'));
