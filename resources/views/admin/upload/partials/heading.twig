@@ -15,7 +15,7 @@
                 {{ max_upload_size() }}MB</span>
 
             {% if folder.allowed_types.value %}
-                {{ folder.allowed_types.labels|join|raw }}
+                {{ folder.allowed_types.labels|join(' ')|raw }}
             {% endif %}
         </div>
 
