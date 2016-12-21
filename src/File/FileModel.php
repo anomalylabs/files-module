@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Command\GetImage;
 use Anomaly\FilesModule\File\Command\GetPreviewSupport;
@@ -76,6 +77,29 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function resource()
     {
         return $this->dispatch(new GetResource($this));
+    }
+
+    /**
+     * Return the resource filesystem.
+     *
+     * @return AdapterFilesystem
+     */
+    public function filesystem()
+    {
+        return $this
+            ->resource()
+            ->getFilesystem();
+    }
+
+    /**
+     * Return the filesystem URL.
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return $this->filesystem()
+            ->url($this->path());
     }
 
     /**

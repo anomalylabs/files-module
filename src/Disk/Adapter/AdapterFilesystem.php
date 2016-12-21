@@ -27,6 +27,13 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     use DispatchesJobs;
 
     /**
+     * The base URL.
+     *
+     * @var null|string
+     */
+    protected $baseUrl = null;
+
+    /**
      * The disk interface.
      *
      * @var DiskInterface
@@ -43,6 +50,8 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     public function __construct(DiskInterface $disk, AdapterInterface $adapter, $config = null)
     {
         $this->disk = $disk;
+
+        $this->baseUrl = array_get($config, 'base_url');
 
         parent::__construct($adapter, $config);
     }
@@ -138,9 +147,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     }
 
     /**
-     * @param  string              $path     path to file
-     * @param  string              $contents file contents
-     * @param  mixed               $config
+     * @param  string $path     path to file
+     * @param  string $contents file contents
+     * @param  mixed  $config
      * @throws FileExistsException
      * @return bool
      */
@@ -156,9 +165,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     }
 
     /**
-     * @param  string              $path     path to file
-     * @param  string              $contents file contents
-     * @param  mixed               $config
+     * @param  string $path     path to file
+     * @param  string $contents file contents
+     * @param  mixed  $config
      * @throws FileExistsException
      * @return bool
      */
@@ -256,6 +265,40 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         }
 
         return $result;
+    }
+
+    /**
+     * Return the real path to a file.
+     *
+     * @param $path
+     * @return string
+     */
+    public function url($path)
+    {
+        return rtrim($this->baseUrl, '/') . '/' . $path;
+    }
+
+    /**
+     * Get the base URL.
+     *
+     * @return mixed|null|string
+     */
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
+
+    /**
+     * Set the base URL.
+     *
+     * @param $baseUrl
+     * @return $this
+     */
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+
+        return $this;
     }
 
     /**
