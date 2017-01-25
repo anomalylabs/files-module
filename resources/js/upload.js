@@ -69,9 +69,12 @@ $(function () {
     });
 
     // When file fails to upload.
-    dropzone.on('error', function (file) {
+    dropzone.on('error', function (file, message) {
+
         file.previewElement.querySelector("[data-dz-uploadprogress]").setAttribute('value', 100);
         file.previewElement.querySelector('[data-dz-uploadprogress]').setAttribute('class', 'progress progress-danger');
+
+        alert(message.error);
     });
 
     // When all files are processed.
