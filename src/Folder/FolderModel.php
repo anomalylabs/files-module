@@ -6,7 +6,6 @@ use Anomaly\FilesModule\Folder\Command\GetStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Anomaly\UsersModule\Role\RoleCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -20,13 +19,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
 {
 
     /**
-     * Cache results.
-     *
-     * @var int
-     */
-    protected $ttl = 99999;
-
-    /**
      * Always eager load these.
      *
      * @var array
@@ -34,6 +26,19 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     protected $with = [
         'translations',
     ];
+
+    /**
+     * Return the folder path.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function path($path = null)
+    {
+        $disk = $this->getDisk();
+
+        return $disk->path($this->getSlug() . ($path ? '/' . $path : null));
+    }
 
     /**
      * Get the name.
