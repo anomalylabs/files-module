@@ -6,7 +6,6 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\FolderCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
-use Anomaly\UsersModule\Role\RoleCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -20,11 +19,15 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
 {
 
     /**
-     * Cache results.
+     * Return the disk path.
      *
-     * @var int
+     * @param null $path
+     * @return string
      */
-    protected $cacheMinutes = 99999;
+    public function path($path = null)
+    {
+        return $this->getSlug() . '://' . ($path ? '/' . $path : null);
+    }
 
     /**
      * Return the disk's filesystem.
