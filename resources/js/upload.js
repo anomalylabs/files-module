@@ -22,15 +22,15 @@ $(function () {
             sending: function (file, xhr, formData) {
                 formData.append('folder', element.data('folder'));
             },
-            accept: function(file, done) {
-                $.getJSON(REQUEST_ROOT_PATH + '/admin/files/exists/' + element.data('folder') + '/' + file.name, function(data) {
-                    if(data.exists) {
-                        if(!confirm(file.name + " " + element.data('overwrite'))) {
+            accept: function (file, done) {
+                $.getJSON(REQUEST_ROOT_PATH + '/admin/files/exists/' + element.data('folder') + '/' + file.name, function (data) {
+                    if (data.exists) {
+                        if (!confirm(file.name + " " + element.data('overwrite'))) {
                             dropzone.removeFile(file);
                             return;
                         }
                     }
-                    
+
                     done();
                 });
             },
@@ -74,7 +74,7 @@ $(function () {
         file.previewElement.querySelector("[data-dz-uploadprogress]").setAttribute('value', 100);
         file.previewElement.querySelector('[data-dz-uploadprogress]').setAttribute('class', 'progress progress-danger');
 
-        alert(message.error);
+        alert(message.error ? message.error : message);
     });
 
     // When all files are processed.
