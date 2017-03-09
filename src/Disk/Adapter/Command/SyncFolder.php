@@ -35,7 +35,7 @@ class SyncFolder
     /**
      * Handle the command.
      *
-     * @param  FolderSynchronizer   $synchronizer
+     * @param  FolderSynchronizer $synchronizer
      * @return null|FolderInterface
      */
     public function handle(FolderSynchronizer $synchronizer)

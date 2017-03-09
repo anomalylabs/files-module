@@ -35,8 +35,8 @@ class FolderSynchronizer
     /**
      * Sync a file.
      *
-     * @param  Directory            $resource
-     * @param  DiskInterface        $disk
+     * @param  Directory     $resource
+     * @param  DiskInterface $disk
      * @return null|FolderInterface
      */
     public function sync(Directory $resource, DiskInterface $disk)

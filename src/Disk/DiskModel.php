@@ -19,6 +19,15 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
 {
 
     /**
+     * The cascaded relations.
+     *
+     * @var array
+     */
+    protected $cascades = [
+        'folders',
+    ];
+
+    /**
      * Return the disk path.
      *
      * @param null $path
@@ -27,6 +36,16 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function path($path = null)
     {
         return $this->getSlug() . '://' . ($path ? '/' . $path : null);
+    }
+
+    /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -47,16 +66,6 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Get the slug.
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**

@@ -28,6 +28,15 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     ];
 
     /**
+     * The cascaded relations.
+     *
+     * @var array
+     */
+    protected $cascades = [
+        'files',
+    ];
+
+    /**
      * Return the folder path.
      *
      * @param null $path
@@ -41,13 +50,13 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Get the name.
+     * Get the related disk.
      *
-     * @return string
+     * @return DiskInterface
      */
-    public function getName()
+    public function getDisk()
     {
-        return $this->name;
+        return $this->disk;
     }
 
     /**
@@ -61,13 +70,13 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Get the related disk.
+     * Get the name.
      *
-     * @return DiskInterface
+     * @return string
      */
-    public function getDisk()
+    public function getName()
     {
-        return $this->disk;
+        return $this->name;
     }
 
     /**
@@ -78,16 +87,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Get the allowed types.
-     *
-     * @return array
-     */
-    public function getAllowedTypes()
-    {
-        return $this->allowed_types;
     }
 
     /**
@@ -105,6 +104,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
             },
             $this->getAllowedTypes()
         );
+    }
+
+    /**
+     * Get the allowed types.
+     *
+     * @return array
+     */
+    public function getAllowedTypes()
+    {
+        return $this->allowed_types;
     }
 
     /**

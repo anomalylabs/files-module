@@ -13,7 +13,8 @@
         <ul class="nav nav-pills nav-stacked">
             {% for field in fields %}
                 <li class="nav-item">
-                    <a href="{{ url_to('admin/files/folders/assignments/' ~ id ~ '/assign/' ~ field.id) }}" class="nav-link">
+                    <a href="{{ url_to('admin/files/folders/assignments/' ~ id ~ '/assign/' ~ field.id) }}"
+                       class="nav-link">
                         <strong>{{ trans(field.name) }}</strong>
                     </a>
                 </li>

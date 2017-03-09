@@ -21,7 +21,7 @@ class DisksController extends AdminController
     /**
      * Return an index of existing disks.
      *
-     * @param  DiskTableBuilder                           $table
+     * @param  DiskTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(DiskTableBuilder $table)
@@ -33,7 +33,7 @@ class DisksController extends AdminController
      * Return an ajax modal to choose the type
      * of adapter to use for creating a new disk.
      *
-     * @param  ExtensionCollection   $extensions
+     * @param  ExtensionCollection $extensions
      * @return \Illuminate\View\View
      */
     public function choose(ExtensionCollection $extensions)
@@ -49,10 +49,10 @@ class DisksController extends AdminController
     /**
      * Return the form to create a new disk.
      *
-     * @param  DiskFormBuilder                            $disk
-     * @param  AdapterFormBuilder                         $form
-     * @param  ExtensionCollection                        $adapters
-     * @param  ConfigurationFormBuilder                   $configuration
+     * @param  DiskFormBuilder          $disk
+     * @param  AdapterFormBuilder       $form
+     * @param  ExtensionCollection      $adapters
+     * @param  ConfigurationFormBuilder $configuration
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(

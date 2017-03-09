@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule;
 
-use Anomaly\FilesModule\Seeder\DiskSeeder;
-use Anomaly\FilesModule\Seeder\FolderSeeder;
+use Anomaly\FilesModule\Disk\DiskSeeder;
+use Anomaly\FilesModule\Folder\FolderSeeder;
 use Anomaly\Streams\Platform\Database\Seeder\Seeder;
 
 /**

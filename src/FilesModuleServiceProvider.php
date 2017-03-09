@@ -1,6 +1,21 @@
 <?php namespace Anomaly\FilesModule;
 
+use Anomaly\FilesModule\Console\Clean;
+use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
+use Anomaly\FilesModule\Disk\DiskModel;
+use Anomaly\FilesModule\Disk\DiskRepository;
+use Anomaly\FilesModule\Disk\Listener\RegisterDisks;
+use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\FileModel;
+use Anomaly\FilesModule\File\FileRepository;
+use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
+use Anomaly\FilesModule\Folder\FolderModel;
+use Anomaly\FilesModule\Folder\FolderRepository;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
+use Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered;
+use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
+use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
+use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
 
 /**
  * Class FilesModuleServiceProvider
@@ -18,7 +33,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $commands = [
-        'Anomaly\FilesModule\Console\Clean',
+        Clean::class,
     ];
 
     /**
@@ -27,7 +42,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $plugins = [
-        'Anomaly\FilesModule\FilesModulePlugin',
+        FilesModulePlugin::class,
     ];
 
     /**
@@ -36,8 +51,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $listeners = [
-        'Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered' => [
-            'Anomaly\FilesModule\Disk\Listener\RegisterDisks',
+        AddonsHaveRegistered::class => [
+            RegisterDisks::class,
         ],
     ];
 
@@ -47,8 +62,9 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $bindings = [
-        'Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel'   => 'Anomaly\FilesModule\File\FileModel',
-        'Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel' => 'Anomaly\FilesModule\Folder\FolderModel',
+        FilesFilesEntryModel::class   => FileModel::class,
+        FilesDisksEntryModel::class   => DiskModel::class,
+        FilesFoldersEntryModel::class => FolderModel::class,
     ];
 
     /**
@@ -57,10 +73,9 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $singletons = [
-        'Anomaly\FilesModule\File\Contract\FileRepositoryInterface'           => 'Anomaly\FilesModule\File\FileRepository',
-        'Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface'           => 'Anomaly\FilesModule\Disk\DiskRepository',
-        'Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface'       => 'Anomaly\FilesModule\Folder\FolderRepository',
-        'Anomaly\FilesModule\Container\Contract\ContainerRepositoryInterface' => 'Anomaly\FilesModule\Container\ContainerRepository',
+        FileRepositoryInterface::class   => FileRepository::class,
+        DiskRepositoryInterface::class   => DiskRepository::class,
+        FolderRepositoryInterface::class => FolderRepository::class,
     ];
 
     /**

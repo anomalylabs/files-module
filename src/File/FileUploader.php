@@ -5,7 +5,6 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Factory;
 use League\Flysystem\MountManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -81,8 +80,8 @@ class FileUploader
     /**
      * Upload a file.
      *
-     * @param  UploadedFile       $file
-     * @param  FolderInterface    $folder
+     * @param  UploadedFile    $file
+     * @param  FolderInterface $folder
      * @return bool|FileInterface
      */
     public function upload(UploadedFile $file, FolderInterface $folder)

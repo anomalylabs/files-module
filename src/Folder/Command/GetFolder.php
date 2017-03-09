@@ -35,9 +35,9 @@ class GetFolder
     /**
      * Handle the command.
      *
-     * @param  FileRepositoryInterface                                                                                 $files
-     * @param  FolderRepositoryInterface                                                                               $folders
-     * @param  Decorator                                                                                               $decorator
+     * @param  FileRepositoryInterface   $files
+     * @param  FolderRepositoryInterface $folders
+     * @param  Decorator                 $decorator
      * @return \Anomaly\FilesModule\Folder\Contract\FolderInterface|\Anomaly\Streams\Platform\Model\EloquentModel|null
      */
     public function handle(FolderRepositoryInterface $folders)

@@ -5,8 +5,6 @@ use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
 use Anomaly\FilesModule\Folder\FolderCollection;
 use Anomaly\Streams\Platform\Addon\Extension\Extension;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
-use Anomaly\UsersModule\Role\RoleCollection;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
