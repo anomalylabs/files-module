@@ -90,7 +90,19 @@ class FilePresenter extends EntryPresenter
      */
     public function dimensions()
     {
-        if (!in_array($this->object->getExtension(), config('anomaly.module.files::mimes.thumbnails'))) {
+        $extension = $this->object->getExtension();
+
+        /**
+         * Only images can provide sizes.
+         */
+        if (!in_array($extension, config('anomaly.module.files::mimes.thumbnails'))) {
+            return null;
+        }
+
+        /**
+         * Except SVGs.. they're spooky.
+         */
+        if ($extension == 'svg') {
             return null;
         }
 
