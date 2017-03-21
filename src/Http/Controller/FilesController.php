@@ -39,7 +39,7 @@ class FilesController extends PublicController
             abort(404);
         }
 
-        if (!$file = $locator->locate($folder, $name)) {
+        if (!$file = $locator->locate($folder, urldecode($name))) {
             abort(404);
         }
 
@@ -65,7 +65,7 @@ class FilesController extends PublicController
             abort(404);
         }
 
-        if (!$file = $locator->locate($folder, $name)) {
+        if (!$file = $locator->locate($folder, urldecode($name))) {
             abort(404);
         }
 
@@ -91,7 +91,7 @@ class FilesController extends PublicController
             abort(404);
         }
 
-        if (!$file = $locator->locate($folder, $name)) {
+        if (!$file = $locator->locate($folder, urldecode($name))) {
             abort(404);
         }
 
@@ -125,7 +125,7 @@ class FilesController extends PublicController
             abort(404);
         }
 
-        if (!$file = $locator->locate($folder, $name)) {
+        if (!$file = $locator->locate($folder, urldecode($name))) {
             abort(404);
         }
 
