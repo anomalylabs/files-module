@@ -18,15 +18,39 @@ class FolderFormBuilder extends FormBuilder
      * @var array
      */
     protected $fields = [
-        'name',
+        '*',
         'slug' => [
             'disabled' => 'edit',
         ],
-        'description',
-        'allowed_types',
         'disk' => [
             'disabled' => 'edit',
         ],
     ];
 
+    /**
+     * The form sections.
+     *
+     * @var array
+     */
+    protected $sections = [
+        'disk' => [
+            'tabs' => [
+                'general' => [
+                    'title'  => 'anomaly.module.files::tab.general',
+                    'fields' => [
+                        'name',
+                        'slug',
+                        'description',
+                    ],
+                ],
+                'options' => [
+                    'title'  => 'anomaly.module.files::tab.options',
+                    'fields' => [
+                        'allowed_types',
+                        'disk',
+                    ],
+                ],
+            ],
+        ],
+    ];
 }
