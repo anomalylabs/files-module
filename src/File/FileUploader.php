@@ -104,7 +104,7 @@ class FileUploader
 
         /* @var FileInterface|EloquentModel $entry */
         $entry = $this->manager->put(
-            $disk->getSlug() . '://' . $folder->getSlug() . '/' . $file->getClientOriginalName(),
+            $disk->getSlug() . '://' . $folder->getSlug() . '/' . urldecode($file->getClientOriginalName()),
             file_get_contents($file->getRealPath())
         );
 
