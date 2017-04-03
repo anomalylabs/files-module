@@ -2,7 +2,7 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
-use Anomaly\FilesModule\File\FileReader;
+use Anomaly\FilesModule\File\FileStreamer;
 use Anomaly\FilesModule\File\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
@@ -85,18 +85,18 @@ class FilesController extends AdminController
      * Redirect to a file's URL.
      *
      * @param  FileRepositoryInterface           $files
-     * @param  FileReader                        $reader
+     * @param  FileStreamer                      $streamer
      * @param                                    $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function view(FileRepositoryInterface $files, FileReader $reader, $id)
+    public function view(FileRepositoryInterface $files, FileStreamer $streamer, $id)
     {
         /* @var FileInterface $file */
         if (!$file = $files->find($id)) {
             abort(404);
         }
 
-        return $reader->read($file);
+        return $streamer->stream($file);
     }
 
     /**
