@@ -168,13 +168,15 @@ class FilePresenter extends EntryPresenter
     {
         if ($this->type() == 'image' && $this->object->canPreview()) {
             return $this->object->image()
+                ->width($width . 'px')
                 ->resize(
                     $width,
                     $height,
                     function (Constraint $constraint) {
                         $constraint->aspectRatio();
                     }
-                )->output();
+                )
+                ->output();
         }
 
         $type = $this->dispatch(new GetType($this->object)) ?: 'document';
