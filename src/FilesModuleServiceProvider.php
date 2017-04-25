@@ -76,7 +76,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/upload/{folder}'                                  => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@index',
         'admin/files/edit/{id}'                                        => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@edit',
         'admin/files/view/{id}'                                        => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@view',
-        'admin/files/exists/{folder}/{name}'                           => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@exists',
+        'admin/files/exists/{folder}/{name}/check'                     => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@exists',
         'admin/files/folders'                                          => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@index',
         'admin/files/folders/create'                                   => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@create',
         'admin/files/folders/edit/{id}'                                => 'Anomaly\FilesModule\Http\Controller\Admin\FoldersController@edit',

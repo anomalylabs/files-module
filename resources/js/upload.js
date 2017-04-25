@@ -23,7 +23,7 @@ $(function () {
                 formData.append('folder', element.data('folder'));
             },
             accept: function(file, done) {
-                $.getJSON(REQUEST_ROOT_PATH + '/admin/files/exists/' + element.data('folder') + '/' + file.name, function(data) {
+                $.getJSON(REQUEST_ROOT_PATH + '/admin/files/exists/' + element.data('folder') + '/' + file.name + '/check', function(data) {
                     if(data.exists) {
                         if(!confirm(file.name + " " + element.data('overwrite'))) {
                             dropzone.removeFile(file);
