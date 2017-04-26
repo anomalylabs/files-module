@@ -21,4 +21,12 @@ interface FileRepositoryInterface extends EntryRepositoryInterface
      * @return null|FileInterface
      */
     public function findByNameAndFolder($name, FolderInterface $folder);
+
+    /**
+     * Find files by folder.
+     *
+     * @param  FolderInterface    $folder
+     * @return null|EloquentCollection
+     */
+    public function findAllByFolder(FolderInterface $folder);
 }
