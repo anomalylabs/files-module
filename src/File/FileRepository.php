@@ -46,4 +46,17 @@ class FileRepository extends EntryRepository implements FileRepositoryInterface
             ->where('folder_id', $folder->getId())
             ->first();
     }
+
+    /**
+     * Find files by folder.
+     *
+     * @param  FolderInterface    $folder
+     * @return null|EloquentCollection
+     */
+    public function findAllByFolder(FolderInterface $folder)
+    {
+        return $this->model
+            ->where('folder_id', $folder->getId())
+            ->get();
+    }
 }
