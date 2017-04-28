@@ -139,6 +139,20 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Get the related entry stream ID.
+     *
+     * @return int
+     */
+    public function getEntryStreamId()
+    {
+        if (!$stream = $this->getEntryStream()) {
+            return null;
+        }
+
+        return $stream->getId();
+    }
+
+    /**
      * Get related files.
      *
      * @return FileCollection
