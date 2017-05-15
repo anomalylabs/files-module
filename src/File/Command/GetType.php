@@ -33,7 +33,7 @@ class GetType
     /**
      * Handle the command.
      *
-     * @param  Repository      $config
+     * @param  Repository $config
      * @return int|null|string
      */
     public function handle(Repository $config)

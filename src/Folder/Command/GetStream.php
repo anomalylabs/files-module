@@ -34,7 +34,7 @@ class GetStream
     /**
      * Handle the command.
      *
-     * @param  StreamRepositoryInterface                                      $streams
+     * @param  StreamRepositoryInterface $streams
      * @return \Anomaly\Streams\Platform\Stream\Contract\StreamInterface|null
      */
     public function handle(StreamRepositoryInterface $streams)

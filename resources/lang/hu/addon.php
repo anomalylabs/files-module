@@ -5,10 +5,10 @@ return [
     'name'        => 'Fájl Modul',
     'description' => 'Fájlok kezelése egyszerűen',
     'section'     => [
-        'files' => 'Fájlok',
-    'disks'     => 'Lemezek',
-    'fields'    => 'Mezők',
-    'folders'   => 'Könyvtárak',
-    'adapters'  => 'Adapterek',
+        'files'    => 'Fájlok',
+        'disks'    => 'Lemezek',
+        'fields'   => 'Mezők',
+        'folders'  => 'Könyvtárak',
+        'adapters' => 'Adapterek',
     ],
 ];

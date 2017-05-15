@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\File;
 
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\Command\GetImage;
 use Anomaly\FilesModule\File\Command\GetPreviewSupport;
@@ -23,13 +24,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
 {
 
     /**
-     * Cache results.
-     *
-     * @var int
-     */
-    protected $ttl = 99999;
-
-    /**
      * Always eager load these.
      *
      * @var array
@@ -39,6 +33,48 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         'folder',
         'entry',
     ];
+
+    /**
+     * The cascaded relations.
+     *
+     * @var array
+     */
+    protected $cascades = [
+        'entry',
+    ];
+
+    /**
+     * Return the filesystem URL.
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return $this->filesystem()
+            ->url($this->path());
+    }
+
+    /**
+     * Return the resource filesystem.
+     *
+     * @return AdapterFilesystem
+     */
+    public function filesystem()
+    {
+        return $this
+            ->resource()
+            ->getFilesystem();
+    }
+
+    /**
+     * Return the file resource.
+     *
+     * @return File
+     */
+    public function resource()
+    {
+        return $this->dispatch(new GetResource($this));
+    }
 
     /**
      * Return the file path.
@@ -55,37 +91,23 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Return the file location.
+     * Get the related folder.
+     *
+     * @return null|FolderInterface
+     */
+    public function getFolder()
+    {
+        return $this->folder;
+    }
+
+    /**
+     * Get the name.
      *
      * @return string
      */
-    public function location()
+    public function getName()
     {
-        if (!$disk = $this->getDisk()) {
-            return null;
-        }
-
-        return "{$disk->getSlug()}://{$this->path()}";
-    }
-
-    /**
-     * Return the file resource.
-     *
-     * @return File
-     */
-    public function resource()
-    {
-        return $this->dispatch(new GetResource($this));
-    }
-
-    /**
-     * Return a new image instance.
-     *
-     * @return Image
-     */
-    public function image()
-    {
-        return $this->dispatch(new GetImage($this));
+        return $this->name;
     }
 
     /**
@@ -96,6 +118,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function make()
     {
         return $this->image();
+    }
+
+    /**
+     * Return a new image instance.
+     *
+     * @return Image
+     */
+    public function image()
+    {
+        return $this->dispatch(new GetImage($this));
     }
 
     /**
@@ -132,6 +164,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Get the mime type.
+     *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mime_type;
+    }
+
+    /**
      * Return the file's sub mime type.
      *
      * @return string
@@ -141,26 +183,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         $mimes = explode('/', $this->getMimeType());
 
         return array_pop($mimes);
-    }
-
-    /**
-     * Get the name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the related disk.
-     *
-     * @return DiskInterface
-     */
-    public function getDisk()
-    {
-        return $this->disk;
     }
 
     /**
@@ -191,26 +213,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getHeight()
     {
         return $this->height;
-    }
-
-    /**
-     * Get the related folder.
-     *
-     * @return null|FolderInterface
-     */
-    public function getFolder()
-    {
-        return $this->folder;
-    }
-
-    /**
-     * Get the mime type.
-     *
-     * @return string
-     */
-    public function getMimeType()
-    {
-        return $this->mime_type;
     }
 
     /**
@@ -254,16 +256,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Get the related entry.
-     *
-     * @return EntryInterface
-     */
-    public function getEntry()
-    {
-        return $this->entry;
-    }
-
-    /**
      * Get the related entry ID.
      *
      * @return null|int
@@ -271,6 +263,22 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getEntryId()
     {
         return $this->entry_id;
+    }
+
+    /**
+     * Return the entry as a routable array.
+     *
+     * @return array
+     */
+    public function toRoutableArray()
+    {
+        $array = self::toArray();
+
+        $folder = $this->getFolder();
+
+        $array['folder'] = $folder->getSlug();
+
+        return $array;
     }
 
     /**
@@ -293,19 +301,37 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Return the entry as a routable array.
+     * Get the related entry.
      *
-     * @return array
+     * @return EntryInterface
      */
-    public function toRoutableArray()
+    public function getEntry()
     {
-        $array = self::toArray();
+        return $this->entry;
+    }
 
-        $folder = $this->getFolder();
+    /**
+     * Return the file location.
+     *
+     * @return string
+     */
+    public function location()
+    {
+        if (!$disk = $this->getDisk()) {
+            return null;
+        }
 
-        $array['folder'] = $folder->getSlug();
+        return "{$disk->getSlug()}://{$this->path()}";
+    }
 
-        return $array;
+    /**
+     * Get the related disk.
+     *
+     * @return DiskInterface
+     */
+    public function getDisk()
+    {
+        return $this->disk;
     }
 
     /**

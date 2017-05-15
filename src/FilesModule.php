@@ -37,13 +37,20 @@ class FilesModule extends Module
             ],
         ],
         'folders' => [
-            'buttons' => [
+            'buttons'  => [
                 'new_folder',
-                'assign_fields' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'enabled'     => 'admin/files/folders/assignments/*',
-                    'href'        => 'admin/files/folders/choose/{request.route.parameters.id}',
+            ],
+            'sections' => [
+                'assignments' => [
+                    'hidden'  => true,
+                    'href'    => 'admin/files/folders/assignments/{request.route.parameters.stream}',
+                    'buttons' => [
+                        'assign_fields' => [
+                            'data-toggle' => 'modal',
+                            'data-target' => '#modal',
+                            'href'        => 'admin/files/folders/assignments/{request.route.parameters.stream}/choose',
+                        ],
+                    ],
                 ],
             ],
         ],

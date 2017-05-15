@@ -21,7 +21,7 @@ class FolderObserver extends EntryObserver
     /**
      * Fired just after creating an entry.
      *
-     * @param EntryInterface $entry
+     * @param EntryInterface|FolderInterface $entry
      */
     public function created(EntryInterface $entry)
     {
@@ -33,11 +33,10 @@ class FolderObserver extends EntryObserver
     /**
      * Fired just after deleting an entry.
      *
-     * @param EntryInterface $entry
+     * @param EntryInterface|FolderInterface $entry
      */
     public function deleted(EntryInterface $entry)
     {
-        $this->dispatch(new DeleteFiles($entry));
         $this->dispatch(new DeleteDirectory($entry));
         $this->dispatch(new DeleteStream($entry));
 

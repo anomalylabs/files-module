@@ -2,7 +2,6 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
-use Anomaly\FilesModule\File\FileReader;
 use Anomaly\FilesModule\File\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
@@ -11,7 +10,6 @@ use Anomaly\FilesModule\Folder\Command\GetFolder;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class FilesController
@@ -26,7 +24,7 @@ class FilesController extends AdminController
     /**
      * Display an index of existing entries.
      *
-     * @param  FileTableBuilder                           $table
+     * @param  FileTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(FileTableBuilder $table)
@@ -84,19 +82,17 @@ class FilesController extends AdminController
     /**
      * Redirect to a file's URL.
      *
-     * @param  FileRepositoryInterface           $files
-     * @param  FileReader                        $reader
-     * @param                                    $id
+     * @param  FileRepositoryInterface $files
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function view(FileRepositoryInterface $files, FileReader $reader, $id)
+    public function view(FileRepositoryInterface $files)
     {
         /* @var FileInterface $file */
-        if (!$file = $files->find($id)) {
+        if (!$file = $files->find($this->route->getParameter('id'))) {
             abort(404);
         }
 
-        return $reader->read($file);
+        return $this->redirect->to($file->route('view'));
     }
 
     /**

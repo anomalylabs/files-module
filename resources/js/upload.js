@@ -17,20 +17,20 @@ $(function () {
             paramName: 'upload',
             url: REQUEST_ROOT_PATH + '/admin/files/upload/handle',
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': CSRF_TOKEN
             },
             sending: function (file, xhr, formData) {
                 formData.append('folder', element.data('folder'));
             },
-            accept: function(file, done) {
-                $.getJSON(REQUEST_ROOT_PATH + '/admin/files/exists/' + element.data('folder') + '/' + file.name, function(data) {
-                    if(data.exists) {
-                        if(!confirm(file.name + " " + element.data('overwrite'))) {
+            accept: function (file, done) {
+                $.getJSON(REQUEST_ROOT_PATH + '/admin/files/exists/' + element.data('folder') + '/' + file.name, function (data) {
+                    if (data.exists) {
+                        if (!confirm(file.name + " " + element.data('overwrite'))) {
                             dropzone.removeFile(file);
                             return;
                         }
                     }
-                    
+
                     done();
                 });
             },
@@ -69,9 +69,12 @@ $(function () {
     });
 
     // When file fails to upload.
-    dropzone.on('error', function (file) {
+    dropzone.on('error', function (file, message) {
+
         file.previewElement.querySelector("[data-dz-uploadprogress]").setAttribute('value', 100);
         file.previewElement.querySelector('[data-dz-uploadprogress]').setAttribute('class', 'progress progress-danger');
+
+        alert(message.error ? message.error : message);
     });
 
     // When all files are processed.

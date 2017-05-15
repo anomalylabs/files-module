@@ -1,4 +1,4 @@
-<?php namespace Anomaly\FilesModule\Seeder;
+<?php namespace Anomaly\FilesModule\Disk;
 
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\Streams\Platform\Database\Seeder\Seeder;

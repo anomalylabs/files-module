@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'files' => [
+    'files'   => [
         'name' => 'File',
     ],
-    'disks' => [
+    'disks'   => [
         'name' => 'Dischi',
     ],
     'folders' => [

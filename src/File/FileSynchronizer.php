@@ -46,8 +46,8 @@ class FileSynchronizer
     /**
      * Sync a file.
      *
-     * @param  File               $resource
-     * @param  DiskInterface      $disk
+     * @param  File          $resource
+     * @param  DiskInterface $disk
      * @return null|FileInterface
      */
     public function sync(File $resource, DiskInterface $disk)
@@ -82,8 +82,8 @@ class FileSynchronizer
     /**
      * Sync the files folder.
      *
-     * @param  File                 $resource
-     * @param  DiskInterface        $disk
+     * @param  File          $resource
+     * @param  DiskInterface $disk
      * @return null|FolderInterface
      */
     protected function syncFolder(File $resource, DiskInterface $disk)

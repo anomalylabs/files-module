@@ -90,7 +90,19 @@ class FilePresenter extends EntryPresenter
      */
     public function dimensions()
     {
-        if (!in_array($this->object->getExtension(), config('anomaly.module.files::mimes.thumbnails'))) {
+        $extension = $this->object->getExtension();
+
+        /**
+         * Only images can provide sizes.
+         */
+        if (!in_array($extension, config('anomaly.module.files::mimes.thumbnails'))) {
+            return null;
+        }
+
+        /**
+         * Except SVGs.. they're spooky.
+         */
+        if ($extension == 'svg') {
             return null;
         }
 
@@ -156,13 +168,15 @@ class FilePresenter extends EntryPresenter
     {
         if ($this->type() == 'image' && $this->object->canPreview()) {
             return $this->object->image()
+                ->width($width . 'px')
                 ->resize(
                     $width,
                     $height,
                     function (Constraint $constraint) {
                         $constraint->aspectRatio();
                     }
-                )->output();
+                )
+                ->output();
         }
 
         $type = $this->dispatch(new GetType($this->object)) ?: 'document';

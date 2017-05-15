@@ -6,7 +6,6 @@ use Anomaly\FilesModule\Folder\Command\GetStream;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Anomaly\UsersModule\Role\RoleCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -20,13 +19,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
 {
 
     /**
-     * Cache results.
-     *
-     * @var int
-     */
-    protected $ttl = 99999;
-
-    /**
      * Always eager load these.
      *
      * @var array
@@ -36,23 +28,25 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     ];
 
     /**
-     * Get the name.
+     * The cascaded relations.
      *
-     * @return string
+     * @var array
      */
-    public function getName()
-    {
-        return $this->name;
-    }
+    protected $cascades = [
+        'files',
+    ];
 
     /**
-     * Get the slug.
+     * Return the folder path.
      *
+     * @param null $path
      * @return string
      */
-    public function getSlug()
+    public function path($path = null)
     {
-        return $this->slug;
+        $disk = $this->getDisk();
+
+        return $disk->path($this->getSlug() . ($path ? '/' . $path : null));
     }
 
     /**
@@ -66,6 +60,26 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
+     * Get the slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Get the name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get the description.
      *
      * @return string
@@ -73,16 +87,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Get the allowed types.
-     *
-     * @return array
-     */
-    public function getAllowedTypes()
-    {
-        return $this->allowed_types;
     }
 
     /**
@@ -100,6 +104,16 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
             },
             $this->getAllowedTypes()
         );
+    }
+
+    /**
+     * Get the allowed types.
+     *
+     * @return array
+     */
+    public function getAllowedTypes()
+    {
+        return $this->allowed_types;
     }
 
     /**
@@ -122,6 +136,20 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     public function getEntryStream()
     {
         return $this->dispatch(new GetStream($this));
+    }
+
+    /**
+     * Get the related entry stream ID.
+     *
+     * @return int
+     */
+    public function getEntryStreamId()
+    {
+        if (!$stream = $this->getEntryStream()) {
+            return null;
+        }
+
+        return $stream->getId();
     }
 
     /**
