@@ -53,12 +53,14 @@ class FileLocator
      * Locate a file by disk and path.
      *
      * @param $folder
-     * @param $path
+     * @param $name
      * @return FileInterface|null
      */
     public function locate($folder, $name)
     {
-        $folder = $this->folders->findBySlug($folder);
+        if ( !$folder = $this->folders->findBySlug($folder) ){
+            return null;
+        }
 
         if (!$file = $this->files->findByNameAndFolder($name, $folder)) {
             return null;
