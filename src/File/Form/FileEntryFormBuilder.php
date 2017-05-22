@@ -14,6 +14,20 @@ class FileEntryFormBuilder extends MultipleFormBuilder
 {
 
     /**
+     * The form buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'cancel',
+        'view' => [
+            'enabled' => 'edit',
+            'target'  => '_blank',
+            'href'    => 'admin/files/view/{request.route.parameters.id}',
+        ],
+    ];
+
+    /**
      * The form options.
      *
      * @var array
