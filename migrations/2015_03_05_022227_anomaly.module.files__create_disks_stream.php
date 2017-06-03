@@ -21,6 +21,7 @@ class AnomalyModuleFilesCreateDisksStream extends Migration
         'slug'         => 'disks',
         'title_column' => 'name',
         'translatable' => true,
+        'trashable'    => true,
     ];
 
     /**

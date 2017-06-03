@@ -5,6 +5,7 @@ return [
         'jpeg',
         'jpg',
         'png',
+        'svg',
     ],
     'types'      => [
         'archive'      => [
@@ -49,7 +50,6 @@ return [
         'font'         => [
             'eot',
             'ttf',
-            'svg',
             'otf',
             'woff',
         ],
@@ -64,6 +64,7 @@ return [
             'jpg',
             'jpe',
             'png',
+            'svg',
             'tiff',
             'tif',
             'ico',

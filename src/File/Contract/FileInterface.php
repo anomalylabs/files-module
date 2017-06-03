@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Contract;
 
+use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
@@ -57,6 +58,20 @@ interface FileInterface extends EntryInterface
      * @return File
      */
     public function resource();
+
+    /**
+     * Return the resource filesystem.
+     *
+     * @return AdapterFilesystem
+     */
+    public function filesystem();
+
+    /**
+     * Return the filesystem URL.
+     *
+     * @return string
+     */
+    public function url();
 
     /**
      * Return if the image can

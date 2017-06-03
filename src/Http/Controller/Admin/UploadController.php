@@ -5,7 +5,6 @@ use Anomaly\FilesModule\File\Upload\UploadTableBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class UploadController
@@ -40,8 +39,8 @@ class UploadController extends AdminController
     /**
      * Handle the upload.
      *
-     * @param  FileUploader                  $uploader
-     * @param  FolderRepositoryInterface     $folders
+     * @param  FileUploader              $uploader
+     * @param  FolderRepositoryInterface $folders
      * @return \Illuminate\Http\JsonResponse
      */
     public function upload(FileUploader $uploader, FolderRepositoryInterface $folders)

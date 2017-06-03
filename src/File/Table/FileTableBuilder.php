@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Illuminate\Contracts\Auth\Guard;
 
 /**
  * Class FileTableBuilder

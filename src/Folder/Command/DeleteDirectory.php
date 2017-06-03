@@ -37,11 +37,15 @@ class DeleteDirectory
      */
     public function handle(MountManager $manager)
     {
+        if (!$this->folder->isForceDeleting()) {
+            return;
+        }
+
         if (!$disk = $this->folder->getDisk()) {
             return;
         }
 
-        if (!$this->folder->isForceDeleting()) {
+        if (!$manager->has($disk->getSlug() . '://' . $this->folder->getSlug())) {
             return;
         }
 

@@ -1,9 +1,16 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
-use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
 
-class SetEntry
+
+/**
+ * Class DeleteResource
+ *
+ * @link          http://pyrocms.com/
+ * @author        PyroCMS, Inc. <support@pyrocms.com>
+ * @author        Ryan Thompson <ryan@pyrocms.com>
+ */
+class DeleteResource
 {
 
     /**
@@ -26,15 +33,16 @@ class SetEntry
     /**
      * Handle the command.
      */
-    public function handle(EntryRepositoryInterface $repository)
+    public function handle()
     {
-        if (!$this->file->getAttribute('entry_id')) {
-            $folder = $file->getFolder();
-
-            $repository->setModel($folder->getEntryModel());
-            $entry = $repository->create();
-
-            $this->file->setAttribute();
+        if (!$this->file->isForceDeleting()) {
+            return;
         }
+
+        if (!$resource = $this->file->resource()) {
+            return;
+        }
+
+        $resource->delete();
     }
 }

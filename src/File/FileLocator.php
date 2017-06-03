@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Anomaly\UsersModule\User\Contract\UserInterface;
 use Illuminate\Contracts\Auth\Guard;
 
 /**
@@ -53,12 +52,14 @@ class FileLocator
      * Locate a file by disk and path.
      *
      * @param $folder
-     * @param $path
+     * @param $name
      * @return FileInterface|null
      */
     public function locate($folder, $name)
     {
-        $folder = $this->folders->findBySlug($folder);
+        if ( !$folder = $this->folders->findBySlug($folder) ){
+            return null;
+        }
 
         if (!$file = $this->files->findByNameAndFolder($name, $folder)) {
             return null;

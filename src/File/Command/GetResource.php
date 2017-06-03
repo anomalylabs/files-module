@@ -1,7 +1,6 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
-use Illuminate\Contracts\Config\Repository;
 use League\Flysystem\File;
 use League\Flysystem\MountManager;
 

@@ -2,7 +2,6 @@
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Image\Image;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class GetImage

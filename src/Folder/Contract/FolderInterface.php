@@ -4,7 +4,6 @@ use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\File\FileCollection;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -16,6 +15,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 interface FolderInterface extends EntryInterface
 {
+
+    /**
+     * Return the folder path.
+     *
+     * @param null $path
+     * @return string
+     */
+    public function path($path = null);
 
     /**
      * Get the name.
@@ -65,6 +72,13 @@ interface FolderInterface extends EntryInterface
      * @return StreamInterface
      */
     public function getEntryStream();
+
+    /**
+     * Get the related entry stream ID.
+     *
+     * @return int
+     */
+    public function getEntryStreamId();
 
     /**
      * Get the related entry model name.

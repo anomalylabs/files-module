@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\FilesModule\Folder\Form\FolderFormBuilder;
@@ -23,7 +22,7 @@ class FoldersController extends AdminController
     /**
      * Display an index of existing entries.
      *
-     * @param  FolderTableBuilder                         $table
+     * @param  FolderTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(FolderTableBuilder $table)
@@ -34,7 +33,7 @@ class FoldersController extends AdminController
     /**
      * Create a new entry.
      *
-     * @param  FolderFormBuilder                          $form
+     * @param  FolderFormBuilder $form
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function create(FolderFormBuilder $form)
