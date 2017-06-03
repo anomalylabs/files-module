@@ -117,4 +117,46 @@ class FilesController extends AdminController
 
         return $this->response->json(compact('success', 'exists'));
     }
+    
+    /**
+     * Get image from external source
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function external(
+        FileRepositoryInterface $files,
+        FolderRepositoryInterface $folders
+    )
+    {
+        $req = $this->request->all();
+        $url = array_get($req, 'url');
+
+        $filename = array_get(array_reverse(explode('/', $url)), 0);
+
+        $cb = curl_init();
+        curl_setopt($cb, CURLOPT_URL, $url);
+        curl_setopt($cb, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cb, CURLOPT_BINARYTRANSFER, true);
+
+        curl_exec($cb);
+        $mime   = curl_getinfo($cb, CURLINFO_CONTENT_TYPE);
+
+        if (!preg_match('/^image\/\w+/', $mime))
+        {
+            return $this->response->json([
+                'success' => false,
+                'message' => 'Not an image!',
+            ]);
+        }
+
+        /* @var FolderInterface|null $folder */
+        $folder = $this->dispatch(
+            new GetFolder(array_get($req, 'folder', 1))
+        );
+
+        return $this->response->json(array_merge(
+            compact('folder', 'filename', 'url', 'mime'),
+            ['success' => true]
+        ));
+    }
 }

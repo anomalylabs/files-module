@@ -48,6 +48,36 @@ $(function () {
             }
         }
     );
+    
+    // Get from external source with help of server
+    dropzone.on('drop', function (e) {
+        var dt = e.dataTransfer;
+
+        if (!dt.files || !dt.files.length) {
+
+            var img = [];
+            var urlList = dt.getData('url')
+                || dt.getData('text/plain')
+                || dt.getData('text/uri-list');
+
+            if (urlList) {
+                $.ajax({
+                    url: '/admin/files/external',
+                    method: 'POST',
+                    data: {
+                        url: urlList,
+                        folder: element.data('folder')
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        }
+    });
 
     // While file is in transit.
     dropzone.on('sending', function () {
