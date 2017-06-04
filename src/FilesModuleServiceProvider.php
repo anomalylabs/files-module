@@ -103,6 +103,10 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/disks/choose'           => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
         'admin/files/disks/create'           => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
         'admin/files/disks/edit/{id}'        => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
+        'admin/files/fields'                 => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@index',
+        'admin/files/fields/choose'          => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@choose',
+        'admin/files/fields/create'          => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@create',
+        'admin/files/fields/edit/{id}'       => 'Anomaly\FilesModule\Http\Controller\Admin\FieldsController@edit',
         'admin/files/upload/{disk}/{path?}'  => [
             'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@upload',
             'constraints' => [
