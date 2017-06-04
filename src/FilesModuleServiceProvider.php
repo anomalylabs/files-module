@@ -152,7 +152,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     public function map(FieldRouter $fields, AssignmentRouter $assignments)
     {
-        $fields->route($this->addon, FieldsController::class);
+        $fields->route($this->addon, FieldsController::class, 'admin/files');
         $assignments->route($this->addon, AssignmentsController::class, 'admin/files/folders');
     }
 
