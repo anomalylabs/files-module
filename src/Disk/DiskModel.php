@@ -35,7 +35,7 @@ class DiskModel extends FilesDisksEntryModel implements DiskInterface
      */
     public function path($path = null)
     {
-        return $this->getSlug() . '://' . ($path ? '/' . $path : null);
+        return $this->getSlug() . '://' . ltrim(($path ? '/' . $path : null), '/');
     }
 
     /**
