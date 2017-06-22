@@ -23,7 +23,7 @@ class FileTableBuilder extends TableBuilder
             'columns' => [
                 'name',
                 'size',
-                'type',
+                'mime_type',
             ],
         ],
     ];
