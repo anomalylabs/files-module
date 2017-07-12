@@ -50,17 +50,6 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     ];
 
     /**
-     * The event listeners.
-     *
-     * @var array
-     */
-    protected $listeners = [
-        AddonsHaveRegistered::class => [
-            RegisterDisks::class,
-        ],
-    ];
-
-    /**
      * The class bindings.
      *
      * @var array
@@ -154,6 +143,14 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     {
         $fields->route($this->addon, FieldsController::class);
         $assignments->route($this->addon, AssignmentsController::class, 'admin/files/folders');
+    }
+
+    public function boot()
+    {
+        if($this->addon->isInstalled() && $this->addon->isEnabled())
+        {
+            $this->dispatch($this->app->make(RegisterDisks::class));
+        }
     }
 
 }
