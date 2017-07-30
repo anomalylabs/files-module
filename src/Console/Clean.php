@@ -31,11 +31,11 @@ class Clean extends Command
     protected $description = 'Clean missing files from the files table.';
 
     /**
-     * Fire the command.
+     * Handle the command.
      *
      * @param FileRepositoryInterface $files
      */
-    public function fire(FileRepositoryInterface $files)
+    public function handle(FileRepositoryInterface $files)
     {
         $missing = false;
 
