@@ -57,10 +57,10 @@ class FileUploader
     /**
      * Create a new FileUploader instance.
      *
-     * @param Factory                 $validator
-     * @param MountManager            $manager
-     * @param FileRotator             $rotator
-     * @param Repository              $config
+     * @param Factory $validator
+     * @param MountManager $manager
+     * @param FileRotator $rotator
+     * @param Repository $config
      * @param FileRepositoryInterface $files
      */
     public function __construct(
@@ -80,7 +80,7 @@ class FileUploader
     /**
      * Upload a file.
      *
-     * @param  UploadedFile    $file
+     * @param  UploadedFile $file
      * @param  FolderInterface $folder
      * @return bool|FileInterface
      */
@@ -112,12 +112,14 @@ class FileUploader
 
             $size       = filesize($file->getRealPath());
             $dimensions = getimagesize($file->getRealPath());
+            $mimeType   = mime_content_type($file->getRealPath());
 
             $this->files->save(
                 $entry
                     ->setAttribute('size', $size)
                     ->setAttribute('width', $dimensions[0])
                     ->setAttribute('height', $dimensions[1])
+                    ->setAttribute('mime_type', $mimeType)
             );
         }
 

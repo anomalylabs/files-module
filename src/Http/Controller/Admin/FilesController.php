@@ -88,7 +88,7 @@ class FilesController extends AdminController
     public function view(FileRepositoryInterface $files)
     {
         /* @var FileInterface $file */
-        if (!$file = $files->find($this->route->getParameter('id'))) {
+        if (!$file = $files->find($this->route->parameter('id'))) {
             abort(404);
         }
 
