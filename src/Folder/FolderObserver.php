@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder;
 
+use Anomaly\FilesModule\Folder\Command\CreateDirectory;
 use Anomaly\FilesModule\Folder\Command\CreateStream;
 use Anomaly\FilesModule\Folder\Command\DeleteDirectory;
 use Anomaly\FilesModule\Folder\Command\DeleteFiles;
@@ -26,6 +27,7 @@ class FolderObserver extends EntryObserver
     public function created(EntryInterface $entry)
     {
         $this->dispatch(new CreateStream($entry));
+        $this->dispatch(new CreateDirectory($entry));
 
         parent::created($entry);
     }
