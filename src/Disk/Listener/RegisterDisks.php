@@ -1,8 +1,7 @@
 <?php namespace Anomaly\FilesModule\Disk\Listener;
 
-use Anomaly\FilesModule\Disk\Adapter\Contract\AdapterInterface;
-use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
+use Anomaly\FilesModule\Disk\Command\LoadDisks;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
  * Class RegisterDisks
@@ -14,35 +13,13 @@ use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 class RegisterDisks
 {
 
-    /**
-     * The disk repository.
-     *
-     * @var DiskRepositoryInterface
-     */
-    protected $disks;
-
-    /**
-     * Create a new RegisterDisks instance.
-     *
-     * @param DiskRepositoryInterface $disks
-     */
-    function __construct(DiskRepositoryInterface $disks)
-    {
-        $this->disks = $disks;
-    }
+    use DispatchesJobs;
 
     /**
      * Handle the event.
      */
     public function handle()
     {
-        /* @var DiskInterface $disk */
-        foreach ($this->disks->all() as $disk) {
-
-            /* @var AdapterInterface $adapter */
-            $adapter = $disk->getAdapter();
-
-            $adapter->load($disk);
-        }
+        $this->dispatch(new LoadDisks());
     }
 }
