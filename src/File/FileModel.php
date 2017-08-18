@@ -12,6 +12,7 @@ use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use League\Flysystem\File;
+use League\Flysystem\FilesystemInterface;
 
 /**
  * Class FileModel
@@ -46,30 +47,35 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     /**
      * Return the filesystem URL.
      *
-     * @return string
+     * @return null|string
      */
     public function url()
     {
-        return $this->filesystem()
-            ->url($this->path());
+        if (!$filesystem = $this->filesystem()) {
+            return null;
+        }
+
+        return $filesystem->url($this->path());
     }
 
     /**
      * Return the resource filesystem.
      *
-     * @return AdapterFilesystem
+     * @return null|AdapterFilesystem|FilesystemInterface
      */
     public function filesystem()
     {
-        return $this
-            ->resource()
-            ->getFilesystem();
+        if (!$resource = $this->resource()) {
+            return null;
+        }
+
+        return $resource->getFilesystem();
     }
 
     /**
      * Return the file resource.
      *
-     * @return File
+     * @return null|File
      */
     public function resource()
     {
