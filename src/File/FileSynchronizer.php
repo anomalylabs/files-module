@@ -69,6 +69,8 @@ class FileSynchronizer
             );
         } else {
 
+            $file->setAttribute('size', $resource->getSize());
+
             if ($file->trashed()) {
                 $this->files->restore($file);
             }
