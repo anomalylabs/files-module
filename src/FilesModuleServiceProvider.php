@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule;
 
 use Anomaly\FilesModule\Console\Clean;
+use Anomaly\FilesModule\Disk\Command\LoadDisks;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Disk\DiskModel;
 use Anomaly\FilesModule\Disk\DiskRepository;
@@ -14,7 +15,6 @@ use Anomaly\FilesModule\Folder\FolderRepository;
 use Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController;
 use Anomaly\FilesModule\Http\Controller\Admin\FieldsController;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
-use Anomaly\Streams\Platform\Addon\Event\AddonsHaveRegistered;
 use Anomaly\Streams\Platform\Assignment\AssignmentRouter;
 use Anomaly\Streams\Platform\Field\FieldRouter;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
@@ -47,17 +47,6 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $plugins = [
         FilesModulePlugin::class,
-    ];
-
-    /**
-     * The event listeners.
-     *
-     * @var array
-     */
-    protected $listeners = [
-        AddonsHaveRegistered::class => [
-            RegisterDisks::class,
-        ],
     ];
 
     /**
@@ -147,13 +136,23 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map the addon.
      *
-     * @param FieldRouter      $fields
+     * @param FieldRouter $fields
      * @param AssignmentRouter $assignments
      */
     public function map(FieldRouter $fields, AssignmentRouter $assignments)
     {
         $fields->route($this->addon, FieldsController::class);
         $assignments->route($this->addon, AssignmentsController::class, 'admin/files/folders');
+    }
+
+    /**
+     * Boot the addon.
+     */
+    public function boot()
+    {
+        if ($this->addon->isEnabled()) {
+            $this->dispatch(new LoadDisks());
+        }
     }
 
 }

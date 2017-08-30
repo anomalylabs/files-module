@@ -24,7 +24,7 @@ return [
         'type'     => 'anomaly.field_type.integer',
         'required' => true,
         'config'   => [
-            'default_value' => 3,
+            'default_value' => 1,
             'min'           => 1,
         ],
     ],
