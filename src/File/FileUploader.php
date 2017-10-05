@@ -95,7 +95,7 @@ class FileUploader
         $validation = $this->validator->make(['file' => $file], ['file' => $rules]);
 
         if (!$validation->passes()) {
-            throw new \Exception($validation->messages()->first(), 1);
+            throw new \Exception('[' . $file->getMimeType() . '] ' . $validation->messages()->first(), 1);
         }
 
         $disk = $folder->getDisk();
