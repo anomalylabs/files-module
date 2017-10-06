@@ -1,13 +1,11 @@
 <?php namespace Anomaly\FilesModule\Http\Controller\Admin;
 
-use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\Form\EntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileEntryFormBuilder;
 use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
-use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
@@ -24,8 +22,8 @@ class FilesController extends AdminController
     /**
      * Display an index of existing entries.
      *
-     * @param  FileTableBuilder $table
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param      FileTableBuilder  $table
+     * @return     Response
      */
     public function index(FileTableBuilder $table)
     {
@@ -33,11 +31,10 @@ class FilesController extends AdminController
     }
 
     /**
-     * Return an ajax modal to choose the folder
-     * to use for uploading files.
+     * Return an ajax modal to choose the folder to use for uploading files.
      *
-     * @param FolderRepositoryInterface
-     * @return \Illuminate\View\View
+     * @param      FolderRepositoryInterface  $folders
+     * @return     Response
      */
     public function choose(FolderRepositoryInterface $folders)
     {
@@ -52,10 +49,13 @@ class FilesController extends AdminController
     /**
      * Return the form for editing an existing file.
      *
-     * @param  FileRepositoryInterface                    $files
-     * @param  FileEntryFormBuilder                       $form
-     * @param                                             $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param      FileRepositoryInterface  $files
+     * @param      FileFormBuilder          $fileForm
+     * @param      EntryFormBuilder         $entryForm
+     * @param      FileEntryFormBuilder     $form
+     * @param      string                   $id
+     *
+     * @return     Response
      */
     public function edit(
         FileRepositoryInterface $files,
@@ -65,13 +65,16 @@ class FilesController extends AdminController
         $id
     ) {
         /* @var FileInterface $file */
-        $file = $files->find($id);
+        if (!$file = $files->find($id)) {
+            abort(404);
+        }
 
         $form->addForm(
             'entry',
             $entryForm
                 ->setFormMode('edit')
-                ->setModel($file->getFolder()->getEntryModelName())->setEntry($file->getEntry())
+                ->setModel($file->getFolder()->getEntryModelName())
+                ->setEntry($file->getEntry())
         );
 
         $form->addForm('file', $fileForm->setEntry($file));
@@ -82,13 +85,13 @@ class FilesController extends AdminController
     /**
      * Redirect to a file's URL.
      *
-     * @param  FileRepositoryInterface $files
-     * @return \Illuminate\Http\RedirectResponse
+     * @param      FileRepositoryInterface  $files
+     * @return     Response
      */
-    public function view(FileRepositoryInterface $files)
+    public function view(FileRepositoryInterface $files, $id)
     {
         /* @var FileInterface $file */
-        if (!$file = $files->find($this->route->parameter('id'))) {
+        if (!$file = $files->find($id)) {
             abort(404);
         }
 
@@ -98,10 +101,10 @@ class FilesController extends AdminController
     /**
      * Return if a file exists or not.
      *
-     * @param  FileRepositoryInterface       $files
-     * @param                                $folder
-     * @param                                $name
-     * @return \Illuminate\Http\JsonResponse
+     * @param      FileRepositoryInterface  $files
+     * @param      string                   $folder
+     * @param      string                   $name
+     * @return     Response
      */
     public function exists(FileRepositoryInterface $files, $folder, $name)
     {
