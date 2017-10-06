@@ -105,16 +105,22 @@ class FilesController extends AdminController
      */
     public function exists(FileRepositoryInterface $files, $folder, $name)
     {
-        $success = true;
-        $exists  = false;
-
         /* @var FolderInterface|null $folder */
-        $folder = $this->dispatch(new GetFolder($folder));
+        if ($folder = $this->dispatch(new GetFolder((int) $folder))) {
 
-        if ($folder && $file = $files->findByNameAndFolder($name, $folder)) {
-            $exists = true;
+            /* @var FileInterface|null $file */
+            if ($file = $files->findByNameAndFolder($name, $folder)) {
+
+                return $this->response->json([
+                    'exists'  => true,
+                    'success' => true
+                ]);
+            }
         }
 
-        return $this->response->json(compact('success', 'exists'));
+        return $this->response->json([
+            'exists'  => false,
+            'success' => true
+        ]);
     }
 }
