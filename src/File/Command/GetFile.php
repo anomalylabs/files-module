@@ -48,7 +48,7 @@ class GetFile
             return $files->find($this->identifier);
         }
 
-        if (preg_match('@^[^\0]+://?(?<folder>[^\0]+)/(?<name>[^\0]+)[?$]@', $this->identifier, $match)) {
+        if (preg_match('@[^\0]+://?(?<folder>[^\0]+)/(?<name>[^\0]+)[?$]@', $this->identifier, $match)) {
             if ($folder = $folders->findBySlug(array_get($match, 'folder'))) {
                 return $files->findByNameAndFolder(array_get($match, 'name'), $folder);
             }
