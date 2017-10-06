@@ -1,9 +1,6 @@
 <?php namespace Anomaly\FilesModule\Folder\Command;
 
-use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use Anomaly\Streams\Platform\Support\Decorator;
-
 
 /**
  * Class GetFolder
@@ -35,19 +32,21 @@ class GetFolder
     /**
      * Handle the command.
      *
-     * @param  FileRepositoryInterface   $files
      * @param  FolderRepositoryInterface $folders
-     * @param  Decorator                 $decorator
-     * @return \Anomaly\FilesModule\Folder\Contract\FolderInterface|\Anomaly\Streams\Platform\Model\EloquentModel|null
+     * @return FolderInterface|EloquentModel|null
      */
     public function handle(FolderRepositoryInterface $folders)
     {
-        if (is_numeric($this->identifier)) {
-            return $folders->find($this->identifier);
+        if (is_string($this->identifier)) {
+            if ($folder = $folders->findBySlug($this->identifier)) {
+                return $folder;
+            }
         }
 
-        if (!is_numeric($this->identifier)) {
-            return $folders->findBySlug($this->identifier);
+        if (is_numeric($this->identifier)) {
+            if ($folder = $folders->find($this->identifier)) {
+                return $folder;
+            }
         }
 
         return null;
