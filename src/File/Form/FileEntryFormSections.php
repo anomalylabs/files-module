@@ -20,24 +20,33 @@ class FileEntryFormSections
     public function handle(FileEntryFormBuilder $builder)
     {
         $entryForm = $builder->getChildForm('entry');
-        $fileForm  = $builder->getChildForm('file');
 
         /* @var EntryInterface $entry */
         $entry = $entryForm->getFormEntry();
 
         $builder->setSections(
             [
-                'file'   => [
-                    'fields' => function () use ($fileForm) {
-                        return array_map(
-                            function ($field) {
-                                return 'file_' . $field['field'];
-                            },
-                            $fileForm->getFields()
-                        );
-                    },
+                'default' => [
+                    'tabs' => [
+                        'file' => [
+                            'title'  => 'anomaly.module.files::tab.file',
+                            'fields' => [
+                                'file_name',
+                                'file_title',
+                                'file_description',
+                                'file_keywords',
+                            ],
+                        ],
+                        'seo'  => [
+                            'title'  => 'anomaly.module.files::tab.seo',
+                            'fields' => [
+                                'file_alt_text',
+                                'file_caption',
+                            ],
+                        ],
+                    ],
                 ],
-                'fields' => [
+                'fields'  => [
                     'fields' => function () use ($entry) {
                         return array_map(
                             function ($slug) {

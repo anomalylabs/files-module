@@ -54,4 +54,13 @@ return [
         'warning'      => 'Note subtle differences between mime types like jpg and jpeg.',
         'placeholder'  => 'pdf, psd, jpg, jpeg',
     ],
+    'alt_text'      => [
+        'name'         => 'Alt Text',
+        'instructions' => 'Specify the text alternative for an image.',
+        'warning'      => 'The humanized filename is usually used as a fallback.',
+    ],
+    'caption'       => [
+        'name'         => 'Caption',
+        'instructions' => 'Specify accompanying text for an image.',
+    ],
 ];
