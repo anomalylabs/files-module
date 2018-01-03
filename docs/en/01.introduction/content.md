@@ -1,3 +1,7 @@
+---
+title: Introduction
+---
+
 ## Introduction[](#introduction)
 
 The Files module is a powerful, easy-to-use, and driver-based asset management system.
