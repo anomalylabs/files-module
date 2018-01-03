@@ -1,3 +1,7 @@
+---
+title: Usage
+---
+
 ## Usage[](#usage)
 
 This section will show you how to use the addon via API and in the view layer.
