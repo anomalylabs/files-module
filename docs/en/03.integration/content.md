@@ -1,3 +1,7 @@
+---
+title: Integration
+---
+
 ## Integration[](#integration)
 
 The Files module integrates tightly with Laravel's `filesystem` and the [Flysystem package](https://flysystem.thephpleague.com/) from [The PHP League](https://thephpleague.com/).
