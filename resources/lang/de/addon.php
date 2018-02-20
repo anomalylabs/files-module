@@ -3,11 +3,13 @@
 return [
     'title'       => 'Dateien',
     'name'        => 'Dateien Modul',
-    'description' => 'Multi-provider Dateimanager.',
+    'description' => 'Mächtige Asset verwaltung einfach gemacht.',
     'section'     => [
-        'browser'  => 'Browser',
-        'disks'    => 'Disks',
-        'adapters' => 'Adapter',
-        'settings' => 'Einstellungen',
+        'files'       => 'Dateien',
+        'disks'       => 'Disks',
+        'fields'      => 'Felder',
+        'folders'     => 'Ordner',
+        'adapters'    => 'Adapter',
+        'assignments' => 'Zuordnungen',
     ],
 ];
