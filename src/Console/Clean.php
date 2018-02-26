@@ -46,11 +46,11 @@ class Clean extends Command
 
                 $missing = true;
 
-                if (!$this->option('pretend')) {
+                if ($this->option('force')) {
                     $files->delete($file);
                 }
 
-                $this->info($file->path() . ' ' . (!$this->option('pretend') ? 'deleted' : 'missing') . '.');
+                $this->info($file->path() . ' ' . ($this->option('force') ? 'deleted' : 'missing') . '.');
             }
         }
 
@@ -67,7 +67,7 @@ class Clean extends Command
     protected function getOptions()
     {
         return [
-            ['pretend', null, InputOption::VALUE_NONE, 'Perform a dry run without deleting.'],
+            ['force', null, InputOption::VALUE_NONE, 'Override dry run and delete.'],
         ];
     }
 }
