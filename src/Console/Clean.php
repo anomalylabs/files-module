@@ -57,6 +57,10 @@ class Clean extends Command
         if (!$missing) {
             $this->info('Files database is clean.');
         }
+
+        if (!$this->option('force')) {
+            $this->info('Re-run with the --force option to delete.');
+        }
     }
 
     /**
