@@ -86,6 +86,7 @@ class FileTableBuilder extends TableBuilder
         'edit',
         'view' => [
             'target' => '_blank',
+            'href'    => 'admin/files/view/{entry.id}',
         ],
     ];
 
