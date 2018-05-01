@@ -14,12 +14,14 @@ use Anomaly\FilesModule\Folder\FolderModel;
 use Anomaly\FilesModule\Folder\FolderRepository;
 use Anomaly\FilesModule\Http\Controller\Admin\AssignmentsController;
 use Anomaly\FilesModule\Http\Controller\Admin\FieldsController;
+use Anomaly\FilesModule\Http\Controller\Admin\VersionsController;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Assignment\AssignmentRouter;
 use Anomaly\Streams\Platform\Field\FieldRouter;
 use Anomaly\Streams\Platform\Model\Files\FilesDisksEntryModel;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
+use Anomaly\Streams\Platform\Version\VersionRouter;
 
 /**
  * Class FilesModuleServiceProvider
@@ -136,11 +138,14 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map the addon.
      *
-     * @param FieldRouter $fields
+     * @param FieldRouter      $fields
+     * @param VersionRouter    $versions
      * @param AssignmentRouter $assignments
      */
-    public function map(FieldRouter $fields, AssignmentRouter $assignments)
+    public function map(FieldRouter $fields, VersionRouter $versions, AssignmentRouter $assignments)
     {
+        $versions->route($this->addon, VersionsController::class);
+
         $fields->route($this->addon, FieldsController::class);
         $assignments->route($this->addon, AssignmentsController::class, 'admin/files/folders');
     }

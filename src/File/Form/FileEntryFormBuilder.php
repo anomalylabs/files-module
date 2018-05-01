@@ -19,6 +19,7 @@ class FileEntryFormBuilder extends MultipleFormBuilder
      * @var array
      */
     protected $buttons = [
+        'versions',
         'cancel',
         'view' => [
             'enabled' => 'edit',
