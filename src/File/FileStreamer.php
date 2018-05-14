@@ -77,11 +77,11 @@ class FileStreamer extends FileResponse
         $response->headers->set('Content-length', $size);
         $response->headers->set('Content-Range', "bytes 0-{$end}/{$size}");
 
-        if (!$range = array_get($_SERVER, 'HTTP_RANGE')) {
+        if (!$range = app('request')->server->get('HTTP_RANGE')) {
             return;
         }
 
-        list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
+        list(, $range) = explode('=', app('request')->server->get('HTTP_RANGE'), 2);
 
         if (strpos($range, ',') !== false) {
             $response->setStatusCode(416, 'Requested Range Not Satisfiable');
