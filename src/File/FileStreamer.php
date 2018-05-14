@@ -1,6 +1,9 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
+use League\Flysystem\MountManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -12,6 +15,30 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FileStreamer extends FileResponse
 {
+
+    /**
+     * The request object.
+     *
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * Create a new FileStreamer instance.
+     *
+     * @param Request $request
+     * @param MountManager $manager
+     * @param ResponseFactory $response
+     */
+    public function __construct(
+        Request $request,
+        MountManager $manager,
+        ResponseFactory $response
+    ) {
+        $this->request = $request;
+
+        parent::__construct($response, $manager);
+    }
 
     /**
      * Return the response headers.
@@ -65,7 +92,7 @@ class FileStreamer extends FileResponse
      * Chunk the request into parts as
      * desired by the request range header.
      *
-     * @param Response      $response
+     * @param Response $response
      * @param FileInterface $file
      */
     protected function chunk(Response $response, FileInterface $file)
@@ -77,11 +104,11 @@ class FileStreamer extends FileResponse
         $response->headers->set('Content-length', $size);
         $response->headers->set('Content-Range', "bytes 0-{$end}/{$size}");
 
-        if (!$range = app('request')->server->get('HTTP_RANGE')) {
+        if (!$range = $this->request->server->get('HTTP_RANGE')) {
             return;
         }
 
-        list(, $range) = explode('=', app('request')->server->get('HTTP_RANGE'), 2);
+        list(, $range) = explode('=', $this->request->server->get('HTTP_RANGE'), 2);
 
         if (strpos($range, ',') !== false) {
             $response->setStatusCode(416, 'Requested Range Not Satisfiable');
