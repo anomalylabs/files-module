@@ -7,7 +7,6 @@ use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Http\Request;
 
 /**
  * Class DisksController
@@ -62,7 +61,7 @@ class DisksController extends AdminController
         ExtensionCollection $adapters,
         ConfigurationFormBuilder $configuration
     ) {
-        $adapter = $adapter = $adapters->get($requst->input('adapter'));
+        $adapter = $adapter = $adapters->get($this->request->input('adapter'));
 
         $form->addForm('disk', $disk->setAdapter($adapter));
         $form->addForm('configuration', $configuration->setEntry($adapter->getNamespace()));
