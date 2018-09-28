@@ -36,7 +36,7 @@ class FileDownloader extends FileResponse
     {
         $response = parent::make($file);
 
-        $response->headers->set('Content-disposition', 'attachment; filename=' . $file->getName());
+        $response->headers->set('Content-disposition', 'attachment; filename="' . $file->getName() . '""');
 
         $folder = $file->getFolder();
         $disk   = $folder->getDisk();
