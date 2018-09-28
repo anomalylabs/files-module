@@ -9,7 +9,7 @@ return [
     'choose_field'      => 'Welches Feld wollen Sie hinzufügen?',
     'upload'            => 'Klicken Sie oder ziehen Sie Dateien hierher um Sie hochzuladen.',
     'no_uploads'        => 'Es wurden keine Dateien hochgeladen.',
-    'overwrite'         => 'Wurde bereits hochgeladen. Wollen Sie die Datei überscheiben?',
+    'overwrite'         => 'wurde bereits hochgeladen. Wollen Sie die Datei überscheiben?',
     'uploading'         => 'Lädt hoch',
     'loading'           => 'Lädt',
 ];
