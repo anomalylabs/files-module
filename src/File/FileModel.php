@@ -62,7 +62,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
             return null;
         }
 
-        return $filesystem->url($this->path());
+        return str_replace('\\','/',$filesystem->url($this->path()));    
     }
 
     /**
