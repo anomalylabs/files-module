@@ -20,7 +20,7 @@ class FileTableBuilder extends TableBuilder
     protected $views = [
         'all',
         'recently_created' => [
-            'text'    => 'anomaly.module.files::view.new',
+            'text'    => 'streams::view.newest',
             'columns' => [
                 'entry.preview'             => [
                     'heading' => 'anomaly.module.files::field.preview.name',
