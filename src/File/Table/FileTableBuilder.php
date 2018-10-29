@@ -19,7 +19,41 @@ class FileTableBuilder extends TableBuilder
      */
     protected $views = [
         'all',
-        'trash' => [
+        'recently_created' => [
+            'text'    => 'anomaly.module.files::view.new',
+            'columns' => [
+                'entry.preview'             => [
+                    'heading' => 'anomaly.module.files::field.preview.name',
+                ],
+                'name'                      => [
+                    'sort_column' => 'name',
+                    'wrapper'     => '
+                    <strong>{value.file}</strong>
+                    <br>
+                    <small class="text-muted">{value.disk}://{value.folder}/{value.file}</small>
+                    <br>
+                    <span>{value.size} {value.keywords}</span>',
+                    'value'       => [
+                        'file'     => 'entry.name',
+                        'folder'   => 'entry.folder.slug',
+                        'keywords' => 'entry.keywords.labels|join',
+                        'disk'     => 'entry.folder.disk.slug',
+                        'size'     => 'entry.size_label',
+                    ],
+                ],
+                'size'                      => [
+                    'sort_column' => 'size',
+                    'value'       => 'entry.readable_size',
+                ],
+                'mime_type',
+                'folder',
+                'entry.created_at_datetime' => [
+                    'heading'     => 'streams::entry.created_at',
+                    'sort_column' => 'created_at',
+                ],
+            ],
+        ],
+        'trash'            => [
             'columns' => [
                 'name',
                 'size',
