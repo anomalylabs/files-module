@@ -52,8 +52,8 @@ class FilesController extends AdminController
     /**
      * Return the form for editing an existing file.
      *
-     * @param  FileRepositoryInterface                    $files
-     * @param  FileEntryFormBuilder                       $form
+     * @param  FileRepositoryInterface $files
+     * @param  FileEntryFormBuilder $form
      * @param                                             $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -98,12 +98,11 @@ class FilesController extends AdminController
     /**
      * Return if a file exists or not.
      *
-     * @param  FileRepositoryInterface       $files
+     * @param  FileRepositoryInterface $files
      * @param                                $folder
-     * @param                                $name
      * @return \Illuminate\Http\JsonResponse
      */
-    public function exists(FileRepositoryInterface $files, $folder, $name)
+    public function exists(FileRepositoryInterface $files, $folder)
     {
         $success = true;
         $exists  = false;
@@ -111,7 +110,7 @@ class FilesController extends AdminController
         /* @var FolderInterface|null $folder */
         $folder = $this->dispatch(new GetFolder($folder));
 
-        if ($folder && $file = $files->findByNameAndFolder($name, $folder)) {
+        if ($folder && $file = $files->findByNameAndFolder($this->request->get('file'), $folder)) {
             $exists = true;
         }
 

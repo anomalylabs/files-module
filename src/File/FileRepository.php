@@ -42,7 +42,7 @@ class FileRepository extends EntryRepository implements FileRepositoryInterface
     public function findByNameAndFolder($name, FolderInterface $folder)
     {
         return $this->model
-            ->where('name', $name)
+            ->where('name', FileSanitizer::clean($name))
             ->where('folder_id', $folder->getId())
             ->first();
     }

@@ -55,7 +55,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
             return null;
         }
 
-        return $filesystem->url($this->path());
+        return str_replace('\\', '/', $filesystem->url($this->path()));
     }
 
     /**
@@ -114,6 +114,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Clean the filename.
+     *
+     * @param $value
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = FileSanitizer::clean($value);
     }
 
     /**
