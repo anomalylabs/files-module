@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule;
 
 use Anomaly\FilesModule\Console\Clean;
+use Anomaly\FilesModule\Console\Sync;
 use Anomaly\FilesModule\Disk\Command\LoadDisks;
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\FilesModule\Disk\DiskModel;
@@ -39,6 +40,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $commands = [
         Clean::class,
+        Sync::class,
     ];
 
     /**
@@ -137,8 +139,8 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map the addon.
      *
-     * @param FieldRouter      $fields
-     * @param VersionRouter    $versions
+     * @param FieldRouter $fields
+     * @param VersionRouter $versions
      * @param AssignmentRouter $assignments
      */
     public function map(FieldRouter $fields, VersionRouter $versions, AssignmentRouter $assignments)
