@@ -40,7 +40,7 @@ class Clean extends Command
         $missing = false;
 
         /* @var FileInterface|EloquentModel $file */
-        foreach ($files->newQuery()->withTrashed()->get() as $file) {
+        foreach ($files->allWithTrashed() as $file) {
 
             if (!$file->resource()) {
 
