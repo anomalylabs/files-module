@@ -40,14 +40,14 @@ class Clean extends Command
         $missing = false;
 
         /* @var FileInterface|EloquentModel $file */
-        foreach ($files->all() as $file) {
+        foreach ($files->newQuery()->withTrashed()->get() as $file) {
 
             if (!$file->resource()) {
 
                 $missing = true;
 
                 if ($this->option('force')) {
-                    $files->delete($file);
+                    $files->forceDelete($file);
                 }
 
                 $this->info($file->path() . ' ' . ($this->option('force') ? 'deleted' : 'missing') . '.');
