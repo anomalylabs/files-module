@@ -50,16 +50,6 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
     }
 
     /**
-     * Get the string ID.
-     *
-     * @return string
-     */
-    public function getStrId()
-    {
-        return $this->str_id;
-    }
-
-    /**
      * Get the related disk.
      *
      * @return DiskInterface

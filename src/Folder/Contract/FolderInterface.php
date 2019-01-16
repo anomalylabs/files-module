@@ -25,13 +25,6 @@ interface FolderInterface extends EntryInterface
     public function path($path = null);
 
     /**
-     * Get the string ID.
-     *
-     * @return string
-     */
-    public function getStrId();
-
-    /**
      * Get the name.
      *
      * @return string

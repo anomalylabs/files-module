@@ -13,15 +13,6 @@ class FolderFormBuilder extends FormBuilder
 {
 
     /**
-     * The skipped fields.
-     *
-     * @var array
-     */
-    protected $skips = [
-        'str_id',
-    ];
-
-    /**
      * The form fields.
      *
      * @var array

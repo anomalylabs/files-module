@@ -96,13 +96,6 @@ interface FileInterface extends EntryInterface
     public function secondaryMimeType();
 
     /**
-     * Get the string ID.
-     *
-     * @return string
-     */
-    public function getStrId();
-
-    /**
      * Get the name.
      *
      * @return string

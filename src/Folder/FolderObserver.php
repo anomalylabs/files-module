@@ -3,9 +3,7 @@
 use Anomaly\FilesModule\Folder\Command\CreateDirectory;
 use Anomaly\FilesModule\Folder\Command\CreateStream;
 use Anomaly\FilesModule\Folder\Command\DeleteDirectory;
-use Anomaly\FilesModule\Folder\Command\DeleteFiles;
 use Anomaly\FilesModule\Folder\Command\DeleteStream;
-use Anomaly\FilesModule\Folder\Command\SetStrId;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
@@ -19,18 +17,6 @@ use Anomaly\Streams\Platform\Entry\EntryObserver;
  */
 class FolderObserver extends EntryObserver
 {
-
-    /**
-     * Fired just before creating an entry.
-     *
-     * @param EntryInterface|FolderInterface $entry
-     */
-    public function creating(EntryInterface $entry)
-    {
-        $this->dispatchNow(new SetStrId($entry));
-
-        return parent::creating($entry);
-    }
 
     /**
      * Fired just after creating an entry.

@@ -104,16 +104,6 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
-     * Get the string ID.
-     *
-     * @return string
-     */
-    public function getStrId()
-    {
-        return $this->str_id;
-    }
-
-    /**
      * Get the related folder.
      *
      * @return null|FolderInterface
