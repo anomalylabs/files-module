@@ -1,6 +1,7 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 
 
 /**
@@ -32,10 +33,16 @@ class DeleteResource
 
     /**
      * Handle the command.
+     *
+     * @param FileRepositoryInterface $files
      */
-    public function handle()
+    public function handle(FileRepositoryInterface $files)
     {
         if (!$this->file->isForceDeleting()) {
+            return;
+        }
+
+        if ($files->findByNameAndFolder($this->file->getName(), $this->file->getFolder())) {
             return;
         }
 
