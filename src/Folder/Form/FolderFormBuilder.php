@@ -24,6 +24,9 @@ class FolderFormBuilder extends FormBuilder
         ],
         'disk' => [
             'disabled' => 'edit',
+            'config'   => [
+                'default_value' => 1, // Generally "local"
+            ],
         ],
     ];
 
@@ -38,6 +41,7 @@ class FolderFormBuilder extends FormBuilder
                 'general' => [
                     'title'  => 'anomaly.module.files::tab.general',
                     'fields' => [
+                        'disk',
                         'name',
                         'slug',
                         'description',
@@ -47,7 +51,6 @@ class FolderFormBuilder extends FormBuilder
                     'title'  => 'anomaly.module.files::tab.options',
                     'fields' => [
                         'allowed_types',
-                        'disk',
                     ],
                 ],
             ],

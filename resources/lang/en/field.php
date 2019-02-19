@@ -22,7 +22,7 @@ return [
     ],
     'disk'          => [
         'name'         => 'Disk',
-        'instructions' => 'Choose which disk this folder belongs to.',
+        'instructions' => 'Choose which disk this folder uses.',
     ],
     'folder'        => [
         'name' => 'Folder',
