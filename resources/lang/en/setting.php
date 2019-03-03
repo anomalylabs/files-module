@@ -1,15 +1,10 @@
 <?php
 
-$post = str_replace('M', '', ini_get('post_max_size'));
-$file = str_replace('M', '', ini_get('upload_max_filesize'));
-
-$system = $file > $post ? $post : $file;
-
 return [
     'max_upload_size'      => [
         'name'         => 'Maximum Upload Size',
         'instructions' => 'Specify the maximum file size for uploads.',
-        'warning'      => 'Your server\'s max upload size is currently ' . $system . 'MB',
+        'warning'      => 'Your server\'s max upload size is currently ' . max_upload_size() . 'MB',
     ],
     'max_parallel_uploads' => [
         'name'         => 'Maximum Parallel Uploads',

@@ -4,7 +4,7 @@ return [
     'max_upload_size'      => [
         'name'         => 'Dimensione massima di upload',
         'instructions' => 'Indica la dimensione massima di un file che può essere caricato. ',
-        'warning'      => 'Attualmente la dimensione massima impostata sul tuo server è di 100MB',
+        'warning'      => 'Attualmente la dimensione massima impostata sul tuo server è di ' . max_upload_size() . 'MB',
     ],
     'max_parallel_uploads' => [
         'name'         => 'Numero massimo di upload paralleli',
