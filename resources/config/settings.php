@@ -5,18 +5,8 @@ return [
         'type'     => 'anomaly.field_type.integer',
         'required' => true,
         'config'   => [
-            'default_value' => function () {
-                $post = str_replace('M', '', ini_get('post_max_size'));
-                $file = str_replace('M', '', ini_get('upload_max_filesize'));
-
-                return $file > $post ? $post : $file;
-            },
-            'max'           => function () {
-                $post = str_replace('M', '', ini_get('post_max_size'));
-                $file = str_replace('M', '', ini_get('upload_max_filesize'));
-
-                return $file > $post ? $post : $file;
-            },
+            'default_value' => max_upload_size(),
+            'max'           => max_upload_size(),
             'min'           => 1,
         ],
     ],
