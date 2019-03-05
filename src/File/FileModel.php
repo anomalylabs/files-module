@@ -13,6 +13,7 @@ use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use League\Flysystem\File;
 use League\Flysystem\FilesystemInterface;
+use League\Flysystem\MountManager;
 
 /**
  * Class FileModel
@@ -72,11 +73,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function filesystem()
     {
-        if (!$resource = $this->resource()) {
-            return null;
-        }
-
-        return $resource->getFilesystem();
+        return app(MountManager::class)->getFilesystem($this->getDiskSlug());
     }
 
     /**
@@ -101,6 +98,26 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
         }
 
         return "{$folder->getSlug()}/{$this->getName()}";
+    }
+
+    /**
+     * Get the alt text.
+     *
+     * @return string
+     */
+    public function getAltText()
+    {
+        return $this->alt_text;
+    }
+
+    /**
+     * Return the alt text or default.
+     *
+     * @return string
+     */
+    public function altText($default = null)
+    {
+        return $this->getAltText() ?: ($default ?: humanize(pathinfo($this->getName(), PATHINFO_FILENAME)));
     }
 
     /**
@@ -355,6 +372,18 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     public function getDisk()
     {
         return $this->disk;
+    }
+
+    /**
+     * Get the related disk's slug.
+     *
+     * @return string
+     */
+    public function getDiskSlug()
+    {
+        return $this
+            ->getDisk()
+            ->getSlug();
     }
 
     /**

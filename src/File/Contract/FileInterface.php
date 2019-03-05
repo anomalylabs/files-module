@@ -10,9 +10,9 @@ use League\Flysystem\File;
 /**
  * Interface FileInterface
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 interface FileInterface extends EntryInterface
 {
@@ -74,6 +74,20 @@ interface FileInterface extends EntryInterface
     public function url();
 
     /**
+     * Get the alt text.
+     *
+     * @return string
+     */
+    public function getAltText();
+
+    /**
+     * Return the alt text or default.
+     *
+     * @return string
+     */
+    public function altText($default = null);
+
+    /**
      * Return if the image can
      * be previewed or not.
      *
@@ -108,6 +122,13 @@ interface FileInterface extends EntryInterface
      * @return DiskInterface
      */
     public function getDisk();
+
+    /**
+     * Get the related disk's slug.
+     *
+     * @return string
+     */
+    public function getDiskSlug();
 
     /**
      * Get the size.
