@@ -18,6 +18,10 @@ class FileSanitizer
      */
     static public function clean($name)
     {
+        if (!env('CLEAN_FILE_NAMES', true)) {
+            return $name;
+        }
+        
         $name = rawurldecode($name);
 
         // sanitize filename
