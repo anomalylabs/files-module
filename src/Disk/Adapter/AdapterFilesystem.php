@@ -2,6 +2,8 @@
 
 use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFolder;
+use Anomaly\FilesModule\Disk\Adapter\Command\MoveFile;
+use Anomaly\FilesModule\Disk\Adapter\Command\RenameFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
@@ -43,9 +45,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     /**
      * Create a new AdapterFilesystem instance.
      *
-     * @param DiskInterface    $disk
+     * @param DiskInterface $disk
      * @param AdapterInterface $adapter
-     * @param null             $config
+     * @param null $config
      */
     public function __construct(DiskInterface $disk, AdapterInterface $adapter, $config = null)
     {
@@ -61,7 +63,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
      *
      * @param string $path     The path of the new file.
      * @param string $contents The file contents.
-     * @param array  $config   An optional configuration array.
+     * @param array $config    An optional configuration array.
      *
      * @throws FileExistsException
      *
@@ -81,9 +83,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     /**
      * Write a new file using a stream.
      *
-     * @param string   $path     The path of the new file.
+     * @param string $path       The path of the new file.
      * @param resource $resource The file handle.
-     * @param array    $config   An optional configuration array.
+     * @param array $config      An optional configuration array.
      *
      * @throws InvalidArgumentException If $resource is not a file handle.
      * @throws FileExistsException
@@ -106,7 +108,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
      *
      * @param string $path     The path of the existing file.
      * @param string $contents The file contents.
-     * @param array  $config   An optional configuration array.
+     * @param array $config    An optional configuration array.
      *
      * @throws FileNotFoundException
      *
@@ -126,9 +128,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     /**
      * Update an existing file using a stream.
      *
-     * @param string   $path     The path of the existing file.
+     * @param string $path       The path of the existing file.
      * @param resource $resource The file handle.
-     * @param array    $config   An optional configuration array.
+     * @param array $config      An optional configuration array.
      *
      * @throws InvalidArgumentException If $resource is not a file handle.
      * @throws FileNotFoundException
@@ -149,7 +151,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     /**
      * @param  string $path     path to file
      * @param  string $contents file contents
-     * @param  mixed  $config
+     * @param  mixed $config
      * @throws FileExistsException
      * @return bool
      */
@@ -167,7 +169,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     /**
      * @param  string $path     path to file
      * @param  string $contents file contents
-     * @param  mixed  $config
+     * @param  mixed $config
      * @throws FileExistsException
      * @return bool
      */
@@ -200,6 +202,44 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         if ($result && $resource = $this->get($newpath)) {
             return $this->dispatch(
                 new SyncFile($resource)
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Rename a file.
+     *
+     * @return bool
+     */
+    public function rename($from, $to)
+    {
+        $result = parent::rename($from, $to);
+
+        if ($result && $resource = $this->get($to)) {
+            return $this->dispatch(
+                new RenameFile($resource, $from)
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * Move a file.
+     *
+     * @return bool
+     */
+    public function move($from, $to)
+    {
+        $source = parent::get($from);
+
+        $result = parent::put($to, $source->getContents());
+
+        if ($result && $destination = $this->get($to)) {
+            return $this->dispatch(
+                new MoveFile($source, $destination)
             );
         }
 
@@ -252,7 +292,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
      * Create a directory.
      *
      * @param string $dirname The name of the new directory.
-     * @param array  $config  An optional configuration array.
+     * @param array $config   An optional configuration array.
      *
      * @return bool True on success, false on failure.
      */

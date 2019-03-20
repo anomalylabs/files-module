@@ -96,24 +96,17 @@ class FileSynchronizer
             return null;
         }
 
-        /* @var FolderInterface|null $parent */
-        $parent = null;
-        $folder = null;
-
         foreach (explode('/', $path) as $name) {
             if (!$folder = $this->folders->findBySlug($name)) {
                 $folder = $this->folders->create(
                     [
                         'name'      => $name,
                         'disk_id'   => $disk->getId(),
-                        'parent_id' => $parent ? $parent->getId() : null,
                     ]
                 );
             }
-
-            $parent = $folder;
         }
 
-        return $folder;
+        return isset($folder) ? $folder : null;
     }
 }
