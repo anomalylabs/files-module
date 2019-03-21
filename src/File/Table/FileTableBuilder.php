@@ -131,5 +131,12 @@ class FileTableBuilder extends TableBuilder
     protected $actions = [
         'delete',
         'edit',
+        'move' => [
+            'type'        => 'info',
+            'icon'        => 'upload',
+            'data-toggle' => 'modal',
+            'data-target' => '#modal',
+            'href'        => 'admin/files/choose',
+        ],
     ];
 }
