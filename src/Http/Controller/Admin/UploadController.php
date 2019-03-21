@@ -33,7 +33,24 @@ class UploadController extends AdminController
 
         $table = $table->getTable();
 
-        return $this->view->make('module::admin/upload/index', compact('folder', 'table'));
+        return $this->view->make('anomaly.module.files::admin/upload/index', compact('folder', 'table'));
+    }
+
+    /**
+     * Return an ajax modal to choose the folder
+     * to use for uploading files.
+     *
+     * @param FolderRepositoryInterface
+     * @return \Illuminate\View\View
+     */
+    public function choose(FolderRepositoryInterface $folders)
+    {
+        return $this->view->make(
+            'anomaly.module.files::admin/upload/choose',
+            [
+                'folders' => $folders->all(),
+            ]
+        );
     }
 
     /**

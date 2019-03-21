@@ -132,11 +132,12 @@ class FileTableBuilder extends TableBuilder
         'delete',
         'edit',
         'move' => [
+            'tag'         => 'a',
             'type'        => 'info',
             'icon'        => 'upload',
             'data-toggle' => 'modal',
             'data-target' => '#modal',
-            'href'        => 'admin/files/choose',
+            'href'        => 'admin/files/move/choose',
         ],
     ];
 }

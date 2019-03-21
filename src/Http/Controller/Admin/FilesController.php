@@ -8,7 +8,6 @@ use Anomaly\FilesModule\File\Form\FileFormBuilder;
 use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
@@ -30,23 +29,6 @@ class FilesController extends AdminController
     public function index(FileTableBuilder $table)
     {
         return $table->render();
-    }
-
-    /**
-     * Return an ajax modal to choose the folder
-     * to use for uploading files.
-     *
-     * @param FolderRepositoryInterface
-     * @return \Illuminate\View\View
-     */
-    public function choose(FolderRepositoryInterface $folders)
-    {
-        return $this->view->make(
-            'module::ajax/choose_folder',
-            [
-                'folders' => $folders->all(),
-            ]
-        );
     }
 
     /**

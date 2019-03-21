@@ -96,7 +96,7 @@ class FoldersController extends AdminController
         $folder = $folders->find($id);
 
         return view(
-            'module::ajax/choose_field',
+            'anomaly.module.files::ajax/choose_field',
             [
                 'fields' => $fields->findAllByNamespace('files')->notAssignedTo($folder->getEntryStream())->unlocked(),
                 'id'     => $id,

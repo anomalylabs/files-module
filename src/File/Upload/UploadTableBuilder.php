@@ -90,7 +90,7 @@ class UploadTableBuilder extends TableBuilder
         'enable_views'       => false,
         'enable_pagination'  => false,
         'sortable_headers'   => false,
-        'no_results_message' => 'module::message.no_uploads',
+        'no_results_message' => 'anomaly.module.files::message.no_uploads',
     ];
 
     /**

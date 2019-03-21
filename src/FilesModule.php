@@ -32,7 +32,7 @@ class FilesModule extends Module
                     'icon'        => 'upload',
                     'data-target' => '#modal',
                     'type'        => 'success',
-                    'href'        => 'admin/files/choose',
+                    'href'        => 'admin/files/upload/choose',
                 ],
             ],
         ],

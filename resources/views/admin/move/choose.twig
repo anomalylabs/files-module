@@ -2,21 +2,21 @@
     <button class="close" data-dismiss="modal">
         <span>&times;</span>
     </button>
-    <h4 class="modal-title">{{ trans('anomaly.module.files::message.choose_adapter') }}</h4>
+    <h4 class="modal-title">{{ trans('anomaly.module.files::message.choose_destination') }}</h4>
 </div>
 
 <div class="modal-body">
 
     {% include "streams::modals/filter" %}
 
-    {% if not adapters.isEmpty() %}
+    {% if not folders.isEmpty() %}
         <ul class="nav nav-pills nav-stacked">
-            {% for adapter in adapters %}
+            {% for folder in folders %}
                 <li class="nav-item">
-                    <a href="{{ url_to('admin/files/disks/create?adapter=' ~ adapter.namespace) }}" class="nav-link">
-                        <strong>{{ trans(adapter.getTitle()) }}</strong>
+                    <a href="{{ url_to('admin/files/move/handle/' ~ folder.slug) }}?{{ request().getQueryString() }}" class="nav-link" data-toggle="loader">
+                        <strong>{{ folder.name }}</strong>
                         <br>
-                        <small>{{ trans(adapter.getDescription()) }}</small>
+                        <small>{{ folder.description }}</small>
                     </a>
                 </li>
             {% endfor %}
