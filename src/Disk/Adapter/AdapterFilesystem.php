@@ -2,7 +2,6 @@
 
 use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFolder;
-use Anomaly\FilesModule\Disk\Adapter\Command\MoveFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\RenameFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFolder;
@@ -159,7 +158,9 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     {
         $result = parent::put($path, $contents, $config);
 
-        if ($result && $resource = $this->get($path)) {
+        $sync = array_get($config, 'sync', true);
+
+        if ($result && $sync !== false && $resource = $this->get($path)) {
             return $this->dispatch(new SyncFile($resource));
         }
 
@@ -220,26 +221,6 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         if ($result && $resource = $this->get($to)) {
             return $this->dispatch(
                 new RenameFile($resource, $from)
-            );
-        }
-
-        return $result;
-    }
-
-    /**
-     * Move a file.
-     *
-     * @return bool
-     */
-    public function move($from, $to)
-    {
-        $source = parent::get($from);
-
-        $result = parent::put($to, $source->getContents());
-
-        if ($result && $destination = $this->get($to)) {
-            return $this->dispatch(
-                new MoveFile($source, $destination)
             );
         }
 

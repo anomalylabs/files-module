@@ -4,7 +4,6 @@ use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Model\EloquentModel;
-use League\Flysystem\File;
 
 /**
  * Class MoveFile
@@ -17,29 +16,29 @@ class MoveFile
 {
 
     /**
-     * The source file.
+     * The destination path.
      *
-     * @var File
+     * @var string
      */
-    private $source;
+    private $to;
 
     /**
-     * The destination file.
+     * The source path.
      *
-     * @var File
+     * @var string
      */
-    private $destination;
+    private $from;
 
     /**
      * Create a new MoveFile instance.
      *
-     * @param File $source
-     * @param File $destination
+     * @param $from
+     * @param $to
      */
-    function __construct(File $source, File $destination)
+    function __construct($from, $to)
     {
-        $this->source      = $source;
-        $this->destination = $destination;
+        $this->from = $from;
+        $this->to   = $to;
     }
 
     /**
@@ -50,11 +49,16 @@ class MoveFile
      */
     public function handle(FileRepositoryInterface $files, FolderRepositoryInterface $folders)
     {
-        dd('Test');
-        /* @var FileInterface|EloquentModel $file */
-        $folder = $folders->findBySlug(dirname($this->file->getPath()));
-        $file   = $files->findByNameAndFolder(basename($this->from), $folder);
+        list($fromDisk, $fromPath) = explode('://', $this->from, 2);
+        list($toDisk, $toPath) = explode('://', $this->to, 2);
 
-        return $file ? $files->save($file->setAttribute('name', basename($this->file->getPath()))) : false;
+        /* @var FileInterface|EloquentModel $file */
+        $file = $files->findByNameAndFolder(basename($this->from), $folders->findBySlug(dirname($fromPath)));
+
+        return $file ? $files->save(
+            $file
+                ->setAttribute('name', basename($this->to))
+                ->setAttribute('folder', $folders->findBySlug(dirname($toPath)))
+        ) : false;
     }
 }
