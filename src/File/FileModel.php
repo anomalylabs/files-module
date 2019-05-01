@@ -107,7 +107,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function filename()
     {
-        return pathinfo($this->getName(), PATHINFO_EXTENSION);
+        return pathinfo($this->getName(), PATHINFO_FILENAME);
     }
 
     /**
