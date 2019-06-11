@@ -47,6 +47,13 @@ return [
             'pages',
             'numbers',
         ],
+        'executable'   => [
+            'exe',
+            'js',
+            'php',
+            'jar',
+            'html',
+        ],
         'font'         => [
             'eot',
             'ttf',

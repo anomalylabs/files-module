@@ -60,18 +60,15 @@ class FileUploader
      * @param Factory $validator
      * @param MountManager $manager
      * @param FileRotator $rotator
-     * @param Repository $config
      * @param FileRepositoryInterface $files
      */
     public function __construct(
         Factory $validator,
         MountManager $manager,
         FileRotator $rotator,
-        Repository $config,
         FileRepositoryInterface $files
     ) {
         $this->files     = $files;
-        $this->config    = $config;
         $this->manager   = $manager;
         $this->rotator   = $rotator;
         $this->validator = $validator;
@@ -88,10 +85,24 @@ class FileUploader
     {
         $rules = 'required';
 
+        /**
+         * Append mime rules with the folder's allowed types.
+         */
         if ($allowed = $folder->getAllowedTypes()) {
             $rules .= '|mimes:' . implode(',', $allowed);
         }
 
+        /**
+         * Check against the configured executable file types
+         * to prevent wide open file upload vulnerabilities.
+         */
+        if (!$allowed && in_array($file->getExtension(), config('anomaly.module.files::mimes.executable', []))) {
+            throw new \Exception('The uploaded file type is not allowed.');
+        }
+
+        /**
+         * Run validation and check that it passed.
+         */
         $validation = $this->validator->make(['file' => $file], ['file' => $rules]);
 
         if (!$validation->passes()) {
@@ -100,15 +111,25 @@ class FileUploader
 
         $disk = $folder->getDisk();
 
+        /**
+         * Rotate filename to unique-ify it.
+         */
         $file = $this->rotator->rotate($file);
 
-        /* @var FileInterface|EloquentModel $entry */
+        /**
+         * Write the file to the filesystem.
+         *
+         * @var FileInterface|EloquentModel $entry
+         */
         $entry = $this->manager->put(
             $disk->getSlug() . '://' . $folder->getSlug() . '/' . FileSanitizer::clean($file->getClientOriginalName()),
             file_get_contents($file->getRealPath())
         );
 
-        if (in_array($entry->getExtension(), $this->config->get('anomaly.module.files::mimes.types.image'))) {
+        /**
+         * Generate and store extra details about image files.
+         */
+        if (in_array($entry->getExtension(), config('anomaly.module.files::mimes.types.image'))) {
 
             $size       = filesize($file->getRealPath());
             $dimensions = getimagesize($file->getRealPath());
