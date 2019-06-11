@@ -96,8 +96,11 @@ class FileUploader
          * Check against the configured executable file types
          * to prevent wide open file upload vulnerabilities.
          */
-        if (!$allowed && in_array($file->getExtension(), config('anomaly.module.files::mimes.executable', []))) {
-            throw new \Exception('The uploaded file type is not allowed.');
+        if (
+            !$allowed &&
+            in_array($file->getClientOriginalExtension(), config('anomaly.module.files::mimes.types.executable', []))
+        ) {
+            throw new \Exception('The uploaded file type is executable and not inherently allowed.');
         }
 
         /**
