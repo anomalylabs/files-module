@@ -76,7 +76,7 @@ class UploadController extends AdminController
             $error = $e->getMessage();
         }
 
-        return $this->response->json(['error' => $error], 500);
+        return $this->response->json(['message' => $error], 500);
     }
 
     /**
