@@ -39,6 +39,13 @@ interface FileInterface extends EntryInterface
     public function location();
 
     /**
+     * Return the filename.
+     *
+     * @return string
+     */
+    public function filename();
+
+    /**
      * Return an Image instance.
      *
      * @return Image

@@ -101,6 +101,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return the filename.
+     *
+     * @return string
+     */
+    public function filename()
+    {
+        return pathinfo($this->getName(), PATHINFO_FILENAME);
+    }
+
+    /**
      * Get the alt text.
      *
      * @return string
