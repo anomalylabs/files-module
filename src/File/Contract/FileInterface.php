@@ -81,6 +81,13 @@ interface FileInterface extends EntryInterface
     public function url();
 
     /**
+     * Get the string ID.
+     *
+     * @return string
+     */
+    public function getStrId();
+
+    /**
      * Get the alt text.
      *
      * @return string

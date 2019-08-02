@@ -2,6 +2,7 @@
 
 use Anomaly\FilesModule\File\Command\DeleteResource;
 use Anomaly\FilesModule\File\Command\SetDimensions;
+use Anomaly\FilesModule\File\Command\SetStrId;
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
@@ -15,6 +16,18 @@ use Anomaly\Streams\Platform\Entry\EntryObserver;
  */
 class FileObserver extends EntryObserver
 {
+
+    /**
+     * Fired just before an entry is created.
+     *
+     * @param EntryInterface|FileInterface $entry
+     */
+    public function creating(EntryInterface $entry)
+    {
+        $this->dispatchNow(new SetStrId($entry));
+
+        parent::creating($entry);
+    }
 
     /**
      * Fired before saving the file.
