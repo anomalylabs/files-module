@@ -36,15 +36,14 @@ class DiskSeeder extends Seeder
     public function run()
     {
         $this->disks
-            ->truncate()
             ->create(
                 [
                     'en'      => [
                         'name'        => 'Local',
-                        'description' => 'A local (public) storage disk.',
+                        'description' => 'A local (private) storage disk.',
                     ],
                     'slug'    => 'local',
-                    'adapter' => 'anomaly.extension.local_storage_adapter',
+                    'adapter' => 'anomaly.extension.private_storage_adapter',
                 ]
             );
     }

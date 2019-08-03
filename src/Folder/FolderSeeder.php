@@ -47,8 +47,6 @@ class FolderSeeder extends Seeder
     {
         $disk = $this->disks->findBySlug('local');
 
-        $this->folders->truncate();
-
         $this->folders->create(
             [
                 'en'            => [
