@@ -38,13 +38,12 @@ class FileObserver extends EntryObserver
     public function saving(EntryInterface $entry)
     {
         /*
-         * Make sure the resource exists.
+         * If the resource exists then
+         * make sure to set dimensions.
          */
-        if (!$resource = $entry->resource()) {
-            return false;
+        if ($entry->resource()) {
+            $this->dispatch(new SetDimensions($entry));
         }
-
-        $this->dispatch(new SetDimensions($entry));
 
         return parent::saving($entry);
     }
