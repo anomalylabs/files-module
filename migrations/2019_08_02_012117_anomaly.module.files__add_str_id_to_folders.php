@@ -1,5 +1,6 @@
 <?php
 
+use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\FilesModule\Folder\FolderRepository;
@@ -51,16 +52,22 @@ class AnomalyModuleFilesAddStrIdToFolders extends Migration
          *
          * @var FolderRepositoryInterface $users
          */
-        $files = app(FolderRepository::class);
+        $folders = app(FolderRepository::class);
 
-        /* @var FolderInterface|EloquentModel $file */
-        foreach ($files->allWithTrashed() as $file) {
+        /* @var FolderInterface|EloquentModel $folder */
+        foreach ($folders->allWithTrashed() as $folder) {
 
-            if ($file->getStrId()) {
+            if ($folder->getStrId()) {
                 continue;
             }
 
-            $files->save($file->setRawAttribute('str_id', str_random(24)));
+            $folders->withoutEvents(
+                function () use ($folder) {
+
+                    /* @var FileRepositoryInterface $this */
+                    $this->save($folder->setRawAttribute('str_id', str_random(24)));
+                }
+            );
         }
 
         $field      = $this->fields()->findBySlugAndNamespace('str_id', 'files');
