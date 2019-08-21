@@ -62,10 +62,8 @@ class AnomalyModuleFilesAddStrIdToFolders extends Migration
             }
 
             $folders->withoutEvents(
-                function () use ($folder) {
-
-                    /* @var FileRepositoryInterface $this */
-                    $this->save($folder->setRawAttribute('str_id', str_random(24)));
+                function () use ($folders, $folder) {
+                    $folders->save($folder->setRawAttribute('str_id', str_random(24)));
                 }
             );
         }
