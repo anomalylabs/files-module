@@ -70,10 +70,8 @@ class AnomalyModuleFilesAddStrIdToFiles extends Migration
             }
 
             $files->withoutEvents(
-                function () use ($file) {
-
-                    /* @var FileRepositoryInterface $this */
-                    $this->save($file->setRawAttribute('str_id', str_random(24)));
+                function () use ($files, $file) {
+                    $files->save($file->setRawAttribute('str_id', str_random(24)));
                 }
             );
         }
