@@ -1,4 +1,6 @@
-<?php namespace Anomaly\FilesModule\File;
+<?php
+
+namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Contract\FileInterface;
@@ -139,7 +141,7 @@ class FilePresenter extends EntryPresenter
 
             $factor = floor((strlen($bytes) - 1) / 3);
 
-            return (float)sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[(int)$factor];
+            return (float) sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$size[(int) $factor];
         }
 
         if ($bytes >= 1 << 30 || $unit == "GB" || $unit == "G") {
@@ -250,7 +252,7 @@ class FilePresenter extends EntryPresenter
         $entry = $this->object->getEntry();
 
         if ($entry && $entry->hasField($key)) {
-            return (New Decorator())->decorate($entry)->{$key};
+            return (new Decorator())->decorate($entry)->{$key};
         }
 
         return parent::__get($key);

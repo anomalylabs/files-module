@@ -1,4 +1,6 @@
-<?php namespace Anomaly\FilesModule\File\Command;
+<?php
+
+namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Illuminate\Contracts\Config\Repository;
@@ -38,6 +40,18 @@ class GetPreviewSupport
      */
     public function handle(Repository $config)
     {
+
+        /**
+         * Skip files over 7 MB.
+         * @todo configure this if it successful.
+         */
+        if ($this->file->getSize() >= config('anomaly.module.files::files.max_preview_filesize', 7) * 1000000) {
+            return false;
+        }
+
+        /**
+         * Only those thumbnails for supported image types.
+         */
         foreach ($config->get('anomaly.module.files::mimes.thumbnails') as $extension) {
             if ($this->file->getExtension() == $extension) {
                 return true;
