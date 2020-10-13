@@ -17,6 +17,7 @@ use \Anomaly\Streams\Platform\Entry\Command\AutoloadEntryModels;
  */
 class AnomalyModuleFilesAddStrIdToFiles extends Migration
 {
+    use DispatchesJobs;
 
     /**
      * Don't delete the stream.
