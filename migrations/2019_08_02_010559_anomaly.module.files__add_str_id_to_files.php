@@ -5,8 +5,8 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\FileRepository;
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 use Anomaly\Streams\Platform\Model\EloquentModel;
-use \Illuminate\Foundation\Bus\DispatchesJobs;
-use \Anomaly\Streams\Platform\Entry\Command\AutoloadEntryModels;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Anomaly\Streams\Platform\Entry\Command\AutoloadEntryModels;
 
 /**
  * Class AnomalyModuleFilesAddStrIdToFiles
