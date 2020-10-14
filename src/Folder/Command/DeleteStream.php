@@ -42,6 +42,10 @@ class DeleteStream
             return;
         }
 
-        $streams->delete($streams->findBySlugAndNamespace($this->folder->getSlug(), 'files'));
+        if (!$stream = $streams->findBySlugAndNamespace($this->folder->getSlug(), 'files')) {
+            return;
+        }
+
+        $streams->delete($stream);
     }
 }

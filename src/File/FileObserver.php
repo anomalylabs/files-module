@@ -49,14 +49,14 @@ class FileObserver extends EntryObserver
     }
 
     /**
-     * Fired after deleting the file.
+     * Fired before deleting the file.
      *
      * @param EntryInterface|FileInterface $entry
      */
-    public function deleted(EntryInterface $entry)
+    public function deleting(EntryInterface $entry)
     {
         $this->dispatch(new DeleteResource($entry));
 
-        parent::deleted($entry);
+        parent::deleting($entry);
     }
 }

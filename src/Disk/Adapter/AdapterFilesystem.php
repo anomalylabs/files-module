@@ -262,8 +262,8 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     {
         $result = parent::deleteDir($dirname);
 
-        if ($result && $resource = $this->get($dirname)) {
-            return $this->dispatch(new DeleteFolder($resource));
+        if ($result && $this->has($dirname)) {
+            return $this->dispatch(new DeleteFolder($this->get($dirname)));
         }
 
         return $result;
