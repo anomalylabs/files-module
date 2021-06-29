@@ -230,6 +230,10 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function getMimeType()
     {
+        // SVG Mime type bug is fixed for PHP 7.x #79045
+        if($this->mime_type == 'image/svg') {
+            return 'image/svg+xml';
+        }
         return $this->mime_type;
     }
 
