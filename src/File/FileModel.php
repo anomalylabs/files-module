@@ -230,6 +230,9 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function getMimeType()
     {
+        if($this->mime_type == 'image/svg') {
+            return 'image/svg+xml';
+        }
         return $this->mime_type;
     }
 
