@@ -7,6 +7,7 @@ use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Model\Files\FilesFoldersEntryModel;
 use Anomaly\Streams\Platform\Stream\Contract\StreamInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class FolderModel
@@ -18,6 +19,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class FolderModel extends FilesFoldersEntryModel implements FolderInterface
 {
 
+    /**
+     * Give accessed to method
+     * ->withTrashed()
+     **/
+    use SoftDeletes;
+    
     /**
      * Always eager load these.
      *
