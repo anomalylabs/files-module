@@ -14,6 +14,7 @@ use Anomaly\Streams\Platform\Model\Files\FilesFilesEntryModel;
 use League\Flysystem\File;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\MountManager;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class FileModel
@@ -24,7 +25,12 @@ use League\Flysystem\MountManager;
  */
 class FileModel extends FilesFilesEntryModel implements FileInterface
 {
-
+    /**
+     * Give accessed to method
+     * ->withTrashed()
+     **/
+    use SoftDeletes;
+    
     /**
      * This model is versionable.
      *
