@@ -141,8 +141,8 @@ class FileUploader
             $this->files->save(
                 $entry
                     ->setAttribute('size', $size)
-                    ->setAttribute('width', $dimensions[0])
-                    ->setAttribute('height', $dimensions[1])
+                    ->setAttribute('width', isset($dimensions[0]) ? $dimensions[0] : null)
+                    ->setAttribute('height', isset($dimensions[1]) ? $dimensions[1] : null)
                     ->setAttribute('mime_type', $mimeType)
             );
         }
