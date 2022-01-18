@@ -1,13 +1,16 @@
-<?php namespace Anomaly\FilesModule\Http\Controller;
+<?php
 
-use Anomaly\FilesModule\File\FileDownloader;
+namespace Anomaly\FilesModule\Http\Controller;
+
 use Anomaly\FilesModule\File\FileImage;
-use Anomaly\FilesModule\File\FileLocator;
+use Illuminate\Support\Facades\Request;
 use Anomaly\FilesModule\File\FileReader;
-use Anomaly\FilesModule\File\FileStreamer;
-use Anomaly\Streams\Platform\Http\Controller\PublicController;
+use Anomaly\FilesModule\File\FileLocator;
 use Anomaly\Streams\Platform\Image\Image;
+use Anomaly\FilesModule\File\FileStreamer;
 use Illuminate\Contracts\Config\Repository;
+use Anomaly\FilesModule\File\FileDownloader;
+use Anomaly\Streams\Platform\Http\Controller\PublicController;
 
 /**
  * Class FilesController
@@ -23,15 +26,24 @@ class FilesController extends PublicController
      * Return a file's contents.
      *
      * @param  FileLocator                                $locator
+     * @param  FileImage                                  $generator
      * @param  FileReader                                 $reader
      * @param  Repository                                 $config
+     * @param  Image                                      $image
      * @param                                             $folder
      * @param                                             $name
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param $path
      */
-    public function read(FileLocator $locator, FileReader $reader, Repository $config, $folder, $name)
-    {
+    public function read(
+        FileLocator $locator,
+        FileImage $generator,
+        FileReader $reader,
+        Repository $config,
+        Image $image,
+        $folder,
+        $name
+    ) {
         $public = $config->get('anomaly.module.files::folders.public');
 
         if ($public && !in_array($folder, $public)) {
@@ -40,6 +52,20 @@ class FilesController extends PublicController
 
         if (!$file = $locator->locate($folder, urldecode($name))) {
             abort(404);
+        }
+
+        if (Request::all()) {
+
+            $image = $image->make($file);
+
+            foreach (Request::all() as $method => $arguments) {
+
+                if (in_array($method = camel_case($method), $image->getAllowedMethods())) {
+                    call_user_func_array([$image, camel_case($method)], explode(',', $arguments));
+                }
+            }
+
+            return $generator->generate($image->version(false), Request::get('quality', 60));
         }
 
         return $reader->read($file);
