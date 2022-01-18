@@ -65,7 +65,7 @@ class FilesController extends PublicController
                 }
             }
 
-            return $generator->generate($image->version(false), Request::get('quality', 60));
+            return $generator->generate($image->version(false), Request::get('quality', config('streams::images.quality', 80)));
         }
 
         return $reader->read($file);
