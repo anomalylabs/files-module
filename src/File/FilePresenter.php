@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Intervention\Image\Constraint;
+use mysql_xdevapi\Exception;
 
 /**
  * Class FilePresenter
@@ -169,7 +170,7 @@ class FilePresenter extends EntryPresenter
     public function preview($width = 64, $height = 64)
     {
         if ($this->type() == 'image' && $this->object->canPreview()) {
-            return $this->object->image()
+            $output = $this->object->image()
                 ->width($width . 'px')
                 ->resize(
                     $width,
@@ -177,8 +178,12 @@ class FilePresenter extends EntryPresenter
                     function (Constraint $constraint) {
                         $constraint->aspectRatio();
                     }
-                )
-                ->output();
+            );
+
+            if (!str_contains($output->url(),'Image source not readable')) {
+                return $output->output();
+            }
+
         }
 
         $type = $this->dispatch(new GetType($this->object)) ?: 'document';

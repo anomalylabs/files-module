@@ -42,7 +42,11 @@ class FilesController extends PublicController
             abort(404);
         }
 
-        return $reader->read($file);
+        try {
+            return $reader->read($file);
+        } catch (\Exception $exception) {
+            return redirect("/app/default/assets/vendor/visiosoft/base-theme/resources/images/no-image.png");
+        }
     }
 
     /**
