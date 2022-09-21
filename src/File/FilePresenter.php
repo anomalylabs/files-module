@@ -169,7 +169,7 @@ class FilePresenter extends EntryPresenter
     public function preview($width = 64, $height = 64)
     {
         if ($this->type() == 'image' && $this->object->canPreview()) {
-            return $this->object->image()
+            $output = $this->object->image()
                 ->width($width . 'px')
                 ->resize(
                     $width,
@@ -177,8 +177,11 @@ class FilePresenter extends EntryPresenter
                     function (Constraint $constraint) {
                         $constraint->aspectRatio();
                     }
-                )
-                ->output();
+                );
+            // Showing user a default image when error returns.
+            if (!str_contains($output->url(),'Image source not readable')) {
+                return $output->output();
+            }
         }
 
         $type = $this->dispatch(new GetType($this->object)) ?: 'document';

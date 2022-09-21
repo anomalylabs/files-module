@@ -68,7 +68,22 @@ class FilesController extends PublicController
             return $generator->generate($image->version(false), Request::get('quality', config('streams::images.quality', 80)));
         }
 
-        return $reader->read($file);
+        // if can not read the file source, redirecting to a default image instead of 404 error.
+        try {
+
+            return $reader->read($file);
+
+        } catch (\Exception $exception) {
+
+            return redirect(
+                $image
+                    ->make('anomaly.module.files::img/types/no-image.png')
+                    ->quality(60)
+                    ->url()
+            );
+
+        }
+
     }
 
     /**
