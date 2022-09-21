@@ -11,7 +11,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Intervention\Image\Constraint;
-use mysql_xdevapi\Exception;
 
 /**
  * Class FilePresenter
