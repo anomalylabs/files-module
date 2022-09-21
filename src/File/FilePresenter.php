@@ -178,7 +178,7 @@ class FilePresenter extends EntryPresenter
                         $constraint->aspectRatio();
                     }
             );
-
+            // Showing user a default image when error returns.
             if (!str_contains($output->url(),'Image source not readable')) {
                 return $output->output();
             }

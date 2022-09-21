@@ -30,7 +30,7 @@ class FilesController extends PublicController
      * @return \Symfony\Component\HttpFoundation\Response
      * @internal param $path
      */
-    public function read(FileLocator $locator, FileReader $reader, Repository $config, $folder, $name)
+    public function read(FileLocator $locator, FileReader $reader, Repository $config, $folder, $name, Image $image)
     {
         $public = $config->get('anomaly.module.files::folders.public');
 
@@ -42,10 +42,20 @@ class FilesController extends PublicController
             abort(404);
         }
 
+        // if can not read the file source, redirecting to a default image instead of 404 error.
         try {
+
             return $reader->read($file);
+
         } catch (\Exception $exception) {
-            return redirect("/app/default/assets/vendor/visiosoft/base-theme/resources/images/no-image.png");
+
+            return redirect(
+                $image
+                    ->make('anomaly.module.files::img/types/no-image.png')
+                    ->quality(60)
+                    ->url()
+            );
+
         }
     }
 
