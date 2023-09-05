@@ -85,12 +85,13 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
 
     /**
      * Return the file resource.
+     * Return the file resource.
      *
      * @return null|File
      */
     public function resource()
     {
-        return $this->dispatch(new GetResource($this));
+        return dispatch_sync(new GetResource($this));
     }
 
     /**
@@ -194,7 +195,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function image()
     {
-        return $this->dispatch(new GetImage($this));
+        return dispatch_sync(new GetImage($this));
     }
 
     /**
@@ -204,7 +205,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function type()
     {
-        return $this->dispatch(new GetType($this));
+        return dispatch_sync(new GetType($this));
     }
 
     /**
@@ -215,7 +216,7 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
      */
     public function canPreview()
     {
-        return $this->dispatch(new GetPreviewSupport($this));
+        return dispatch_sync(new GetPreviewSupport($this));
     }
 
     /**

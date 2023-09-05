@@ -6,7 +6,6 @@ use Anomaly\FilesModule\Disk\Adapter\Command\RenameFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use InvalidArgumentException;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FileExistsException;
@@ -24,9 +23,6 @@ use League\Flysystem\RootViolationException;
  */
 class AdapterFilesystem extends Filesystem implements FilesystemInterface
 {
-
-    use DispatchesJobs;
-
     /**
      * The base URL.
      *
@@ -73,7 +69,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::write($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource));
+            return dispatch_sync(new SyncFile($resource));
         }
 
         return $result;
@@ -96,7 +92,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::writeStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource));
+            return dispatch_sync(new SyncFile($resource));
         }
 
         return $result;
@@ -118,7 +114,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::update($path, $contents, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource));
+            return dispatch_sync(new SyncFile($resource));
         }
 
         return $result;
@@ -141,7 +137,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::updateStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource));
+            return dispatch_sync(new SyncFile($resource));
         }
 
         return $result;
@@ -161,7 +157,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $sync = array_get($config, 'sync', true);
 
         if ($result && $sync !== false && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource));
+            return dispatch_sync(new SyncFile($resource));
         }
 
         return $result;
@@ -179,7 +175,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::putStream($path, $resource, $config);
 
         if ($result && $resource = $this->get($path)) {
-            return $this->dispatch(new SyncFile($resource));
+            return dispatch_sync(new SyncFile($resource));
         }
 
         return $result;
@@ -201,7 +197,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::copy($path, $newpath);
 
         if ($result && $resource = $this->get($newpath)) {
-            return $this->dispatch(
+            return dispatch_sync(
                 new SyncFile($resource)
             );
         }
@@ -219,7 +215,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::rename($from, $to);
 
         if ($result && $resource = $this->get($to)) {
-            return $this->dispatch(
+            return dispatch_sync(
                 new RenameFile($resource, $from)
             );
         }
@@ -243,7 +239,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::delete($path);
 
         if ($result && $resource) {
-            return $this->dispatch(new DeleteFile($resource));
+            return dispatch_sync(new DeleteFile($resource));
         }
 
         return $result;
@@ -263,7 +259,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::deleteDir($dirname);
 
         if ($result && $this->has($dirname)) {
-            return $this->dispatch(new DeleteFolder($this->get($dirname)));
+            return dispatch_sync(new DeleteFolder($this->get($dirname)));
         }
 
         return $result;
@@ -282,7 +278,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
         $result = parent::createDir($dirname, $config);
 
         if ($result && $resource = $this->get($dirname)) {
-            return $this->dispatch(new SyncFolder($resource));
+            return dispatch_sync(new SyncFolder($resource));
         }
 
         return $result;

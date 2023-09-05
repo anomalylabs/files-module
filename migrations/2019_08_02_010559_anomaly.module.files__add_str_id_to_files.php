@@ -5,7 +5,6 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\FileRepository;
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 use Anomaly\Streams\Platform\Model\EloquentModel;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Anomaly\Streams\Platform\Entry\Command\AutoloadEntryModels;
 
 /**
@@ -17,8 +16,6 @@ use Anomaly\Streams\Platform\Entry\Command\AutoloadEntryModels;
  */
 class AnomalyModuleFilesAddStrIdToFiles extends Migration
 {
-    use DispatchesJobs;
-
     /**
      * Don't delete the stream.
      * Used for reference only.
@@ -61,7 +58,7 @@ class AnomalyModuleFilesAddStrIdToFiles extends Migration
         /**
          * Make sure that the File entry model has been loaded before we attempt to interact with it.
          */
-        $this->dispatchNow(new AutoloadEntryModels());
+        dispatch_sync(new AutoloadEntryModels());
 
 
         /**

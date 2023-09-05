@@ -27,19 +27,19 @@ class FilesModulePlugin extends Plugin
             new \Twig_SimpleFunction(
                 'max_upload_size',
                 function () {
-                    return $this->dispatch(new GetMaxUploadSize());
+                    return dispatch_sync(new GetMaxUploadSize());
                 }
             ),
             new \Twig_SimpleFunction(
                 'file',
                 function ($identifier) {
-                    return (new Decorator())->decorate($this->dispatch(new GetFile($identifier)));
+                    return (new Decorator())->decorate(dispatch_sync(new GetFile($identifier)));
                 }
             ),
             new \Twig_SimpleFunction(
                 'folder',
                 function ($identifier) {
-                    return (new Decorator())->decorate($this->dispatch(new GetFolder($identifier)));
+                    return (new Decorator())->decorate(dispatch_sync(new GetFolder($identifier)));
                 }
             ),
         ];

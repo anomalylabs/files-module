@@ -40,7 +40,7 @@ class FileManager
         $result = $this->manager->put($to, $contents = $this->manager->read($from), ['sync' => false]);
 
         if ($result && $this->manager->has($to)) {
-            $result = dispatch_now(new MoveFile($from, $to));
+            $result = dispatch_sync(new MoveFile($from, $to));
         }
 
         $this->manager->delete($from);

@@ -90,7 +90,7 @@ class FilesController extends AdminController
         $exists  = false;
 
         /* @var FolderInterface|null $folder */
-        $folder = $this->dispatch(new GetFolder($folder));
+        $folder = dispatch_sync(new GetFolder($folder));
 
         if ($folder && $file = $files->findByNameAndFolder($this->request->get('file'), $folder)) {
             $exists = true;

@@ -7,7 +7,6 @@ use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
 use Anomaly\Streams\Platform\Support\Decorator;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Intervention\Image\Constraint;
@@ -21,9 +20,6 @@ use Intervention\Image\Constraint;
  */
 class FilePresenter extends EntryPresenter
 {
-
-    use DispatchesJobs;
-
     /**
      * The decorated object.
      * This is for IDE support.
@@ -184,7 +180,7 @@ class FilePresenter extends EntryPresenter
             }
         }
 
-        $type = $this->dispatch(new GetType($this->object)) ?: 'document';
+        $type = dispatch_sync(new GetType($this->object)) ?: 'document';
 
         return $this->image
             ->make('anomaly.module.files::img/types/' . $type . '.png')
@@ -205,7 +201,7 @@ class FilePresenter extends EntryPresenter
             return $this->object->image()->fit($width, $height)->output();
         }
 
-        $type = $this->dispatch(new GetType($this->object)) ?: 'document';
+        $type = dispatch_sync(new GetType($this->object)) ?: 'document';
 
         return $this->image
             ->make('anomaly.module.files::img/types/' . $type . '.png')

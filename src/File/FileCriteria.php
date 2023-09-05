@@ -23,7 +23,7 @@ class FileCriteria extends EntryCriteria
     public function folder($identifier)
     {
         /* @var FolderInterface $folder */
-        $folder = $this->dispatch(new GetFolder($identifier));
+        $folder = dispatch_sync(new GetFolder($identifier));
 
         $stream = $folder->getEntryStream();
         $table  = $stream->getEntryTableName();

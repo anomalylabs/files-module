@@ -145,7 +145,7 @@ class FolderModel extends FilesFoldersEntryModel implements FolderInterface
      */
     public function getEntryStream()
     {
-        return $this->dispatch(new GetStream($this));
+        return dispatch_sync(new GetStream($this));
     }
 
     /**
