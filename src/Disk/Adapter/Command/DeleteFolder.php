@@ -1,9 +1,7 @@
 <?php namespace Anomaly\FilesModule\Disk\Adapter\Command;
 
-use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use League\Flysystem\Directory;
 
 /**
  * Class DeleteFolder
@@ -16,52 +14,25 @@ class DeleteFolder
 {
 
     /**
-     * The directory instance.
-     *
-     * @var Directory
+     * The path.
      */
-    protected $directory;
+    protected $path;
 
-    /**
-     * Create a new DeleteFolder instance.
-     *
-     * @param Directory $directory
-     */
-    function __construct(Directory $directory)
+    function __construct($path)
     {
-        $this->directory = $directory;
+        $this->path = $path;
     }
 
     /**
      * Handle the command.
      *
-     * @param  FolderRepositoryInterface $folders
+     * @param FolderRepositoryInterface $folders
      * @return FolderInterface|bool
      */
     public function handle(FolderRepositoryInterface $folders)
     {
-        $folder = $folders->findBySlug($this->directory->getPath(), $this->getFilesystemDisk());
-
-        if ($folder && $folders->delete($folder)) {
-            return $folder;
+        if ($folder = $folders->findBySlug($this->path)) {
+            $folders->delete($folder);
         }
-
-        return true;
-    }
-
-    /**
-     * Get the filesystem's disk.
-     *
-     * @return \Anomaly\FilesModule\Disk\Contract\DiskInterface|null
-     */
-    protected function getFilesystemDisk()
-    {
-        $filesystem = $this->directory->getFilesystem();
-
-        if ($filesystem instanceof AdapterFilesystem) {
-            return $filesystem->getDisk();
-        }
-
-        return null;
     }
 }

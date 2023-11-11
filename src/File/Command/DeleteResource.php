@@ -1,7 +1,9 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
-use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
+use Anomaly\FilesModule\File\FileModel;
+use Anomaly\FilesModule\File\FileSanitizer;
+use Illuminate\Filesystem\FilesystemManager;
 
 
 /**
@@ -13,7 +15,6 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
  */
 class DeleteResource
 {
-
     /**
      * The file instance.
      *
@@ -32,24 +33,33 @@ class DeleteResource
     }
 
     /**
-     * Handle the command.
-     *
-     * @param FileRepositoryInterface $files
+     * @param FilesystemManager $manager
      */
-    public function handle(FileRepositoryInterface $files)
+    public function handle(FilesystemManager $manager)
     {
         if (!$this->file->isForceDeleting()) {
             return;
         }
 
-        if ($files->findByNameAndFolder($this->file->getName(), $this->file->getFolder())) {
+        if (!$this->file->getFolder())
+        {
             return;
         }
 
-        if (!$resource = $this->file->resource()) {
+        if (!FileModel::withTrashed()
+            ->where('name', FileSanitizer::clean($this->file->getName()))
+            ->where('folder_id', $this->file->getFolder()->getId())
+            ->first()) {
             return;
         }
 
-        $resource->delete();
+        if (!$this->file->resource()) {
+            return;
+        }
+
+        /**
+         * Delete resource
+         */
+        $manager->disk($this->file->getDiskSlug())->delete($this->file->path());
     }
 }

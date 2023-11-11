@@ -3,10 +3,9 @@
 use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\Streams\Platform\Model\EloquentModel;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Validation\Factory;
-use League\Flysystem\MountManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -36,7 +35,7 @@ class FileUploader
     /**
      * The mount manager.
      *
-     * @var MountManager
+     * @var FilesystemManager
      */
     protected $manager;
 
@@ -58,27 +57,28 @@ class FileUploader
      * Create a new FileUploader instance.
      *
      * @param Factory $validator
-     * @param MountManager $manager
      * @param FileRotator $rotator
+     * @param FilesystemManager $manager
      * @param FileRepositoryInterface $files
      */
     public function __construct(
         Factory $validator,
-        MountManager $manager,
         FileRotator $rotator,
+        FilesystemManager $manager,
         FileRepositoryInterface $files
-    ) {
-        $this->files     = $files;
-        $this->manager   = $manager;
-        $this->rotator   = $rotator;
+    )
+    {
+        $this->files = $files;
+        $this->manager = $manager;
+        $this->rotator = $rotator;
         $this->validator = $validator;
     }
 
     /**
      * Upload a file.
      *
-     * @param  UploadedFile $file
-     * @param  FolderInterface $folder
+     * @param UploadedFile $file
+     * @param FolderInterface $folder
      * @return bool|FileInterface
      */
     public function upload(UploadedFile $file, FolderInterface $folder)
@@ -120,30 +120,33 @@ class FileUploader
         $file = $this->rotator->rotate($file);
 
         /**
-         * Write the file to the filesystem.
-         *
-         * @var FileInterface|EloquentModel $entry
+         * Get file extension
          */
-        $entry = $this->manager->put(
-            $disk->getSlug() . '://' . $folder->getSlug() . '/' . FileSanitizer::clean($file->getClientOriginalName()),
-            fopen($file->getRealPath(), 'r+')
-        );
+        $type = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+
+        /**
+         * Define path
+         */
+        $path = $folder->getSlug() . '/' . FileSanitizer::clean($file->getClientOriginalName());
+
+        /**
+         * Write the file to the filesystem.
+         */
+        $entry = $this->manager->disk($disk->getSlug())->write($path, file_get_contents($file->getRealPath()));
 
         /**
          * Generate and store extra details about image files.
          */
-        if (in_array($entry->getExtension(), config('anomaly.module.files::mimes.types.image'))) {
+        if (in_array($type, config('anomaly.module.files::mimes.types.image'))) {
 
-            $size       = filesize($file->getRealPath());
             $dimensions = getimagesize($file->getRealPath());
-            $mimeType   = mime_content_type($file->getRealPath());
 
             $this->files->save(
                 $entry
-                    ->setAttribute('size', $size)
+                    ->setAttribute('size', filesize($file->getRealPath()))
                     ->setAttribute('width', isset($dimensions[0]) ? $dimensions[0] : null)
                     ->setAttribute('height', isset($dimensions[1]) ? $dimensions[1] : null)
-                    ->setAttribute('mime_type', $mimeType)
+                    ->setAttribute('mime_type', $file->getMimetype())
             );
         }
 

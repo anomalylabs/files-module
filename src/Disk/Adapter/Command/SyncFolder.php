@@ -1,9 +1,8 @@
 <?php namespace Anomaly\FilesModule\Disk\Adapter\Command;
 
-use Anomaly\FilesModule\Disk\Adapter\AdapterFilesystem;
+use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\FolderSynchronizer;
-use League\Flysystem\Directory;
 
 /**
  * Class SyncFolder
@@ -16,46 +15,39 @@ class SyncFolder
 {
 
     /**
-     * The directory instance.
+     * The path.
      *
-     * @var Directory
+     * @var string
      */
-    protected $directory;
+    protected $path;
+
+    /**
+     * The disk interface.
+     *
+     * @var DiskInterface
+     */
+    protected $disk;
 
     /**
      * Create a new SyncFolder instance.
      *
-     * @param Directory $directory
+     * @param $path
+     * @param DiskInterface $disk
      */
-    function __construct(Directory $directory)
+    function __construct($path, DiskInterface $disk)
     {
-        $this->directory = $directory;
+        $this->path = $path;
+        $this->disk = $disk;
     }
 
     /**
      * Handle the command.
      *
-     * @param  FolderSynchronizer $synchronizer
+     * @param FolderSynchronizer $synchronizer
      * @return null|FolderInterface
      */
     public function handle(FolderSynchronizer $synchronizer)
     {
-        return $synchronizer->sync($this->directory, $this->getFilesystemDisk());
-    }
-
-    /**
-     * Get the filesystem's disk.
-     *
-     * @return \Anomaly\FilesModule\Disk\Contract\DiskInterface|null
-     */
-    protected function getFilesystemDisk()
-    {
-        $filesystem = $this->directory->getFilesystem();
-
-        if ($filesystem instanceof AdapterFilesystem) {
-            return $filesystem->getDisk();
-        }
-
-        return null;
+        return $synchronizer->sync($this->path, $this->disk);
     }
 }

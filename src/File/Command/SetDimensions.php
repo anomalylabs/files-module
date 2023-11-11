@@ -39,23 +39,10 @@ class SetDimensions
         if (!in_array($this->file->getExtension(), ['jpg', 'jpeg', 'png'])) {
             return;
         }
-
-        $resource = $this->file->resource();
-
-        /* @var AdapterFilesystem $filesystem */
-        $filesystem = $resource->getFilesystem();
-        $adapter    = $filesystem->getAdapter();
-
-        if (!method_exists($adapter, 'getPathPrefix') || !$prefix = $adapter->getPathPrefix()) {
-            return;
-        }
-
-        $path = $prefix . $resource->getPath();
-
+        
         try {
-            list($width, $height) = getimagesize($path);
+            list($width, $height) = getimagesize($this->file->path());
         } catch (\Exception $e) {
-
             return;
         }
 

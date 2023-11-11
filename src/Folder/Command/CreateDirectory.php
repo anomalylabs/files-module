@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Folder\Command;
 
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use League\Flysystem\MountManager;
+use Illuminate\Filesystem\FilesystemManager;
 
 /**
  * Class CreateDirectory
@@ -32,19 +32,17 @@ class CreateDirectory
 
     /**
      * Handle the command.
-     *
-     * @param MountManager $manager
      */
-    public function handle(MountManager $manager)
+    public function handle(FilesystemManager $manager)
     {
         if (!$disk = $this->folder->getDisk()) {
             return;
         }
 
-        if ($manager->has($disk->getSlug() . '://' . $this->folder->getSlug())) {
+        if ($manager->disk($disk->getSlug())->directoryExists($this->folder->getSlug())) {
             return;
         }
 
-        $manager->createDir($disk->getSlug() . '://' . $this->folder->getSlug());
+        $manager->disk($disk->getSlug())->createDirectory($this->folder->getSlug());
     }
 }
