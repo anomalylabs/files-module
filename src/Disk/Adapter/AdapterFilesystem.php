@@ -5,13 +5,19 @@ use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFolder;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
+use Illuminate\Support\Collection;
 use League\Flysystem\Config;
 use League\Flysystem\Directory;
+use League\Flysystem\DirectoryAttributes;
+use League\Flysystem\DirectoryListing;
 use League\Flysystem\File;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\Handler;
+use League\Flysystem\PathPrefixer;
+use League\Flysystem\SymbolicLinkEncountered;
 use League\Flysystem\Util;
+use function League\Flysystem\path;
 
 /**
  * Class AdapterFilesystem
@@ -185,9 +191,59 @@ class AdapterFilesystem
      * @return iterable
      * @throws \League\Flysystem\FilesystemException
      */
-    public function listContents(string $path, bool $deep): iterable
+    public function listContents(string $path, bool $deep)
     {
-        return $this->adapter->listContents($path, $deep);
+        $path = $this->url($path);
+        if (!is_dir($path)) {
+            return;
+        }
+
+        $iterator = $this->listDirectory($path);
+
+        $contents = new Collection();
+
+        foreach ($iterator as $fileInfo) {
+            $pathName = $fileInfo->getPathname();
+
+            if ($fileInfo->isLink()) {
+                if ($this->linkHandling & self::SKIP_LINKS) {
+                    continue;
+                }
+                throw SymbolicLinkEncountered::atLocation($pathName);
+            }
+
+            $prefixer = new PathPrefixer($this->baseUrl, DIRECTORY_SEPARATOR);
+            $path = $prefixer->stripPrefix($pathName);
+
+            $lastModified = $fileInfo->getMTime();
+            $isDirectory = $fileInfo->isDir();
+            $permissions = octdec(substr(sprintf('%o', $fileInfo->getPerms()), -4));
+
+            $item = $isDirectory ? new DirectoryAttributes(str_replace('\\', '/', $path), null, $lastModified) : new FileAttributes(
+                str_replace('\\', '/', $path),
+                $fileInfo->getSize(),
+                null,
+                $lastModified,
+                $this->mimeType($path)
+            );
+
+            $contents->add($item);
+        }
+
+        return $contents;
+    }
+
+    private function listDirectory(string $location)
+    {
+        $iterator = new \DirectoryIterator($location);
+
+        foreach ($iterator as $item) {
+            if ($item->isDot()) {
+                continue;
+            }
+
+            yield $item;
+        }
     }
 
     /**
