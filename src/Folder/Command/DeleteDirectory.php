@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\Folder\Command;
 
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use League\Flysystem\MountManager;
+use Illuminate\Filesystem\FilesystemManager;
 
 /**
  * Class DeleteDirectory
@@ -33,9 +33,9 @@ class DeleteDirectory
     /**
      * Handle the command.
      *
-     * @param MountManager $manager
+     * @param FilesystemManager $manager
      */
-    public function handle(MountManager $manager)
+    public function handle(FilesystemManager $manager)
     {
         if (!$this->folder->isForceDeleting()) {
             return;
@@ -45,10 +45,10 @@ class DeleteDirectory
             return;
         }
 
-        if (!$manager->has($disk->getSlug() . '://' . $this->folder->getSlug())) {
+        if (!$manager->disk($disk->getSlug())->directoryExists($this->folder->getSlug())) {
             return;
         }
 
-        $manager->deleteDir($disk->getSlug() . '://' . $this->folder->getSlug());
+        $manager->disk($disk->getSlug())->deleteDirectory($this->folder->getSlug());
     }
 }

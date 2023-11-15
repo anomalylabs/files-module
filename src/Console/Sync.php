@@ -5,8 +5,8 @@ use Anomaly\FilesModule\File\FileSynchronizer;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\FilesystemManager;
 use League\Flysystem\File;
-use League\Flysystem\MountManager;
 
 /**
  * Class Sync
@@ -35,13 +35,13 @@ class Sync extends Command
     /**
      * Handle the command.
      *
-     * @param MountManager $manager
+     * @param FilesystemManager $manager
      * @param FileSynchronizer $synchronizer
      * @param FolderRepositoryInterface $folders
      * @param FileRepositoryInterface $files
      */
     public function handle(
-        MountManager $manager,
+        FilesystemManager $manager,
         FileSynchronizer $synchronizer,
         FolderRepositoryInterface $folders,
         FileRepositoryInterface $files
@@ -49,24 +49,20 @@ class Sync extends Command
         /* @var FolderInterface $folder */
         foreach ($folders->all() as $folder) {
 
-            $contents = array_filter(
-                $manager->listContents($folder->path()),
-                function (array $file) {
-                    return $file['type'] == 'file';
-                }
-            );
+            $contents = $manager->disk($folder->getDisk()->getSlug())->listContents($folder->getSlug(), false);
+
+            $contents = $contents->filter(function ($file) {
+                return $file->type() == 'file';
+            });
 
             $this->info('Checking:' . $folder->path());
 
             foreach ($contents as $file) {
-                if (!$files->findByNameAndFolder($file['basename'], $folder)) {
+                if (!$files->findByNameAndFolder(basename($file->path()), $folder)) {
 
-                    /* @var File $resource */
-                    $resource = $manager->get($path = $folder->path($file['basename']));
+                    $synchronizer->sync($file, $folder->getDisk());
 
-                    $synchronizer->sync($resource, $folder->getDisk());
-
-                    $this->info('Synced: ' . $path);
+                    $this->info('Synced: ' . $file->path());
                 }
             }
         }

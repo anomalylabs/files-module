@@ -159,7 +159,7 @@ class FilesModuleServiceProvider extends AddonServiceProvider
     public function boot()
     {
         if ($this->addon->isEnabled()) {
-            //dispatch_sync(new LoadDisks());
+            dispatch_sync(new LoadDisks());
         }
     }
 

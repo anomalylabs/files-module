@@ -3,7 +3,6 @@
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
-use League\Flysystem\Directory;
 
 /**
  * Class FolderSynchronizer
@@ -33,16 +32,15 @@ class FolderSynchronizer
     }
 
     /**
+     *
      * Sync a file.
      *
-     * @param  Directory     $resource
-     * @param  DiskInterface $disk
-     * @return null|FolderInterface
+     * @param $path
+     * @param DiskInterface $disk
+     * @return FolderInterface|\Anomaly\Streams\Platform\Model\EloquentModel|null
      */
-    public function sync(Directory $resource, DiskInterface $disk)
+    public function sync($path, DiskInterface $disk)
     {
-        $path = $resource->getPath();
-
         if ($path === '.') {
             return null;
         }

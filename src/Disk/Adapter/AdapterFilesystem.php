@@ -2,17 +2,22 @@
 
 use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\DeleteFolder;
-use Anomaly\FilesModule\Disk\Adapter\Command\RenameFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFile;
 use Anomaly\FilesModule\Disk\Adapter\Command\SyncFolder;
 use Anomaly\FilesModule\Disk\Contract\DiskInterface;
-use InvalidArgumentException;
-use League\Flysystem\AdapterInterface;
-use League\Flysystem\FileExistsException;
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemInterface;
-use League\Flysystem\RootViolationException;
+use Illuminate\Support\Collection;
+use League\Flysystem\Config;
+use League\Flysystem\Directory;
+use League\Flysystem\DirectoryAttributes;
+use League\Flysystem\DirectoryListing;
+use League\Flysystem\File;
+use League\Flysystem\FileAttributes;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\Handler;
+use League\Flysystem\PathPrefixer;
+use League\Flysystem\SymbolicLinkEncountered;
+use League\Flysystem\Util;
+use function League\Flysystem\path;
 
 /**
  * Class AdapterFilesystem
@@ -21,7 +26,7 @@ use League\Flysystem\RootViolationException;
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
  */
-class AdapterFilesystem extends Filesystem implements FilesystemInterface
+class AdapterFilesystem
 {
     /**
      * The base URL.
@@ -38,250 +43,276 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
     protected $disk;
 
     /**
+     * @var FilesystemAdapter
+     */
+    protected $adapter;
+
+    /**
      * Create a new AdapterFilesystem instance.
      *
      * @param DiskInterface $disk
-     * @param AdapterInterface $adapter
-     * @param null $config
+     * @param FilesystemAdapter $adapter
+     * @param array $config
      */
-    public function __construct(DiskInterface $disk, AdapterInterface $adapter, $config = null)
+    public function __construct(DiskInterface $disk, FilesystemAdapter $adapter, $config = [])
     {
         $this->disk = $disk;
 
         $this->baseUrl = array_get($config, 'base_url');
 
-        parent::__construct($adapter, $config);
+        $this->adapter = $adapter;
     }
 
     /**
-     * Write a new file.
-     *
-     * @param string $path     The path of the new file.
-     * @param string $contents The file contents.
-     * @param array $config    An optional configuration array.
-     *
-     * @throws FileExistsException
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function write($path, $contents, array $config = [])
-    {
-        $result = parent::write($path, $contents, $config);
-
-        if ($result && $resource = $this->get($path)) {
-            return dispatch_sync(new SyncFile($resource));
-        }
-
-        return $result;
-    }
-
-    /**
-     * Write a new file using a stream.
-     *
-     * @param string $path       The path of the new file.
-     * @param resource $resource The file handle.
-     * @param array $config      An optional configuration array.
-     *
-     * @throws InvalidArgumentException If $resource is not a file handle.
-     * @throws FileExistsException
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function writeStream($path, $resource, array $config = [])
-    {
-        $result = parent::writeStream($path, $resource, $config);
-
-        if ($result && $resource = $this->get($path)) {
-            return dispatch_sync(new SyncFile($resource));
-        }
-
-        return $result;
-    }
-
-    /**
-     * Update an existing file.
-     *
-     * @param string $path     The path of the existing file.
-     * @param string $contents The file contents.
-     * @param array $config    An optional configuration array.
-     *
-     * @throws FileNotFoundException
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function update($path, $contents, array $config = [])
-    {
-        $result = parent::update($path, $contents, $config);
-
-        if ($result && $resource = $this->get($path)) {
-            return dispatch_sync(new SyncFile($resource));
-        }
-
-        return $result;
-    }
-
-    /**
-     * Update an existing file using a stream.
-     *
-     * @param string $path       The path of the existing file.
-     * @param resource $resource The file handle.
-     * @param array $config      An optional configuration array.
-     *
-     * @throws InvalidArgumentException If $resource is not a file handle.
-     * @throws FileNotFoundException
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function updateStream($path, $resource, array $config = [])
-    {
-        $result = parent::updateStream($path, $resource, $config);
-
-        if ($result && $resource = $this->get($path)) {
-            return dispatch_sync(new SyncFile($resource));
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param  string $path     path to file
-     * @param  string $contents file contents
-     * @param  mixed $config
-     * @throws FileExistsException
-     * @return bool
-     */
-    public function put($path, $contents, array $config = [])
-    {
-        $result = parent::put($path, $contents, $config);
-
-        $sync = array_get($config, 'sync', true);
-
-        if ($result && $sync !== false && $resource = $this->get($path)) {
-            return dispatch_sync(new SyncFile($resource));
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param  string $path     path to file
-     * @param  string $contents file contents
-     * @param  mixed $config
-     * @throws FileExistsException
-     * @return bool
-     */
-    public function putStream($path, $resource, array $config = [])
-    {
-        $result = parent::putStream($path, $resource, $config);
-
-        if ($result && $resource = $this->get($path)) {
-            return dispatch_sync(new SyncFile($resource));
-        }
-
-        return $result;
-    }
-
-    /**
-     * Copy a file.
-     *
-     * @param string $path    Path to the existing file.
-     * @param string $newpath The new path of the file.
-     *
-     * @throws FileExistsException   Thrown if $newpath exists.
-     * @throws FileNotFoundException Thrown if $path does not exist.
-     *
-     * @return bool True on success, false on failure.
-     */
-    public function copy($path, $newpath)
-    {
-        $result = parent::copy($path, $newpath);
-
-        if ($result && $resource = $this->get($newpath)) {
-            return dispatch_sync(
-                new SyncFile($resource)
-            );
-        }
-
-        return $result;
-    }
-
-    /**
-     * Rename a file.
-     *
-     * @return bool
-     */
-    public function rename($from, $to)
-    {
-        $result = parent::rename($from, $to);
-
-        if ($result && $resource = $this->get($to)) {
-            return dispatch_sync(
-                new RenameFile($resource, $from)
-            );
-        }
-
-        return $result;
-    }
-
-    /**
-     * Delete a file.
-     *
      * @param string $path
-     *
-     * @throws FileNotFoundException
-     *
-     * @return bool True on success, false on failure.
+     * @return bool
+     * @throws \League\Flysystem\FilesystemException
      */
-    public function delete($path)
+    public function fileExists(string $path): bool
     {
-        $resource = $resource = $this->get($path);
-
-        $result = parent::delete($path);
-
-        if ($result && $resource) {
-            return dispatch_sync(new DeleteFile($resource));
-        }
-
-        return $result;
+        return $this->adapter->fileExists($path);
     }
 
     /**
-     * Delete a directory.
-     *
-     * @param string $dirname
-     *
-     * @throws RootViolationException Thrown if $dirname is empty.
-     *
-     * @return bool True on success, false on failure.
+     * @param string $path
+     * @return bool
+     * @throws \League\Flysystem\FilesystemException
      */
-    public function deleteDir($dirname)
+    public function directoryExists(string $path): bool
     {
-        $result = parent::deleteDir($dirname);
-
-        if ($result && $this->has($dirname)) {
-            return dispatch_sync(new DeleteFolder($this->get($dirname)));
-        }
-
-        return $result;
+        return $this->adapter->directoryExists($path);
     }
 
     /**
-     * Create a directory.
-     *
-     * @param string $dirname The name of the new directory.
-     * @param array $config   An optional configuration array.
-     *
-     * @return bool True on success, false on failure.
+     * @param string $path
+     * @param string $contents
+     * @param array $config
+     * @return mixed
+     * @throws \League\Flysystem\FilesystemException
      */
-    public function createDir($dirname, array $config = [])
+    public function write(string $path, string $contents, $config = [])
     {
-        $result = parent::createDir($dirname, $config);
+        $this->adapter->write($path, $contents, new Config($config));
 
-        if ($result && $resource = $this->get($dirname)) {
-            return dispatch_sync(new SyncFolder($resource));
+        $entry = new FileAttributes($path, $this->fileSize($path), null, null, $this->mimeType($path));
+
+        return dispatch_sync(new SyncFile($entry, $this->disk));
+    }
+
+    /**
+     * @param string $path
+     * @param $contents
+     * @param array $config
+     * @return mixed
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function writeStream(string $path, $contents, $config = [])
+    {
+        $this->adapter->writeStream($path, $contents, new Config($config));
+
+        $entry = new FileAttributes($path, $this->fileSize($path), null, null, $this->mimeType($path));
+
+        return dispatch_sync(new SyncFile($entry, $this->disk));
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function read(string $path): string
+    {
+        return $this->adapter->read($path);
+    }
+
+    /**
+     * @param string $path
+     * @return resource
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function readStream(string $path)
+    {
+        return $this->adapter->readStream($path);
+    }
+
+    /**
+     * @param string $path
+     * @param string $visibility
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function setVisibility(string $path, string $visibility)
+    {
+        $this->adapter->setVisibility($path, $visibility);
+    }
+
+    /**
+     * @param string $path
+     * @return FileAttributes
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function visibility(string $path): FileAttributes
+    {
+        return $this->adapter->visibility($path);
+    }
+
+    /**
+     * @param string $path
+     * @return string
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function mimeType(string $path): string
+    {
+        return $this->adapter->mimeType($path)->mimeType();
+    }
+
+    /**
+     * @param string $path
+     * @return FileAttributes
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function lastModified(string $path): FileAttributes
+    {
+        return $this->adapter->lastModified($path);
+    }
+
+    /**
+     * @param string $path
+     * @return int
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function fileSize(string $path): int
+    {
+        return $this->adapter->fileSize($path)->fileSize();
+    }
+
+    /**
+     * @param string $path
+     * @param bool $deep
+     * @return iterable
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function listContents(string $path, bool $deep)
+    {
+        $path = $this->url($path);
+        if (!is_dir($path)) {
+            return;
         }
 
-        return $result;
+        $iterator = $this->listDirectory($path);
+
+        $contents = new Collection();
+
+        foreach ($iterator as $fileInfo) {
+            $pathName = $fileInfo->getPathname();
+
+            if ($fileInfo->isLink()) {
+                if ($this->linkHandling & self::SKIP_LINKS) {
+                    continue;
+                }
+                throw SymbolicLinkEncountered::atLocation($pathName);
+            }
+
+            $prefixer = new PathPrefixer($this->baseUrl, DIRECTORY_SEPARATOR);
+            $path = $prefixer->stripPrefix($pathName);
+
+            $lastModified = $fileInfo->getMTime();
+            $isDirectory = $fileInfo->isDir();
+            $permissions = octdec(substr(sprintf('%o', $fileInfo->getPerms()), -4));
+
+            $item = $isDirectory ? new DirectoryAttributes(str_replace('\\', '/', $path), null, $lastModified) : new FileAttributes(
+                str_replace('\\', '/', $path),
+                $fileInfo->getSize(),
+                null,
+                $lastModified,
+                $this->mimeType($path)
+            );
+
+            $contents->add($item);
+        }
+
+        return $contents;
+    }
+
+    private function listDirectory(string $location)
+    {
+        $iterator = new \DirectoryIterator($location);
+
+        foreach ($iterator as $item) {
+            if ($item->isDot()) {
+                continue;
+            }
+
+            yield $item;
+        }
+    }
+
+    /**
+     * @param string $path
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function delete(string $path)
+    {
+        $entry = new FileAttributes($path, $this->fileSize($path), null, null, $this->mimeType($path));
+
+        $this->adapter->delete($path);
+
+        dispatch_sync(new DeleteFile($entry));
+
+    }
+
+    /**
+     * @param string $path
+     * @return mixed
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function deleteDirectory(string $path)
+    {
+        $this->adapter->deleteDirectory($path);
+
+        return dispatch_sync(new DeleteFolder($path));
+    }
+
+    /**
+     * @param string $path
+     * @param array $config
+     * @return mixed
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function createDirectory(string $path, $config = [])
+    {
+        $this->adapter->createDirectory($path, new Config($config));
+
+        return dispatch_sync(new SyncFolder($path, $this->disk));
+    }
+
+    /**
+     * @param string $source
+     * @param string $destination
+     * @param array $config
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function move(string $source, string $destination, $config = [])
+    {
+        $this->adapter->move($source, $destination, new Config($config));
+    }
+
+    /**
+     * @param string $source
+     * @param string $destination
+     * @param array $config
+     * @return mixed
+     * @throws \League\Flysystem\FilesystemException
+     */
+    public function copy(string $source, string $destination, $config = [])
+    {
+        $this->adapter->copy($source, $destination, new Config($config));
+
+        if (is_dir($source)) {
+            return dispatch_sync(new SyncFolder($path, $this->disk));
+        } else {
+            $entry = new FileAttributes($path, $this->fileSize($path), null, null, $this->mimeType($path));
+            return dispatch_sync(new SyncFile($entry, $this->disk));
+        }
     }
 
     /**
@@ -309,7 +340,7 @@ class AdapterFilesystem extends Filesystem implements FilesystemInterface
      * Set the base URL.
      *
      * @param $baseUrl
-     * @return $this
+     * @$this
      */
     public function setBaseUrl($baseUrl)
     {

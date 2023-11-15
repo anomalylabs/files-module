@@ -1,8 +1,7 @@
 <?php namespace Anomaly\FilesModule\File\Command;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
-use League\Flysystem\File;
-use League\Flysystem\MountManager;
+use Illuminate\Filesystem\FilesystemManager;
 
 /**
  * Class GetResource
@@ -32,15 +31,13 @@ class GetResource
     }
 
     /**
-     * Handle the command.
-     *
-     * @param  MountManager $manager
-     * @return File
+     * @param FilesystemManager $manager
+     * @return boolean|null
      */
-    public function handle(MountManager $manager)
+    public function handle(FilesystemManager $manager)
     {
         try {
-            return $manager->get($this->file->location());
+            return $manager->disk($this->file->getDiskSlug())->fileExists($this->file->path());
         } catch (\Exception $e) {
             return null;
         }
