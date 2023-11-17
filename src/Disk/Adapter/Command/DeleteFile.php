@@ -41,7 +41,7 @@ class DeleteFile
     {
         $folder = $folders->findBySlug(dirname($this->file->path()));
         if ($file = $files->findByNameAndFolder(basename($this->file->path()), $folder)) {
-            return $files->delete($file);
+            return $files->forceDelete($file);
         }
     }
 }

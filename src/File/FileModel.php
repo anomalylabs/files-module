@@ -1,10 +1,7 @@
 <?php namespace Anomaly\FilesModule\File;
 
-use League\Flysystem\File;
 use Illuminate\Support\Str;
-use League\Flysystem\MountManager;
 use Anomaly\Streams\Platform\Image\Image;
-use League\Flysystem\FilesystemInterface;
 use Anomaly\FilesModule\File\Command\GetType;
 use Anomaly\FilesModule\File\Command\GetImage;
 use Anomaly\FilesModule\File\Command\GetResource;
@@ -76,18 +73,18 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     /**
      * Return the resource filesystem.
      *
-     * @return null|AdapterFilesystem|FilesystemInterface
+     * @return null|AdapterFilesystem
      */
     public function filesystem()
     {
-        return app(MountManager::class)->getFilesystem($this->getDiskSlug());
+        return app('filesystem')->disk($this->getDiskSlug());
     }
 
     /**
      * Return the file resource.
      * Return the file resource.
      *
-     * @return null|File
+     * @return null
      */
     public function resource()
     {

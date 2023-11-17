@@ -1,9 +1,9 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
-use League\Flysystem\MountManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -27,12 +27,12 @@ class FileStreamer extends FileResponse
      * Create a new FileStreamer instance.
      *
      * @param Request $request
-     * @param MountManager $manager
+     * @param FilesystemManager $manager
      * @param ResponseFactory $response
      */
     public function __construct(
         Request $request,
-        MountManager $manager,
+        FilesystemManager $manager,
         ResponseFactory $response
     ) {
         $this->request = $request;
@@ -49,8 +49,8 @@ class FileStreamer extends FileResponse
     public function stream(FileInterface $file)
     {
         $response = $this->make($file);
-
-        $stream = $this->manager->readStream($file->location());
+        
+        $stream = $this->manager->disk($file->getDiskSlug())->readStream($file->path());
 
         return $this->response->stream(
             function () use ($stream) {

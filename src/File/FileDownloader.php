@@ -42,7 +42,7 @@ class FileDownloader extends FileResponse
         $disk   = $folder->getDisk();
 
         return $response->setContent(
-            $this->manager->read("{$disk->getSlug()}://{$folder->getSlug()}/{$file->getName()}")
+            $this->manager->disk($file->getDiskSlug())->read("{$folder->getSlug()}/{$file->getName()}")
         );
     }
 }

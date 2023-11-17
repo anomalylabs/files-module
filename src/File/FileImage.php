@@ -1,8 +1,8 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\Streams\Platform\Image\Image;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Routing\ResponseFactory;
-use League\Flysystem\MountManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -26,10 +26,10 @@ class FileImage extends FileResponse
      * Create a new FileImage instance.
      *
      * @param ResponseFactory $response
-     * @param MountManager    $manager
+     * @param FilesystemManager    $manager
      * @param Image           $image
      */
-    public function __construct(ResponseFactory $response, MountManager $manager, Image $image)
+    public function __construct(ResponseFactory $response, FilesystemManager $manager, Image $image)
     {
         $this->image = $image;
 
