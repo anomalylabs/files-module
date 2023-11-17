@@ -39,9 +39,9 @@ class SetDimensions
         if (!in_array($this->file->getExtension(), ['jpg', 'jpeg', 'png'])) {
             return;
         }
-        
+
         try {
-            list($width, $height) = getimagesize($this->file->path());
+            list($width, $height) = getimagesize(app('filesystem')->disk($this->file->getDiskSlug())->url($this->file->path()));
         } catch (\Exception $e) {
             return;
         }

@@ -1,9 +1,9 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\File\Contract\FileInterface;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Response;
 use Illuminate\Routing\ResponseFactory;
-use League\Flysystem\MountManager;
 
 /**
  * Class FileResponse
@@ -18,7 +18,7 @@ class FileResponse
     /**
      * The mount manager.
      *
-     * @var MountManager
+     * @var FilesystemManager
      */
     protected $manager;
 
@@ -33,9 +33,9 @@ class FileResponse
      * Create a new FileResponse
      *
      * @param ResponseFactory $response
-     * @param MountManager    $manager
+     * @param FilesystemManager    $manager
      */
-    public function __construct(ResponseFactory $response, MountManager $manager)
+    public function __construct(ResponseFactory $response, FilesystemManager $manager)
     {
         $this->manager  = $manager;
         $this->response = $response;

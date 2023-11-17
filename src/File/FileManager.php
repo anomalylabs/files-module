@@ -1,7 +1,7 @@
 <?php namespace Anomaly\FilesModule\File;
 
 use Anomaly\FilesModule\Disk\Adapter\Command\MoveFile;
-use League\Flysystem\MountManager;
+use Illuminate\Filesystem\FilesystemManager;
 
 /**
  * Class FileManager
@@ -16,16 +16,16 @@ class FileManager
     /**
      * The mount manager.
      *
-     * @var MountManager
+     * @var FilesystemManager
      */
     protected $manager;
 
     /**
      * Create a new FileManager instance.
      *
-     * @param MountManager $manager
+     * @param FilesystemManager $manager
      */
-    public function __construct(MountManager $manager)
+    public function __construct(FilesystemManager $manager)
     {
         $this->manager = $manager;
     }
@@ -37,13 +37,17 @@ class FileManager
      */
     public function move($from, $to)
     {
-        $result = $this->manager->put($to, $contents = $this->manager->read($from), ['sync' => false]);
+        list($from_disk, $from_path) = explode('://', $from, 2);
+        list($to_disk, $to_path) = explode('://', $to, 2);
 
-        if ($result && $this->manager->has($to)) {
+        $stream = $this->manager->disk($from_disk)->readStream($from_path);
+        $result = $this->manager->disk($to_disk)->writeStream($to_path, $stream);
+
+        if ($result && $this->manager->disk($to_disk)->fileExists($to_path)) {
             $result = dispatch_sync(new MoveFile($from, $to));
         }
 
-        $this->manager->delete($from);
+        $this->manager->disk($from_disk)->delete($from_path);
 
         return $result;
     }

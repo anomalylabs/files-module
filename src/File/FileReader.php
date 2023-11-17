@@ -38,6 +38,6 @@ class FileReader extends FileResponse
 
         $response->headers->set('Content-Disposition', 'inline');
 
-        return $response->setContent($this->manager->read($file->location()));
+        return $response->setContent($this->manager->disk($file->getDiskSlug())->read($file->path()));
     }
 }
