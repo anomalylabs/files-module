@@ -7,6 +7,7 @@ use Anomaly\FilesModule\Disk\Form\DiskFormBuilder;
 use Anomaly\FilesModule\Disk\Table\DiskTableBuilder;
 use Anomaly\Streams\Platform\Addon\Extension\ExtensionCollection;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Support\Authorizer;
 
 /**
  * Class DisksController
@@ -34,10 +35,15 @@ class DisksController extends AdminController
      * of adapter to use for creating a new disk.
      *
      * @param  ExtensionCollection $extensions
+     * @param  Authorizer          $authorizer
      * @return \Illuminate\View\View
      */
-    public function choose(ExtensionCollection $extensions)
+    public function choose(ExtensionCollection $extensions, Authorizer $authorizer)
     {
+        if (!$authorizer->authorize('anomaly.module.files::disks.write')) {
+            abort(403);
+        }
+
         return view(
             'anomaly.module.files::ajax/choose_adapter',
             [

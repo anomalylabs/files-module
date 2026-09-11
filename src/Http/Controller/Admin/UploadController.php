@@ -4,6 +4,7 @@ use Anomaly\FilesModule\File\FileUploader;
 use Anomaly\FilesModule\File\Upload\UploadTableBuilder;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Support\Authorizer;
 use Illuminate\Contracts\Auth\Guard;
 
 /**
@@ -21,12 +22,17 @@ class UploadController extends AdminController
      *
      * @param  FolderRepositoryInterface                  $folders
      * @param  UploadTableBuilder                         $table
+     * @param  Authorizer                                 $authorizer
      * @param  Guard                                      $auth
      * @param                                             $folder
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(FolderRepositoryInterface $folders, UploadTableBuilder $table, Guard $auth, $folder)
+    public function index(FolderRepositoryInterface $folders, UploadTableBuilder $table, Authorizer $authorizer, Guard $auth, $folder)
     {
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
+
         $folder = $folders->findBySlug($folder);
 
         $table->make();
@@ -40,11 +46,16 @@ class UploadController extends AdminController
      * Return an ajax modal to choose the folder
      * to use for uploading files.
      *
-     * @param FolderRepositoryInterface
+     * @param FolderRepositoryInterface $folders
+     * @param Authorizer $authorizer
      * @return \Illuminate\View\View
      */
-    public function choose(FolderRepositoryInterface $folders)
+    public function choose(FolderRepositoryInterface $folders, Authorizer $authorizer)
     {
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
+
         return $this->view->make(
             'anomaly.module.files::admin/upload/choose',
             [
@@ -58,10 +69,15 @@ class UploadController extends AdminController
      *
      * @param  FileUploader              $uploader
      * @param  FolderRepositoryInterface $folders
+     * @param  Authorizer                $authorizer
      * @return \Illuminate\Http\JsonResponse
      */
-    public function upload(FileUploader $uploader, FolderRepositoryInterface $folders)
+    public function upload(FileUploader $uploader, FolderRepositoryInterface $folders, Authorizer $authorizer)
     {
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
+
         $error = trans('anomaly.module.files::error.generic');
 
         try {
@@ -83,10 +99,15 @@ class UploadController extends AdminController
      * Return table of uploaded files.
      *
      * @param  UploadTableBuilder $builder
+     * @param  Authorizer         $authorizer
      * @return null|string
      */
-    public function recent(UploadTableBuilder $builder)
+    public function recent(UploadTableBuilder $builder, Authorizer $authorizer)
     {
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
+
         return $builder
             ->setUploaded(explode(',', $this->request->get('uploaded')))
             ->make()

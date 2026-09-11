@@ -9,6 +9,7 @@ use Anomaly\FilesModule\File\Table\FileTableBuilder;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
 use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Support\Authorizer;
 
 /**
  * Class FilesController
@@ -81,11 +82,16 @@ class FilesController extends AdminController
      * Return if a file exists or not.
      *
      * @param  FileRepositoryInterface $files
+     * @param  Authorizer              $authorizer
      * @param                                $folder
      * @return \Illuminate\Http\JsonResponse
      */
-    public function exists(FileRepositoryInterface $files, $folder)
+    public function exists(FileRepositoryInterface $files, Authorizer $authorizer, $folder)
     {
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
+
         $success = true;
         $exists  = false;
 
