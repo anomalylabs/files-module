@@ -5,6 +5,7 @@ use Anomaly\FilesModule\File\Contract\FileRepositoryInterface;
 use Anomaly\FilesModule\File\FileManager;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\Streams\Platform\Support\Authorizer;
 
 /**
  * Class MoveController
@@ -20,11 +21,16 @@ class MoveController extends AdminController
      * Return an ajax modal to choose the folder
      * to use for uploading files.
      *
-     * @param FolderRepositoryInterface
+     * @param FolderRepositoryInterface $folders
+     * @param Authorizer $authorizer
      * @return \Illuminate\View\View
      */
-    public function choose(FolderRepositoryInterface $folders)
+    public function choose(FolderRepositoryInterface $folders, Authorizer $authorizer)
     {
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
+
         return $this->view->make(
             'anomaly.module.files::admin/move/choose',
             [
@@ -37,18 +43,26 @@ class MoveController extends AdminController
      * @param FolderRepositoryInterface $folders
      * @param FileRepositoryInterface $files
      * @param FileManager $manager
+     * @param Authorizer $authorizer
      * @param $folder
      */
     public function handle(
         FolderRepositoryInterface $folders,
         FileRepositoryInterface $files,
         FileManager $manager,
+        Authorizer $authorizer,
         $folder
     ) {
+
+        if (!$authorizer->authorize('anomaly.module.files::files.write')) {
+            abort(403);
+        }
 
         if (!$folder = $folders->findBySlug($folder)) {
             abort(400);
         }
+
+        $count = 0;
 
         foreach ($selected = explode(',', request()->get('selected')) as $id) {
 
@@ -57,10 +71,12 @@ class MoveController extends AdminController
                 continue;
             }
 
-            $manager->move($file->location(), $folder->path($file->getName()));
+            if ($manager->move($file->location(), $folder->path($file->getName()))) {
+                $count++;
+            }
         }
 
-        $this->messages->success(trans('streams::message.moved_success', compact('count')));
+        $this->messages->success(trans_choice('streams::message.move_success', $count, compact('count')));
 
         return back();
     }

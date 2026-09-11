@@ -37,18 +37,27 @@ class FileManager
      */
     public function move($from, $to)
     {
+        if ($from === $to) {
+            return true;
+        }
+
         list($from_disk, $from_path) = explode('://', $from, 2);
         list($to_disk, $to_path) = explode('://', $to, 2);
 
         $stream = $this->manager->disk($from_disk)->readStream($from_path);
-        $result = $this->manager->disk($to_disk)->writeStream($to_path, $stream);
 
-        if ($result && $this->manager->disk($to_disk)->fileExists($to_path)) {
-            $result = dispatch_sync(new MoveFile($from, $to));
+        if (!$this->manager->disk($to_disk)->writeStream($to_path, $stream)) {
+            return false;
         }
+
+        if (!$this->manager->disk($to_disk)->fileExists($to_path)) {
+            return false;
+        }
+
+        dispatch_sync(new MoveFile($from, $to));
 
         $this->manager->disk($from_disk)->delete($from_path);
 
-        return $result;
+        return true;
     }
 }

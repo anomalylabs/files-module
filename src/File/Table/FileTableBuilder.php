@@ -135,6 +135,7 @@ class FileTableBuilder extends TableBuilder
             'tag'         => 'a',
             'type'        => 'info',
             'icon'        => 'upload',
+            'permission'  => 'anomaly.module.files::files.write',
             'data-toggle' => 'modal',
             'data-target' => '#modal',
             'href'        => 'admin/files/move/choose',
