@@ -18,7 +18,7 @@ class FileSanitizer
      */
     static public function clean($name)
     {
-        if (!env('CLEAN_FILE_NAMES', true)) {
+        if (!config('anomaly.module.files::files.clean_file_names', true)) {
             return $name;
         }
         
