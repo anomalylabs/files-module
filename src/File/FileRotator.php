@@ -20,11 +20,19 @@ class FileRotator
      */
     public function rotate(UploadedFile $file)
     {
-        if (!function_exists('exif_read_data') || !exif_imagetype($file->getRealPath()) !== IMAGETYPE_JPEG) {
+        if (!function_exists('exif_read_data') || !function_exists('imagecreatefromjpeg')) {
             return $file;
         }
 
-        if (!$exif = exif_read_data($file->getRealPath())) {
+        if ($file->getMimeType() !== 'image/jpeg') {
+            return $file;
+        }
+
+        if (@exif_imagetype($file->getRealPath()) !== IMAGETYPE_JPEG) {
+            return $file;
+        }
+
+        if (!$exif = @exif_read_data($file->getRealPath())) {
             return $file;
         }
 
@@ -44,7 +52,9 @@ class FileRotator
      */
     protected function orientate(UploadedFile $file, $orientation)
     {
-        $image = imagecreatefromjpeg($file->getRealPath());
+        if (!$image = @imagecreatefromjpeg($file->getRealPath())) {
+            return $file;
+        }
 
         switch ($orientation) {
 
@@ -82,11 +92,13 @@ class FileRotator
 
         imagejpeg($image, $file->getRealPath(), 90);
 
+        imagedestroy($image);
+
         return new UploadedFile(
             $file->getRealPath(),
             $file->getClientOriginalName(),
             $file->getMimeType(),
-            $file->getSize()
+            UPLOAD_ERR_OK
         );
     }
 }
