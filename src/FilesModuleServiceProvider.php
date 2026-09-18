@@ -112,14 +112,6 @@ class FilesModuleServiceProvider extends AddonServiceProvider
                 'path' => '(.*)',
             ],
         ],
-        'files/thumb/{folder}/{name}'       => [
-            'as'          => 'anomaly.module.files::files.thumbnail',
-            'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@thumbnail',
-            'constraints' => [
-                'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)',
-            ],
-        ],
         'files/stream/{folder}/{name}'      => [
             'as'          => 'anomaly.module.files::files.stream',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@stream',
