@@ -83,30 +83,33 @@ class FileUploader
      */
     public function upload(UploadedFile $file, FolderInterface $folder)
     {
-        $rules = 'required';
+        $allowed = $this->allowedTypes($folder);
 
-        /**
-         * Append mime rules with the folder's allowed types.
-         */
-        if ($allowed = $folder->getAllowedTypes()) {
-            $rules .= '|mimes:' . implode(',', $allowed);
+        if (!$allowed) {
+            throw new \Exception('No allowed file types remain for this folder.');
         }
 
         /**
-         * Check against the configured executable file types
-         * to prevent wide open file upload vulnerabilities.
+         * The name the file will be stored under decides the extension, not
+         * the one the client claims, and the comparison is lowercase.
          */
-        if (
-            !$allowed &&
-            in_array($file->getClientOriginalExtension(), config('anomaly.module.files::mimes.types.executable', []))
-        ) {
-            throw new \Exception('The uploaded file type is executable and not inherently allowed.');
+        $extension = strtolower(
+            pathinfo(FileSanitizer::clean($file->getClientOriginalName()), PATHINFO_EXTENSION)
+        );
+
+        if (!in_array($extension, $allowed)) {
+            throw new \Exception('The uploaded file type is not allowed.');
         }
 
         /**
-         * Run validation and check that it passed.
+         * Run validation and check that it passed. The mimes rule reads the
+         * file's contents, so the extension it is named with and the one its
+         * contents imply must both be allowed before it is written.
          */
-        $validation = $this->validator->make(['file' => $file], ['file' => $rules]);
+        $validation = $this->validator->make(
+            ['file' => $file],
+            ['file' => 'required|mimes:' . implode(',', $allowed)]
+        );
 
         if (!$validation->passes()) {
             throw new \Exception($validation->messages()->first(), 1);
@@ -151,5 +154,22 @@ class FileUploader
         }
 
         return $entry;
+    }
+
+    /**
+     * Return the types the folder may accept.
+     *
+     * @param  FolderInterface $folder
+     * @return array
+     */
+    protected function allowedTypes(FolderInterface $folder)
+    {
+        $allowed = array_map('strtolower', (array)config('anomaly.module.files::mimes.allowed', []));
+
+        if ($types = $folder->getAllowedTypes()) {
+            $allowed = array_intersect($allowed, array_map('strtolower', $types));
+        }
+
+        return array_values(array_unique($allowed));
     }
 }

@@ -36,7 +36,10 @@ class FileReader extends FileResponse
     {
         $response = parent::make($file);
 
-        $response->headers->set('Content-Disposition', 'inline');
+        $response->headers->set(
+            'Content-Disposition',
+            $this->allowed($file) ? 'inline' : 'attachment; filename="' . basename($file->path()) . '"'
+        );
 
         return $response->setContent($this->manager->disk($file->getDiskSlug())->read($file->path()));
     }

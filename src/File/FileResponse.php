@@ -53,11 +53,37 @@ class FileResponse
         $response = $this->response->make();
 
         $response->headers->set('Etag', $file->etag());
-        $response->headers->set('Content-Type', $file->getMimetype());
+        $response->headers->set('Content-Type', $this->allowed($file) ? $file->getMimetype() : 'application/octet-stream');
         $response->headers->set('Last-Modified', $file->lastModified()->setTimezone('GMT')->format('D, d M Y H:i:s'));
+        $response->headers->set('X-Content-Type-Options', 'nosniff');
+
+        /**
+         * SVG renders as a document in its own right, so deny it everything
+         * even when the stored file is expected to be inert.
+         */
+        if (strtolower($file->getExtension()) === 'svg') {
+            $response->headers->set(
+                'Content-Security-Policy',
+                "default-src 'none'; style-src 'unsafe-inline'; sandbox"
+            );
+        }
 
         $response->setTtl(3600);
 
         return $response;
+    }
+
+    /**
+     * Return whether the file is of an allowed type.
+     *
+     * @param  FileInterface $file
+     * @return bool
+     */
+    protected function allowed(FileInterface $file)
+    {
+        return in_array(
+            strtolower($file->getExtension()),
+            array_map('strtolower', (array)config('anomaly.module.files::mimes.allowed', []))
+        );
     }
 }
