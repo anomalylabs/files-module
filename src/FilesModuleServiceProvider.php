@@ -81,8 +81,6 @@ class FilesModuleServiceProvider extends AddonServiceProvider
      */
     protected $routes = [
         'admin/files'                       => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@index',
-        'admin/files/where'                 => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@where',
-        'admin/files/move'                  => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@move',
         'admin/files/upload/choose'         => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@choose',
         'admin/files/upload/handle'         => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@upload',
         'admin/files/upload/recent'         => 'Anomaly\FilesModule\Http\Controller\Admin\UploadController@recent',
@@ -97,35 +95,28 @@ class FilesModuleServiceProvider extends AddonServiceProvider
         'admin/files/disks/choose'          => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@choose',
         'admin/files/disks/create'          => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@create',
         'admin/files/disks/edit/{id}'       => 'Anomaly\FilesModule\Http\Controller\Admin\DisksController@edit',
-        'admin/files/upload/{disk}/{path?}' => [
-            'uses'        => 'Anomaly\FilesModule\Http\Controller\Admin\FilesController@upload',
-            'constraints' => [
-                'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)',
-            ],
-        ],
         'files/{folder}/{name}'             => [
             'as'          => 'anomaly.module.files::files.view',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@read',
             'constraints' => [
-                'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)',
+                'folder' => '[A-Za-z0-9_-]+',
+                'name'   => '[^/]+',
             ],
         ],
         'files/stream/{folder}/{name}'      => [
             'as'          => 'anomaly.module.files::files.stream',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@stream',
             'constraints' => [
-                'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)',
+                'folder' => '[A-Za-z0-9_-]+',
+                'name'   => '[^/]+',
             ],
         ],
         'files/download/{folder}/{name}'    => [
             'as'          => 'anomaly.module.files::files.download',
             'uses'        => 'Anomaly\FilesModule\Http\Controller\FilesController@download',
             'constraints' => [
-                'disk' => '^[a-z0-9_]+$',
-                'path' => '(.*)',
+                'folder' => '[A-Za-z0-9_-]+',
+                'name'   => '[^/]+',
             ],
         ],
     ];
