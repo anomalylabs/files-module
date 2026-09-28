@@ -416,6 +416,16 @@ class FileModel extends FilesFilesEntryModel implements FileInterface
     }
 
     /**
+     * Return whether the model is searchable or not.
+     *
+     * @return bool
+     */
+    public function isSearchable()
+    {
+        return parent::isSearchable() && !config('anomaly.module.files::search.disable_search_index', true);
+    }
+
+    /**
      * Return the searchable array.
      *
      * @return array
